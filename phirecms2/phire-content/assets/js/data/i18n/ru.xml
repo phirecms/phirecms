@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+    <!ELEMENT language ANY>
+    <!ELEMENT locale ANY>
+    <!ELEMENT text (source,output)>
+    <!ELEMENT source ANY>
+    <!ELEMENT output ANY>
+    <!ATTLIST language
+        src       CDATA    #REQUIRED
+        output    CDATA    #REQUIRED
+        name      CDATA    #REQUIRED
+        native    CDATA    #REQUIRED
+    >
+    <!ATTLIST locale
+        region    CDATA    #REQUIRED
+        name      CDATA    #REQUIRED
+        native    CDATA    #REQUIRED
+    >
+]>
+<language src="en" output="ru" name="Russian" native="Россию">
+    <locale region="RU" name="Russia" native="Россия">
+        <text>
+            <source>Sunday</source>
+            <output>Воскресенье</output>
+        </text>
+        <text>
+            <source>Monday</source>
+            <output>Понедельник</output>
+        </text>
+        <text>
+            <source>Tuesday</source>
+            <output>Вторник</output>
+        </text>
+        <text>
+            <source>Wednesday</source>
+            <output>Среда</output>
+        </text>
+        <text>
+            <source>Thursday</source>
+            <output>Четверг</output>
+        </text>
+        <text>
+            <source>Friday</source>
+            <output>Пятница</output>
+        </text>
+        <text>
+            <source>Saturday</source>
+            <output>Суббота</output>
+        </text>
+        <text>
+            <source>January</source>
+            <output>Января</output>
+        </text>
+        <text>
+            <source>February</source>
+            <output>Февраль</output>
+        </text>
+        <text>
+            <source>March</source>
+            <output>Марта</output>
+        </text>
+        <text>
+            <source>April</source>
+            <output>Апрель</output>
+        </text>
+        <text>
+            <source>May</source>
+            <output>Май</output>
+        </text>
+        <text>
+            <source>June</source>
+            <output>Июня</output>
+        </text>
+        <text>
+            <source>July</source>
+            <output>Июля</output>
+        </text>
+        <text>
+            <source>August</source>
+            <output>Август</output>
+        </text>
+        <text>
+            <source>September</source>
+            <output>Сентябрь</output>
+        </text>
+        <text>
+            <source>October</source>
+            <output>Октябрь</output>
+        </text>
+        <text>
+            <source>November</source>
+            <output>Ноябрь</output>
+        </text>
+        <text>
+            <source>December</source>
+            <output>Декабрь</output>
+        </text>
+        <text>
+            <source>The %1 field is required.</source>
+            <output>%1 поле является обязательным.</output>
+        </text>
+        <text>
+            <source>The %1 field is not alphanumeric.</source>
+            <output>поля %1 не буквенно-цифровой.</output>
+        </text>
+        <text>
+            <source>The %1 field must contain only characters of the alphabet.</source>
+            <output>%1 поле должно содержать только символы латинского алфавита.</output>
+        </text>
+        <text>
+            <source>The %1 field is not between %2 and %3.</source>
+            <output>поля %1 не между %2 и %3.</output>
+        </text>
+        <text>
+            <source>The address in the %1 field is not a valid email.</source>
+            <output>адрес в поле %1 не действительный адрес электронной почты.</output>
+        </text>
+        <text>
+            <source>The %1 field does not equal %2.</source>
+            <output>%1 поле не равно %2.</output>
+        </text>
+        <text>
+            <source>The value %1 must be excluded from the %2 field.</source>
+            <output>Значение %1 должен быть исключен из %2 поля.</output>
+        </text>
+        <text>
+            <source>The value %1 must be included from the %2 field.</source>
+            <output>Значение %1 должны быть включены в %2 поля.</output>
+        </text>
+        <text>
+            <source>The %1 field is not greater than %2.</source>
+            <output>поля %1 не больше, чем %2.</output>
+        </text>
+        <text>
+            <source>The length of the %1 field does not equal %2.</source>
+            <output>Длина поля %1 не равна %2.</output>
+        </text>
+        <text>
+            <source>The length of the %1 field is not greater than %2.</source>
+            <output>Длина поля %1 не больше, чем %2.</output>
+        </text>
+        <text>
+            <source>The length of the %1 field is not less than %2.</source>
+            <output>Длина поля %1 не менее %2.</output>
+        </text>
+        <text>
+            <source>The %1 field is not less than %2.</source>
+            <output>поля %1 не менее %2.</output>
+        </text>
+        <text>
+            <source>The %1 field must be checked.</source>
+            <output>%1 поле должно быть проверено.</output>
+        </text>
+        <text>
+            <source>The %1 field is empty.</source>
+            <output>%1 поле пусто.</output>
+        </text>
+        <text>
+            <source>The %1 field cannot equal %2.</source>
+            <output>поля %1 не может равняться %2.</output>
+        </text>
+        <text>
+            <source>The %1 field is not a number.</source>
+            <output>поля %1 не является числом.</output>
+        </text>
+        <text>
+            <source>The %1 field is not in the correct format.</source>
+            <output>поля %1 не в правильном формате.</output>
+        </text>
+        <text>
+            <source>Please select at least one %1.</source>
+            <output>Пожалуйста, выберите по крайней мере одно %1.</output>
+        </text>
+        <text>
+            <source>This action cannot be undone. Are you sure?</source>
+            <output>Это действие не может быть отменено. Вы уверены?</output>
+        </text>
+        <text>
+            <source>Please press Ctrl-D - or Cmd-D on Apple - to bookmark this page.</source>
+            <output>Пожалуйста, нажмите Ctrl-D - или Cmd-D от Apple - отмечать эту страницу.</output>
+        </text>
+    </locale>
+</language>

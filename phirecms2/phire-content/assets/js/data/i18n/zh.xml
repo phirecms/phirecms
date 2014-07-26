@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+    <!ELEMENT language ANY>
+    <!ELEMENT locale ANY>
+    <!ELEMENT text (source,output)>
+    <!ELEMENT source ANY>
+    <!ELEMENT output ANY>
+    <!ATTLIST language
+        src       CDATA    #REQUIRED
+        output    CDATA    #REQUIRED
+        name      CDATA    #REQUIRED
+        native    CDATA    #REQUIRED
+    >
+    <!ATTLIST locale
+        region    CDATA    #REQUIRED
+        name      CDATA    #REQUIRED
+        native    CDATA    #REQUIRED
+    >
+]>
+<language src="en" output="zh" name="Chinese" native="中文">
+    <locale region="CN" name="China" native="中国">
+        <text>
+            <source>Sunday</source>
+            <output>星期日</output>
+        </text>
+        <text>
+            <source>Monday</source>
+            <output>星期一</output>
+        </text>
+        <text>
+            <source>Tuesday</source>
+            <output>星期二</output>
+        </text>
+        <text>
+            <source>Wednesday</source>
+            <output>星期三</output>
+        </text>
+        <text>
+            <source>Thursday</source>
+            <output>星期四</output>
+        </text>
+        <text>
+            <source>Friday</source>
+            <output>星期五</output>
+        </text>
+        <text>
+            <source>Saturday</source>
+            <output>星期六</output>
+        </text>
+        <text>
+            <source>January</source>
+            <output>一月</output>
+        </text>
+        <text>
+            <source>February</source>
+            <output>二月</output>
+        </text>
+        <text>
+            <source>March</source>
+            <output>三月</output>
+        </text>
+        <text>
+            <source>April</source>
+            <output>四月</output>
+        </text>
+        <text>
+            <source>May</source>
+            <output>五月</output>
+        </text>
+        <text>
+            <source>June</source>
+            <output>六月</output>
+        </text>
+        <text>
+            <source>July</source>
+            <output>七月</output>
+        </text>
+        <text>
+            <source>August</source>
+            <output>八月</output>
+        </text>
+        <text>
+            <source>September</source>
+            <output>九月</output>
+        </text>
+        <text>
+            <source>October</source>
+            <output>十月</output>
+        </text>
+        <text>
+            <source>November</source>
+            <output>十一月</output>
+        </text>
+        <text>
+            <source>December</source>
+            <output>十二月</output>
+        </text>
+        <text>
+            <source>The %1 field is required.</source>
+            <output>%1栏位是必需的。</output>
+        </text>
+        <text>
+            <source>The %1 field is not alphanumeric.</source>
+            <output>该%1场必须包含字母的字符。</output>
+        </text>
+        <text>
+            <source>The %1 field must contain only characters of the alphabet.</source>
+            <output>该%1字段不是字母。</output>
+        </text>
+        <text>
+            <source>The %1 field is not between %2 and %3.</source>
+            <output>该%1领域之间不%2和%3。</output>
+        </text>
+        <text>
+            <source>The address in the %1 field is not a valid email.</source>
+            <output>在%1字段中的地址是不是一个有效的电子邮件。</output>
+        </text>
+        <text>
+            <source>The %1 field does not equal %2.</source>
+            <output>该%1场不等于%2。</output>
+        </text>
+        <text>
+            <source>The value %1 must be excluded from the %2 field.</source>
+            <output>必须排除值%1%2场。</output>
+        </text>
+        <text>
+            <source>The value %1 must be included from the %2 field.</source>
+            <output>必须包含值%1%2场。</output>
+        </text>
+        <text>
+            <source>The %1 field is not greater than %2.</source>
+            <output>该%1场不超过%2更大。</output>
+        </text>
+        <text>
+            <source>The length of the %1 field does not equal %2.</source>
+            <output>该%1字段长度不等于%2。</output>
+        </text>
+        <text>
+            <source>The length of the %1 field is not greater than %2.</source>
+            <output>该%1字段长度不超过%2更大。</output>
+        </text>
+        <text>
+            <source>The length of the %1 field is not less than %2.</source>
+            <output>该%1字段长度不超过%2少。</output>
+        </text>
+        <text>
+            <source>The %1 field is not less than %2.</source>
+            <output>该%1场不低于%2少。</output>
+        </text>
+        <text>
+            <source>The %1 field must be checked.</source>
+            <output>该%1领域必须进行检查。</output>
+        </text>
+        <text>
+            <source>The %1 field is empty.</source>
+            <output>该%1字段为空。</output>
+        </text>
+        <text>
+            <source>The %1 field cannot equal %2.</source>
+            <output>该%1字段不能平等%2。</output>
+        </text>
+        <text>
+            <source>The %1 field is not a number.</source>
+            <output>该%1字段不是一个数字。</output>
+        </text>
+        <text>
+            <source>The %1 field is not in the correct format.</source>
+            <output>该%1场不正确的格式。</output>
+        </text>
+        <text>
+            <source>Please select at least one %1.</source>
+            <output>请至少选择一个%1。</output>
+        </text>
+        <text>
+            <source>This action cannot be undone. Are you sure?</source>
+            <output>这个动作无法复原。你肯定吗？</output>
+        </text>
+        <text>
+            <source>Please press Ctrl-D - or Cmd-D on Apple - to bookmark this page.</source>
+            <output>请按Ctrl-D - CMD-D对苹果 - 书签页面。</output>
+        </text>
+    </locale>
+</language>

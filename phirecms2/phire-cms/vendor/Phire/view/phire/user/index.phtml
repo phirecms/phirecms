@@ -1,0 +1,29 @@
+<?php include $phireHeader; ?>
+        <h1><?php echo $title; ?></h1>
+        <div id="result" style="display: none;"></div>
+<?php if (isset($table)): ?>
+        <form id="user-search-form" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="get"><div><input type="submit" value="<?php $i18n->_e('Search'); ?>" id="submit" class="search-btn" style="font-size: 10px; margin: 3px 0 3px 3px; padding: 4px 5px 4px 5px; height: 21px; float: right;" name="submit" /><input type="text" name="search_for" id="search-for" size="20" value="<?php echo $searchFor; ?>" /><?php echo $searchBy; ?></div></form>
+<?php endif; ?>
+<?php if ($acl->isAuth('Phire\Controller\Phire\User\IndexController', 'add') && $acl->isAuth('Phire\Controller\Phire\User\IndexController', 'add' . (isset($typeId) ? '_' . $typeId : null))): ?>
+        <a class="small-btn" href="<?php echo BASE_PATH . APP_URI; ?>/users/add<?php echo ((isset($typeId) && (null !== $typeId)) ? '/' . $typeId : null); ?>">+ <?php $i18n->_e('Add'); ?></a>
+<?php endif; ?>
+<?php if (isset($table) && isset($typeId) && ($acl->isAuth('Phire\Controller\Phire\User\IndexController', 'export' . (isset($typeId) ? '_' . $typeId : null)))): ?>
+        <a class="small-btn" href="<?php echo BASE_PATH . APP_URI; ?>/users/export/<?php echo $typeId . ((!empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : null)); ?>"><?php $i18n->_e('Export'); ?></a>
+<?php endif; ?>
+<?php if (isset($table)): ?>
+<?php echo $table;
+elseif (isset($types) && isset($types[0])): ?>
+        <table class="data-table" cellpadding="0" cellspacing="0" border="0" style="border-bottom: solid 1px #ccc;">
+            <tr><th class="single-header"><?php $i18n->_e('User Types'); ?></th></tr>
+<?php foreach ($types as $type): ?>
+<?php if ($acl->isAuth('Phire\Controller\Phire\User\IndexController', 'index_' . $type->id)): ?>
+            <tr><td style="border-left: solid 1px #ccc; border-right: solid 1px #ccc;"><a href="<?php echo BASE_PATH . APP_URI; ?>/users/index/<?php echo $type->id; ?>"><?php echo $type->type;?></a></td></tr>
+<?php endif; ?>
+<?php endforeach; ?>
+        </table>
+<?php elseif (isset($type)): ?>
+        <p style="clear: left; padding: 15px 0 0 0;"><?php $i18n->_e('There are currently no users under the %1 user type.', '<strong>' . ucwords(str_replace('-', ' ', $type)) . '</strong>'); ?><?php if ($acl->isAuth('Phire\Controller\Phire\User\IndexController', 'add' . (isset($typeId) ? '_' . $typeId : null))): ?> <?php $i18n->_e('You can add %1a new user here%2 or add %3a new user type here%4.', array('<a href="' . BASE_PATH . APP_URI . '/users/add' . ((isset($typeId) && (null !== $typeId)) ? '/' . $typeId : null) . '">', '</a>', '<a href="' . BASE_PATH . APP_URI . '/users/types/add">', '</a>')); ?><?php endif; ?></p>
+<?php else: ?>
+        <p style="clear: left; padding: 15px 0 0 0;"><?php $i18n->_e('There are currently no users.'); ?><?php if ($acl->isAuth('Phire\Controller\Phire\User\IndexController', 'add')): ?> <?php $i18n->_e('You can add %1a new user here%2 or add %3a new user type here%4.', array('<a href="' . BASE_PATH . APP_URI . '/users/add' . ((isset($typeId) && (null !== $typeId)) ? '/' . $typeId : null) . '">', '</a>', '<a href="' . BASE_PATH . APP_URI . '/users/types/add">', '</a>')); ?><?php endif; ?></p>
+<?php endif; ?>
+<?php include $phireFooter; ?>

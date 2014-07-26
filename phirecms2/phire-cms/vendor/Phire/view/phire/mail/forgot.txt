@@ -1,0 +1,12 @@
+Dear [{name}],
+
+Here is your password for [{domain}]. [{message}]
+
+[{username}]
+[{password}]
+
+You can login at: [{login}]
+
+Thank You,
+The Phire CMS Team
+

@@ -1,0 +1,7 @@
+<?php include $phireHeader; ?>
+        <h1><?php echo $title; ?></h1>
+<?php if (isset($reset)): ?>
+        <div class="error-div"><strong><?php echo $reset; ?></strong></div>
+<?php endif; ?>
+<?php echo $form;?>
+<?php include $phireFooter; ?>

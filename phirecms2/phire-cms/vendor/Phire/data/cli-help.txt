@@ -1,0 +1,38 @@
+  Basic
+  -----
+    ./phire help                      - Display help
+    ./phire config                    - View current configuration
+    ./phire version                   - View current version
+
+  Users
+  -----
+    ./phire user types                - Show user types
+    ./phire user roles                - Show user roles
+    ./phire user add                  - Add a user
+    ./phire user password             - Set a user password
+    ./phire user role                 - Set a user role
+    ./phire user remove               - Remove a user
+    ./phire user list                 - List users
+    ./phire user sessions             - List user sessions
+    ./phire user kill                 - Kill user session
+
+  Extensions
+  ----------
+    ./phire ext install               - Install a module
+    ./phire ext list                  - List modules installed
+    ./phire ext activate              - Activate a module
+    ./phire ext deactivate            - De-activate a module
+    ./phire ext remove                - Remove module
+
+  SQL
+  ---
+    ./phire sql cli                   - Open SQL CLI
+    ./phire sql dump                  - Export the DB into a SQL file
+
+  System
+  ------
+    ./phire install                   - Install the system
+    ./phire archive                   - Archive the system
+    ./phire update system             - Update the system
+    ./phire update module Name        - Update a module
+

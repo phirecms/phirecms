@@ -1,0 +1,13 @@
+<?php include $phireHeader; ?>
+        <h1><?php echo $title; ?></h1>
+        <div id="result" style="display: none;"></div>
+<?php if (isset($table)): ?>
+        <form id="user-search-form" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="get"><div><input type="submit" value="<?php $i18n->_e('Search'); ?>" id="submit" class="search-btn" style="font-size: 10px; margin: 3px 0 3px 3px; padding: 4px 5px 4px 5px; height: 21px; float: right;" name="submit" /> <?php echo $searchBy; ?> </div></form>
+<?php endif; ?>
+<?php
+if (isset($table)):
+    echo $table;
+else: ?>
+        <p style="clear: left; padding: 15px 0 0 0;"><?php $i18n->_e('There are currently no sessions.'); ?></p>
+<?php endif; ?>
+<?php include $phireFooter; ?>

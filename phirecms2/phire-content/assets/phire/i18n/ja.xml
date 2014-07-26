@@ -1,0 +1,1479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+        <!ELEMENT language ANY>
+        <!ELEMENT locale ANY>
+        <!ELEMENT text (source,output)>
+        <!ELEMENT source ANY>
+        <!ELEMENT output ANY>
+        <!ATTLIST language
+                src       CDATA    #REQUIRED
+                output    CDATA    #REQUIRED
+                name      CDATA    #REQUIRED
+                native    CDATA    #REQUIRED
+                >
+        <!ATTLIST locale
+                region    CDATA    #REQUIRED
+                name      CDATA    #REQUIRED
+                native    CDATA    #REQUIRED
+                >
+        ]>
+<language src="en" output="ja" name="Japanese" native="日本">
+    <locale region="JA" name="Japan" native="日本">
+        <text>
+            <source>Language</source>
+            <output>言語</output>
+        </text>
+        <text>
+            <source>DB Adapter</source>
+            <output>DBアダプタ</output>
+        </text>
+        <text>
+            <source>DB Name</source>
+            <output>DB名</output>
+        </text>
+        <text>
+            <source>DB Username</source>
+            <output>DBのユーザー名</output>
+        </text>
+        <text>
+            <source>DB Password</source>
+            <output>DBパスワード</output>
+        </text>
+        <text>
+            <source>DB Host</source>
+            <output>DBホスト</output>
+        </text>
+        <text>
+            <source>DB Table Prefix</source>
+            <output>DBのテーブル接頭辞</output>
+        </text>
+        <text>
+            <source>Application URI</source>
+            <output>アプリケーションのURI</output>
+        </text>
+        <text>
+            <source>How you will access the system</source>
+            <output>あなたがシステムにアクセスする方法</output>
+        </text>
+        <text>
+            <source>Content Path</source>
+            <output>コンテンツパス</output>
+        </text>
+        <text>
+            <source>Where assets will be located</source>
+            <output>資産が配置される場所</output>
+        </text>
+        <text>
+            <source>Password Encryption</source>
+            <output>パスワードの暗号化</output>
+        </text>
+        <text>
+            <source>NEXT</source>
+            <output>次</output>
+        </text>
+        <text>
+            <source>Installation</source>
+            <output>インストール</output>
+        </text>
+        <text>
+            <source>The content directory does not exist.</source>
+            <output>コンテンツディレクトリが存在しません。</output>
+        </text>
+        <text>
+            <source>The content directory (or subdirectories) are not writable.</source>
+            <output>コンテンツディレクトリ（またはサブディレクトリ）が書き込み可能ではありません。</output>
+        </text>
+        <text>
+            <source>The database name is required.</source>
+            <output>データベース名が必要です。</output>
+        </text>
+        <text>
+            <source>The database username is required.</source>
+            <output>データベースのユーザー名が必要です。</output>
+        </text>
+        <text>
+            <source>The database password is required.</source>
+            <output>データベースのパスワードが必要です。</output>
+        </text>
+        <text>
+            <source>The database host is required.</source>
+            <output>データベースのホストが必要です。</output>
+        </text>
+        <text>
+            <source>The %1 database version must be %2 or greater. (%3 detected.)</source>
+            <output>%1データベースのバージョンが%2以上でなければなりません。 （検出された%3。）</output>
+        </text>
+        <text>
+            <source>Configuration</source>
+            <output>設定</output>
+        </text>
+        <text>
+            <source>The configuration file is not writable and the configuration has not been written to the file.</source>
+            <output>設定ファイルは書き込み可能ではありませんし、構成ファイルに書き込まれていない。</output>
+        </text>
+        <text>
+            <source>You will have to copy the code below and paste it into the 'config.php' file to continue.</source>
+            <output>あなたは以下のコードをコピーして、継続する'のconfig.php」ファイルに貼り付けする必要があります。</output>
+        </text>
+        <text>
+            <source>CONTINUE</source>
+            <output>CONTINUE</output>
+        </text>
+        <text>
+            <source>User Setup</source>
+            <output>ユーザー設定</output>
+        </text>
+        <text>
+            <source>Select User Type</source>
+            <output>[ユーザーの選択の種類</output>
+        </text>
+        <text>
+            <source>Email</source>
+            <output>Eメール</output>
+        </text>
+        <text>
+            <source>Re-Type Email</source>
+            <output>再入力Eメール</output>
+        </text>
+        <text>
+            <source>Username</source>
+            <output>ユーザー名</output>
+        </text>
+        <text>
+            <source>Enter Password</source>
+            <output>パスワードを入力します。</output>
+        </text>
+        <text>
+            <source>Re-Type Password</source>
+            <output>再入力パスワード</output>
+        </text>
+        <text>
+            <source>User Role</source>
+            <output>ユーザーの役割</output>
+        </text>
+        <text>
+            <source>Verified</source>
+            <output>検証</output>
+        </text>
+        <text>
+            <source>Failed Attempts</source>
+            <output>試行失敗</output>
+        </text>
+        <text>
+            <source>Allowed Sites</source>
+            <output>許可サイト</output>
+        </text>
+        <text>
+            <source>SELECT</source>
+            <output>選択する</output>
+        </text>
+        <text>
+            <source>Select</source>
+            <output>選択する</output>
+        </text>
+        <text>
+            <source>REGISTER</source>
+            <output>レジスタ</output>
+        </text>
+        <text>
+            <source>Register</source>
+            <output>登録</output>
+        </text>
+        <text>
+            <source>SAVE</source>
+            <output>保存</output>
+        </text>
+        <text>
+            <source>Save</source>
+            <output>保存</output>
+        </text>
+        <text>
+            <source>UPDATE</source>
+            <output>アップデート</output>
+        </text>
+        <text>
+            <source>Update</source>
+            <output>アップデート</output>
+        </text>
+        <text>
+            <source>PREVIEW</source>
+            <output>プレビュー</output>
+        </text>
+        <text>
+            <source>Preview</source>
+            <output>プレビュー</output>
+        </text>
+        <text>
+            <source>Blocked</source>
+            <output>ブロックされた</output>
+        </text>
+        <text>
+            <source>Thank you. The system has been successfully installed.</source>
+            <output>ありがとう。システムが正常にインストールされています。</output>
+        </text>
+        <text>
+            <source>You can now log in here or view the home page here.</source>
+            <output>あなたが今ここにログインするか、ここにホームページを表示することができます。</output>
+        </text>
+        <text>
+            <source>That user already exists.</source>
+            <output>そのユーザーはすでに存在します。</output>
+        </text>
+        <text>
+            <source>That email already exists.</source>
+            <output>そのメールは既に存在しています。</output>
+        </text>
+        <text>
+            <source>The emails do not match.</source>
+            <output>電子メールは一致しません。</output>
+        </text>
+        <text>
+            <source>The passwords do not match.</source>
+            <output>パスワードが一致しません。</output>
+        </text>
+        <text>
+            <source>The 'upload_max_filesize' setting of %1 exceeded.</source>
+            <output>%1の「upload_max_filesizeで'の設定を超えています。</output>
+        </text>
+        <text>
+            <source>The file must be less than %1.</source>
+            <output>ファイルには、%1未満でなければなりません。</output>
+        </text>
+        <text>
+            <source>The %1 file type is not allowed.</source>
+            <output>%1ファイルタイプが許可されていません。</output>
+        </text>
+        <text>
+            <source>You can now log in %1here%2 or view the home page %3here%4.</source>
+            <output>これで%1ここに%2ログインまたはホームページの%3ここに%4を表示することができます。</output>
+        </text>
+        <text>
+            <source>Error</source>
+            <output>エラー</output>
+        </text>
+        <text>
+            <source>Page Not Found</source>
+            <output>ページが見つかりません</output>
+        </text>
+        <text>
+            <source>Sorry. That page was not found.</source>
+            <output>申し訳ありません。そのページが見つかりませんでした。</output>
+        </text>
+        <text>
+            <source>All Rights Reserved.</source>
+            <output>無断複写·転載を禁じます。</output>
+        </text>
+        <text>
+            <source>Username</source>
+            <output>ユーザ名</output>
+        </text>
+        <text>
+            <source>Password</source>
+            <output>パスワード</output>
+        </text>
+        <text>
+            <source>Forgot</source>
+            <output>忘れた</output>
+        </text>
+        <text>
+            <source>LOGIN</source>
+            <output>ログイン</output>
+        </text>
+        <text>
+            <source>Login</source>
+            <output>ログイン</output>
+        </text>
+        <text>
+            <source>System Overview</source>
+            <output>システムの概要</output>
+        </text>
+        <text>
+            <source>System Version</source>
+            <output>システムのバージョン</output>
+        </text>
+        <text>
+            <source>System Domain</source>
+            <output>システムドメイン</output>
+        </text>
+        <text>
+            <source>System Document Root</source>
+            <output>システムのドキュメントルート</output>
+        </text>
+        <text>
+            <source>System Base Path</source>
+            <output>システムベースのパス</output>
+        </text>
+        <text>
+            <source>System Application Path</source>
+            <output>システムアプリケーションパス</output>
+        </text>
+        <text>
+            <source>System Content Path</source>
+            <output>システムコンテンツパス</output>
+        </text>
+        <text>
+            <source>Server Operating System</source>
+            <output>サーバーのオペレーティングシステム</output>
+        </text>
+        <text>
+            <source>Server Software</source>
+            <output>サーバソフトウェア</output>
+        </text>
+        <text>
+            <source>Database Version</source>
+            <output>データベースのバージョン</output>
+        </text>
+        <text>
+            <source>PHP Version</source>
+            <output>PHPのバージョン</output>
+        </text>
+        <text>
+            <source>Installed On</source>
+            <output>にインストールされている</output>
+        </text>
+        <text>
+            <source>Updated On</source>
+            <output>更新日</output>
+        </text>
+        <text>
+            <source>Never</source>
+            <output>決して</output>
+        </text>
+        <text>
+            <source>Default Settings</source>
+            <output>デフォルト設定</output>
+        </text>
+        <text>
+            <source>System Title</source>
+            <output>システムタイトル</output>
+        </text>
+        <text>
+            <source>System Email</source>
+            <output>システムメール</output>
+        </text>
+        <text>
+            <source>Site Title</source>
+            <output>サイトタイトル</output>
+        </text>
+        <text>
+            <source>Separator</source>
+            <output>セパレーター</output>
+        </text>
+        <text>
+            <source>Default Language</source>
+            <output>デフォルトの言語</output>
+        </text>
+        <text>
+            <source>Error Message</source>
+            <output>エラーメッセージ</output>
+        </text>
+        <text>
+            <source>Date &amp; Time Format</source>
+            <output>日付と時刻の書式</output>
+        </text>
+        <text>
+            <source>Date &amp; Time Settings</source>
+            <output>日付と時刻の設定</output>
+        </text>
+        <text>
+            <source>Media Settings</source>
+            <output>メディア設定</output>
+        </text>
+        <text>
+            <source>Media Allowed Types</source>
+            <output>メディアルームタイプ</output>
+        </text>
+        <text>
+            <source>Media Max Filesize</source>
+            <output>メディアマックスファイルサイズ</output>
+        </text>
+        <text>
+            <source>Media Actions</source>
+            <output>メディアアクション</output>
+        </text>
+        <text>
+            <source>Media Image Adapter</source>
+            <output>メディアイメージアダプタ</output>
+        </text>
+        <text>
+            <source>Check All</source>
+            <output>すべてチェック</output>
+        </text>
+        <text>
+            <source>Uncheck All</source>
+            <output>すべてをチェック</output>
+        </text>
+        <text>
+            <source>Inverse</source>
+            <output>逆数</output>
+        </text>
+        <text>
+            <source>Uncheck all to allow any file type.</source>
+            <output>任意のファイルタイプを可能にするために、すべてのチェックを外します。</output>
+        </text>
+        <text>
+            <source>Limits</source>
+            <output>境界</output>
+        </text>
+        <text>
+            <source>Post Max Size</source>
+            <output>ポストの最大サイズ</output>
+        </text>
+        <text>
+            <source>Upload Max Filesize</source>
+            <output>最大ファイルサイズをアップロードする</output>
+        </text>
+        <text>
+            <source>Max File Uploads</source>
+            <output>最大ファイルアップロード</output>
+        </text>
+        <text>
+            <source>Size</source>
+            <output>サイズ</output>
+        </text>
+        <text>
+            <source>Action</source>
+            <output>アクション</output>
+        </text>
+        <text>
+            <source>Parameters</source>
+            <output>パラメータ</output>
+        </text>
+        <text>
+            <source>Quality</source>
+            <output>品質</output>
+        </text>
+        <text>
+            <source>Pagination Limit</source>
+            <output>ページネーション制限</output>
+        </text>
+        <text>
+            <source>Pagination Range</source>
+            <output>ページネーションレンジ</output>
+        </text>
+        <text>
+            <source>Live</source>
+            <output>生きる</output>
+        </text>
+        <text>
+            <source>Dashboard</source>
+            <output>ダッシュボード</output>
+        </text>
+        <text>
+            <source>Active</source>
+            <output>アクティブ</output>
+        </text>
+        <text>
+            <source>Not Active</source>
+            <output>アクティブでない</output>
+        </text>
+        <text>
+            <source>There are currently no themes installed.</source>
+            <output>インストールさテーマはありません。</output>
+        </text>
+        <text>
+            <source>There are currently no modules installed.</source>
+            <output>インストールさモジュールは現在ありません。</output>
+        </text>
+        <text>
+            <source>Type</source>
+            <output>タイプ</output>
+        </text>
+        <text>
+            <source>Title</source>
+            <output>タイトル</output>
+        </text>
+        <text>
+            <source>URI</source>
+            <output>URIが</output>
+        </text>
+        <text>
+            <source>Created</source>
+            <output>作成</output>
+        </text>
+        <text>
+            <source>Status</source>
+            <output>ステータス</output>
+        </text>
+        <text>
+            <source>Home</source>
+            <output>ホーム</output>
+        </text>
+        <text>
+            <source>Logged in as</source>
+            <output>としてログイン</output>
+        </text>
+        <text>
+            <source>Logout</source>
+            <output>ログアウト</output>
+        </text>
+        <text>
+            <source>Last Login</source>
+            <output>最終ログイン</output>
+        </text>
+        <text>
+            <source>Structure</source>
+            <output>構造</output>
+        </text>
+        <text>
+            <source>Fields</source>
+            <output>フィールズ</output>
+        </text>
+        <text>
+            <source>Field Groups</source>
+            <output>フィールドグループ</output>
+        </text>
+        <text>
+            <source>Extensions</source>
+            <output>拡張機能</output>
+        </text>
+        <text>
+            <source>Themes</source>
+            <output>テーマ</output>
+        </text>
+        <text>
+            <source>Modules</source>
+            <output>モジュール</output>
+        </text>
+        <text>
+            <source>Users</source>
+            <output>ユーザー</output>
+        </text>
+        <text>
+            <source>User Roles</source>
+            <output>ユーザーの役割</output>
+        </text>
+        <text>
+            <source>User Types</source>
+            <output>ユーザータイプ</output>
+        </text>
+        <text>
+            <source>User Sessions</source>
+            <output>ユーザーセッション</output>
+        </text>
+        <text>
+            <source>Configuration</source>
+            <output>設定</output>
+        </text>
+        <text>
+            <source>Sites</source>
+            <output>サイト</output>
+        </text>
+        <text>
+            <source>Site</source>
+            <output>サイト</output>
+        </text>
+        <text>
+            <source>Author</source>
+            <output>著者</output>
+        </text>
+        <text>
+            <source>Copy</source>
+            <output>コピー</output>
+        </text>
+        <text>
+            <source>Process</source>
+            <output>プロセス</output>
+        </text>
+        <text>
+            <source>Remove</source>
+            <output>削除する</output>
+        </text>
+        <text>
+            <source>Add</source>
+            <output>加える</output>
+        </text>
+        <text>
+            <source>Search</source>
+            <output>検索</output>
+        </text>
+        <text>
+            <source>Back</source>
+            <output>バック</output>
+        </text>
+        <text>
+            <source>Export</source>
+            <output>輸出</output>
+        </text>
+        <text>
+            <source>Order</source>
+            <output>オーダー</output>
+        </text>
+        <text>
+            <source>Force SSL</source>
+            <output>力SSL</output>
+        </text>
+        <text>
+            <source>Roles</source>
+            <output>役割</output>
+        </text>
+        <text>
+            <source>File</source>
+            <output>ファイル</output>
+        </text>
+        <text>
+            <source>Max Size</source>
+            <output>最大サイズ</output>
+        </text>
+        <text>
+            <source>Files Max</source>
+            <output>ファイルマックス</output>
+        </text>
+        <text>
+            <source>Max Size Each</source>
+            <output>最大サイズ各</output>
+        </text>
+        <text>
+            <source>Max Size Total</source>
+            <output>最大サイズの合計</output>
+        </text>
+        <text>
+            <source>Supported Types</source>
+            <output>サポートされている型</output>
+        </text>
+        <text>
+            <source>Name</source>
+            <output>名前</output>
+        </text>
+        <text>
+            <source>Label</source>
+            <output>ラベル</output>
+        </text>
+        <text>
+            <source>Required</source>
+            <output>必須</output>
+        </text>
+        <text>
+            <source>Field Type</source>
+            <output>フィールドタイプ</output>
+        </text>
+        <text>
+            <source>Field Name</source>
+            <output>フィールド名</output>
+        </text>
+        <text>
+            <source>Field Label</source>
+            <output>フィールドラベル</output>
+        </text>
+        <text>
+            <source>Field Values</source>
+            <output>フィールド値</output>
+        </text>
+        <text>
+            <source>Pipe delimited</source>
+            <output>区切りのパイプ</output>
+        </text>
+        <text>
+            <source>Default Field Values</source>
+            <output>デフォルトのフィールド値</output>
+        </text>
+        <text>
+            <source>Field Attributes</source>
+            <output>フィールド属性</output>
+        </text>
+        <text>
+            <source>Field Validators</source>
+            <output>フィールドバリ</output>
+        </text>
+        <text>
+            <source>Type / Value / Message</source>
+            <output>タイプ/値/メッセージ</output>
+        </text>
+        <text>
+            <source>Model &amp; Type</source>
+            <output>モデル＆タイプ</output>
+        </text>
+        <text>
+            <source>Field Group</source>
+            <output>フィールドグループ</output>
+        </text>
+        <text>
+            <source>Encryption</source>
+            <output>暗号化</output>
+        </text>
+        <text>
+            <source>Name &amp; Order</source>
+            <output>名前＆オーダー</output>
+        </text>
+        <text>
+            <source>Dynamic</source>
+            <output>ダイナミック</output>
+        </text>
+        <text>
+            <source>Yes</source>
+            <output>はい</output>
+        </text>
+        <text>
+            <source>No</source>
+            <output>いいえ</output>
+        </text>
+        <text>
+            <source>Screenshot</source>
+            <output>スクリーンショット</output>
+        </text>
+        <text>
+            <source>Description</source>
+            <output>説明</output>
+        </text>
+        <text>
+            <source>Version</source>
+            <output>バージョン</output>
+        </text>
+        <text>
+            <source>Resource</source>
+            <output>リソース</output>
+        </text>
+        <text>
+            <source>Action</source>
+            <output>アクション</output>
+        </text>
+        <text>
+            <source>Type</source>
+            <output>タイプ</output>
+        </text>
+        <text>
+            <source>Permission</source>
+            <output>許可</output>
+        </text>
+        <text>
+            <source>User Type</source>
+            <output>ユーザータイプ</output>
+        </text>
+        <text>
+            <source>allow</source>
+            <output>許可する</output>
+        </text>
+        <text>
+            <source>deny</source>
+            <output>否定する</output>
+        </text>
+        <text>
+            <source>Default Role</source>
+            <output>デフォルトのロール</output>
+        </text>
+        <text>
+            <source>Password Encryption</source>
+            <output>パスワードの暗号化</output>
+        </text>
+        <text>
+            <source>Allow Global Access</source>
+            <output>グローバルアクセスを許可する</output>
+        </text>
+        <text>
+            <source>Allowed Attempts</source>
+            <output>許可された試行</output>
+        </text>
+        <text>
+            <source>Session Expiration</source>
+            <output>セッションの有効期限</output>
+        </text>
+        <text>
+            <source>Minutes</source>
+            <output>分</output>
+        </text>
+        <text>
+            <source>IPs Allowed</source>
+            <output>IPの可</output>
+        </text>
+        <text>
+            <source>IPs Blocked</source>
+            <output>ブロックされたIPアドレス</output>
+        </text>
+        <text>
+            <source>Log Emails</source>
+            <output>電子メールのログを記録</output>
+        </text>
+        <text>
+            <source>Log Exclude</source>
+            <output>除外ログインする</output>
+        </text>
+        <text>
+            <source>Controller</source>
+            <output>コントローラ</output>
+        </text>
+        <text>
+            <source>Sub Controllers</source>
+            <output>サブコントローラ</output>
+        </text>
+        <text>
+            <source>Allow Login</source>
+            <output>ログインを許可する</output>
+        </text>
+        <text>
+            <source>Allow Registration</source>
+            <output>登録を許可する</output>
+        </text>
+        <text>
+            <source>Allow Multiple Sessions</source>
+            <output>複数のセッションを許可する</output>
+        </text>
+        <text>
+            <source>Session Timeout Warning</source>
+            <output>セッションタイムアウト警告</output>
+        </text>
+        <text>
+            <source>Allow Mobile Access</source>
+            <output>モバイルアクセスを許可する</output>
+        </text>
+        <text>
+            <source>Allow Email as Username</source>
+            <output>ユーザー名として電子メールを許可</output>
+        </text>
+        <text>
+            <source>User Email Verification</source>
+            <output>ユーザーの電子メールの検証</output>
+        </text>
+        <text>
+            <source>Track Sessions</source>
+            <output>トラックセッション</output>
+        </text>
+        <text>
+            <source>System Email Verification</source>
+            <output>システム電子メールの検証</output>
+        </text>
+        <text>
+            <source>Require Approval</source>
+            <output>承認を必要とする</output>
+        </text>
+        <text>
+            <source>Require Login for Unsubscribe</source>
+            <output>登録解除のためのログインを必要と</output>
+        </text>
+        <text>
+            <source>Timestamp</source>
+            <output>タイムスタンプ</output>
+        </text>
+        <text>
+            <source>User Agent</source>
+            <output>ユーザーエージェント</output>
+        </text>
+        <text>
+            <source>IP Address</source>
+            <output>IPアドレス</output>
+        </text>
+        <text>
+            <source>Last Action</source>
+            <output>最後のアクション</output>
+        </text>
+        <text>
+            <source>Started</source>
+            <output>開始</output>
+        </text>
+        <text>
+            <source>Domain</source>
+            <output>ドメイン</output>
+        </text>
+        <text>
+            <source>Document Root</source>
+            <output>ドキュメントルート</output>
+        </text>
+        <text>
+            <source>Base Path</source>
+            <output>基本パス</output>
+        </text>
+        <text>
+            <source>You have been sent an email for verification purposes.</source>
+            <output>あなたは、検証目的のために電子メールを送信されてきた。</output>
+        </text>
+        <text>
+            <source>Your new account requires the approval of the site administrator.</source>
+            <output>新しいアカウントは、サイト管理者の承認が必要。</output>
+        </text>
+        <text>
+            <source>Once access is granted, you will be able to %1log in here%2. If you have trouble gaining access to the site, please contact the %3site administrator%4.</source>
+            <output>アクセスが許可されたら、あなたはここ%1login ここに%2 ことができるようになります。もし問題サイトへのアクセスを得るがある場合は、%3site管理者%4に連絡してください。</output>
+        </text>
+        <text>
+            <source>You can %1log in here%2.</source>
+            <output>現在のページ%1login ここに%2ことができます。</output>
+        </text>
+        <text>
+            <source>Dismiss</source>
+            <output>退ける</output>
+        </text>
+        <text>
+            <source>Show</source>
+            <output>ショー</output>
+        </text>
+        <text>
+            <source>which folders are not writable</source>
+            <output>フォルダが書き込み可能なされていない</output>
+        </text>
+        <text>
+            <source>Some of the content folders are not writable. This may cause the system to not function properly.</source>
+            <output>コンテンツフォルダの中には、書き込み可能ではありません。これは、システムが正常に機能しなくなることがあります。</output>
+        </text>
+        <text>
+            <source>We're sorry. That page was not found.</source>
+            <output>申し訳ございません。そのページが見つかりませんでした。</output>
+        </text>
+        <text>
+            <source>There are currently no users under the %1 user type.</source>
+            <output>%1ユーザータイプの下には、ユーザーは現在ありません。</output>
+        </text>
+        <text>
+            <source>You can add %1a new user here%2 or add %3a new user type here%4.</source>
+            <output>ここの%1A新しいユーザー%2を追加したり、ここでの%3Aの新しいユーザータイプ%4を追加することができます。</output>
+        </text>
+        <text>
+            <source>There are currently no users.</source>
+            <output>どのユーザーが現在ありません。</output>
+        </text>
+        <text>
+            <source>There are currently no logins for this user.</source>
+            <output>このユーザーにはログインがありません。</output>
+        </text>
+        <text>
+            <source>There are currently no roles.</source>
+            <output>何の役割は現在ありません。</output>
+        </text>
+        <text>
+            <source>There are currently no sessions.</source>
+            <output>何セッションがありません。</output>
+        </text>
+        <text>
+            <source>There are currently no types.</source>
+            <output>全くタイプがありません。</output>
+        </text>
+        <text>
+            <source>Select</source>
+            <output>選択する</output>
+        </text>
+        <text>
+            <source>Thumbnail</source>
+            <output>サムネイル</output>
+        </text>
+        <text>
+            <source>There are currently no fields.</source>
+            <output>全くのフィールドがありません。</output>
+        </text>
+        <text>
+            <source>There are currently no field groups.</source>
+            <output>Noフィールド·グループは現在ありません。</output>
+        </text>
+        <text>
+            <source>Install</source>
+            <output>インストール</output>
+        </text>
+        <text>
+            <source>New modules have been detected. Click the button above to install them.</source>
+            <output>新しいモジュールが検出されている。それらをインストールするには、上のボタンをクリックしてください。</output>
+        </text>
+        <text>
+            <source>There are currently no modules installed.</source>
+            <output>インストールさモジュールは現在ありません。</output>
+        </text>
+        <text>
+            <source>New themes have been detected. Click the button above to install them.</source>
+            <output>新しいテーマが検出されている。それらをインストールするには、上のボタンをクリックしてください。</output>
+        </text>
+        <text>
+            <source>There are currently no themes installed.</source>
+            <output>インストールさテーマはありません。</output>
+        </text>
+        <text>
+            <source>There are currently no additional sites.</source>
+            <output>追加のサイトはまだありません。</output>
+        </text>
+        <text>
+            <source>Multiple sessions are not allowed. Someone is already logged on from %1.</source>
+            <output>複数のセッションが許可されていません。誰かがすでに%1からログオンしている。</output>
+        </text>
+        <text>
+            <source>Mobile access is not allowed.</source>
+            <output>モバイルアクセスは許可されていません。</output>
+        </text>
+        <text>
+            <source>The user is not verified.</source>
+            <output>ユーザーが検証されていません。</output>
+        </text>
+        <text>
+            <source>The user is not allowed in this area.</source>
+            <output>ユーザーは、この領域では使用できません。</output>
+        </text>
+        <text>
+            <source>The directory %1 is not writable.</source>
+            <output>ディレクトリ%1は書き込み可能ではありません。</output>
+        </text>
+        <text>
+            <source>The themes folder is not writable.</source>
+            <output>Themesフォルダが書き込み可能ではありません。</output>
+        </text>
+        <text>
+            <source>The modules folder is not writable.</source>
+            <output>モジュール]フォルダが書き込み可能ではありません。</output>
+        </text>
+        <text>
+            <source>Replace?</source>
+            <output>置き換えますか？</output>
+        </text>
+        <text>
+            <source>Select Revision</source>
+            <output>リビジョンを選択します。</output>
+        </text>
+        <text>
+            <source>Original</source>
+            <output>オリジナル</output>
+        </text>
+        <text>
+            <source>Phire CMS Installation</source>
+            <output>PHIRE CMSのインストール</output>
+        </text>
+        <text>
+            <source>That module has not been loaded.</source>
+            <output>そのモジュールがロードされていません。</output>
+        </text>
+        <text>
+            <source>All</source>
+            <output>すべて</output>
+        </text>
+        <text>
+            <source>None</source>
+            <output>なし</output>
+        </text>
+        <text>
+            <source>Another user is currently logged in as %1 from %2.</source>
+            <output>別のユーザーが現在%1から%2としてログインしている。</output>
+        </text>
+        <text>
+            <source>Unsubscribed</source>
+            <output>購読解除</output>
+        </text>
+        <text>
+            <source>Access Granted</source>
+            <output>付与されたアクセス</output>
+        </text>
+        <text>
+            <source>Email Verification</source>
+            <output>電子メールの確認</output>
+        </text>
+        <text>
+            <source>Your username and password is:</source>
+            <output>ユーザ名とパスワードは、次のとおりです。</output>
+        </text>
+        <text>
+            <source>Your password has been reset for security reasons. Your username and new password is:</source>
+            <output>パスワードは、セキュリティ上の理由のためにリセットされている。ユーザ名と新しいパスワードは、次のとおりです。</output>
+        </text>
+        <text>
+            <source>Password Reset</source>
+            <output>パスワードリセット</output>
+        </text>
+        <text>
+            <source>Login Notification</source>
+            <output>ログイン通知</output>
+        </text>
+        <text>
+            <source>Someone has logged in as a %1 from %2 using %3.</source>
+            <output>誰かが%1を使用して%2から%3としてログインしています。</output>
+        </text>
+        <text>
+            <source>UPLOAD</source>
+            <output>アップロード</output>
+        </text>
+        <text>
+            <source>Upload</source>
+            <output>アップロード</output>
+        </text>
+        <text>
+            <source>A field with history tracking cannot be assigned to a field group.</source>
+            <output>履歴の追跡を持つフィールドは、フィールド·グループに割り当てることはできません。</output>
+        </text>
+        <text>
+            <source>An editor cannot be used on a field assigned to a field group.</source>
+            <output>エディタは、フィールドグループに割り当てられたフィールド上で使用することができない。</output>
+        </text>
+        <text>
+            <source>Source</source>
+            <output>ソース</output>
+        </text>
+        <text>
+            <source>That email does not exist.</source>
+            <output>そのメールは存在しません。</output>
+        </text>
+        <text>
+            <source>That user is not allowed on this site.</source>
+            <output>そのユーザーは、このサイト上で許可されていません。</output>
+        </text>
+        <text>
+            <source>To</source>
+            <output>へ</output>
+        </text>
+        <text>
+            <source>From</source>
+            <output>から</output>
+        </text>
+        <text>
+            <source>That site domain already exists.</source>
+            <output>そのサイトのドメインがすでに存在しています。</output>
+        </text>
+        <text>
+            <source>That site document root already exists.</source>
+            <output>そのサイトのドキュメントルートがすでに存在しています。</output>
+        </text>
+        <text>
+            <source>That site document root does not exists.</source>
+            <output>そのサイトのドキュメントルートが存在しません。</output>
+        </text>
+        <text>
+            <source>The base path does not exist under that document root.</source>
+            <output>ベースパスは、そのドキュメントルートの下に存在しません。</output>
+        </text>
+        <text>
+            <source>The index controller does not exist under that document root and base path.</source>
+            <output>インデックスコントローラは、そのドキュメントルートとベースパスの下に存在しません。</output>
+        </text>
+        <text>
+            <source>The content path does not exist under that document root and base path.</source>
+            <output>コンテンツパスは、そのドキュメントルートとベースパスの下に存在しません。</output>
+        </text>
+        <text>
+            <source>The content path is not writable under that document root and base path.</source>
+            <output>コンテンツパスは、そのドキュメントルートとベースパスの下に書き込み可能ではありません。</output>
+        </text>
+        <text>
+            <source>The type name for this user type cannot change and must be 'user'.</source>
+            <output>このユーザー·タイプのタイプ名は変更することはできませんし、 「ユーザー」である必要があります。</output>
+        </text>
+        <text>
+            <source>Dear</source>
+            <output>かわいい</output>
+        </text>
+        <text>
+            <source>You have been approved and granted access to</source>
+            <output>あなたはへのアクセスを承認し、付与されている</output>
+        </text>
+        <text>
+            <source>You can now login to the website at:</source>
+            <output>あなたは今のウェブサイトにログインすることができます。</output>
+        </text>
+        <text>
+            <source>Here is your password for</source>
+            <output>ここでパスワードの入力がある</output>
+        </text>
+        <text>
+            <source>You can login at:</source>
+            <output>あなたがでログインすることができます。</output>
+        </text>
+        <text>
+            <source>Thank you for installing Phire CMS for</source>
+            <output>用PHIRE CMSをインストールしていただきありがとうございます</output>
+        </text>
+        <text>
+            <source>The website will be viewable here:</source>
+            <output>ウェブサイトはこちら表示できます。</output>
+        </text>
+        <text>
+            <source>To manage the website, you can login to Phire here:</source>
+            <output>ウェブサイトを管理するには、ここでPHIREにログインすることができます。</output>
+        </text>
+        <text>
+            <source>You have been successfully unsubscribed from</source>
+            <output>あなたが成功してから退会しています</output>
+        </text>
+        <text>
+            <source>Thank you for taking the time to register with</source>
+            <output>に登録する時間を割いていただき、ありがとうございます</output>
+        </text>
+        <text>
+            <source>In order to verify your email address, please click on the following link:</source>
+            <output>あなたのメールアドレスを確認するには、以下のリンクをクリックしてください。</output>
+        </text>
+        <text>
+            <source>Once you are approved, you will be able to login to the website at:</source>
+            <output>あなたが承認されたら、のウェブサイトにログインできるようになります。</output>
+        </text>
+        <text>
+            <source>Thank You</source>
+            <output>ありがとうございました</output>
+        </text>
+        <text>
+            <source>Default</source>
+            <output>デフォルト</output>
+        </text>
+        <text>
+            <source>SUBMIT</source>
+            <output>提出する</output>
+        </text>
+        <text>
+            <source>Submit</source>
+            <output>提出する</output>
+        </text>
+        <text>
+            <source>UNSUBSCRIBE</source>
+            <output>登録解除</output>
+        </text>
+        <text>
+            <source>Unsubscribe</source>
+            <output>登録解除</output>
+        </text>
+        <text>
+            <source>No search keywords were passed. Please try again.</source>
+            <output>いいえ、検索キーワードが渡されませんでした。もう一度やり直してください。</output>
+        </text>
+        <text>
+            <source>System Error</source>
+            <output>システムエラー</output>
+        </text>
+        <text>
+            <source>404 Error</source>
+            <output>404エラー</output>
+        </text>
+        <text>
+            <source>Your session has expired.</source>
+            <output>セッションの有効期限が切れています。</output>
+        </text>
+        <text>
+            <source>Profile</source>
+            <output>プロフィール</output>
+        </text>
+        <text>
+            <source>Thank you. You have been unsubscribed from this website.</source>
+            <output>ありがとう。このウェブサイトの登録を解除しました。</output>
+        </text>
+        <text>
+            <source>Thank you. A password reminder has been sent.</source>
+            <output>ありがとう。パスワードリマインダが送信されています。</output>
+        </text>
+        <text>
+            <source>Verify</source>
+            <output>確認する</output>
+        </text>
+        <text>
+            <source>Thank you. Your email has been verified.</source>
+            <output>ありがとう。あなたのメールアドレスは確認されています。</output>
+        </text>
+        <text>
+            <source>Sorry. That email could not be verified.</source>
+            <output>申し訳ありません。そのメールを確認できませんでした。</output>
+        </text>
+        <text>
+            <source>Select Type</source>
+            <output>タイプを選択</output>
+        </text>
+        <text>
+            <source>Installation Error</source>
+            <output>取付誤差</output>
+        </text>
+        <text>
+            <source>Logins</source>
+            <output>ログインを</output>
+        </text>
+        <text>
+            <source>All Sites</source>
+            <output>全てのサイト</output>
+        </text>
+        <text>
+            <source>Updated</source>
+            <output>更新した</output>
+        </text>
+        <text>
+            <source>by</source>
+            <output>バイ</output>
+        </text>
+        <text>
+            <source>Change Editor</source>
+            <output>エディタを変更します。</output>
+        </text>
+        <text>
+            <source>Clear</source>
+            <output>明確な</output>
+        </text>
+        <text>
+            <source>Saved</source>
+            <output>保存</output>
+        </text>
+        <text>
+            <source>Removed</source>
+            <output>削除</output>
+        </text>
+        <text>
+            <source>Please correct the errors below.</source>
+            <output>次のエラーを修正してください。</output>
+        </text>
+        <text>
+            <source>Hide</source>
+            <output>隠す</output>
+        </text>
+        <text>
+            <source>You are about to leave this page and have unsaved changes. Are you sure?</source>
+            <output>このページを出ようとしており、保存されていない変更があります。本当に？</output>
+        </text>
+        <text>
+            <source>Your session is about to end.</source>
+            <output>あなたのセッションは終了しようとしている。</output>
+        </text>
+        <text>
+            <source>Continue</source>
+            <output>続ける</output>
+        </text>
+        <text>
+            <source>The title field is required.</source>
+            <output>タイトルフィールドは必須です。</output>
+        </text>
+        <text>
+            <source>Edit This Page</source>
+            <output>このページを編集</output>
+        </text>
+        <text>
+            <source>View</source>
+            <output>ビュー</output>
+        </text>
+        <text>
+            <source>Date</source>
+            <output>日付</output>
+        </text>
+        <text>
+            <source>Reload</source>
+            <output>リロード</output>
+        </text>
+        <text>
+            <source>Expiration</source>
+            <output>期限切れ</output>
+        </text>
+        <text>
+            <source>Not Live</source>
+            <output>生きていけない</output>
+        </text>
+        <text>
+            <source>Edit</source>
+            <output>編集</output>
+        </text>
+        <text>
+            <source>Click to View</source>
+            <output>クリックして表示</output>
+        </text>
+        <text>
+            <source>Use CAPTCHA</source>
+            <output>CAPTCHAを使用してください</output>
+        </text>
+        <text>
+            <source>Use CSRF</source>
+            <output>CSRFを使用</output>
+        </text>
+        <text>
+            <source>Password Reset</source>
+            <output>パスワードリセット</output>
+        </text>
+        <text>
+            <source>Password Reset Interval</source>
+            <output>パスワードは、間隔をリセット</output>
+        </text>
+        <text>
+            <source>1st Login</source>
+            <output>第一ログイン</output>
+        </text>
+        <text>
+            <source>Every</source>
+            <output>すべての</output>
+        </text>
+        <text>
+            <source>Day(s)</source>
+            <output>日（S）</output>
+        </text>
+        <text>
+            <source>Month(s)</source>
+            <output>月</output>
+        </text>
+        <text>
+            <source>Year(s)</source>
+            <output>年（S）</output>
+        </text>
+        <text>
+            <source>Enter Code</source>
+            <output>コードを入力してください</output>
+        </text>
+        <text>
+            <source>Reload</source>
+            <output>リロード</output>
+        </text>
+        <text>
+            <source>You must reset your password before continuing.</source>
+            <output>先に進む前に、あなたのパスワードをリセットする必要があります。</output>
+        </text>
+        <text>
+            <source>The new password cannot be the same.</source>
+            <output>新しいパスワードは同じにすることはできません。</output>
+        </text>
+        <text>
+            <source>Module Update</source>
+            <output>モジュール更新 </output>
+        </text>
+        <text>
+            <source>Theme Update</source>
+            <output>テーマの更新 </output>
+        </text>
+        <text>
+            <source>System Update</source>
+            <output>システムアップデート </output>
+        </text>
+        <text>
+            <source>The %1 folder has been detected as writable.</source>
+            <output>%1フォルダが書き込み可能として検出されました。</output>
+        </text>
+        <text>
+            <source>You can proceed with the %1 update by clicking the update button below.</source>
+            <output>あなたは、下の更新ボタンをクリックして、%1の更新を続行することができます。</output>
+        </text>
+        <text>
+            <source>FTP Address</source>
+            <output>FTPアドレス</output>
+        </text>
+        <text>
+            <source>FTP Root</source>
+            <output>FTPルート</output>
+        </text>
+        <text>
+            <source>Log directly into the document root.</source>
+            <output>ドキュメントルートに直接ログインします。</output>
+        </text>
+        <text>
+            <source>No, change the directory to</source>
+            <output>いいえ、ディレクトリに移動します</output>
+        </text>
+        <text>
+            <source>Use PASV</source>
+            <output>使用PASV</output>
+        </text>
+        <text>
+            <source>Protocol</source>
+            <output>プロトコル</output>
+        </text>
+        <text>
+            <source>The %1 module has been updated.</source>
+            <output>%1モジュールがアップデートされました。 </output>
+        </text>
+        <text>
+            <source>The %1 theme has been updated.</source>
+            <output>%1テーマがアップデートされました。 </output>
+        </text>
+        <text>
+            <source>The system has been updated.</source>
+            <output>システムが更新されています。</output>
+        </text>
+        <text>
+            <source>The update file was not found.</source>
+            <output>アップデートファイルが見つかりませんでした。</output>
+        </text>
+        <text>
+            <source>Update to</source>
+            <output>にアップデート</output>
+        </text>
+        <text>
+            <source>Registration Notification</source>
+            <output>登録通知</output>
+        </text>
+        <text>
+            <source>A new user has registered at</source>
+            <output>新しいユーザーは、で登録した</output>
+        </text>
+        <text>
+            <source>Current</source>
+            <output>現在の</output>
+        </text>
+        <text>
+            <source>Editor</source>
+            <output>エディタ</output>
+        </text>
+    </locale>
+</language>

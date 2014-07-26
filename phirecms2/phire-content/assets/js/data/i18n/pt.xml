@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+    <!ELEMENT language ANY>
+    <!ELEMENT locale ANY>
+    <!ELEMENT text (source,output)>
+    <!ELEMENT source ANY>
+    <!ELEMENT output ANY>
+    <!ATTLIST language
+        src       CDATA    #REQUIRED
+        output    CDATA    #REQUIRED
+        name      CDATA    #REQUIRED
+        native    CDATA    #REQUIRED
+    >
+    <!ATTLIST locale
+        region    CDATA    #REQUIRED
+        name      CDATA    #REQUIRED
+        native    CDATA    #REQUIRED
+    >
+]>
+<language src="en" output="pt" name="Portuguese" native="Português">
+    <locale region="PT" name="Portugal" native="Portugal">
+        <text>
+            <source>Sunday</source>
+            <output>Domingo</output>
+        </text>
+        <text>
+            <source>Monday</source>
+            <output>Segunda-feira</output>
+        </text>
+        <text>
+            <source>Tuesday</source>
+            <output>Terça-feira</output>
+        </text>
+        <text>
+            <source>Wednesday</source>
+            <output>Quarta-feira</output>
+        </text>
+        <text>
+            <source>Thursday</source>
+            <output>Quinta-feira</output>
+        </text>
+        <text>
+            <source>Friday</source>
+            <output>Sexta-feira</output>
+        </text>
+        <text>
+            <source>Saturday</source>
+            <output>Sábado</output>
+        </text>
+        <text>
+            <source>January</source>
+            <output>Janeiro</output>
+        </text>
+        <text>
+            <source>February</source>
+            <output>Fevereiro</output>
+        </text>
+        <text>
+            <source>March</source>
+            <output>Março</output>
+        </text>
+        <text>
+            <source>April</source>
+            <output>Abril</output>
+        </text>
+        <text>
+            <source>May</source>
+            <output>Maio</output>
+        </text>
+        <text>
+            <source>June</source>
+            <output>Junho</output>
+        </text>
+        <text>
+            <source>July</source>
+            <output>Julho</output>
+        </text>
+        <text>
+            <source>August</source>
+            <output>Agosto</output>
+        </text>
+        <text>
+            <source>September</source>
+            <output>Setembro</output>
+        </text>
+        <text>
+            <source>October</source>
+            <output>Outubro</output>
+        </text>
+        <text>
+            <source>November</source>
+            <output>Novembro</output>
+        </text>
+        <text>
+            <source>December</source>
+            <output>Dezembro</output>
+        </text>
+        <text>
+            <source>The %1 field is required.</source>
+            <output>O %1 campo é necessário.</output>
+        </text>
+        <text>
+            <source>The %1 field is not alphanumeric.</source>
+            <output>O campo %1 não é alfanumérico.</output>
+        </text>
+        <text>
+            <source>The %1 field must contain only characters of the alphabet.</source>
+            <output>O campo %1 deve conter apenas caracteres do alfabeto.</output>
+        </text>
+        <text>
+            <source>The %1 field is not between %2 and %3.</source>
+            <output>O campo não está entre %1 %2 e %3.</output>
+        </text>
+        <text>
+            <source>The address in the %1 field is not a valid email.</source>
+            <output>O endereço no campo %1 não é um email válido.</output>
+        </text>
+        <text>
+            <source>The %1 field does not equal %2.</source>
+            <output>O campo %1 não %2 iguais.</output>
+        </text>
+        <text>
+            <source>The value %1 must be excluded from the %2 field.</source>
+            <output>O valor %1 deve ser excluído do campo de %2.</output>
+        </text>
+        <text>
+            <source>The value %1 must be included from the %2 field.</source>
+            <output>O valor %1 deve ser incluído no campo %2.</output>
+        </text>
+        <text>
+            <source>The %1 field is not greater than %2.</source>
+            <output>O campo %1 não é maior que %2.</output>
+        </text>
+        <text>
+            <source>The length of the %1 field does not equal %2.</source>
+            <output>O comprimento do campo %1 não %2 iguais.</output>
+        </text>
+        <text>
+            <source>The length of the %1 field is not greater than %2.</source>
+            <output>O comprimento do campo %1 não é maior que %2.</output>
+        </text>
+        <text>
+            <source>The length of the %1 field is not less than %2.</source>
+            <output>O comprimento do campo %1 não seja inferior a %2.</output>
+        </text>
+        <text>
+            <source>The %1 field is not less than %2.</source>
+            <output>O campo %1 não seja inferior a %2.</output>
+        </text>
+        <text>
+            <source>The %1 field must be checked.</source>
+            <output>O campo %1 devem ser verificados.</output>
+        </text>
+        <text>
+            <source>The %1 field is empty.</source>
+            <output>O campo %1 está vazio.</output>
+        </text>
+        <text>
+            <source>The %1 field cannot equal %2.</source>
+            <output>O campo não pode ser igual %1 %2.</output>
+        </text>
+        <text>
+            <source>The %1 field is not a number.</source>
+            <output>O campo %1 não é um número.</output>
+        </text>
+        <text>
+            <source>The %1 field is not in the correct format.</source>
+            <output>O campo %1 não está no formato correto.</output>
+        </text>
+        <text>
+            <source>Please select at least one %1.</source>
+            <output>Selecione pelo menos uma %1.</output>
+        </text>
+        <text>
+            <source>This action cannot be undone. Are you sure?</source>
+            <output>Essa ação não pode ser desfeita. Você tem certeza?</output>
+        </text>
+        <text>
+            <source>Please press Ctrl-D - or Cmd-D on Apple - to bookmark this page.</source>
+            <output>Por favor, pressione Ctrl-D - ou Cmd-D em Apple - para marcar esta página.</output>
+        </text>
+    </locale>
+</language>

@@ -1,0 +1,1479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+        <!ELEMENT language ANY>
+        <!ELEMENT locale ANY>
+        <!ELEMENT text (source,output)>
+        <!ELEMENT source ANY>
+        <!ELEMENT output ANY>
+        <!ATTLIST language
+                src       CDATA    #REQUIRED
+                output    CDATA    #REQUIRED
+                name      CDATA    #REQUIRED
+                native    CDATA    #REQUIRED
+                >
+        <!ATTLIST locale
+                region    CDATA    #REQUIRED
+                name      CDATA    #REQUIRED
+                native    CDATA    #REQUIRED
+                >
+        ]>
+<language src="en" output="he" name="Hebrew" native="עברית">
+    <locale region="IL" name="Israel" native="ישראל">
+        <text>
+            <source>Language</source>
+            <output>שפה</output>
+        </text>
+        <text>
+            <source>DB Adapter</source>
+            <output>מתאם DB</output>
+        </text>
+        <text>
+            <source>DB Name</source>
+            <output>DB שם</output>
+        </text>
+        <text>
+            <source>DB Username</source>
+            <output>DB שם משתמש</output>
+        </text>
+        <text>
+            <source>DB Password</source>
+            <output>מארח DB</output>
+        </text>
+        <text>
+            <source>DB Host</source>
+            <output>מארח DB</output>
+        </text>
+        <text>
+            <source>DB Table Prefix</source>
+            <output>DB לוח קידומת</output>
+        </text>
+        <text>
+            <source>Application URI</source>
+            <output>יישום URI</output>
+        </text>
+        <text>
+            <source>How you will access the system</source>
+            <output>איך יהיה לך גישה למערכת</output>
+        </text>
+        <text>
+            <source>Content Path</source>
+            <output>נתיב תוכן</output>
+        </text>
+        <text>
+            <source>Where assets will be located</source>
+            <output>איפה נכסים יהיו ממוקמים</output>
+        </text>
+        <text>
+            <source>Password Encryption</source>
+            <output>הצפנת סיסמא</output>
+        </text>
+        <text>
+            <source>NEXT</source>
+            <output>הבא</output>
+        </text>
+        <text>
+            <source>Installation</source>
+            <output>התקנה</output>
+        </text>
+        <text>
+            <source>The content directory does not exist.</source>
+            <output>ספריית התוכן לא קיימת.</output>
+        </text>
+        <text>
+            <source>The content directory (or subdirectories) are not writable.</source>
+            <output>ספריית התוכן (או תיקיות המשנה) אינן ניתן לכתיבה.</output>
+        </text>
+        <text>
+            <source>The database name is required.</source>
+            <output>שם מסד הנתונים הנדרש.</output>
+        </text>
+        <text>
+            <source>The database username is required.</source>
+            <output>שם המשתמש של מסד הנתונים הנדרש.</output>
+        </text>
+        <text>
+            <source>The database password is required.</source>
+            <output>סיסמא מסד הנתונים נדרשת.</output>
+        </text>
+        <text>
+            <source>The database host is required.</source>
+            <output>מארח מסד הנתונים הנדרש.</output>
+        </text>
+        <text>
+            <source>The %1 database version must be %2 or greater. (%3 detected.)</source>
+            <output>גרסת האתר %1 חייבת להיות %2 או יותר. (%3 מזוהים.)</output>
+        </text>
+        <text>
+            <source>Configuration</source>
+            <output>תצורה</output>
+        </text>
+        <text>
+            <source>The configuration file is not writable and the configuration has not been written to the file.</source>
+            <output>קובץ התצורה אינו ניתן לכתיבה והתצורה לא נכתבה לקובץ.</output>
+        </text>
+        <text>
+            <source>You will have to copy the code below and paste it into the 'config.php' file to continue.</source>
+            <output>תצטרך להעתיק את הקוד הבא והדבק אותו לקובץ 'config.php' כדי להמשיך.</output>
+        </text>
+        <text>
+            <source>CONTINUE</source>
+            <output>להמשיך</output>
+        </text>
+        <text>
+            <source>User Setup</source>
+            <output>הגדרת משתמש</output>
+        </text>
+        <text>
+            <source>Select User Type</source>
+            <output>סוג המשתמש בחר</output>
+        </text>
+        <text>
+            <source>Email</source>
+            <output>דוא"ל</output>
+        </text>
+        <text>
+            <source>Re-Type Email</source>
+            <output>הקלד מחדש דוא"ל</output>
+        </text>
+        <text>
+            <source>Username</source>
+            <output>שם משתמש</output>
+        </text>
+        <text>
+            <source>Enter Password</source>
+            <output>הזן את הסיסמה</output>
+        </text>
+        <text>
+            <source>Re-Type Password</source>
+            <output>הקלד שוב את סיסמא</output>
+        </text>
+        <text>
+            <source>User Role</source>
+            <output>תפקיד משתמש</output>
+        </text>
+        <text>
+            <source>Verified</source>
+            <output>מאומת</output>
+        </text>
+        <text>
+            <source>Failed Attempts</source>
+            <output>ניסיונות כושלים</output>
+        </text>
+        <text>
+            <source>Allowed Sites</source>
+            <output>אתרים מותרים</output>
+        </text>
+        <text>
+            <source>SELECT</source>
+            <output>לבחור</output>
+        </text>
+        <text>
+            <source>Select</source>
+            <output>לבחור</output>
+        </text>
+        <text>
+            <source>REGISTER</source>
+            <output>הרשמה</output>
+        </text>
+        <text>
+            <source>Register</source>
+            <output>להירשם</output>
+        </text>
+        <text>
+            <source>SAVE</source>
+            <output>לחסוך</output>
+        </text>
+        <text>
+            <source>Save</source>
+            <output>להציל</output>
+        </text>
+        <text>
+            <source>UPDATE</source>
+            <output>לעדכן</output>
+        </text>
+        <text>
+            <source>Update</source>
+            <output>לעדכן</output>
+        </text>
+        <text>
+            <source>PREVIEW</source>
+            <output>תצוגה מקדימה</output>
+        </text>
+        <text>
+            <source>Preview</source>
+            <output>תצוגה מקדימה</output>
+        </text>
+        <text>
+            <source>Blocked</source>
+            <output>חסום</output>
+        </text>
+        <text>
+            <source>Thank you. The system has been successfully installed.</source>
+            <output>תודה.המערכת הותקנה בהצלחה.</output>
+        </text>
+        <text>
+            <source>You can now log in here or view the home page here.</source>
+            <output>עכשיו אתה יכול להיכנס לכאן או להציג בדף הבית כאן.</output>
+        </text>
+        <text>
+            <source>That user already exists.</source>
+            <output>משתמש שכבר קיים.</output>
+        </text>
+        <text>
+            <source>That email already exists.</source>
+            <output>דוא"ל שכבר קיים.</output>
+        </text>
+        <text>
+            <source>The emails do not match.</source>
+            <output>האימיילים אינם תואמים.</output>
+        </text>
+        <text>
+            <source>The passwords do not match.</source>
+            <output>סיסמאות לא תואמות.</output>
+        </text>
+        <text>
+            <source>The 'upload_max_filesize' setting of %1 exceeded.</source>
+            <output>הגדרת 'upload_max_filesize' של 1% עלתה.</output>
+        </text>
+        <text>
+            <source>The file must be less than %1.</source>
+            <output>הקובץ חייב להיות פחות מ 1%.</output>
+        </text>
+        <text>
+            <source>The %1 file type is not allowed.</source>
+            <output>סוג הקובץ 1% אינו מותר.</output>
+        </text>
+        <text>
+            <source>You can now log in %1here%2 or view the home page %3here%4.</source>
+            <output>עכשיו אתה יכול להיכנס ב%1כאן%2 או להציג %3כאן%4 דף הבית. </output>
+        </text>
+        <text>
+            <source>Error</source>
+            <output>שגיאה</output>
+        </text>
+        <text>
+            <source>Page Not Found</source>
+            <output>דף לא נמצא</output>
+        </text>
+        <text>
+            <source>Sorry. That page was not found.</source>
+            <output>סליחה. הדף שלא נמצא.</output>
+        </text>
+        <text>
+            <source>All Rights Reserved.</source>
+            <output>כל הזכויות שמורות.</output>
+        </text>
+        <text>
+            <source>Username</source>
+            <output>שם משתמש</output>
+        </text>
+        <text>
+            <source>Password</source>
+            <output>סיסמא</output>
+        </text>
+        <text>
+            <source>Forgot</source>
+            <output>שכחתי</output>
+        </text>
+        <text>
+            <source>LOGIN</source>
+            <output>התחבר</output>
+        </text>
+        <text>
+            <source>Login</source>
+            <output>כניסה למערכת</output>
+        </text>
+        <text>
+            <source>System Overview</source>
+            <output>סקירת מערכת</output>
+        </text>
+        <text>
+            <source>System Version</source>
+            <output>גרסת מערכת</output>
+        </text>
+        <text>
+            <source>System Domain</source>
+            <output>דומיין מערכת</output>
+        </text>
+        <text>
+            <source>System Document Root</source>
+            <output>שורש מסמך המערכת</output>
+        </text>
+        <text>
+            <source>System Base Path</source>
+            <output>נתיב בסיס מערכת</output>
+        </text>
+        <text>
+            <source>System Application Path</source>
+            <output>נתיב יישום מערכת</output>
+        </text>
+        <text>
+            <source>System Content Path</source>
+            <output>נתיב תוכן מערכת</output>
+        </text>
+        <text>
+            <source>Server Operating System</source>
+            <output>מערכת הפעלה לשרתים</output>
+        </text>
+        <text>
+            <source>Server Software</source>
+            <output>תוכנת שרת</output>
+        </text>
+        <text>
+            <source>Database Version</source>
+            <output>גרסת מסד הנתונים</output>
+        </text>
+        <text>
+            <source>PHP Version</source>
+            <output>PHP גרסה</output>
+        </text>
+        <text>
+            <source>Installed On</source>
+            <output>מותקן ב</output>
+        </text>
+        <text>
+            <source>Updated On</source>
+            <output>מעודכן לתאריך</output>
+        </text>
+        <text>
+            <source>Never</source>
+            <output>מעולם לא</output>
+        </text>
+        <text>
+            <source>Default Settings</source>
+            <output>הגדרות ברירת מחדל</output>
+        </text>
+        <text>
+            <source>System Title</source>
+            <output>כותרת מערכת</output>
+        </text>
+        <text>
+            <source>System Email</source>
+            <output>דוא"ל מערכת</output>
+        </text>
+        <text>
+            <source>Site Title</source>
+            <output>כותרת אתר</output>
+        </text>
+        <text>
+            <source>Separator</source>
+            <output>מפריד</output>
+        </text>
+        <text>
+            <source>Default Language</source>
+            <output>שפת ברירת מחדל</output>
+        </text>
+        <text>
+            <source>Error Message</source>
+            <output>הודעת שגיאה</output>
+        </text>
+        <text>
+            <source>Date &amp; Time Format</source>
+            <output>פורמט תאריך ושעה</output>
+        </text>
+        <text>
+            <source>Date &amp; Time Settings</source>
+            <output>הגדרות תאריך ושעה</output>
+        </text>
+        <text>
+            <source>Media Settings</source>
+            <output>הגדרות מדיה</output>
+        </text>
+        <text>
+            <source>Media Allowed Types</source>
+            <output>סוגי מדיה מחמד</output>
+        </text>
+        <text>
+            <source>Media Max Filesize</source>
+            <output>מדיה מקסימום גודל קובץ</output>
+        </text>
+        <text>
+            <source>Media Actions</source>
+            <output>פעולות מדיה</output>
+        </text>
+        <text>
+            <source>Media Image Adapter</source>
+            <output>מתאם תמונת מדיה</output>
+        </text>
+        <text>
+            <source>Check All</source>
+            <output>בדוק כל</output>
+        </text>
+        <text>
+            <source>Uncheck All</source>
+            <output>בטל סימון של הכל</output>
+        </text>
+        <text>
+            <source>Inverse</source>
+            <output>הופכי</output>
+        </text>
+        <text>
+            <source>Uncheck all to allow any file type.</source>
+            <output>בטל את כל כדי לאפשר לכל סוג קובץ .</output>
+        </text>
+        <text>
+            <source>Limits</source>
+            <output>גבולות</output>
+        </text>
+        <text>
+            <source>Post Max Size</source>
+            <output>גודל הודעה מקסימאלי</output>
+        </text>
+        <text>
+            <source>Upload Max Filesize</source>
+            <output>העלה מספר גודל קובץ</output>
+        </text>
+        <text>
+            <source>Max File Uploads</source>
+            <output>העלאת קבצים מקסימאלי</output>
+        </text>
+        <text>
+            <source>Size</source>
+            <output>גודל</output>
+        </text>
+        <text>
+            <source>Action</source>
+            <output>פעולה</output>
+        </text>
+        <text>
+            <source>Parameters</source>
+            <output>פרמטרים</output>
+        </text>
+        <text>
+            <source>Quality</source>
+            <output>איכות</output>
+        </text>
+        <text>
+            <source>Pagination Limit</source>
+            <output>הגבל עימוד</output>
+        </text>
+        <text>
+            <source>Pagination Range</source>
+            <output>טווח עימוד</output>
+        </text>
+        <text>
+            <source>Live</source>
+            <output>חי</output>
+        </text>
+        <text>
+            <source>Dashboard</source>
+            <output>לוח מחוונים</output>
+        </text>
+        <text>
+            <source>Active</source>
+            <output>פעיל</output>
+        </text>
+        <text>
+            <source>Not Active</source>
+            <output>לא פעיל</output>
+        </text>
+        <text>
+            <source>There are currently no themes installed.</source>
+            <output>כרגע אין ערכות נושא המותקנים .</output>
+        </text>
+        <text>
+            <source>There are currently no modules installed.</source>
+            <output>כרגע אין מודולים מותקנים.</output>
+        </text>
+        <text>
+            <source>Type</source>
+            <output>סוג</output>
+        </text>
+        <text>
+            <source>Title</source>
+            <output>כותרת</output>
+        </text>
+        <text>
+            <source>URI</source>
+            <output>URI</output>
+        </text>
+        <text>
+            <source>Created</source>
+            <output>נוצר</output>
+        </text>
+        <text>
+            <source>Status</source>
+            <output>סטטוס</output>
+        </text>
+        <text>
+            <source>Home</source>
+            <output>דף בית</output>
+        </text>
+        <text>
+            <source>Logged in as</source>
+            <output>מחובר בשם</output>
+        </text>
+        <text>
+            <source>Logout</source>
+            <output>התנתקות</output>
+        </text>
+        <text>
+            <source>Last Login</source>
+            <output>הביקור אחרון</output>
+        </text>
+        <text>
+            <source>Structure</source>
+            <output>מבנה</output>
+        </text>
+        <text>
+            <source>Fields</source>
+            <output>שדות</output>
+        </text>
+        <text>
+            <source>Field Groups</source>
+            <output>קבוצות שדה</output>
+        </text>
+        <text>
+            <source>Extensions</source>
+            <output>הרחבות</output>
+        </text>
+        <text>
+            <source>Themes</source>
+            <output>נושאים</output>
+        </text>
+        <text>
+            <source>Modules</source>
+            <output>מודולים</output>
+        </text>
+        <text>
+            <source>Users</source>
+            <output>משתמשים</output>
+        </text>
+        <text>
+            <source>User Roles</source>
+            <output>תפקידי משתמשים</output>
+        </text>
+        <text>
+            <source>User Types</source>
+            <output>משתמש מקליד</output>
+        </text>
+        <text>
+            <source>User Sessions</source>
+            <output>הפעלות של משתמשים</output>
+        </text>
+        <text>
+            <source>Configuration</source>
+            <output>תצורה</output>
+        </text>
+        <text>
+            <source>Sites</source>
+            <output>אתרים</output>
+        </text>
+        <text>
+            <source>Site</source>
+            <output>אתר</output>
+        </text>
+        <text>
+            <source>Author</source>
+            <output>מחבר</output>
+        </text>
+        <text>
+            <source>Copy</source>
+            <output>העתק</output>
+        </text>
+        <text>
+            <source>Process</source>
+            <output>תהליך</output>
+        </text>
+        <text>
+            <source>Remove</source>
+            <output>להסיר</output>
+        </text>
+        <text>
+            <source>Add</source>
+            <output>להוסיף</output>
+        </text>
+        <text>
+            <source>Search</source>
+            <output>לחפש</output>
+        </text>
+        <text>
+            <source>Back</source>
+            <output>בחזרה</output>
+        </text>
+        <text>
+            <source>Export</source>
+            <output>יצוא</output>
+        </text>
+        <text>
+            <source>Order</source>
+            <output>להזמין</output>
+        </text>
+        <text>
+            <source>Force SSL</source>
+            <output>חיל SSL</output>
+        </text>
+        <text>
+            <source>Roles</source>
+            <output>תפקידים</output>
+        </text>
+        <text>
+            <source>File</source>
+            <output>קובץ</output>
+        </text>
+        <text>
+            <source>Max Size</source>
+            <output>גודל מקסימאלי</output>
+        </text>
+        <text>
+            <source>Files Max</source>
+            <output>קבצים מקסימאלי</output>
+        </text>
+        <text>
+            <source>Max Size Each</source>
+            <output>גודל מקסימאלי לכל</output>
+        </text>
+        <text>
+            <source>Max Size Total</source>
+            <output>סה"כ גודל מקסימאלי</output>
+        </text>
+        <text>
+            <source>Supported Types</source>
+            <output>סוגים נתמכים</output>
+        </text>
+        <text>
+            <source>Name</source>
+            <output>שם</output>
+        </text>
+        <text>
+            <source>Label</source>
+            <output>מדבקה</output>
+        </text>
+        <text>
+            <source>Required</source>
+            <output>דרוש</output>
+        </text>
+        <text>
+            <source>Field Type</source>
+            <output>שדה סוג</output>
+        </text>
+        <text>
+            <source>Field Name</source>
+            <output>שם שדה</output>
+        </text>
+        <text>
+            <source>Field Label</source>
+            <output>תווית שדה</output>
+        </text>
+        <text>
+            <source>Field Values</source>
+            <output>ערכי שדות</output>
+        </text>
+        <text>
+            <source>Pipe delimited</source>
+            <output>צינור המופרד</output>
+        </text>
+        <text>
+            <source>Default Field Values</source>
+            <output>ערכי ברירת מחדל של שדה</output>
+        </text>
+        <text>
+            <source>Field Attributes</source>
+            <output>תכונות שדה</output>
+        </text>
+        <text>
+            <source>Field Validators</source>
+            <output>validators שדה</output>
+        </text>
+        <text>
+            <source>Type / Value / Message</source>
+            <output>סוג / ערך / הודעה</output>
+        </text>
+        <text>
+            <source>Model &amp; Type</source>
+            <output>דגםוסוג</output>
+        </text>
+        <text>
+            <source>Field Group</source>
+            <output>קבוצת שדה</output>
+        </text>
+        <text>
+            <source>Encryption</source>
+            <output>הצפנה</output>
+        </text>
+        <text>
+            <source>Name &amp; Order</source>
+            <output>שם וסדר</output>
+        </text>
+        <text>
+            <source>Dynamic</source>
+            <output>דינמי</output>
+        </text>
+        <text>
+            <source>Yes</source>
+            <output>כן</output>
+        </text>
+        <text>
+            <source>No</source>
+            <output>לא</output>
+        </text>
+        <text>
+            <source>Screenshot</source>
+            <output>צילום מסך</output>
+        </text>
+        <text>
+            <source>Description</source>
+            <output>תיאור</output>
+        </text>
+        <text>
+            <source>Version</source>
+            <output>גרסה</output>
+        </text>
+        <text>
+            <source>Resource</source>
+            <output>משאב</output>
+        </text>
+        <text>
+            <source>Action</source>
+            <output>פעולה</output>
+        </text>
+        <text>
+            <source>Type</source>
+            <output>סוג</output>
+        </text>
+        <text>
+            <source>Permission</source>
+            <output>רשות</output>
+        </text>
+        <text>
+            <source>User Type</source>
+            <output>סוג המשתמש</output>
+        </text>
+        <text>
+            <source>allow</source>
+            <output>להתיר</output>
+        </text>
+        <text>
+            <source>deny</source>
+            <output>להכחיש</output>
+        </text>
+        <text>
+            <source>Default Role</source>
+            <output>תפקיד ברירת מחדל</output>
+        </text>
+        <text>
+            <source>Password Encryption</source>
+            <output>הצפנת סיסמא</output>
+        </text>
+        <text>
+            <source>Allow Global Access</source>
+            <output>אפשר גישה גלובלית</output>
+        </text>
+        <text>
+            <source>Allowed Attempts</source>
+            <output>ניסיונות מחמד</output>
+        </text>
+        <text>
+            <source>Session Expiration</source>
+            <output>פקיעת מושב</output>
+        </text>
+        <text>
+            <source>Minutes</source>
+            <output>פרוטוקול</output>
+        </text>
+        <text>
+            <source>IPs Allowed</source>
+            <output>כתובות IP מחמד</output>
+        </text>
+        <text>
+            <source>IPs Blocked</source>
+            <output>כתובות IP חסימה</output>
+        </text>
+        <text>
+            <source>Log Emails</source>
+            <output>התחבר הודעות דוא"ל</output>
+        </text>
+        <text>
+            <source>Log Exclude</source>
+            <output>התחבר תכלול</output>
+        </text>
+        <text>
+            <source>Controller</source>
+            <output>בקר</output>
+        </text>
+        <text>
+            <source>Sub Controllers</source>
+            <output>בקרי משנה</output>
+        </text>
+        <text>
+            <source>Allow Login</source>
+            <output>לאפשר כניסה</output>
+        </text>
+        <text>
+            <source>Allow Registration</source>
+            <output>לאפשר רישום</output>
+        </text>
+        <text>
+            <source>Allow Multiple Sessions</source>
+            <output>לאפשר פגישות מרובות</output>
+        </text>
+        <text>
+            <source>Session Timeout Warning</source>
+            <output>אזהרת מושב פסק זמן</output>
+        </text>
+        <text>
+            <source>Allow Mobile Access</source>
+            <output>אפשר גישה ניידת</output>
+        </text>
+        <text>
+            <source>Allow Email as Username</source>
+            <output>אפשר דוא"לכשם משתמש</output>
+        </text>
+        <text>
+            <source>User Email Verification</source>
+            <output>אימות דוא"ל למשתמש</output>
+        </text>
+        <text>
+            <source>Track Sessions</source>
+            <output>הפעלות מסלול</output>
+        </text>
+        <text>
+            <source>System Email Verification</source>
+            <output>אימות דוא"ל מערכת</output>
+        </text>
+        <text>
+            <source>Require Approval</source>
+            <output>נדרש אישור</output>
+        </text>
+        <text>
+            <source>Require Login for Unsubscribe</source>
+            <output>דורש כניסהלביטול מנוי</output>
+        </text>
+        <text>
+            <source>Timestamp</source>
+            <output>חותם זמן</output>
+        </text>
+        <text>
+            <source>User Agent</source>
+            <output>סוכן משתמש</output>
+        </text>
+        <text>
+            <source>IP Address</source>
+            <output>כתובת ה-IP</output>
+        </text>
+        <text>
+            <source>Last Action</source>
+            <output>פעולה אחרונה</output>
+        </text>
+        <text>
+            <source>Started</source>
+            <output>התחיל</output>
+        </text>
+        <text>
+            <source>Domain</source>
+            <output>תחום</output>
+        </text>
+        <text>
+            <source>Document Root</source>
+            <output>שורש מסמך</output>
+        </text>
+        <text>
+            <source>Base Path</source>
+            <output>נתיב בסיס</output>
+        </text>
+        <text>
+            <source>You have been sent an email for verification purposes.</source>
+            <output>כבר שלח לך דוא"ל לצורך אימות.</output>
+        </text>
+        <text>
+            <source>Your new account requires the approval of the site administrator.</source>
+            <output>החשבון החדש שלך דורש את אישורו של מנהל האתר.</output>
+        </text>
+        <text>
+            <source>Once access is granted, you will be able to %1log in here%2. If you have trouble gaining access to the site, please contact the %3site administrator%4.</source>
+            <output>ברגע שהגישה מותר, אתה תהיה מסוגל %1login כאן %2. אם אתה מתקשה לקבל גישהלאתר, %3אנא צור קשר עםמנהל site %4.</output>
+        </text>
+        <text>
+            <source>You can %1log in here%2.</source>
+            <output>אתה יכול %1log כאן%2.</output>
+        </text>
+        <text>
+            <source>Dismiss</source>
+            <output>לפטר</output>
+        </text>
+        <text>
+            <source>Show</source>
+            <output>הצגה</output>
+        </text>
+        <text>
+            <source>which folders are not writable</source>
+            <output>אילו תיקיות לא ניתנות לכתיבה</output>
+        </text>
+        <text>
+            <source>Some of the content folders are not writable. This may cause the system to not function properly.</source>
+            <output>חלק מתיקיות התוכן אינם ניתנים לכתיבה. הדבר זה עלול לגרום למערכת לא לתפקד כראוי.</output>
+        </text>
+        <text>
+            <source>We're sorry. That page was not found.</source>
+            <output>אנחנו מצטערים . הדף שלא נמצא.</output>
+        </text>
+        <text>
+            <source>There are currently no users under the %1 user type.</source>
+            <output>כיום אין משתמשיםבסוג משתמש %1.</output>
+        </text>
+        <text>
+            <source>You can add %1a new user here%2 or add %3a new user type here%4.</source>
+            <output>אתה יכול להוסיף משתמשים חדשים %1a כאן%2 או להוסיף סוג %3a משתמש חדש כאן%4.</output>
+        </text>
+        <text>
+            <source>There are currently no users.</source>
+            <output>כיום אין משתמשים.</output>
+        </text>
+        <text>
+            <source>There are currently no logins for this user.</source>
+            <output>כרגע אין שמות משתמש עבור משתמש זה .</output>
+        </text>
+        <text>
+            <source>There are currently no roles.</source>
+            <output>כרגע אין תפקידים.</output>
+        </text>
+        <text>
+            <source>There are currently no sessions.</source>
+            <output>כרגע אין מפגשים.</output>
+        </text>
+        <text>
+            <source>There are currently no types.</source>
+            <output>כרגע אין סוגים .</output>
+        </text>
+        <text>
+            <source>Select</source>
+            <output>לבחור</output>
+        </text>
+        <text>
+            <source>Thumbnail</source>
+            <output>תמונה ממוזערת</output>
+        </text>
+        <text>
+            <source>There are currently no fields.</source>
+            <output>כרגע אין שדות.</output>
+        </text>
+        <text>
+            <source>There are currently no field groups.</source>
+            <output>כרגע אין קבוצות שדה .</output>
+        </text>
+        <text>
+            <source>Install</source>
+            <output>להתקין</output>
+        </text>
+        <text>
+            <source>New modules have been detected. Click the button above to install them.</source>
+            <output>מודולים חדשים שזוהו. לחץ על הכפתור למעלה כדי להתקין אותם.</output>
+        </text>
+        <text>
+            <source>There are currently no modules installed.</source>
+            <output>כרגע אין מודולים מותקנים.</output>
+        </text>
+        <text>
+            <source>New themes have been detected. Click the button above to install them.</source>
+            <output>ערכות נושא חדשות שכבר זוהו. לחץ על הכפתור למעלה כדי להתקין אותם.</output>
+        </text>
+        <text>
+            <source>There are currently no themes installed.</source>
+            <output>כרגע אין ערכות נושא המותקנים.</output>
+        </text>
+        <text>
+            <source>There are currently no additional sites.</source>
+            <output>כרגע אין אתרים נוספים.</output>
+        </text>
+        <text>
+            <source>Multiple sessions are not allowed. Someone is already logged on from %1.</source>
+            <output>פגישות מרובות אסורות. מישהו כבר מחוברמ %1.</output>
+        </text>
+        <text>
+            <source>Mobile access is not allowed.</source>
+            <output>גישה ניידת אינה מותרת.</output>
+        </text>
+        <text>
+            <source>The user is not verified.</source>
+            <output>המשתמש אינו מאומת.</output>
+        </text>
+        <text>
+            <source>The user is not allowed in this area.</source>
+            <output>המשתמש אינו רשאי בתחום זה.</output>
+        </text>
+        <text>
+            <source>The directory %1 is not writable.</source>
+            <output>ספריית %1 אינו ניתן לכתיבה.</output>
+        </text>
+        <text>
+            <source>The themes folder is not writable.</source>
+            <output>נושאי התיקייה אינה ניתן לכתיבה .</output>
+        </text>
+        <text>
+            <source>The modules folder is not writable.</source>
+            <output>מודולים התיקייה אינה ניתן לכתיבה .</output>
+        </text>
+        <text>
+            <source>Replace?</source>
+            <output>להחליף?</output>
+        </text>
+        <text>
+            <source>Select Revision</source>
+            <output>בחר עדכון</output>
+        </text>
+        <text>
+            <source>Original</source>
+            <output>מקורי</output>
+        </text>
+        <text>
+            <source>Phire CMS Installation</source>
+            <output>התקנת Phire CMS</output>
+        </text>
+        <text>
+            <source>That module has not been loaded.</source>
+            <output>מודולשלא נטען .</output>
+        </text>
+        <text>
+            <source>All</source>
+            <output>כל</output>
+        </text>
+        <text>
+            <source>None</source>
+            <output>אף לא אחד</output>
+        </text>
+        <text>
+            <source>Another user is currently logged in as %1 from %2.</source>
+            <output>משתמש אחר מחובר כרגעכ %1 מ %2.</output>
+        </text>
+        <text>
+            <source>Unsubscribed</source>
+            <output>הרשמה בוטל</output>
+        </text>
+        <text>
+            <source>Access Granted</source>
+            <output>גישה אמנם</output>
+        </text>
+        <text>
+            <source>Email Verification</source>
+            <output>אימות דוא"ל</output>
+        </text>
+        <text>
+            <source>Your username and password is:</source>
+            <output>שם המשתמש והסיסמה שלך הוא :</output>
+        </text>
+        <text>
+            <source>Your password has been reset for security reasons. Your username and new password is:</source>
+            <output>הסיסמה שלך כבר לאפס מסיבות ביטחוניות. שם המשתמש שלךוהסיסמה חדשה הוא :</output>
+        </text>
+        <text>
+            <source>Password Reset</source>
+            <output>איפוס סיסמא</output>
+        </text>
+        <text>
+            <source>Login Notification</source>
+            <output>הודעה על כניסה</output>
+        </text>
+        <text>
+            <source>Someone has logged in as a %1 from %2 using %3.</source>
+            <output>מישהו נכנסכ %1 מ %2 באמצעות %3.</output>
+        </text>
+        <text>
+            <source>UPLOAD</source>
+            <output>העלה קובץ</output>
+        </text>
+        <text>
+            <source>Upload</source>
+            <output>העלה</output>
+        </text>
+        <text>
+            <source>A field with history tracking cannot be assigned to a field group.</source>
+            <output>שדה עם מעקב ההיסטוריה לא ניתן הצטרף לקבוצת שדה .</output>
+        </text>
+        <text>
+            <source>An editor cannot be used on a field assigned to a field group.</source>
+            <output>עורך לא ניתן להשתמשבשדה הצטרף לקבוצת שדה .</output>
+        </text>
+        <text>
+            <source>Source</source>
+            <output>מקור</output>
+        </text>
+        <text>
+            <source>That email does not exist.</source>
+            <output>דוא"ל זה לא קיים .</output>
+        </text>
+        <text>
+            <source>That user is not allowed on this site.</source>
+            <output>המשתמש שאינו מורשה באתר זה.</output>
+        </text>
+        <text>
+            <source>To</source>
+            <output>אל</output>
+        </text>
+        <text>
+            <source>From</source>
+            <output>מן</output>
+        </text>
+        <text>
+            <source>That site domain already exists.</source>
+            <output>שתחום האתר כבר קיים.</output>
+        </text>
+        <text>
+            <source>That site document root already exists.</source>
+            <output>כי שורש מסמך האתר כבר קיים.</output>
+        </text>
+        <text>
+            <source>That site document root does not exists.</source>
+            <output>כי שורש מסמך האתר אינו קיים.</output>
+        </text>
+        <text>
+            <source>The base path does not exist under that document root.</source>
+            <output>הנתיב הבסיסי אינו קיים תחת כי שורש מסמך.</output>
+        </text>
+        <text>
+            <source>The index controller does not exist under that document root and base path.</source>
+            <output>בקר המדד אינו קייםשבנתיב בסיס מסמךוהבסיס.</output>
+        </text>
+        <text>
+            <source>The content path does not exist under that document root and base path.</source>
+            <output>נתיב התוכן אינו קייםשבנתיב בסיס מסמךוהבסיס.</output>
+        </text>
+        <text>
+            <source>The content path is not writable under that document root and base path.</source>
+            <output>נתיב התוכן אינו ניתן לכתיבה תחתשנתיב בסיס מסמךוהבסיס.</output>
+        </text>
+        <text>
+            <source>The type name for this user type cannot change and must be 'user'.</source>
+            <output>שם הסוגלסוג משתמש זה לא יכול לשנותוחייב להיות "משתמש" .</output>
+        </text>
+        <text>
+            <source>Dear</source>
+            <output>יקר</output>
+        </text>
+        <text>
+            <source>You have been approved and granted access to</source>
+            <output>יש לך כבר אושרוקבל גישה ל</output>
+        </text>
+        <text>
+            <source>You can now login to the website at:</source>
+            <output>עכשיו אתה יכול להיכנסלאתר האינטרנט בכתובת:</output>
+        </text>
+        <text>
+            <source>Here is your password for</source>
+            <output>הנה הסיסמה שלך עבור</output>
+        </text>
+        <text>
+            <source>You can login at:</source>
+            <output>אתה יכול להתחברב:</output>
+        </text>
+        <text>
+            <source>Thank you for installing Phire CMS for</source>
+            <output>תודה לך על התקנת Phire CMS עבור</output>
+        </text>
+        <text>
+            <source>The website will be viewable here:</source>
+            <output>באתר ניתן יהיה לצפות כאן:</output>
+        </text>
+        <text>
+            <source>To manage the website, you can login to Phire here:</source>
+            <output>כדי לנהל את האתר , אתה יכול להיכנס לPhire כאן:</output>
+        </text>
+        <text>
+            <source>You have been successfully unsubscribed from</source>
+            <output>בוטל מינוי שלך בהצלחה מ</output>
+        </text>
+        <text>
+            <source>Thank you for taking the time to register with</source>
+            <output>תודה לך על שהקדשת מהזמן כדי להירשם</output>
+        </text>
+        <text>
+            <source>In order to verify your email address, please click on the following link:</source>
+            <output>על מנת לאמת את כתובת הדוא"ל שלך, אנא לחץ על הקישור הבא:</output>
+        </text>
+        <text>
+            <source>Once you are approved, you will be able to login to the website at:</source>
+            <output>ברגע שאתה מאושר, אתה תוכל להיכנסלאתר האינטרנט בכתובת:</output>
+        </text>
+        <text>
+            <source>Thank You</source>
+            <output>תודה</output>
+        </text>
+        <text>
+            <source>Default</source>
+            <output>ברירת מחדל</output>
+        </text>
+        <text>
+            <source>SUBMIT</source>
+            <output>להגיש</output>
+        </text>
+        <text>
+            <source>Submit</source>
+            <output>להגיש</output>
+        </text>
+        <text>
+            <source>UNSUBSCRIBE</source>
+            <output>ביטול מנוי</output>
+        </text>
+        <text>
+            <source>Unsubscribe</source>
+            <output>ביטול מנוי</output>
+        </text>
+        <text>
+            <source>No search keywords were passed. Please try again.</source>
+            <output>אין מילות מפתח חיפוש הועברו. אנא נסה שוב.</output>
+        </text>
+        <text>
+            <source>System Error</source>
+            <output>שגיאת מערכת</output>
+        </text>
+        <text>
+            <source>404 Error</source>
+            <output>404 שגיאה</output>
+        </text>
+        <text>
+            <source>Your session has expired.</source>
+            <output>ההפעלה שלך פגה.</output>
+        </text>
+        <text>
+            <source>Profile</source>
+            <output>פרופיל</output>
+        </text>
+        <text>
+            <source>Thank you. You have been unsubscribed from this website.</source>
+            <output>תודה. בוטל מינוי שלך מהאתר זה.</output>
+        </text>
+        <text>
+            <source>Thank you. A password reminder has been sent.</source>
+            <output>תודה.תזכורת סיסמא נשלחה.</output>
+        </text>
+        <text>
+            <source>Verify</source>
+            <output>לאמת</output>
+        </text>
+        <text>
+            <source>Thank you. Your email has been verified.</source>
+            <output>תודה. הדוא"ל שלך אומת.</output>
+        </text>
+        <text>
+            <source>Sorry. That email could not be verified.</source>
+            <output>סליחה. דואר אלקטרוני שלא ניתן לאמת.</output>
+        </text>
+        <text>
+            <source>Select Type</source>
+            <output>בחר סוג</output>
+        </text>
+        <text>
+            <source>Installation Error</source>
+            <output>שגיאת התקנה</output>
+        </text>
+        <text>
+            <source>Logins</source>
+            <output>כניסות</output>
+        </text>
+        <text>
+            <source>All Sites</source>
+            <output>כל האתרים</output>
+        </text>
+        <text>
+            <source>Updated</source>
+            <output>מעודכן</output>
+        </text>
+        <text>
+            <source>by</source>
+            <output>על ידי</output>
+        </text>
+        <text>
+            <source>Change Editor</source>
+            <output>שינוי עורך</output>
+        </text>
+        <text>
+            <source>Clear</source>
+            <output>ברור</output>
+        </text>
+        <text>
+            <source>Saved</source>
+            <output>הציל</output>
+        </text>
+        <text>
+            <source>Removed</source>
+            <output>הוסר</output>
+        </text>
+        <text>
+            <source>Please correct the errors below.</source>
+            <output>אנא תקן את השגיאות הבאות.</output>
+        </text>
+        <text>
+            <source>Hide</source>
+            <output>להסתיר</output>
+        </text>
+        <text>
+            <source>You are about to leave this page and have unsaved changes. Are you sure?</source>
+            <output>אתה עומד לצאת מדף זה ויש שינויים שלא נשמרו. האם אתה בטוח?</output>
+        </text>
+        <text>
+            <source>Your session is about to end.</source>
+            <output>הפגישה שלך עומדת להסתיים.</output>
+        </text>
+        <text>
+            <source>Continue</source>
+            <output>להמשיך</output>
+        </text>
+        <text>
+            <source>The title field is required.</source>
+            <output>שדה הכותרת הנדרש.</output>
+        </text>
+        <text>
+            <source>Edit This Page</source>
+            <output>עריכת דף זה</output>
+        </text>
+        <text>
+            <source>View</source>
+            <output>נוף</output>
+        </text>
+        <text>
+            <source>Date</source>
+            <output>תאריך</output>
+        </text>
+        <text>
+            <source>Reload</source>
+            <output>לטעון מחדש</output>
+        </text>
+        <text>
+            <source>Expiration</source>
+            <output>פקיעה</output>
+        </text>
+        <text>
+            <source>Not Live</source>
+            <output>לא בשידור חי</output>
+        </text>
+        <text>
+            <source>Edit</source>
+            <output>לערוך</output>
+        </text>
+        <text>
+            <source>Click to View</source>
+            <output>לחץ לצפייה</output>
+        </text>
+        <text>
+            <source>Use CAPTCHA</source>
+            <output>השתמש CAPTCHA</output>
+        </text>
+        <text>
+            <source>Use CSRF</source>
+            <output>השתמש CSRF</output>
+        </text>
+        <text>
+            <source>Password Reset</source>
+            <output>איפוס סיסמא</output>
+        </text>
+        <text>
+            <source>Password Reset Interval</source>
+            <output>איפוס סיסמא מרווח</output>
+        </text>
+        <text>
+            <source>1st Login</source>
+            <output>כניסה 1</output>
+        </text>
+        <text>
+            <source>Every</source>
+            <output>כל</output>
+        </text>
+        <text>
+            <source>Day(s)</source>
+            <output>יום (ים)</output>
+        </text>
+        <text>
+            <source>Month(s)</source>
+            <output>חודש (ים)</output>
+        </text>
+        <text>
+            <source>Year(s)</source>
+            <output>שנה (ים)</output>
+        </text>
+        <text>
+            <source>Enter Code</source>
+            <output>הזן את הקוד</output>
+        </text>
+        <text>
+            <source>Reload</source>
+            <output>לטעון מחדש</output>
+        </text>
+        <text>
+            <source>You must reset your password before continuing.</source>
+            <output>עליך לאפס את הסיסמה שלך לפני שתמשיך.</output>
+        </text>
+        <text>
+            <source>The new password cannot be the same.</source>
+            <output>הסיסמה החדשה לא יכולה להיות אותו הדבר.</output>
+        </text>
+        <text>
+            <source>Module Update</source>
+            <output>עדכון מודול</output>
+        </text>
+        <text>
+            <source>Theme Update</source>
+            <output>עדכון נושא</output>
+        </text>
+        <text>
+            <source>System Update</source>
+            <output>עדכון מערכת</output>
+        </text>
+        <text>
+            <source>The %1 folder has been detected as writable.</source>
+            <output>תיקיית %1 זוהתה כניתנת לכתיבה.</output>
+        </text>
+        <text>
+            <source>You can proceed with the %1 update by clicking the update button below.</source>
+            <output>אתה יכול להמשיך עם עדכון %1 על ידי לחיצה על כפתור העדכון בהמשך.</output>
+        </text>
+        <text>
+            <source>FTP Address</source>
+            <output>כתובת ה-FTP</output>
+        </text>
+        <text>
+            <source>FTP Root</source>
+            <output>שורש FTP</output>
+        </text>
+        <text>
+            <source>Log directly into the document root.</source>
+            <output>התחבר ישירות לשורש המסמך.</output>
+        </text>
+        <text>
+            <source>No, change the directory to</source>
+            <output>לא, לשנות את הספרייה ל</output>
+        </text>
+        <text>
+            <source>Use PASV</source>
+            <output>השימוש PASV</output>
+        </text>
+        <text>
+            <source>Protocol</source>
+            <output>פרוטוקול</output>
+        </text>
+        <text>
+            <source>The %1 module has been updated.</source>
+            <output>% מודול 1 עודכן.</output>
+        </text>
+        <text>
+            <source>The %1 theme has been updated.</source>
+            <output>% הנושא 1 עודכן.</output>
+        </text>
+        <text>
+            <source>The system has been updated.</source>
+            <output>המערכת כבר מעודכנת.</output>
+        </text>
+        <text>
+            <source>The update file was not found.</source>
+            <output>קובץ העדכון לא נמצא.</output>
+        </text>
+        <text>
+            <source>Update to</source>
+            <output>עדכון ל</output>
+        </text>
+        <text>
+            <source>Registration Notification</source>
+            <output>הודעה על רישום</output>
+        </text>
+        <text>
+            <source>A new user has registered at</source>
+            <output>משתמש חדש נרשם ב</output>
+        </text>
+        <text>
+            <source>Current</source>
+            <output>הנוכחי</output>
+        </text>
+        <text>
+            <source>Editor</source>
+            <output>עורך</output>
+        </text>
+    </locale>
+</language>

@@ -1,0 +1,12 @@
+<?php include $phireHeader; ?>
+        <h1><?php echo $title; ?></h1>
+        <div class="error-div" style="margin-bottom: 10px; width: 97.5%;"><strong>Warning:</strong> Before performing any updates, you should make a complete backup of all system, module and theme files as well as the database.</div>
+        <div id="result" style="display: none;"></div>
+        <a class="small-btn" href="<?php echo BASE_PATH . APP_URI; ?>/config"><?php $i18n->_e('Back'); ?></a>
+<?php if (isset($msg)): ?>
+        <h3 style="padding: 20px 0 20px 0; clear: both;"><?php echo $msg; ?></h3>
+<?php endif; ?>
+<?php if (isset($form)): ?>
+<?php echo $form; ?>
+<?php endif; ?>
+<?php include $phireFooter; ?>

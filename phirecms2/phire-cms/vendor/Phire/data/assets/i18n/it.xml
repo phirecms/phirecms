@@ -1,0 +1,1479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+        <!ELEMENT language ANY>
+        <!ELEMENT locale ANY>
+        <!ELEMENT text (source,output)>
+        <!ELEMENT source ANY>
+        <!ELEMENT output ANY>
+        <!ATTLIST language
+                src       CDATA    #REQUIRED
+                output    CDATA    #REQUIRED
+                name      CDATA    #REQUIRED
+                native    CDATA    #REQUIRED
+                >
+        <!ATTLIST locale
+                region    CDATA    #REQUIRED
+                name      CDATA    #REQUIRED
+                native    CDATA    #REQUIRED
+                >
+        ]>
+<language src="en" output="it" name="Italian" native="Italiano">
+    <locale region="IT" name="Italy" native="Italia">
+        <text>
+            <source>Language</source>
+            <output>Lingua</output>
+        </text>
+        <text>
+            <source>DB Adapter</source>
+            <output>Adattatore DB</output>
+        </text>
+        <text>
+            <source>DB Name</source>
+            <output>DB Nome</output>
+        </text>
+        <text>
+            <source>DB Username</source>
+            <output>DB Username</output>
+        </text>
+        <text>
+            <source>DB Password</source>
+            <output>DB Password</output>
+        </text>
+        <text>
+            <source>DB Host</source>
+            <output>DB Host</output>
+        </text>
+        <text>
+            <source>DB Table Prefix</source>
+            <output>DB Prefisso delle Tabelle</output>
+        </text>
+        <text>
+            <source>Application URI</source>
+            <output>Applicazione URI</output>
+        </text>
+        <text>
+            <source>How you will access the system</source>
+            <output>Come si accede al sistema</output>
+        </text>
+        <text>
+            <source>Content Path</source>
+            <output>Percorso Contenuto</output>
+        </text>
+        <text>
+            <source>Where assets will be located</source>
+            <output>Dove saranno collocati attività</output>
+        </text>
+        <text>
+            <source>Password Encryption</source>
+            <output>Crittografia Password</output>
+        </text>
+        <text>
+            <source>NEXT</source>
+            <output>AVANTI</output>
+        </text>
+        <text>
+            <source>Installation</source>
+            <output>Installazione</output>
+        </text>
+        <text>
+            <source>The content directory does not exist.</source>
+            <output>L'elenco contenuto non esiste.</output>
+        </text>
+        <text>
+            <source>The content directory (or subdirectories) are not writable.</source>
+            <output>L'elenco contenuto (o sottocartelle) non sono scrivibili.</output>
+        </text>
+        <text>
+            <source>The database name is required.</source>
+            <output>È richiesto il nome del database.</output>
+        </text>
+        <text>
+            <source>The database username is required.</source>
+            <output>È richiesto il nome utente del database.</output>
+        </text>
+        <text>
+            <source>The database password is required.</source>
+            <output>È richiesta la password del database.</output>
+        </text>
+        <text>
+            <source>The database host is required.</source>
+            <output>È necessaria l'host del database.</output>
+        </text>
+        <text>
+            <source>The %1 database version must be %2 or greater. (%3 detected.)</source>
+            <output>La versione %1 del database deve essere %2 o maggiore. (%3 rilevata.)</output>
+        </text>
+        <text>
+            <source>Configuration</source>
+            <output>Configurazione</output>
+        </text>
+        <text>
+            <source>The configuration file is not writable and the configuration has not been written to the file.</source>
+            <output>Il file di configurazione non è scrivibile e la configurazione non è stato scritto per il file.</output>
+        </text>
+        <text>
+            <source>You will have to copy the code below and paste it into the 'config.php' file to continue.</source>
+            <output>Dovrete copiare il codice qui sotto e incollarlo nel file 'config.php' per continuare.</output>
+        </text>
+        <text>
+            <source>CONTINUE</source>
+            <output>CONTINUA</output>
+        </text>
+        <text>
+            <source>User Setup</source>
+            <output>Configurazione utente</output>
+        </text>
+        <text>
+            <source>Select User Type</source>
+            <output>Selezionare il tipo di utente</output>
+        </text>
+        <text>
+            <source>Email</source>
+            <output>Email</output>
+        </text>
+        <text>
+            <source>Re-Type Email</source>
+            <output>Re-Tipo E-mail</output>
+        </text>
+        <text>
+            <source>Username</source>
+            <output>Nome utente</output>
+        </text>
+        <text>
+            <source>Enter Password</source>
+            <output>Immettere la Password</output>
+        </text>
+        <text>
+            <source>Re-Type Password</source>
+            <output>Re-Tipo Password</output>
+        </text>
+        <text>
+            <source>User Role</source>
+            <output>Ruolo utente</output>
+        </text>
+        <text>
+            <source>Verified</source>
+            <output>Verificato</output>
+        </text>
+        <text>
+            <source>Failed Attempts</source>
+            <output>Tentativi falliti</output>
+        </text>
+        <text>
+            <source>Allowed Sites</source>
+            <output>Siti consentiti</output>
+        </text>
+        <text>
+            <source>SELECT</source>
+            <output>SELEZIONA</output>
+        </text>
+        <text>
+            <source>Select</source>
+            <output>Seleziona</output>
+        </text>
+        <text>
+            <source>REGISTER</source>
+            <output>REGISTRO</output>
+        </text>
+        <text>
+            <source>Register</source>
+            <output>Registro</output>
+        </text>
+        <text>
+            <source>SAVE</source>
+            <output>SALVARE</output>
+        </text>
+        <text>
+            <source>Save</source>
+            <output>Salvare</output>
+        </text>
+        <text>
+            <source>UPDATE</source>
+            <output>AGGIORNARE</output>
+        </text>
+        <text>
+            <source>Update</source>
+            <output>Aggiornare</output>
+        </text>
+        <text>
+            <source>PREVIEW</source>
+            <output>ANTEPRIMA</output>
+        </text>
+        <text>
+            <source>Preview</source>
+            <output>Anteprima</output>
+        </text>
+        <text>
+            <source>Blocked</source>
+            <output>Loccato</output>
+        </text>
+        <text>
+            <source>Thank you. The system has been successfully installed.</source>
+            <output>Grazie. Il sistema è stato installato correttamente.</output>
+        </text>
+        <text>
+            <source>You can now log in here or view the home page here.</source>
+            <output>È ora possibile effettuare il login da qui o visualizzare la home page qui.</output>
+        </text>
+        <text>
+            <source>That user already exists.</source>
+            <output>Questo utente esiste già.</output>
+        </text>
+        <text>
+            <source>That email already exists.</source>
+            <output>Quella email esiste già.</output>
+        </text>
+        <text>
+            <source>The emails do not match.</source>
+            <output>Le e-mail non corrispondono.</output>
+        </text>
+        <text>
+            <source>The passwords do not match.</source>
+            <output>Le password non corrispondono.</output>
+        </text>
+        <text>
+            <source>The 'upload_max_filesize' setting of %1 exceeded.</source>
+            <output>L'impostazione di 'upload_max_filesize' di %1 superato.</output>
+        </text>
+        <text>
+            <source>The file must be less than %1.</source>
+            <output>Il file deve essere inferiore al %1.</output>
+        </text>
+        <text>
+            <source>The %1 file type is not allowed.</source>
+            <output>Il tipo di file %1 non è permesso.</output>
+        </text>
+        <text>
+            <source>You can now log in %1here%2 or view the home page %3here%4.</source>
+            <output>È ora possibile accedere %1qui%2 o visualizzare la home page %3qui%4.</output>
+        </text>
+        <text>
+            <source>Error</source>
+            <output>Errore</output>
+        </text>
+        <text>
+            <source>Page Not Found</source>
+            <output>Pagina non trovata</output>
+        </text>
+        <text>
+            <source>Sorry. That page was not found.</source>
+            <output>Scusi. Quella pagina non è stata trovata.</output>
+        </text>
+        <text>
+            <source>All Rights Reserved.</source>
+            <output>Tutti i diritti riservati.</output>
+        </text>
+        <text>
+            <source>Username</source>
+            <output>Nome utente</output>
+        </text>
+        <text>
+            <source>Password</source>
+            <output>Password</output>
+        </text>
+        <text>
+            <source>Forgot</source>
+            <output>Hai dimenticato</output>
+        </text>
+        <text>
+            <source>LOGIN</source>
+            <output>ENTRA</output>
+        </text>
+        <text>
+            <source>Login</source>
+            <output>Entra</output>
+        </text>
+        <text>
+            <source>System Overview</source>
+            <output>Panoramica del sistema</output>
+        </text>
+        <text>
+            <source>System Version</source>
+            <output>Versione del sistema</output>
+        </text>
+        <text>
+            <source>System Domain</source>
+            <output>Sistema di dominio</output>
+        </text>
+        <text>
+            <source>System Document Root</source>
+            <output>Document System Root</output>
+        </text>
+        <text>
+            <source>System Base Path</source>
+            <output>Percorso Base del sistema</output>
+        </text>
+        <text>
+            <source>System Application Path</source>
+            <output>Percorso Application System</output>
+        </text>
+        <text>
+            <source>System Content Path</source>
+            <output>Percorso Content System</output>
+        </text>
+        <text>
+            <source>Server Operating System</source>
+            <output>Server del sistema operativo</output>
+        </text>
+        <text>
+            <source>Server Software</source>
+            <output>Software Server</output>
+        </text>
+        <text>
+            <source>Database Version</source>
+            <output>Database Version</output>
+        </text>
+        <text>
+            <source>PHP Version</source>
+            <output>PHP Version</output>
+        </text>
+        <text>
+            <source>Installed On</source>
+            <output>Installato su</output>
+        </text>
+        <text>
+            <source>Updated On</source>
+            <output>Aggiornato On</output>
+        </text>
+        <text>
+            <source>Never</source>
+            <output>Mai</output>
+        </text>
+        <text>
+            <source>Default Settings</source>
+            <output>Impostazioni predefinite</output>
+        </text>
+        <text>
+            <source>System Title</source>
+            <output>Sistema titolo</output>
+        </text>
+        <text>
+            <source>System Email</source>
+            <output>Sistema Email</output>
+        </text>
+        <text>
+            <source>Site Title</source>
+            <output>Site Title</output>
+        </text>
+        <text>
+            <source>Separator</source>
+            <output>Separatore</output>
+        </text>
+        <text>
+            <source>Default Language</source>
+            <output>Lingua di default</output>
+        </text>
+        <text>
+            <source>Error Message</source>
+            <output>Messaggio di errore</output>
+        </text>
+        <text>
+            <source>Date &amp; Time Format</source>
+            <output>Data e ora Formato</output>
+        </text>
+        <text>
+            <source>Date &amp; Time Settings</source>
+            <output>Impostazioni data e ora</output>
+        </text>
+        <text>
+            <source>Media Settings</source>
+            <output>Impostazioni dei supporti</output>
+        </text>
+        <text>
+            <source>Media Allowed Types</source>
+            <output>Tipi di supporti sono ammessi</output>
+        </text>
+        <text>
+            <source>Media Max Filesize</source>
+            <output>Supporti Max Dimensione del file</output>
+        </text>
+        <text>
+            <source>Media Actions</source>
+            <output>Le azioni dei media</output>
+        </text>
+        <text>
+            <source>Media Image Adapter</source>
+            <output>Adattatore multimediale Immagine</output>
+        </text>
+        <text>
+            <source>Check All</source>
+            <output>Seleziona tutto</output>
+        </text>
+        <text>
+            <source>Uncheck All</source>
+            <output>Deseleziona Tutti</output>
+        </text>
+        <text>
+            <source>Inverse</source>
+            <output>Inverso</output>
+        </text>
+        <text>
+            <source>Uncheck all to allow any file type.</source>
+            <output>Deseleziona tutto per consentire a qualsiasi tipo di file.</output>
+        </text>
+        <text>
+            <source>Limits</source>
+            <output>Limiti</output>
+        </text>
+        <text>
+            <source>Post Max Size</source>
+            <output>Posta Max Size</output>
+        </text>
+        <text>
+            <source>Upload Max Filesize</source>
+            <output>Carica Max Dimensione del file</output>
+        </text>
+        <text>
+            <source>Max File Uploads</source>
+            <output>Upload di file Max</output>
+        </text>
+        <text>
+            <source>Size</source>
+            <output>Dimensione</output>
+        </text>
+        <text>
+            <source>Action</source>
+            <output>Azione</output>
+        </text>
+        <text>
+            <source>Parameters</source>
+            <output>Parametri</output>
+        </text>
+        <text>
+            <source>Quality</source>
+            <output>Qualità</output>
+        </text>
+        <text>
+            <source>Pagination Limit</source>
+            <output>Impaginazione Limit</output>
+        </text>
+        <text>
+            <source>Pagination Range</source>
+            <output>Impaginazione Gamma</output>
+        </text>
+        <text>
+            <source>Live</source>
+            <output>Vivere</output>
+        </text>
+        <text>
+            <source>Dashboard</source>
+            <output>Cruscotto</output>
+        </text>
+        <text>
+            <source>Active</source>
+            <output>Attivo</output>
+        </text>
+        <text>
+            <source>Not Active</source>
+            <output>Non attivo</output>
+        </text>
+        <text>
+            <source>There are currently no themes installed.</source>
+            <output>Non ci sono temi installati.</output>
+        </text>
+        <text>
+            <source>There are currently no modules installed.</source>
+            <output>Ci sono attualmente installate nessun modulo.</output>
+        </text>
+        <text>
+            <source>Type</source>
+            <output>Tipo</output>
+        </text>
+        <text>
+            <source>Title</source>
+            <output>Titolo</output>
+        </text>
+        <text>
+            <source>URI</source>
+            <output>URI</output>
+        </text>
+        <text>
+            <source>Created</source>
+            <output>Creato</output>
+        </text>
+        <text>
+            <source>Status</source>
+            <output>Stato</output>
+        </text>
+        <text>
+            <source>Home</source>
+            <output>Casa</output>
+        </text>
+        <text>
+            <source>Logged in as</source>
+            <output>Registrato come</output>
+        </text>
+        <text>
+            <source>Logout</source>
+            <output>Logout</output>
+        </text>
+        <text>
+            <source>Last Login</source>
+            <output>Ultimo Login</output>
+        </text>
+        <text>
+            <source>Structure</source>
+            <output>Struttura</output>
+        </text>
+        <text>
+            <source>Fields</source>
+            <output>Campi</output>
+        </text>
+        <text>
+            <source>Field Groups</source>
+            <output>Campo Gruppi</output>
+        </text>
+        <text>
+            <source>Extensions</source>
+            <output>Estensioni</output>
+        </text>
+        <text>
+            <source>Themes</source>
+            <output>Temi</output>
+        </text>
+        <text>
+            <source>Modules</source>
+            <output>Moduli</output>
+        </text>
+        <text>
+            <source>Users</source>
+            <output>Utenti</output>
+        </text>
+        <text>
+            <source>User Roles</source>
+            <output>Ruoli degli utenti</output>
+        </text>
+        <text>
+            <source>User Types</source>
+            <output>Tipi di utente</output>
+        </text>
+        <text>
+            <source>User Sessions</source>
+            <output>Sessioni utente</output>
+        </text>
+        <text>
+            <source>Configuration</source>
+            <output>Configurazione</output>
+        </text>
+        <text>
+            <source>Sites</source>
+            <output>Siti</output>
+        </text>
+        <text>
+            <source>Site</source>
+            <output>Posto</output>
+        </text>
+        <text>
+            <source>Author</source>
+            <output>Autore</output>
+        </text>
+        <text>
+            <source>Copy</source>
+            <output>Copia</output>
+        </text>
+        <text>
+            <source>Process</source>
+            <output>Processo</output>
+        </text>
+        <text>
+            <source>Remove</source>
+            <output>Rimuovere</output>
+        </text>
+        <text>
+            <source>Add</source>
+            <output>Aggiungere</output>
+        </text>
+        <text>
+            <source>Search</source>
+            <output>Ricerca</output>
+        </text>
+        <text>
+            <source>Back</source>
+            <output>Indietro</output>
+        </text>
+        <text>
+            <source>Export</source>
+            <output>Export</output>
+        </text>
+        <text>
+            <source>Order</source>
+            <output>Ordine</output>
+        </text>
+        <text>
+            <source>Force SSL</source>
+            <output>Forza SSL</output>
+        </text>
+        <text>
+            <source>Roles</source>
+            <output>Ruoli</output>
+        </text>
+        <text>
+            <source>File</source>
+            <output>File</output>
+        </text>
+        <text>
+            <source>Max Size</source>
+            <output>Dimensione massima</output>
+        </text>
+        <text>
+            <source>Files Max</source>
+            <output>File di Max</output>
+        </text>
+        <text>
+            <source>Max Size Each</source>
+            <output>Dimensione massima Ciascun</output>
+        </text>
+        <text>
+            <source>Max Size Total</source>
+            <output>Dimensione massima totale</output>
+        </text>
+        <text>
+            <source>Supported Types</source>
+            <output>Tipi supportati</output>
+        </text>
+        <text>
+            <source>Name</source>
+            <output>Nome</output>
+        </text>
+        <text>
+            <source>Label</source>
+            <output>Etichetta</output>
+        </text>
+        <text>
+            <source>Required</source>
+            <output>Richiesto</output>
+        </text>
+        <text>
+            <source>Field Type</source>
+            <output>Tipo di campo</output>
+        </text>
+        <text>
+            <source>Field Name</source>
+            <output>Nome del campo</output>
+        </text>
+        <text>
+            <source>Field Label</source>
+            <output>Campo Label</output>
+        </text>
+        <text>
+            <source>Field Values</source>
+            <output>Valori di campo</output>
+        </text>
+        <text>
+            <source>Pipe delimited</source>
+            <output>Tubo delimitato</output>
+        </text>
+        <text>
+            <source>Default Field Values</source>
+            <output>Valori di campo predefinito</output>
+        </text>
+        <text>
+            <source>Field Attributes</source>
+            <output>Attributi di campo</output>
+        </text>
+        <text>
+            <source>Field Validators</source>
+            <output>Campo validatori</output>
+        </text>
+        <text>
+            <source>Type / Value / Message</source>
+            <output>Tipo / Valore / Messaggio</output>
+        </text>
+        <text>
+            <source>Model &amp; Type</source>
+            <output>Modello e tipo</output>
+        </text>
+        <text>
+            <source>Field Group</source>
+            <output>Gruppo di campo</output>
+        </text>
+        <text>
+            <source>Encryption</source>
+            <output>Crittografia</output>
+        </text>
+        <text>
+            <source>Name &amp; Order</source>
+            <output>Nome &amp; Order</output>
+        </text>
+        <text>
+            <source>Dynamic</source>
+            <output>Dinamico</output>
+        </text>
+        <text>
+            <source>Yes</source>
+            <output>Sì</output>
+        </text>
+        <text>
+            <source>No</source>
+            <output>No</output>
+        </text>
+        <text>
+            <source>Screenshot</source>
+            <output>Screenshot</output>
+        </text>
+        <text>
+            <source>Description</source>
+            <output>Descrizione</output>
+        </text>
+        <text>
+            <source>Version</source>
+            <output>Versione</output>
+        </text>
+        <text>
+            <source>Resource</source>
+            <output>Risorsa</output>
+        </text>
+        <text>
+            <source>Action</source>
+            <output>Azione</output>
+        </text>
+        <text>
+            <source>Type</source>
+            <output>Tipo</output>
+        </text>
+        <text>
+            <source>Permission</source>
+            <output>Autorizzazione</output>
+        </text>
+        <text>
+            <source>User Type</source>
+            <output>Tipo di utente</output>
+        </text>
+        <text>
+            <source>allow</source>
+            <output>Consentire</output>
+        </text>
+        <text>
+            <source>deny</source>
+            <output>Negare</output>
+        </text>
+        <text>
+            <source>Default Role</source>
+            <output>Ruolo predefinito</output>
+        </text>
+        <text>
+            <source>Password Encryption</source>
+            <output>Crittografia password</output>
+        </text>
+        <text>
+            <source>Allow Global Access</source>
+            <output>Consenti Global Access</output>
+        </text>
+        <text>
+            <source>Allowed Attempts</source>
+            <output>Tentativi sono ammessi</output>
+        </text>
+        <text>
+            <source>Session Expiration</source>
+            <output>Sessione Scadenza</output>
+        </text>
+        <text>
+            <source>Minutes</source>
+            <output>Verbale</output>
+        </text>
+        <text>
+            <source>IPs Allowed</source>
+            <output>IP sono ammessi</output>
+        </text>
+        <text>
+            <source>IPs Blocked</source>
+            <output>IP bloccati</output>
+        </text>
+        <text>
+            <source>Log Emails</source>
+            <output>Log email</output>
+        </text>
+        <text>
+            <source>Log Exclude</source>
+            <output>Log Escludi</output>
+        </text>
+        <text>
+            <source>Controller</source>
+            <output>Controllore</output>
+        </text>
+        <text>
+            <source>Sub Controllers</source>
+            <output>Controllori sub</output>
+        </text>
+        <text>
+            <source>Allow Login</source>
+            <output>Consenti Accesso</output>
+        </text>
+        <text>
+            <source>Allow Registration</source>
+            <output>Consenti registrazione</output>
+        </text>
+        <text>
+            <source>Allow Multiple Sessions</source>
+            <output>Permetti sessioni multiple</output>
+        </text>
+        <text>
+            <source>Session Timeout Warning</source>
+            <output>Timeout sessione Warning</output>
+        </text>
+        <text>
+            <source>Allow Mobile Access</source>
+            <output>Consenti accesso mobile</output>
+        </text>
+        <text>
+            <source>Allow Email as Username</source>
+            <output>Consentire Email come utente</output>
+        </text>
+        <text>
+            <source>User Email Verification</source>
+            <output>User -mail di verifica</output>
+        </text>
+        <text>
+            <source>Track Sessions</source>
+            <output>Sessioni in pista</output>
+        </text>
+        <text>
+            <source>System Email Verification</source>
+            <output>Sistema Email Verifica</output>
+        </text>
+        <text>
+            <source>Require Approval</source>
+            <output>Richiedono l'approvazione</output>
+        </text>
+        <text>
+            <source>Require Login for Unsubscribe</source>
+            <output>Richiedi Accedi per il Cancellati</output>
+        </text>
+        <text>
+            <source>Timestamp</source>
+            <output>Timestamp</output>
+        </text>
+        <text>
+            <source>User Agent</source>
+            <output>User Agent</output>
+        </text>
+        <text>
+            <source>IP Address</source>
+            <output>Indirizzo IP</output>
+        </text>
+        <text>
+            <source>Last Action</source>
+            <output>Ultima azione</output>
+        </text>
+        <text>
+            <source>Started</source>
+            <output>Avviato</output>
+        </text>
+        <text>
+            <source>Domain</source>
+            <output>Dominio</output>
+        </text>
+        <text>
+            <source>Document Root</source>
+            <output>Document Root</output>
+        </text>
+        <text>
+            <source>Base Path</source>
+            <output>Percorso Base</output>
+        </text>
+        <text>
+            <source>You have been sent an email for verification purposes.</source>
+            <output>Ti è stata inviata una e-mail a scopo di verifica.</output>
+        </text>
+        <text>
+            <source>Your new account requires the approval of the site administrator.</source>
+            <output>Il tuo nuovo conto richiede l'approvazione dell'amministratore del sito.</output>
+        </text>
+        <text>
+            <source>Once access is granted, you will be able to %1log in here%2. If you have trouble gaining access to the site, please contact the %3site administrator%4.</source>
+            <output>Una volta che l'accesso è consentito , si sarà in grado di  %1login qui%2. Se hai problemi ad accedere al sito, si prega di contattare %3l' amministratore site%4.</output>
+        </text>
+        <text>
+            <source>You can %1log in here%2.</source>
+            <output>Potete %1login qui%2.</output>
+        </text>
+        <text>
+            <source>Dismiss</source>
+            <output>Respingere</output>
+        </text>
+        <text>
+            <source>Show</source>
+            <output>Spettacolo</output>
+        </text>
+        <text>
+            <source>which folders are not writable</source>
+            <output>Che le cartelle non sono scrivibili</output>
+        </text>
+        <text>
+            <source>Some of the content folders are not writable. This may cause the system to not function properly.</source>
+            <output>Alcune delle cartelle di contenuto non sono scrivibili. Ciò può causare il sistema non funziona correttamente.</output>
+        </text>
+        <text>
+            <source>We're sorry. That page was not found.</source>
+            <output>Siamo spiacenti. Quella pagina non è stata trovata.</output>
+        </text>
+        <text>
+            <source>There are currently no users under the %1 user type.</source>
+            <output>Attualmente non ci sono utenti sotto il tipo di utente %1.</output>
+        </text>
+        <text>
+            <source>You can add %1a new user here%2 or add %3a new user type here%4.</source>
+            <output>Puoi aggiungere %1 bis nuovo utente qui%2 bis o aggiungere %3nuovo tipo di utente qui %4.</output>
+        </text>
+        <text>
+            <source>There are currently no users.</source>
+            <output>Attualmente non ci sono utenti.</output>
+        </text>
+        <text>
+            <source>There are currently no logins for this user.</source>
+            <output>Non ci sono login per questo utente.</output>
+        </text>
+        <text>
+            <source>There are currently no roles.</source>
+            <output>Attualmente non ci sono ruoli.</output>
+        </text>
+        <text>
+            <source>There are currently no sessions.</source>
+            <output>Attualmente non ci sono sessioni.</output>
+        </text>
+        <text>
+            <source>There are currently no types.</source>
+            <output>Attualmente non ci sono tipi.</output>
+        </text>
+        <text>
+            <source>Select</source>
+            <output>Selezionare</output>
+        </text>
+        <text>
+            <source>Thumbnail</source>
+            <output>Thumbnail</output>
+        </text>
+        <text>
+            <source>There are currently no fields.</source>
+            <output>Attualmente non ci sono campi.</output>
+        </text>
+        <text>
+            <source>There are currently no field groups.</source>
+            <output>Al momento non ci sono gruppi di campo.</output>
+        </text>
+        <text>
+            <source>Install</source>
+            <output>Installare</output>
+        </text>
+        <text>
+            <source>New modules have been detected. Click the button above to install them.</source>
+            <output>Sono stati rilevati nuovi moduli. Fare clic sul pulsante qui sopra per installarli.</output>
+        </text>
+        <text>
+            <source>There are currently no modules installed.</source>
+            <output>Ci sono attualmente installate nessun modulo.</output>
+        </text>
+        <text>
+            <source>New themes have been detected. Click the button above to install them.</source>
+            <output>Sono stati rilevati nuovi temi. Fare clic sul pulsante qui sopra per installarli.</output>
+        </text>
+        <text>
+            <source>There are currently no themes installed.</source>
+            <output>Non ci sono temi installati.</output>
+        </text>
+        <text>
+            <source>There are currently no additional sites.</source>
+            <output>Non ci sono altri siti.</output>
+        </text>
+        <text>
+            <source>Multiple sessions are not allowed. Someone is already logged on from %1.</source>
+            <output>Le sessioni multiple non sono ammessi. Qualcuno è già connesso da %1.</output>
+        </text>
+        <text>
+            <source>Mobile access is not allowed.</source>
+            <output>L'accesso mobile non è permesso.</output>
+        </text>
+        <text>
+            <source>The user is not verified.</source>
+            <output>L' utente non è verificato.</output>
+        </text>
+        <text>
+            <source>The user is not allowed in this area.</source>
+            <output>L' utente non è consentito in questa zona.</output>
+        </text>
+        <text>
+            <source>The directory %1 is not writable.</source>
+            <output>La directory  %1 non è scrivibile.</output>
+        </text>
+        <text>
+            <source>The themes folder is not writable.</source>
+            <output>La cartella temi non è scrivibile.</output>
+        </text>
+        <text>
+            <source>The modules folder is not writable.</source>
+            <output>La cartella moduli non è scrivibile.</output>
+        </text>
+        <text>
+            <source>Replace?</source>
+            <output>Sostituire?</output>
+        </text>
+        <text>
+            <source>Select Revision</source>
+            <output>Seleziona Revisione</output>
+        </text>
+        <text>
+            <source>Original</source>
+            <output>Originale</output>
+        </text>
+        <text>
+            <source>Phire CMS Installation</source>
+            <output>Phire CMS Installazione</output>
+        </text>
+        <text>
+            <source>That module has not been loaded.</source>
+            <output>Questo modulo non è stato caricato.</output>
+        </text>
+        <text>
+            <source>All</source>
+            <output>Tutto</output>
+        </text>
+        <text>
+            <source>None</source>
+            <output>Nessuno</output>
+        </text>
+        <text>
+            <source>Another user is currently logged in as %1 from %2.</source>
+            <output>Un altro utente è attualmente connesso come %1 da %2.</output>
+        </text>
+        <text>
+            <source>Unsubscribed</source>
+            <output>Sottoscritta</output>
+        </text>
+        <text>
+            <source>Access Granted</source>
+            <output>Accesso concesso</output>
+        </text>
+        <text>
+            <source>Email Verification</source>
+            <output>Email di verifica</output>
+        </text>
+        <text>
+            <source>Your username and password is:</source>
+            <output>Il tuo nome utente e password è:</output>
+        </text>
+        <text>
+            <source>Your password has been reset for security reasons. Your username and new password is:</source>
+            <output>La tua password è stata reimpostata per motivi di sicurezza. Il tuo nome utente e la nuova password è:</output>
+        </text>
+        <text>
+            <source>Password Reset</source>
+            <output>Password Reset</output>
+        </text>
+        <text>
+            <source>Login Notification</source>
+            <output>Entra Notifica</output>
+        </text>
+        <text>
+            <source>Someone has logged in as a %1 from %2 using %3.</source>
+            <output>Qualcuno ha effettuato l'accesso come %1 da %2 utilizzando %3.</output>
+        </text>
+        <text>
+            <source>UPLOAD</source>
+            <output>UPLOAD</output>
+        </text>
+        <text>
+            <source>Upload</source>
+            <output>Caricare</output>
+        </text>
+        <text>
+            <source>A field with history tracking cannot be assigned to a field group.</source>
+            <output>Un campo con l'inseguimento storia non può essere assegnato ad un gruppo di campi.</output>
+        </text>
+        <text>
+            <source>An editor cannot be used on a field assigned to a field group.</source>
+            <output>Un editore non può essere utilizzato in un campo assegnato a un gruppo di campi.</output>
+        </text>
+        <text>
+            <source>Source</source>
+            <output>Fonte</output>
+        </text>
+        <text>
+            <source>That email does not exist.</source>
+            <output>Che la posta elettronica non esiste.</output>
+        </text>
+        <text>
+            <source>That user is not allowed on this site.</source>
+            <output>Questo utente non è consentito su questo sito.</output>
+        </text>
+        <text>
+            <source>To</source>
+            <output>A</output>
+        </text>
+        <text>
+            <source>From</source>
+            <output>Da</output>
+        </text>
+        <text>
+            <source>That site domain already exists.</source>
+            <output>Quel dominio del sito esiste già.</output>
+        </text>
+        <text>
+            <source>That site document root already exists.</source>
+            <output>Quella radice di documento sito esiste già.</output>
+        </text>
+        <text>
+            <source>That site document root does not exists.</source>
+            <output>Quella radice di documento sito non esiste.</output>
+        </text>
+        <text>
+            <source>The base path does not exist under that document root.</source>
+            <output>Il percorso di base non esiste sotto quella principale del documento.</output>
+        </text>
+        <text>
+            <source>The index controller does not exist under that document root and base path.</source>
+            <output>Il controller indice non esiste in forza di tale radice del documento e la base del percorso.</output>
+        </text>
+        <text>
+            <source>The content path does not exist under that document root and base path.</source>
+            <output>Il percorso del contenuto non esiste in forza di tale radice del documento e la base del percorso.</output>
+        </text>
+        <text>
+            <source>The content path is not writable under that document root and base path.</source>
+            <output>Il percorso contenuto non è scrivibile sotto quella radice del documento e la base del percorso.</output>
+        </text>
+        <text>
+            <source>The type name for this user type cannot change and must be 'user'.</source>
+            <output>Il nome del tipo per questo tipo l'utente non può cambiare e deve essere 'user'.</output>
+        </text>
+        <text>
+            <source>Dear</source>
+            <output>Caro</output>
+        </text>
+        <text>
+            <source>You have been approved and granted access to</source>
+            <output>Lei è stato approvato e concesso l'accesso ai</output>
+        </text>
+        <text>
+            <source>You can now login to the website at:</source>
+            <output>È ora possibile accedere al sito web:</output>
+        </text>
+        <text>
+            <source>Here is your password for</source>
+            <output>Ecco la vostra password per</output>
+        </text>
+        <text>
+            <source>You can login at:</source>
+            <output>È possibile effettuare il login a:</output>
+        </text>
+        <text>
+            <source>Thank you for installing Phire CMS for</source>
+            <output>Grazie per l'installazione di Phire CMS per</output>
+        </text>
+        <text>
+            <source>The website will be viewable here:</source>
+            <output>Il sito web sarà visibile qui:</output>
+        </text>
+        <text>
+            <source>To manage the website, you can login to Phire here:</source>
+            <output>Per gestire il sito , è possibile accedere a Phire qui:</output>
+        </text>
+        <text>
+            <source>You have been successfully unsubscribed from</source>
+            <output>Sei stato annullato l'iscrizione con successo da</output>
+        </text>
+        <text>
+            <source>Thank you for taking the time to register with</source>
+            <output>Grazie per aver dedicato del tempo per registrarsi con</output>
+        </text>
+        <text>
+            <source>In order to verify your email address, please click on the following link:</source>
+            <output>Al fine di verificare l'indirizzo email , clicca sul seguente link:</output>
+        </text>
+        <text>
+            <source>Once you are approved, you will be able to login to the website at:</source>
+            <output>Una volta approvata , sarà in grado di accedere al sito web:</output>
+        </text>
+        <text>
+            <source>Thank You</source>
+            <output>Grazie</output>
+        </text>
+        <text>
+            <source>Default</source>
+            <output>Difetto</output>
+        </text>
+        <text>
+            <source>SUBMIT</source>
+            <output>INVIA</output>
+        </text>
+        <text>
+            <source>Submit</source>
+            <output>Presentare</output>
+        </text>
+        <text>
+            <source>UNSUBSCRIBE</source>
+            <output>CANCELLATI</output>
+        </text>
+        <text>
+            <source>Unsubscribe</source>
+            <output>Cancellati</output>
+        </text>
+        <text>
+            <source>No search keywords were passed. Please try again.</source>
+            <output>Sono state approvate Nessuna parola chiave di ricerca. Riprova.</output>
+        </text>
+        <text>
+            <source>System Error</source>
+            <output>Errore di sistema</output>
+        </text>
+        <text>
+            <source>404 Error</source>
+            <output>Errore 404</output>
+        </text>
+        <text>
+            <source>Your session has expired.</source>
+            <output>La sessione è scaduta.</output>
+        </text>
+        <text>
+            <source>Profile</source>
+            <output>Profilo</output>
+        </text>
+        <text>
+            <source>Thank you. You have been unsubscribed from this website.</source>
+            <output>Grazie. Sei stato annullato l'iscrizione da questo sito.</output>
+        </text>
+        <text>
+            <source>Thank you. A password reminder has been sent.</source>
+            <output>Grazie. Una nuova password è stata inviata.</output>
+        </text>
+        <text>
+            <source>Verify</source>
+            <output>Verificare</output>
+        </text>
+        <text>
+            <source>Thank you. Your email has been verified.</source>
+            <output>Grazie. La tua email è stato verificato.</output>
+        </text>
+        <text>
+            <source>Sorry. That email could not be verified.</source>
+            <output>Scusi. Che la posta elettronica non può essere verificata.</output>
+        </text>
+        <text>
+            <source>Select Type</source>
+            <output>Seleziona tipo</output>
+        </text>
+        <text>
+            <source>Installation Error</source>
+            <output>Errore di installazione</output>
+        </text>
+        <text>
+            <source>Logins</source>
+            <output>Accessi</output>
+        </text>
+        <text>
+            <source>All Sites</source>
+            <output>Tutti i siti</output>
+        </text>
+        <text>
+            <source>Updated</source>
+            <output>Aggiornato</output>
+        </text>
+        <text>
+            <source>by</source>
+            <output>Da</output>
+        </text>
+        <text>
+            <source>Change Editor</source>
+            <output>Cambia Editor</output>
+        </text>
+        <text>
+            <source>Clear</source>
+            <output>Chiaro</output>
+        </text>
+        <text>
+            <source>Saved</source>
+            <output>Salvato</output>
+        </text>
+        <text>
+            <source>Removed</source>
+            <output>Rimosso</output>
+        </text>
+        <text>
+            <source>Please correct the errors below.</source>
+            <output>Si prega di correggere gli errori di seguito.</output>
+        </text>
+        <text>
+            <source>Hide</source>
+            <output>Nascondere</output>
+        </text>
+        <text>
+            <source>You are about to leave this page and have unsaved changes. Are you sure?</source>
+            <output>Si stanno per lasciare questa pagina e avere modifiche non salvate. Sei sicuro?</output>
+        </text>
+        <text>
+            <source>Your session is about to end.</source>
+            <output>La sessione sta per finire.</output>
+        </text>
+        <text>
+            <source>Continue</source>
+            <output>Continuare</output>
+        </text>
+        <text>
+            <source>The title field is required.</source>
+            <output>Il campo è obbligatorio titolo.</output>
+        </text>
+        <text>
+            <source>Edit This Page</source>
+            <output>Modifica questa pagina</output>
+        </text>
+        <text>
+            <source>View</source>
+            <output>Visualizzare</output>
+        </text>
+        <text>
+            <source>Date</source>
+            <output>Data</output>
+        </text>
+        <text>
+            <source>Reload</source>
+            <output>Ricaricare</output>
+        </text>
+        <text>
+            <source>Expiration</source>
+            <output>Scadenza</output>
+        </text>
+        <text>
+            <source>Not Live</source>
+            <output>Non Vivo</output>
+        </text>
+        <text>
+            <source>Edit</source>
+            <output>Modifica</output>
+        </text>
+        <text>
+            <source>Click to View</source>
+            <output>Clicca per Vedere</output>
+        </text>
+        <text>
+            <source>Use CAPTCHA</source>
+            <output>Utilizzare CAPTCHA </output>
+        </text>
+        <text>
+            <source>Use CSRF</source>
+            <output>Utilizzare CSRF</output>
+        </text>
+        <text>
+            <source>Password Reset</source>
+            <output>Reimpostazione della Password</output>
+        </text>
+        <text>
+            <source>Password Reset Interval</source>
+            <output>Reimpostazione della Password Intervallo</output>
+        </text>
+        <text>
+            <source>1st Login</source>
+            <output>Prima Accedi</output>
+        </text>
+        <text>
+            <source>Every</source>
+            <output>Ogni</output>
+        </text>
+        <text>
+            <source>Day(s)</source>
+            <output>Giorni</output>
+        </text>
+        <text>
+            <source>Month(s)</source>
+            <output>Mesi</output>
+        </text>
+        <text>
+            <source>Year(s)</source>
+            <output>Anni</output>
+        </text>
+        <text>
+            <source>Enter Code</source>
+            <output>Inserisci il Codice</output>
+        </text>
+        <text>
+            <source>Reload</source>
+            <output>Ricaricare</output>
+        </text>
+        <text>
+            <source>You must reset your password before continuing.</source>
+            <output>È necessario reimpostare la password prima di continuare.</output>
+        </text>
+        <text>
+            <source>The new password cannot be the same.</source>
+            <output>La nuova password non può essere lo stesso.</output>
+        </text>
+        <text>
+            <source>Module Update</source>
+            <output>Modulo di Aggiornamento</output>
+        </text>
+        <text>
+            <source>Theme Update</source>
+            <output>Tema di Aggiornamento</output>
+        </text>
+        <text>
+            <source>System Update</source>
+            <output>System Aggiornamento</output>
+        </text>
+        <text>
+            <source>The %1 folder has been detected as writable.</source>
+            <output>La cartella %1 è stato rilevato come scrivibile.</output>
+        </text>
+        <text>
+            <source>You can proceed with the %1 update by clicking the update button below.</source>
+            <output>Potete procedere con l' %1 aggiornamento facendo clic sul pulsante di aggiornamento qui sotto.</output>
+        </text>
+        <text>
+            <source>FTP Address</source>
+            <output>Indirizzo FTP</output>
+        </text>
+        <text>
+            <source>FTP Root</source>
+            <output>Root FTP</output>
+        </text>
+        <text>
+            <source>Log directly into the document root.</source>
+            <output>Accedere direttamente nella radice del documento.</output>
+        </text>
+        <text>
+            <source>No, change the directory to</source>
+            <output>No, cambiare la directory di</output>
+        </text>
+        <text>
+            <source>Use PASV</source>
+            <output>Usa PASV</output>
+        </text>
+        <text>
+            <source>Protocol</source>
+            <output>Protocollo</output>
+        </text>
+        <text>
+            <source>The %1 module has been updated.</source>
+            <output>Il modulo %1 è stato aggiornato.</output>
+        </text>
+        <text>
+            <source>The %1 theme has been updated.</source>
+            <output>Il tema %1 è stato aggiornato.</output>
+        </text>
+        <text>
+            <source>The system has been updated.</source>
+            <output>Il sistema è stato aggiornato.</output>
+        </text>
+        <text>
+            <source>The update file was not found.</source>
+            <output>Il file di aggiornamento non è stato trovato.</output>
+        </text>
+        <text>
+            <source>Update to</source>
+            <output>Aggiornare</output>
+        </text>
+        <text>
+            <source>Registration Notification</source>
+            <output>Notifica di registrazione</output>
+        </text>
+        <text>
+            <source>A new user has registered at</source>
+            <output>Un nuovo utente si è registrato a</output>
+        </text>
+        <text>
+            <source>Current</source>
+            <output>Corrente</output>
+        </text>
+        <text>
+            <source>Editor</source>
+            <output>Editore</output>
+        </text>
+    </locale>
+</language>

@@ -1,0 +1,15 @@
+<?php include $phireHeader; ?>
+        <h1 id="user-type-title" data-title="<?php echo (isset($data_title) ? $data_title : null); ?>"><?php echo $title; ?></h1>
+        <div id="result" style="display: none;"></div>
+<?php if ($acl->isAuth('Phire\Controller\Phire\User\TypesController', 'add')): ?>
+        <a class="small-btn" href="<?php echo BASE_PATH . APP_URI; ?>/users/types/add">+ <?php $i18n->_e('Add'); ?></a>
+<?php endif; ?>
+<?php if (isset($form)): ?>
+        <a class="small-btn" href="<?php echo BASE_PATH . APP_URI; ?>/users/types"><?php $i18n->_e('Back'); ?></a>
+<?php echo $form;
+elseif (isset($table)): ?>
+<?php echo $table;
+else: ?>
+        <p style="clear: left; padding: 15px 0 0 0;"><?php $i18n->_e('There are currently no types.'); ?></p>
+<?php endif; ?>
+<?php include $phireFooter; ?>

@@ -1,0 +1,1479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE language [
+        <!ELEMENT language ANY>
+        <!ELEMENT locale ANY>
+        <!ELEMENT text (source,output)>
+        <!ELEMENT source ANY>
+        <!ELEMENT output ANY>
+        <!ATTLIST language
+                src       CDATA    #REQUIRED
+                output    CDATA    #REQUIRED
+                name      CDATA    #REQUIRED
+                native    CDATA    #REQUIRED
+                >
+        <!ATTLIST locale
+                region    CDATA    #REQUIRED
+                name      CDATA    #REQUIRED
+                native    CDATA    #REQUIRED
+                >
+        ]>
+<language src="en" output="ru" name="Russian" native="Россию">
+    <locale region="RU" name="Russia" native="Россия">
+        <text>
+            <source>Language</source>
+            <output>Язык</output>
+        </text>
+        <text>
+            <source>DB Adapter</source>
+            <output>DB адаптер</output>
+        </text>
+        <text>
+            <source>DB Name</source>
+            <output>DB имя</output>
+        </text>
+        <text>
+            <source>DB Username</source>
+            <output>DB Имя пользователя</output>
+        </text>
+        <text>
+            <source>DB Password</source>
+            <output>DB Пароль</output>
+        </text>
+        <text>
+            <source>DB Host</source>
+            <output>DB хоста</output>
+        </text>
+        <text>
+            <source>DB Table Prefix</source>
+            <output>DB Префикс таблиц</output>
+        </text>
+        <text>
+            <source>Application URI</source>
+            <output>URI приложения</output>
+        </text>
+        <text>
+            <source>How you will access the system</source>
+            <output>Как вы будете получать доступ к системе</output>
+        </text>
+        <text>
+            <source>Content Path</source>
+            <output>Содержимое Путь</output>
+        </text>
+        <text>
+            <source>Where assets will be located</source>
+            <output>Где активы будут находиться</output>
+        </text>
+        <text>
+            <source>Password Encryption</source>
+            <output>Пароль Шифрование</output>
+        </text>
+        <text>
+            <source>NEXT</source>
+            <output>Вперед</output>
+        </text>
+        <text>
+            <source>Installation</source>
+            <output>установка</output>
+        </text>
+        <text>
+            <source>The content directory does not exist.</source>
+            <output>Каталог содержание не существует.</output>
+        </text>
+        <text>
+            <source>The content directory (or subdirectories) are not writable.</source>
+            <output>Каталог содержимого (или подкаталоги) не доступны для записи.</output>
+        </text>
+        <text>
+            <source>The database name is required.</source>
+            <output>Имя базы данных не требуется.</output>
+        </text>
+        <text>
+            <source>The database username is required.</source>
+            <output>Имя пользователя базы данных не требуется.</output>
+        </text>
+        <text>
+            <source>The database password is required.</source>
+            <output>Пароль базы данных не требуется.</output>
+        </text>
+        <text>
+            <source>The database host is required.</source>
+            <output>Хозяин базы данных не требуется.</output>
+        </text>
+        <text>
+            <source>The %1 database version must be %2 or greater. (%3 detected.)</source>
+            <output>Версия %1 база данных должна быть %2 или больше. (%3 обнаружено.)</output>
+        </text>
+        <text>
+            <source>Configuration</source>
+            <output>конфигурация</output>
+        </text>
+        <text>
+            <source>The configuration file is not writable and the configuration has not been written to the file.</source>
+            <output>Файл конфигурации не доступна для записи и конфигурация не записываются в файл.</output>
+        </text>
+        <text>
+            <source>You will have to copy the code below and paste it into the 'config.php' file to continue.</source>
+            <output>Вам придется скопируйте данный код и вставьте его в файл config.php, чтобы продолжить.</output>
+        </text>
+        <text>
+            <source>CONTINUE</source>
+            <output>ПРОДОЛЖИТЬ</output>
+        </text>
+        <text>
+            <source>User Setup</source>
+            <output>Настройка пользователя</output>
+        </text>
+        <text>
+            <source>Select User Type</source>
+            <output>Выберите тип пользователя</output>
+        </text>
+        <text>
+            <source>Email</source>
+            <output>E-mail</output>
+        </text>
+        <text>
+            <source>Re-Type Email</source>
+            <output>повторно Тип E-mail</output>
+        </text>
+        <text>
+            <source>Username</source>
+            <output>Имя пользователя</output>
+        </text>
+        <text>
+            <source>Enter Password</source>
+            <output>Введите пароль</output>
+        </text>
+        <text>
+            <source>Re-Type Password</source>
+            <output>Повторите пароль</output>
+        </text>
+        <text>
+            <source>User Role</source>
+            <output>Роль пользователя</output>
+        </text>
+        <text>
+            <source>Verified</source>
+            <output>Проверенные</output>
+        </text>
+        <text>
+            <source>Failed Attempts</source>
+            <output>Неудачных попыток</output>
+        </text>
+        <text>
+            <source>Allowed Sites</source>
+            <output>Разрешенные сайты</output>
+        </text>
+        <text>
+            <source>SELECT</source>
+            <output>ВЫБОР</output>
+        </text>
+        <text>
+            <source>Select</source>
+            <output>выбирать</output>
+        </text>
+        <text>
+            <source>REGISTER</source>
+            <output>РЕГИСТРАЦИЯ</output>
+        </text>
+        <text>
+            <source>Register</source>
+            <output>Регистр</output>
+        </text>
+        <text>
+            <source>SAVE</source>
+            <output>экономить</output>
+        </text>
+        <text>
+            <source>Save</source>
+            <output>экономить</output>
+        </text>
+        <text>
+            <source>UPDATE</source>
+            <output>ОБНОВЛЕНИЕ</output>
+        </text>
+        <text>
+            <source>Update</source>
+            <output>обновление</output>
+        </text>
+        <text>
+            <source>PREVIEW</source>
+            <output>АНОНС</output>
+        </text>
+        <text>
+            <source>Preview</source>
+            <output>предварительный просмотр</output>
+        </text>
+        <text>
+            <source>Blocked</source>
+            <output>Заблокированные</output>
+        </text>
+        <text>
+            <source>Thank you. The system has been successfully installed.</source>
+            <output>Спасибо. Система была успешно установлена​​.</output>
+        </text>
+        <text>
+            <source>You can now log in here or view the home page here.</source>
+            <output>Теперь вы можете войти здесь или посмотреть на домашней странице здесь.</output>
+        </text>
+        <text>
+            <source>That user already exists.</source>
+            <output>Этот пользователь уже существует.</output>
+        </text>
+        <text>
+            <source>That email already exists.</source>
+            <output>В этом сообщении уже существует.</output>
+        </text>
+        <text>
+            <source>The emails do not match.</source>
+            <output>Электронные письма не совпадают.</output>
+        </text>
+        <text>
+            <source>The passwords do not match.</source>
+            <output>Пароли не совпадают.</output>
+        </text>
+        <text>
+            <source>The 'upload_max_filesize' setting of %1 exceeded.</source>
+            <output>Установка 'upload_max_filesize' %1 превышена.</output>
+        </text>
+        <text>
+            <source>The file must be less than %1.</source>
+            <output>Файл должен быть меньше %1.</output>
+        </text>
+        <text>
+            <source>The %1 file type is not allowed.</source>
+            <output>%1 тип файла не допускается.</output>
+        </text>
+        <text>
+            <source>You can now log in %1here%2 or view the home page %3here%4.</source>
+            <output>Теперь вы можете войти %1здесь%2 или просмотреть домашней страницы %3здесь%4.</output>
+        </text>
+        <text>
+            <source>Error</source>
+            <output>ошибка</output>
+        </text>
+        <text>
+            <source>Page Not Found</source>
+            <output>Страница не найдена</output>
+        </text>
+        <text>
+            <source>Sorry. That page was not found.</source>
+            <output>Извините. Это страница не найдена.</output>
+        </text>
+        <text>
+            <source>All Rights Reserved.</source>
+            <output>Все права защищены.</output>
+        </text>
+        <text>
+            <source>Username</source>
+            <output>Имя пользователя</output>
+        </text>
+        <text>
+            <source>Password</source>
+            <output>пароль</output>
+        </text>
+        <text>
+            <source>Forgot</source>
+            <output>Забыли</output>
+        </text>
+        <text>
+            <source>LOGIN</source>
+            <output>ВХОД</output>
+        </text>
+        <text>
+            <source>Login</source>
+            <output>Войти</output>
+        </text>
+        <text>
+            <source>System Overview</source>
+            <output>Обзор системы</output>
+        </text>
+        <text>
+            <source>System Version</source>
+            <output>Версия системы</output>
+        </text>
+        <text>
+            <source>System Domain</source>
+            <output>система доменных</output>
+        </text>
+        <text>
+            <source>System Document Root</source>
+            <output>Корневая система Документ</output>
+        </text>
+        <text>
+            <source>System Base Path</source>
+            <output>Базовая система Путь</output>
+        </text>
+        <text>
+            <source>System Application Path</source>
+            <output>Путь System Application</output>
+        </text>
+        <text>
+            <source>System Content Path</source>
+            <output>Система Содержимое Путь</output>
+        </text>
+        <text>
+            <source>Server Operating System</source>
+            <output>Операционная система сервера</output>
+        </text>
+        <text>
+            <source>Server Software</source>
+            <output>Серверное программное обеспечение</output>
+        </text>
+        <text>
+            <source>Database Version</source>
+            <output>Версия базы данных</output>
+        </text>
+        <text>
+            <source>PHP Version</source>
+            <output>PHP версия</output>
+        </text>
+        <text>
+            <source>Installed On</source>
+            <output>Установленная на</output>
+        </text>
+        <text>
+            <source>Updated On</source>
+            <output>Обновлено</output>
+        </text>
+        <text>
+            <source>Never</source>
+            <output>никогда не</output>
+        </text>
+        <text>
+            <source>Default Settings</source>
+            <output>Настройки по умолчанию</output>
+        </text>
+        <text>
+            <source>System Title</source>
+            <output>Название системы</output>
+        </text>
+        <text>
+            <source>System Email</source>
+            <output>система E-mail</output>
+        </text>
+        <text>
+            <source>Site Title</source>
+            <output>Название сайта</output>
+        </text>
+        <text>
+            <source>Separator</source>
+            <output>сепаратор</output>
+        </text>
+        <text>
+            <source>Default Language</source>
+            <output>Язык по умолчанию</output>
+        </text>
+        <text>
+            <source>Error Message</source>
+            <output>Сообщение об ошибке</output>
+        </text>
+        <text>
+            <source>Date &amp; Time Format</source>
+            <output>Дата и время Формат</output>
+        </text>
+        <text>
+            <source>Date &amp; Time Settings</source>
+            <output>Встречи &amp; Time Settings</output>
+        </text>
+        <text>
+            <source>Media Settings</source>
+            <output>СМИ Настройки</output>
+        </text>
+        <text>
+            <source>Media Allowed Types</source>
+            <output>Разрешены Медиа Виды</output>
+        </text>
+        <text>
+            <source>Media Max Filesize</source>
+            <output>Медиа Максимальный размер файла</output>
+        </text>
+        <text>
+            <source>Media Actions</source>
+            <output>СМИ Действия</output>
+        </text>
+        <text>
+            <source>Media Image Adapter</source>
+            <output>Медиа адаптер изображения</output>
+        </text>
+        <text>
+            <source>Check All</source>
+            <output>Check All</output>
+        </text>
+        <text>
+            <source>Uncheck All</source>
+            <output>Снять отметку со всего</output>
+        </text>
+        <text>
+            <source>Inverse</source>
+            <output>обратный</output>
+        </text>
+        <text>
+            <source>Uncheck all to allow any file type.</source>
+            <output>Снимите все , чтобы любой тип файла.</output>
+        </text>
+        <text>
+            <source>Limits</source>
+            <output>рамки</output>
+        </text>
+        <text>
+            <source>Post Max Size</source>
+            <output>Сообщение Максимальный размер</output>
+        </text>
+        <text>
+            <source>Upload Max Filesize</source>
+            <output>Добавить Максимальный размер файла</output>
+        </text>
+        <text>
+            <source>Max File Uploads</source>
+            <output>Загрузки Макс файла</output>
+        </text>
+        <text>
+            <source>Size</source>
+            <output>размер</output>
+        </text>
+        <text>
+            <source>Action</source>
+            <output>действие</output>
+        </text>
+        <text>
+            <source>Parameters</source>
+            <output>Параметры</output>
+        </text>
+        <text>
+            <source>Quality</source>
+            <output>качество</output>
+        </text>
+        <text>
+            <source>Pagination Limit</source>
+            <output>Разбивка на страницы Ограничение</output>
+        </text>
+        <text>
+            <source>Pagination Range</source>
+            <output>Разбивка на страницы Диапазон</output>
+        </text>
+        <text>
+            <source>Live</source>
+            <output>жить</output>
+        </text>
+        <text>
+            <source>Dashboard</source>
+            <output>приборная панель</output>
+        </text>
+        <text>
+            <source>Active</source>
+            <output>активный</output>
+        </text>
+        <text>
+            <source>Not Active</source>
+            <output>Не активность</output>
+        </text>
+        <text>
+            <source>There are currently no themes installed.</source>
+            <output>Там в настоящее время нет темы установлены.</output>
+        </text>
+        <text>
+            <source>There are currently no modules installed.</source>
+            <output>Там в настоящее время нет модули, установленные.</output>
+        </text>
+        <text>
+            <source>Type</source>
+            <output>тип</output>
+        </text>
+        <text>
+            <source>Title</source>
+            <output>название</output>
+        </text>
+        <text>
+            <source>URI</source>
+            <output>URI</output>
+        </text>
+        <text>
+            <source>Created</source>
+            <output>созданный</output>
+        </text>
+        <text>
+            <source>Status</source>
+            <output>статус</output>
+        </text>
+        <text>
+            <source>Home</source>
+            <output>домой</output>
+        </text>
+        <text>
+            <source>Logged in as</source>
+            <output>Вы вошли как</output>
+        </text>
+        <text>
+            <source>Logout</source>
+            <output>Выход</output>
+        </text>
+        <text>
+            <source>Last Login</source>
+            <output>Последний Войти</output>
+        </text>
+        <text>
+            <source>Structure</source>
+            <output>структура</output>
+        </text>
+        <text>
+            <source>Fields</source>
+            <output>Поля</output>
+        </text>
+        <text>
+            <source>Field Groups</source>
+            <output>Полевые группы</output>
+        </text>
+        <text>
+            <source>Extensions</source>
+            <output>Расширения</output>
+        </text>
+        <text>
+            <source>Themes</source>
+            <output>Темы</output>
+        </text>
+        <text>
+            <source>Modules</source>
+            <output>Модули</output>
+        </text>
+        <text>
+            <source>Users</source>
+            <output>Пользователи</output>
+        </text>
+        <text>
+            <source>User Roles</source>
+            <output>Роли пользователей</output>
+        </text>
+        <text>
+            <source>User Types</source>
+            <output>Типы пользователей</output>
+        </text>
+        <text>
+            <source>User Sessions</source>
+            <output>Сеансы пользователей</output>
+        </text>
+        <text>
+            <source>Configuration</source>
+            <output>конфигурация</output>
+        </text>
+        <text>
+            <source>Sites</source>
+            <output>сайты</output>
+        </text>
+        <text>
+            <source>Site</source>
+            <output>сайт</output>
+        </text>
+        <text>
+            <source>Author</source>
+            <output>автор</output>
+        </text>
+        <text>
+            <source>Copy</source>
+            <output>копия</output>
+        </text>
+        <text>
+            <source>Process</source>
+            <output>процесс</output>
+        </text>
+        <text>
+            <source>Remove</source>
+            <output>удалять</output>
+        </text>
+        <text>
+            <source>Add</source>
+            <output>добавлять</output>
+        </text>
+        <text>
+            <source>Search</source>
+            <output>поиск</output>
+        </text>
+        <text>
+            <source>Back</source>
+            <output>назад</output>
+        </text>
+        <text>
+            <source>Export</source>
+            <output>экспорт</output>
+        </text>
+        <text>
+            <source>Order</source>
+            <output>порядок</output>
+        </text>
+        <text>
+            <source>Force SSL</source>
+            <output>силы SSL</output>
+        </text>
+        <text>
+            <source>Roles</source>
+            <output>Роли</output>
+        </text>
+        <text>
+            <source>File</source>
+            <output>файл</output>
+        </text>
+        <text>
+            <source>Max Size</source>
+            <output>Максимальный размер</output>
+        </text>
+        <text>
+            <source>Files Max</source>
+            <output>Файлы Макс</output>
+        </text>
+        <text>
+            <source>Max Size Each</source>
+            <output>Максимальный размер каждого</output>
+        </text>
+        <text>
+            <source>Max Size Total</source>
+            <output>Максимальный размер Всего</output>
+        </text>
+        <text>
+            <source>Supported Types</source>
+            <output>Поддерживаемые типы</output>
+        </text>
+        <text>
+            <source>Name</source>
+            <output>название</output>
+        </text>
+        <text>
+            <source>Label</source>
+            <output>этикетка</output>
+        </text>
+        <text>
+            <source>Required</source>
+            <output>требуется</output>
+        </text>
+        <text>
+            <source>Field Type</source>
+            <output>поле Тип</output>
+        </text>
+        <text>
+            <source>Field Name</source>
+            <output>Имя поля</output>
+        </text>
+        <text>
+            <source>Field Label</source>
+            <output>Метка поля</output>
+        </text>
+        <text>
+            <source>Field Values</source>
+            <output>Значения полей</output>
+        </text>
+        <text>
+            <source>Pipe delimited</source>
+            <output>Труба с разделителями</output>
+        </text>
+        <text>
+            <source>Default Field Values</source>
+            <output>Значения полей по умолчанию</output>
+        </text>
+        <text>
+            <source>Field Attributes</source>
+            <output>Полевые Атрибуты</output>
+        </text>
+        <text>
+            <source>Field Validators</source>
+            <output>Полевые валидаторов</output>
+        </text>
+        <text>
+            <source>Type / Value / Message</source>
+            <output>Тип / значение / Сообщение</output>
+        </text>
+        <text>
+            <source>Model &amp; Type</source>
+            <output>Модель и тип</output>
+        </text>
+        <text>
+            <source>Field Group</source>
+            <output>Группа полей</output>
+        </text>
+        <text>
+            <source>Encryption</source>
+            <output>шифрование</output>
+        </text>
+        <text>
+            <source>Name &amp; Order</source>
+            <output>Имя и Заказать</output>
+        </text>
+        <text>
+            <source>Dynamic</source>
+            <output>динамический</output>
+        </text>
+        <text>
+            <source>Yes</source>
+            <output>да</output>
+        </text>
+        <text>
+            <source>No</source>
+            <output>нет</output>
+        </text>
+        <text>
+            <source>Screenshot</source>
+            <output>Скриншот</output>
+        </text>
+        <text>
+            <source>Description</source>
+            <output>описание</output>
+        </text>
+        <text>
+            <source>Version</source>
+            <output>версия</output>
+        </text>
+        <text>
+            <source>Resource</source>
+            <output>ресурс</output>
+        </text>
+        <text>
+            <source>Action</source>
+            <output>действие</output>
+        </text>
+        <text>
+            <source>Type</source>
+            <output>тип</output>
+        </text>
+        <text>
+            <source>Permission</source>
+            <output>разрешение</output>
+        </text>
+        <text>
+            <source>User Type</source>
+            <output>Тип Пользователя</output>
+        </text>
+        <text>
+            <source>allow</source>
+            <output>позволять</output>
+        </text>
+        <text>
+            <source>deny</source>
+            <output>отрицать</output>
+        </text>
+        <text>
+            <source>Default Role</source>
+            <output>По умолчанию Роль</output>
+        </text>
+        <text>
+            <source>Password Encryption</source>
+            <output>Пароль Шифрование</output>
+        </text>
+        <text>
+            <source>Allow Global Access</source>
+            <output>Разрешить глобальный доступ</output>
+        </text>
+        <text>
+            <source>Allowed Attempts</source>
+            <output>разрешены Попытки</output>
+        </text>
+        <text>
+            <source>Session Expiration</source>
+            <output>таймаута сессии</output>
+        </text>
+        <text>
+            <source>Minutes</source>
+            <output>минут</output>
+        </text>
+        <text>
+            <source>IPs Allowed</source>
+            <output>Разрешено IP-адреса</output>
+        </text>
+        <text>
+            <source>IPs Blocked</source>
+            <output>IP-адреса Заблокированные</output>
+        </text>
+        <text>
+            <source>Log Emails</source>
+            <output>Войти Письма</output>
+        </text>
+        <text>
+            <source>Log Exclude</source>
+            <output>Войти Исключить</output>
+        </text>
+        <text>
+            <source>Controller</source>
+            <output>контроллер</output>
+        </text>
+        <text>
+            <source>Sub Controllers</source>
+            <output>Sub Контроллеры</output>
+        </text>
+        <text>
+            <source>Allow Login</source>
+            <output>Разрешить Войти</output>
+        </text>
+        <text>
+            <source>Allow Registration</source>
+            <output>Позволяет регистрировать</output>
+        </text>
+        <text>
+            <source>Allow Multiple Sessions</source>
+            <output>Разрешить многочисленные сеансы</output>
+        </text>
+        <text>
+            <source>Session Timeout Warning</source>
+            <output>Тайм-аут сеанса Предупреждение</output>
+        </text>
+        <text>
+            <source>Allow Mobile Access</source>
+            <output>Разрешить мобильный доступ</output>
+        </text>
+        <text>
+            <source>Allow Email as Username</source>
+            <output>Разрешить на e-mail в качестве имени пользователя</output>
+        </text>
+        <text>
+            <source>User Email Verification</source>
+            <output>Пользователь Подтверждение адреса электронной почты</output>
+        </text>
+        <text>
+            <source>Track Sessions</source>
+            <output>Трек Сессии</output>
+        </text>
+        <text>
+            <source>System Email Verification</source>
+            <output>Система Подтверждение адреса электронной почты</output>
+        </text>
+        <text>
+            <source>Require Approval</source>
+            <output>требуют одобрения</output>
+        </text>
+        <text>
+            <source>Require Login for Unsubscribe</source>
+            <output>Требовать вход для Отказаться</output>
+        </text>
+        <text>
+            <source>Timestamp</source>
+            <output>Отметка времени</output>
+        </text>
+        <text>
+            <source>User Agent</source>
+            <output>Агент пользователя</output>
+        </text>
+        <text>
+            <source>IP Address</source>
+            <output>IP-адрес</output>
+        </text>
+        <text>
+            <source>Last Action</source>
+            <output>Последний Действие</output>
+        </text>
+        <text>
+            <source>Started</source>
+            <output>работы</output>
+        </text>
+        <text>
+            <source>Domain</source>
+            <output>домен</output>
+        </text>
+        <text>
+            <source>Document Root</source>
+            <output>Корневая Документ</output>
+        </text>
+        <text>
+            <source>Base Path</source>
+            <output>База Путь</output>
+        </text>
+        <text>
+            <source>You have been sent an email for verification purposes.</source>
+            <output>Вы были отправлены по электронной почте в целях проверки.</output>
+        </text>
+        <text>
+            <source>Your new account requires the approval of the site administrator.</source>
+            <output>Ваш новый счет требует одобрения администратором сайта.</output>
+        </text>
+        <text>
+            <source>Once access is granted, you will be able to %1log in here%2. If you have trouble gaining access to the site, please contact the %3site administrator%4.</source>
+            <output>После того, как доступ разрешен , вы сможете %1log в здесь%2. Если у вас возникли проблемы с получением доступа к сайту , пожалуйста, свяжитесь с %администратора site%4.</output>
+        </text>
+        <text>
+            <source>You can %1log in here%2.</source>
+            <output>Вы можете %1log в здесь%2.</output>
+        </text>
+        <text>
+            <source>Dismiss</source>
+            <output>увольнять</output>
+        </text>
+        <text>
+            <source>Show</source>
+            <output>шоу</output>
+        </text>
+        <text>
+            <source>which folders are not writable</source>
+            <output>какие папки не доступны для записи</output>
+        </text>
+        <text>
+            <source>Some of the content folders are not writable. This may cause the system to not function properly.</source>
+            <output>Некоторые из папки содержимого не для записи. Это может привести к системе не работает должным образом.</output>
+        </text>
+        <text>
+            <source>We're sorry. That page was not found.</source>
+            <output>Приносим свои извинения. Это страница не найдена.</output>
+        </text>
+        <text>
+            <source>There are currently no users under the %1 user type.</source>
+            <output>Там в настоящее время нет пользователей под  %1 типа пользователя.</output>
+        </text>
+        <text>
+            <source>You can add %1a new user here%2 or add %3a new user type here%4.</source>
+            <output>Вы можете добавить  %1а нового пользователя здесь%2 или добавить %3a новый тип пользовательского здесь%4.</output>
+        </text>
+        <text>
+            <source>There are currently no users.</source>
+            <output>Там в настоящее время нет пользователей.</output>
+        </text>
+        <text>
+            <source>There are currently no logins for this user.</source>
+            <output>Там в настоящее время нет логины для этого пользователя.</output>
+        </text>
+        <text>
+            <source>There are currently no roles.</source>
+            <output>Там в настоящее время нет роли.</output>
+        </text>
+        <text>
+            <source>There are currently no sessions.</source>
+            <output>Там в настоящее время нет сессии.</output>
+        </text>
+        <text>
+            <source>There are currently no types.</source>
+            <output>Там в настоящее время нет типов.</output>
+        </text>
+        <text>
+            <source>Select</source>
+            <output>выбирать</output>
+        </text>
+        <text>
+            <source>Thumbnail</source>
+            <output>Миниатюра</output>
+        </text>
+        <text>
+            <source>There are currently no fields.</source>
+            <output>Там в настоящее время нет поля.</output>
+        </text>
+        <text>
+            <source>There are currently no field groups.</source>
+            <output>Там в настоящее время нет группы полей.</output>
+        </text>
+        <text>
+            <source>Install</source>
+            <output>устанавливать</output>
+        </text>
+        <text>
+            <source>New modules have been detected. Click the button above to install them.</source>
+            <output>Новые модули были обнаружены. Нажмите кнопку выше, чтобы установить их.</output>
+        </text>
+        <text>
+            <source>There are currently no modules installed.</source>
+            <output>Там в настоящее время нет модули, установленные.</output>
+        </text>
+        <text>
+            <source>New themes have been detected. Click the button above to install them.</source>
+            <output>Новые темы были обнаружены. Нажмите кнопку выше, чтобы установить их.</output>
+        </text>
+        <text>
+            <source>There are currently no themes installed.</source>
+            <output>Там в настоящее время нет темы установлены.</output>
+        </text>
+        <text>
+            <source>There are currently no additional sites.</source>
+            <output>Там в настоящее время нет дополнительных сайтов.</output>
+        </text>
+        <text>
+            <source>Multiple sessions are not allowed. Someone is already logged on from %1.</source>
+            <output>Несколько сеансов не допускаются. Кто-то уже вошел в систему с %1.</output>
+        </text>
+        <text>
+            <source>Mobile access is not allowed.</source>
+            <output>Мобильный доступ не допускается.</output>
+        </text>
+        <text>
+            <source>The user is not verified.</source>
+            <output>Пользователь не проверяется.</output>
+        </text>
+        <text>
+            <source>The user is not allowed in this area.</source>
+            <output>Пользователю не разрешается в этой области.</output>
+        </text>
+        <text>
+            <source>The directory %1 is not writable.</source>
+            <output>Каталог %1 не доступна для записи.</output>
+        </text>
+        <text>
+            <source>The themes folder is not writable.</source>
+            <output>Папка темы не доступна для записи.</output>
+        </text>
+        <text>
+            <source>The modules folder is not writable.</source>
+            <output>Папка модули не доступна для записи.</output>
+        </text>
+        <text>
+            <source>Replace?</source>
+            <output>Заменить ?</output>
+        </text>
+        <text>
+            <source>Select Revision</source>
+            <output>Выберите Revision</output>
+        </text>
+        <text>
+            <source>Original</source>
+            <output>оригинальный</output>
+        </text>
+        <text>
+            <source>Phire CMS Installation</source>
+            <output>Phire CMS Установка</output>
+        </text>
+        <text>
+            <source>That module has not been loaded.</source>
+            <output>Этот модуль не был загружен.</output>
+        </text>
+        <text>
+            <source>All</source>
+            <output>все</output>
+        </text>
+        <text>
+            <source>None</source>
+            <output>Ни один</output>
+        </text>
+        <text>
+            <source>Another user is currently logged in as %1 from %2.</source>
+            <output>Другой пользователь в настоящее время вошли в систему как %1 с %2.</output>
+        </text>
+        <text>
+            <source>Unsubscribed</source>
+            <output>Подписка отменена</output>
+        </text>
+        <text>
+            <source>Access Granted</source>
+            <output>Доступ разрешен</output>
+        </text>
+        <text>
+            <source>Email Verification</source>
+            <output>Подтверждение адреса электронной почты</output>
+        </text>
+        <text>
+            <source>Your username and password is:</source>
+            <output>Ваше имя пользователя и пароль:</output>
+        </text>
+        <text>
+            <source>Your password has been reset for security reasons. Your username and new password is:</source>
+            <output>Ваш пароль был сброшен по соображениям безопасности. Ваше имя пользователя и новый пароль:</output>
+        </text>
+        <text>
+            <source>Password Reset</source>
+            <output>Сброс пароля</output>
+        </text>
+        <text>
+            <source>Login Notification</source>
+            <output>Войти Уведомление</output>
+        </text>
+        <text>
+            <source>Someone has logged in as a %1 from %2 using %3.</source>
+            <output>Кто-то вошли как %1 с %2, используя %3.</output>
+        </text>
+        <text>
+            <source>UPLOAD</source>
+            <output>ЗАГРУЗИТЬ</output>
+        </text>
+        <text>
+            <source>Upload</source>
+            <output>загружать</output>
+        </text>
+        <text>
+            <source>A field with history tracking cannot be assigned to a field group.</source>
+            <output>Поле с отслеживанием истории не может быть назначен в полевой группы.</output>
+        </text>
+        <text>
+            <source>An editor cannot be used on a field assigned to a field group.</source>
+            <output>Редактор не может быть использован на поле , назначенного на группы полей.</output>
+        </text>
+        <text>
+            <source>Source</source>
+            <output>источник</output>
+        </text>
+        <text>
+            <source>That email does not exist.</source>
+            <output>В этом сообщении также не существует.</output>
+        </text>
+        <text>
+            <source>That user is not allowed on this site.</source>
+            <output>Этот пользователь не допускается на этом сайте.</output>
+        </text>
+        <text>
+            <source>To</source>
+            <output>к</output>
+        </text>
+        <text>
+            <source>From</source>
+            <output>от</output>
+        </text>
+        <text>
+            <source>That site domain already exists.</source>
+            <output>Это доменное сайт уже существует.</output>
+        </text>
+        <text>
+            <source>That site document root already exists.</source>
+            <output>Это корень документа сайт уже существует.</output>
+        </text>
+        <text>
+            <source>That site document root does not exists.</source>
+            <output>Это корень документа сайт не существует.</output>
+        </text>
+        <text>
+            <source>The base path does not exist under that document root.</source>
+            <output>Базовый путь не существует в этом корневом каталоге документов.</output>
+        </text>
+        <text>
+            <source>The index controller does not exist under that document root and base path.</source>
+            <output>Контроллер индекс не существует в этом дереве документа и базового пути.</output>
+        </text>
+        <text>
+            <source>The content path does not exist under that document root and base path.</source>
+            <output>Путь содержание не существует в этом дереве документа и базового пути.</output>
+        </text>
+        <text>
+            <source>The content path is not writable under that document root and base path.</source>
+            <output>Путь содержание не доступна для записи в этом дереве документа и базового пути.</output>
+        </text>
+        <text>
+            <source>The type name for this user type cannot change and must be 'user'.</source>
+            <output>Имя типа для этого пользователя типа не может изменить и должно быть "пользователь".</output>
+        </text>
+        <text>
+            <source>Dear</source>
+            <output>дорогой</output>
+        </text>
+        <text>
+            <source>You have been approved and granted access to</source>
+            <output>Вы были одобрены и получили доступ к</output>
+        </text>
+        <text>
+            <source>You can now login to the website at:</source>
+            <output>Вы можете войти на сайт по адресу:</output>
+        </text>
+        <text>
+            <source>Here is your password for</source>
+            <output>Вот ваш пароль для</output>
+        </text>
+        <text>
+            <source>You can login at:</source>
+            <output>Вы можете войти на:</output>
+        </text>
+        <text>
+            <source>Thank you for installing Phire CMS for</source>
+            <output>Спасибо за установкой Phire CMS для</output>
+        </text>
+        <text>
+            <source>The website will be viewable here:</source>
+            <output>На сайте можно будет просмотреть здесь:</output>
+        </text>
+        <text>
+            <source>To manage the website, you can login to Phire here:</source>
+            <output>Для управления веб-сайт , вы можете войти в Phire здесь:</output>
+        </text>
+        <text>
+            <source>You have been successfully unsubscribed from</source>
+            <output>Вы успешно отписались от</output>
+        </text>
+        <text>
+            <source>Thank you for taking the time to register with</source>
+            <output>Спасибо, что нашли время, чтобы зарегистрироваться в</output>
+        </text>
+        <text>
+            <source>In order to verify your email address, please click on the following link:</source>
+            <output>Для того чтобы проверить ваш адрес электронной почты , пожалуйста, нажмите на следующую ссылку:</output>
+        </text>
+        <text>
+            <source>Once you are approved, you will be able to login to the website at:</source>
+            <output>Как только вы одобрили , вы сможете войти в веб-сайте по адресу:</output>
+        </text>
+        <text>
+            <source>Thank You</source>
+            <output>Спасибо</output>
+        </text>
+        <text>
+            <source>Default</source>
+            <output>дефолт</output>
+        </text>
+        <text>
+            <source>SUBMIT</source>
+            <output>ПОДАТЬ</output>
+        </text>
+        <text>
+            <source>Submit</source>
+            <output>представлять</output>
+        </text>
+        <text>
+            <source>UNSUBSCRIBE</source>
+            <output>ОТКАЗАТЬСЯ ОТ ПОДПИСКИ</output>
+        </text>
+        <text>
+            <source>Unsubscribe</source>
+            <output>Отказаться от подписки</output>
+        </text>
+        <text>
+            <source>No search keywords were passed. Please try again.</source>
+            <output>Не были приняты Нет поиска ключевые слова. Пожалуйста, попробуйте еще раз.</output>
+        </text>
+        <text>
+            <source>System Error</source>
+            <output>Системная ошибка</output>
+        </text>
+        <text>
+            <source>404 Error</source>
+            <output>Ошибка 404</output>
+        </text>
+        <text>
+            <source>Your session has expired.</source>
+            <output>Ваша сессия истекла.</output>
+        </text>
+        <text>
+            <source>Profile</source>
+            <output>профиль</output>
+        </text>
+        <text>
+            <source>Thank you. You have been unsubscribed from this website.</source>
+            <output>Спасибо. Вы отказались от этого вебсайта.</output>
+        </text>
+        <text>
+            <source>Thank you. A password reminder has been sent.</source>
+            <output>Спасибо. Функция напоминания пароля была отправлена​​.</output>
+        </text>
+        <text>
+            <source>Verify</source>
+            <output>проверить</output>
+        </text>
+        <text>
+            <source>Thank you. Your email has been verified.</source>
+            <output>Спасибо. Ваше сообщение было проверено.</output>
+        </text>
+        <text>
+            <source>Sorry. That email could not be verified.</source>
+            <output>Извините. Это письмо не может быть проверен.</output>
+        </text>
+        <text>
+            <source>Select Type</source>
+            <output>Выберите тип</output>
+        </text>
+        <text>
+            <source>Installation Error</source>
+            <output>Ошибка установки</output>
+        </text>
+        <text>
+            <source>Logins</source>
+            <output>Заходы</output>
+        </text>
+        <text>
+            <source>All Sites</source>
+            <output>Все сайты</output>
+        </text>
+        <text>
+            <source>Updated</source>
+            <output>обновленный</output>
+        </text>
+        <text>
+            <source>by</source>
+            <output>по</output>
+        </text>
+        <text>
+            <source>Change Editor</source>
+            <output>Изменение редактор</output>
+        </text>
+        <text>
+            <source>Clear</source>
+            <output>ясно</output>
+        </text>
+        <text>
+            <source>Saved</source>
+            <output>Сохраненные</output>
+        </text>
+        <text>
+            <source>Removed</source>
+            <output>Удаленные</output>
+        </text>
+        <text>
+            <source>Please correct the errors below.</source>
+            <output>Пожалуйста, исправьте ошибки ниже.</output>
+        </text>
+        <text>
+            <source>Hide</source>
+            <output>скрывать</output>
+        </text>
+        <text>
+            <source>You are about to leave this page and have unsaved changes. Are you sure?</source>
+            <output>Вы собираетесь покинуть эту страницу и есть несохраненные изменения. Вы уверены?</output>
+        </text>
+        <text>
+            <source>Your session is about to end.</source>
+            <output>Ваша сессия подходит к концу.</output>
+        </text>
+        <text>
+            <source>Continue</source>
+            <output>продолжать</output>
+        </text>
+        <text>
+            <source>The title field is required.</source>
+            <output>Поле заголовка не требуется.</output>
+        </text>
+        <text>
+            <source>Edit This Page</source>
+            <output>Править страницу</output>
+        </text>
+        <text>
+            <source>View</source>
+            <output>вид</output>
+        </text>
+        <text>
+            <source>Date</source>
+            <output>дата</output>
+        </text>
+        <text>
+            <source>Reload</source>
+            <output>перезагружать</output>
+        </text>
+        <text>
+            <source>Expiration</source>
+            <output>истечение</output>
+        </text>
+        <text>
+            <source>Not Live</source>
+            <output>Не жить</output>
+        </text>
+        <text>
+            <source>Edit</source>
+            <output>редактировать</output>
+        </text>
+        <text>
+            <source>Click to View</source>
+            <output>Нажмите для просмотра</output>
+        </text>
+        <text>
+            <source>Use CAPTCHA</source>
+            <output>Используйте CAPTCHA</output>
+        </text>
+        <text>
+            <source>Use CSRF</source>
+            <output>Используйте CSRF</output>
+        </text>
+        <text>
+            <source>Password Reset</source>
+            <output>Сброс пароля</output>
+        </text>
+        <text>
+            <source>Password Reset Interval</source>
+            <output>Сброс пароля интервал</output>
+        </text>
+        <text>
+            <source>1st Login</source>
+            <output>1-й Войти</output>
+        </text>
+        <text>
+            <source>Every</source>
+            <output>каждый</output>
+        </text>
+        <text>
+            <source>Day(s)</source>
+            <output>День (ы)</output>
+        </text>
+        <text>
+            <source>Month(s)</source>
+            <output>Месяц (ы)</output>
+        </text>
+        <text>
+            <source>Year(s)</source>
+            <output>Год (ы)</output>
+        </text>
+        <text>
+            <source>Enter Code</source>
+            <output>Введите код</output>
+        </text>
+        <text>
+            <source>Reload</source>
+            <output>перезагружать</output>
+        </text>
+        <text>
+            <source>You must reset your password before continuing.</source>
+            <output>Вы должны сбросить пароль, прежде чем продолжить.</output>
+        </text>
+        <text>
+            <source>The new password cannot be the same.</source>
+            <output>Новый пароль не может быть то же самое.</output>
+        </text>
+        <text>
+            <source>Module Update</source>
+            <output>Модуль обновление</output>
+        </text>
+        <text>
+            <source>Theme Update</source>
+            <output>Стиль обновление</output>
+        </text>
+        <text>
+            <source>System Update</source>
+            <output>обновление системы</output>
+        </text>
+        <text>
+            <source>The %1 folder has been detected as writable.</source>
+            <output>Папка %1 был обнаружен с правом записи.</output>
+        </text>
+        <text>
+            <source>You can proceed with the %1 update by clicking the update button below.</source>
+            <output>Вы можете приступить к %1 обновления, нажав кнопку обновления ниже.</output>
+        </text>
+        <text>
+            <source>FTP Address</source>
+            <output>FTP Адрес</output>
+        </text>
+        <text>
+            <source>FTP Root</source>
+            <output>FTP Root</output>
+        </text>
+        <text>
+            <source>Log directly into the document root.</source>
+            <output>Войти непосредственно в корневом каталоге сайта.</output>
+        </text>
+        <text>
+            <source>No, change the directory to</source>
+            <output>Нет, измените каталог на</output>
+        </text>
+        <text>
+            <source>Use PASV</source>
+            <output>Использование ПАСВ</output>
+        </text>
+        <text>
+            <source>Protocol</source>
+            <output>протокол </output>
+        </text>
+        <text>
+            <source>The %1 module has been updated.</source>
+            <output>%1 модуль был обновлен.</output>
+        </text>
+        <text>
+            <source>The %1 theme has been updated.</source>
+            <output>%1 тема была обновлена​​.</output>
+        </text>
+        <text>
+            <source>The system has been updated.</source>
+            <output>Система была обновлена​​.</output>
+        </text>
+        <text>
+            <source>The update file was not found.</source>
+            <output>Файл обновления не был найден.</output>
+        </text>
+        <text>
+            <source>Update to</source>
+            <output>обновить до</output>
+        </text>
+        <text>
+            <source>Registration Notification</source>
+            <output>Регистрация Уведомление</output>
+        </text>
+        <text>
+            <source>A new user has registered at</source>
+            <output>Новый пользователь зарегистрирован в</output>
+        </text>
+        <text>
+            <source>Current</source>
+            <output>ток</output>
+        </text>
+        <text>
+            <source>Editor</source>
+            <output>редактор</output>
+        </text>
+    </locale>
+</language>

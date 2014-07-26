@@ -1,0 +1,7 @@
+Dear [{name}],
+
+You have been successfully unsubscribed from [{domain}].
+
+Thank You,
+The Phire CMS Team
+

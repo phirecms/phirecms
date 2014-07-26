@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!-- Header //-->
+<html>
+
+<head>
+    <title><?php echo $system_title; ?> <?php echo $separator; ?> <?php echo $title; ?></title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="<?php echo BASE_PATH . CONTENT_PATH; ?>/assets/phire/img/phire.ico" type="image/ico" />
+    <?php echo ((isset($assets)) ? $assets : null); ?>
+</head>
+<body>
+<div id="phire-container">
+    <div id="login-header">
+        <h2><?php echo $title; ?></h2>
+    </div>
+    <div id="login">
+        <p id="verify-p"><?php echo $message; ?></p>
+        <a class="update-btn" style="display: block; width: 250px; margin: 0 auto; color: #fff; text-decoration: none; height: 21px;" href="../../login"><?php $i18n->_e('Login'); ?></a>
+<?php include $phireFooter; ?>
