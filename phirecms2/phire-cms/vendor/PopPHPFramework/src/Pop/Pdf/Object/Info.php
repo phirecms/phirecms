@@ -166,7 +166,7 @@ class Info
                 $prod = substr($prod, strpos($prod, '('));
                 $prod = substr($prod, 0, strpos($prod, ')'));
                 $prod =  str_replace('(', '', $prod);
-                $str =  str_replace($prod, 'Moc 10 PDF', $str);
+                $str =  str_replace($prod, 'Pop PDF', $str);
             } else {
                 $str =  str_replace('>>', '/Producer(Pop PDF)>>', $str);
             }
