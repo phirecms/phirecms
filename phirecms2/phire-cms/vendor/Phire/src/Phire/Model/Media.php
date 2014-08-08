@@ -32,31 +32,30 @@ class Media extends AbstractModel
      *
      * @param string       $fileName
      * @param \ArrayObject $config
-     * @param string       $docRoot
+     * @param string       $dir
      * @return void
      */
-    public static function process($fileName, $config, $docRoot = null)
+    public static function process($fileName, $config, $dir = null)
     {
-        $cfg = $config->media_actions;
+        $cfg     = $config->media_actions;
         $adapter = '\Pop\Image\\' . $config->media_image_adapter;
         $formats = $adapter::formats();
-        $ext = strtolower(substr($fileName, (strrpos($fileName, '.') + 1)));
+        $ext     = strtolower(substr($fileName, (strrpos($fileName, '.') + 1)));
 
-        if (null === $docRoot) {
-            $docRoot = $_SERVER['DOCUMENT_ROOT'] . BASE_PATH;
+        if (null === $dir) {
+            $dir = $_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . DIRECTORY_SEPARATOR . 'media';
         }
 
         if (in_array($ext, $formats)) {
-            $mediaDir = $docRoot . CONTENT_PATH . DIRECTORY_SEPARATOR . 'media';
             foreach ($cfg as $size => $action) {
                 if (in_array($action['action'], Config::getMediaActions())) {
                     // If 'size' directory does not exist, create it
-                    if (!file_exists($mediaDir . DIRECTORY_SEPARATOR . $size)) {
-                        mkdir($mediaDir . DIRECTORY_SEPARATOR . $size);
-                        chmod($mediaDir . DIRECTORY_SEPARATOR . $size, 0777);
-                        copy($mediaDir . DIRECTORY_SEPARATOR . 'index.html',
-                             $mediaDir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . 'index.html');
-                        chmod($mediaDir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . 'index.html', 0777);
+                    if (!file_exists($dir . DIRECTORY_SEPARATOR . $size)) {
+                        mkdir($dir . DIRECTORY_SEPARATOR . $size);
+                        chmod($dir . DIRECTORY_SEPARATOR . $size, 0777);
+                        copy($dir . DIRECTORY_SEPARATOR . 'index.html',
+                             $dir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . 'index.html');
+                        chmod($dir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . 'index.html', 0777);
                     }
 
                     if (!is_array($action['params'])) {
@@ -75,7 +74,7 @@ class Media extends AbstractModel
                     $quality = (isset($action['quality'])) ? (int)$action['quality'] : 80;
 
                     // Save original image, and then save the resized image
-                    $img = new $adapter($mediaDir . DIRECTORY_SEPARATOR . $fileName);
+                    $img = new $adapter($dir . DIRECTORY_SEPARATOR . $fileName);
                     $img->setQuality($quality);
                     $ext = strtolower($img->getExt());
                     if (($ext == 'ai') || ($ext == 'eps') || ($ext == 'pdf') || ($ext == 'psd')) {
@@ -85,8 +84,8 @@ class Media extends AbstractModel
                         $newFileName = $fileName;
                     }
                     $img = call_user_func_array(array($img, $action['action']), $params);
-                    $img->save($mediaDir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $newFileName);
-                    chmod($mediaDir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $newFileName, 0777);
+                    $img->save($dir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $newFileName);
+                    chmod($dir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $newFileName, 0777);
                 }
             }
         }
@@ -96,28 +95,27 @@ class Media extends AbstractModel
      * Static method to remove uploaded media
      *
      * @param string $fileName
-     * @param string $docRoot
+     * @param string $dir
      * @return void
      */
-    public static function remove($fileName, $docRoot = null)
+    public static function remove($fileName, $dir = null)
     {
-        if (null === $docRoot) {
-            $docRoot = $_SERVER['DOCUMENT_ROOT'] . BASE_PATH;
+        if (null === $dir) {
+            $dir = $_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . DIRECTORY_SEPARATOR . 'media';
         }
 
-        $dir = $docRoot . CONTENT_PATH . DIRECTORY_SEPARATOR . 'media' . DIRECTORY_SEPARATOR;
-        if (file_exists($dir . $fileName) && !is_dir($dir . $fileName)) {
-            unlink($dir . $fileName);
+        if (file_exists($dir . DIRECTORY_SEPARATOR . $fileName) && !is_dir($dir . DIRECTORY_SEPARATOR . $fileName)) {
+            unlink($dir . DIRECTORY_SEPARATOR . $fileName);
         }
 
-        $dirs = new Dir($docRoot . CONTENT_PATH . DIRECTORY_SEPARATOR . 'media');
+        $dirs = new Dir($dir);
         foreach ($dirs->getFiles() as $size) {
-            if (is_dir($dir . $size)) {
+            if (is_dir($dir . DIRECTORY_SEPARATOR . $size)) {
                 $newFileName = $fileName . '.jpg';
-                if (file_exists($dir . $size . DIRECTORY_SEPARATOR . $fileName) && !is_dir($dir . $size . DIRECTORY_SEPARATOR . $fileName)) {
-                    unlink($dir . $size . DIRECTORY_SEPARATOR . $fileName);
-                } else if (file_exists($dir . $size . DIRECTORY_SEPARATOR . $newFileName) && !is_dir($dir . $size . DIRECTORY_SEPARATOR . $newFileName)) {
-                    unlink($dir . $size . DIRECTORY_SEPARATOR . $newFileName);
+                if (file_exists($dir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $fileName) && !is_dir($dir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $fileName)) {
+                    unlink($dir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $fileName);
+                } else if (file_exists($dir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $newFileName) && !is_dir($dir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $newFileName)) {
+                    unlink($dir . DIRECTORY_SEPARATOR . $size . DIRECTORY_SEPARATOR . $newFileName);
                 }
             }
         }
@@ -127,16 +125,15 @@ class Media extends AbstractModel
      * Static method to get a file icon
      *
      * @param string $fileName
-     * @param string $docRoot
+     * @param string $dir
      * @return array
      */
-    public static function getFileIcon($fileName, $docRoot = null)
+    public static function getFileIcon($fileName, $dir = null)
     {
-        if (null === $docRoot) {
-            $docRoot = $_SERVER['DOCUMENT_ROOT'] . BASE_PATH;
+        if (null === $dir) {
+            $dir = $_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/media';
         }
 
-        $mediaDir = $docRoot . CONTENT_PATH . '/media/';
         $iconDir = $_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets/img/';
         $ext = strtolower(substr($fileName, (strrpos($fileName, '.') + 1)));
         if (($ext == 'docx') || ($ext == 'pptx') || ($ext == 'xlsx')) {
@@ -153,11 +150,11 @@ class Media extends AbstractModel
             }
 
             // Get the icon or the image file, searching for the smallest image file
-            $dirs = new Dir($docRoot . CONTENT_PATH . '/media', true);
+            $dirs = new Dir($dir, true);
             $fileSizes = array();
-            foreach ($dirs->getFiles() as $dir) {
-                if (is_dir($dir)) {
-                    $f = $dir . $newFileName;
+            foreach ($dirs->getFiles() as $d) {
+                if (is_dir($d)) {
+                    $f = $d . $newFileName;
                     if (file_exists($f)) {
                         $f = str_replace('\\', '//', $f);
                         $fileSizes[filesize($f)] = substr($f, (strpos($f, '/media') + 6));
@@ -200,8 +197,8 @@ class Media extends AbstractModel
         }
 
         // Get file size
-        if (file_exists($mediaDir . $fileName)) {
-            $fileSize = filesize($mediaDir . $fileName);
+        if (file_exists($dir . DIRECTORY_SEPARATOR . $fileName)) {
+            $fileSize = filesize($dir . DIRECTORY_SEPARATOR . $fileName);
             if ($fileSize > 999999) {
                 $fileSize = round(($fileSize / 1000000), 2) . ' MB';
             } else if ($fileSize > 999) {

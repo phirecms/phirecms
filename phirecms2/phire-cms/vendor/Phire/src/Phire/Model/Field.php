@@ -69,6 +69,7 @@ class Field extends \Phire\Model\AbstractModel
                     }
                 }
 
+                $fld['name']     = $field->name;
                 $fld['required'] = (bool)$field->required;
 
                 // Get field values and default values

@@ -152,9 +152,10 @@ class FieldValue extends \Phire\Model\AbstractModel
      * @param array   $fields
      * @param int     $modelId
      * @param string  $method
+     * @param string  $dir
      * @return void
      */
-    public static function save(array $fields, $modelId, $method = 'POST')
+    public static function save(array $fields, $modelId, $method = 'POST', $dir = null)
     {
         // Check for an overriding config settings
         if (file_exists($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/extensions/modules/config/phire.php')) {
@@ -177,12 +178,14 @@ class FieldValue extends \Phire\Model\AbstractModel
         }
 
         $config = static::factory()->config();
-        $dir = $docRoot . $basePath . CONTENT_PATH . DIRECTORY_SEPARATOR . 'media';
+        if (null === $dir) {
+            $dir = $docRoot . $basePath . CONTENT_PATH . DIRECTORY_SEPARATOR . 'media';
+        }
 
         $valueAry = array();
         $postKeys = ($_POST) ? self::getPostKeys() : array();
         $fileKeys = ($_FILES) ? self::getFileKeys() : array();
-        $keys = array_merge($postKeys, $fileKeys);
+        $keys     = array_merge($postKeys, $fileKeys);
         sort($keys);
         $groups = Table\FieldValues::getGroups($keys);
 
@@ -233,7 +236,7 @@ class FieldValue extends \Phire\Model\AbstractModel
                         );
                         chmod($dir . DIRECTORY_SEPARATOR . $fileName, 0777);
                         if (($_FILES) && (preg_match(\Phire\Model\Media::getImageRegex(), $fileName))) {
-                            \Phire\Model\Media::process($fileName, $config, $docRoot . $basePath);
+                            \Phire\Model\Media::process($fileName, $config, $dir);
                         }
                     }
 
@@ -311,9 +314,10 @@ class FieldValue extends \Phire\Model\AbstractModel
      * @param array   $fields
      * @param int     $modelId
      * @param string  $method
+     * @param string  $dir
      * @return void
      */
-    public static function update(array $fields, $modelId, $method = 'POST')
+    public static function update(array $fields, $modelId, $method = 'POST', $dir = null)
     {
         $config = static::factory()->config();
 
@@ -328,7 +332,9 @@ class FieldValue extends \Phire\Model\AbstractModel
             }
         }
 
-        $dir = $docRoot . $basePath . CONTENT_PATH . DIRECTORY_SEPARATOR . 'media';
+        if (null === $dir) {
+            $dir = $docRoot . $basePath . CONTENT_PATH . DIRECTORY_SEPARATOR . 'media';
+        }
 
         $valueAry = array();
         $postKeys = ($_POST) ? self::getPostKeys() : array();
@@ -718,12 +724,18 @@ class FieldValue extends \Phire\Model\AbstractModel
     /**
      * Static method to remove field values
      *
-     * @param int     $modelId
+     * @param int    $modelId
+     * @param string $dir
      * @return void
      */
-    public static function remove($modelId)
+    public static function remove($modelId, $dir = null)
     {
         $fields = \Phire\Table\FieldValues::findAll(null, array('model_id' => $modelId));
+
+        if (null === $dir) {
+            $dir = $_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . DIRECTORY_SEPARATOR . 'media';
+        }
+
         if (isset($fields->rows[0])) {
             foreach ($fields->rows as $field) {
                 // Get the field values with the field type to check for any files to delete
@@ -750,25 +762,25 @@ class FieldValue extends \Phire\Model\AbstractModel
                             $file = json_decode($fld->value, true);
                             if (is_array($file)) {
                                 foreach ($file as $f) {
-                                    if (file_exists($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/media/' . $f)) {
-                                        \Phire\Model\Media::remove($f);
+                                    if (file_exists($dir . '/' . $f)) {
+                                        \Phire\Model\Media::remove($f, $dir);
                                     } else {
                                         $sites = Table\Sites::findAll();
                                         foreach ($sites->rows as $site) {
                                             if (file_exists($site->document_root . $site->base_path . CONTENT_PATH . '/media/' . $f)) {
-                                                \Phire\Model\Media::remove($f, $site->document_root . $site->base_path);
+                                                \Phire\Model\Media::remove($f, $site->document_root . $site->base_path . CONTENT_PATH . '/media');
                                             }
                                         }
                                     }
                                 }
                             } else {
-                                if (file_exists($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/media/' . $file)) {
-                                    \Phire\Model\Media::remove($file);
+                                if (file_exists($dir . '/' . $file)) {
+                                    \Phire\Model\Media::remove($file, $dir);
                                 } else {
                                     $sites = Table\Sites::findAll();
                                     foreach ($sites->rows as $site) {
                                         if (file_exists($site->document_root . $site->base_path . CONTENT_PATH . '/media/' . $file)) {
-                                            \Phire\Model\Media::remove($file, $site->document_root . $site->base_path);
+                                            \Phire\Model\Media::remove($file, $site->document_root . $site->base_path . CONTENT_PATH . '/media');
                                         }
                                     }
                                 }
