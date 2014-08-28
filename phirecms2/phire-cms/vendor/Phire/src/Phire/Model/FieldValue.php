@@ -450,7 +450,7 @@ class FieldValue extends \Phire\Model\AbstractModel
                             );
                             chmod($dir . DIRECTORY_SEPARATOR . $fileName, 0777);
                             if (($_FILES) && (preg_match(\Phire\Model\Media::getImageRegex(), $fileName))) {
-                                \Phire\Model\Media::process($fileName, $config, $docRoot . $basePath);
+                                \Phire\Model\Media::process($fileName, $config, $dir);
                             }
                         } else {
                             $num = substr($key, (strrpos($key, '_') + 1)) - 1;
@@ -479,10 +479,10 @@ class FieldValue extends \Phire\Model\AbstractModel
                             );
                             chmod($dir . DIRECTORY_SEPARATOR . $fileName, 0777);
                             if (($_FILES) && (preg_match(\Phire\Model\Media::getImageRegex(), $fileName))) {
-                                \Phire\Model\Media::process($fileName, $config, $docRoot . $basePath);
+                                \Phire\Model\Media::process($fileName, $config, $dir);
                             }
                         }
-
+                        
                         if ($fileName != '') {
                             $f = Table\Fields::findById($id);
                             $fileName = self::encrypt($fileName, $f->encryption, $encOptions);
@@ -613,7 +613,7 @@ class FieldValue extends \Phire\Model\AbstractModel
                             );
                             chmod($dir . DIRECTORY_SEPARATOR . $fileName, 0777);
                             if (($_FILES) && (preg_match(\Phire\Model\Media::getImageRegex(), $fileName))) {
-                                \Phire\Model\Media::process($fileName, $config, $docRoot . $basePath);
+                                \Phire\Model\Media::process($fileName, $config, $dir);
                             }
                         }
                         if (!isset($valueAry[$id])) {
