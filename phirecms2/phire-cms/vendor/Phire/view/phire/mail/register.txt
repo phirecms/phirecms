@@ -1,8 +1,0 @@
-A new user has registered at [{domain}].
-
-Username: [{username}]
-Email: [{user_email}]
-
-Thank You,
-The Phire CMS Team
-
