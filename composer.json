@@ -1,12 +1,11 @@
 {
-    "name": "phirecms/phirecms2",
-    "description": "Phire CMS 2, a robust content management system written in PHP",
+    "name": "phirecms/phirecms",
+    "description": "Phire CMS, a robust content management system written in PHP",
     "keywords": [
         "content management system",
         "cms",
         "phire",
-        "phire 2",
-        "phire cms 2"
+        "phire cms"
     ],
     "homepage": "http://www.phirecms.org/",
     "license": "New BSD",

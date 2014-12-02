@@ -1,5 +1,5 @@
-Welcome to Phire CMS 2.0.0b
-===========================
+Welcome to Phire CMS
+====================
 
 RELEASE INFORMATION
 -------------------
