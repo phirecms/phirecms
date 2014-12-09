@@ -40,5 +40,8 @@
         "branch-alias": {
             "dev-master": "2.0.x-dev"
         }
+    },
+    "config": {
+        "vendor-dir": "phire-cms/vendor"
     }
 }
