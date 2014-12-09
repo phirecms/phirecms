@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "popphp/popphp2": "2.*@dev",
+        "popphp/popphp": "2.*@dev",
         "popphp/pop-acl": "2.*@dev",
         "popphp/pop-archive": "2.*@dev",
         "popphp/pop-auth": "2.*@dev",
