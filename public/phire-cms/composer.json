@@ -1,0 +1,44 @@
+{
+    "name": "phirecms/phirecms",
+    "description": "Phire CMS, a robust content management system written in PHP",
+    "keywords": [
+        "content management system",
+        "cms",
+        "phire",
+        "phire cms",
+        "php cms"
+    ],
+    "homepage": "http://www.phirecms.org/",
+    "license": "New BSD",
+    "authors": [
+        {
+            "name": "Nick Sagona",
+            "email": "dev@nolainteractive.com",
+            "homepage": "http://www.nolainteractive.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "popphp/popphp2": "2.*@dev",
+        "popphp/pop-acl": "2.*@dev",
+        "popphp/pop-archive": "2.*@dev",
+        "popphp/pop-auth": "2.*@dev",
+        "popphp/pop-crypt": "2.*@dev",
+        "popphp/pop-db": "2.*@dev",
+        "popphp/pop-feed": "2.*@dev",
+        "popphp/pop-file": "2.*@dev",
+        "popphp/pop-form": "2.*@dev",
+        "popphp/pop-ftp": "2.*@dev",
+        "popphp/pop-i18n": "2.*@dev",
+        "popphp/pop-log": "2.*@dev",
+        "popphp/pop-mail": "2.*@dev",
+        "popphp/pop-nav": "2.*@dev",
+        "popphp/pop-paginator": "2.*@dev",
+        "popphp/pop-web": "2.*@dev"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    }
+}
