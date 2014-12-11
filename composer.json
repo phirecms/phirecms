@@ -48,5 +48,6 @@
     },
     "config": {
         "vendor-dir": "phire-cms/vendor"
-    }
+    },
+    "minimum-stability": "dev"
 }
