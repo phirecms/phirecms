@@ -34,6 +34,12 @@ class AbstractController extends Controller
     protected $response = null;
 
     /**
+     * View path
+     * @var string
+     */
+    protected $viewPath = null;
+
+    /**
      * Constructor for the controller
      *
      * @param Locator $services
@@ -46,6 +52,19 @@ class AbstractController extends Controller
         $this->request  = $request;
         $this->response = $response;
         $this->sess     = $this->services['session'];
+        $this->viewPath = __DIR__ . '/../../view';
+    }
+
+    /**
+     * Send response
+     *
+     * @param  int   $code
+     * @param  array $headers
+     * @return void
+     */
+    public function send($code = null, array $headers = null)
+    {
+        $this->response->send($code, $headers);
     }
 
 }

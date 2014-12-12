@@ -2,6 +2,7 @@
 
 namespace Phire;
 
+use Pop\Db\Record;
 use Pop\Http\Request;
 use Pop\Http\Response;
 
@@ -11,7 +12,7 @@ class Application extends \Pop\Application
     public function init()
     {
         if ($this->services->isAvailable('database')) {
-            \Pop\Db\Record::setDb($this->getService('database'));
+            Record::setDb($this->getService('database'));
         }
 
         if (null !== $this->router) {
