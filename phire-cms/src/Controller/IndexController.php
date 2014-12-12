@@ -1,8 +1,6 @@
 <?php
 
-namespace Phire\Controller\Phire;
-
-use Phire\Controller\AbstractController;
+namespace Phire\Controller;
 
 class IndexController extends AbstractController
 {
@@ -10,6 +8,7 @@ class IndexController extends AbstractController
     public function index()
     {
         echo 'Hello Phire!';
+        print_r($this);
     }
 
     public function login()

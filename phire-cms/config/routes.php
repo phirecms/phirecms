@@ -2,16 +2,16 @@
 
 return [
     APP_URI => [
-        'controller' => 'Phire\Controller\Phire\IndexController',
+        'controller' => 'Phire\Controller\IndexController',
         'action'     => 'index',
         'default'    => true
     ],
     APP_URI . '/login' => [
-        'controller' => 'Phire\Controller\Phire\IndexController',
+        'controller' => 'Phire\Controller\IndexController',
         'action'     => 'login'
     ],
     APP_URI . '/logout' => [
-        'controller' => 'Phire\Controller\Phire\IndexController',
+        'controller' => 'Phire\Controller\IndexController',
         'action'     => 'logout'
     ]
 ];

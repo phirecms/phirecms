@@ -16,7 +16,7 @@ class Application extends \Pop\Application
 
         if (null !== $this->router) {
             $this->router->addRouteParams(
-                'Phire\Controller\Phire\IndexController', [
+                '*', [
                     'services' => $this->services,
                     'request'  => new Request(),
                     'response' => new Response()
