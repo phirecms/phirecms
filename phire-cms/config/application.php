@@ -18,13 +18,5 @@ return [
                 ]
             ]
         ]
-    ],
-    'events' => [
-        [
-            'name'   => 'app.init',
-            'action' => function(\Phire\Application $application) {
-                \Pop\Db\Record::setDb($application->getService('database'));
-            }
-        ]
     ]
 ];

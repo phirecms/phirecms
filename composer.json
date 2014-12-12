@@ -27,9 +27,11 @@
         "popphp/pop-db": "2.*@dev",
         "popphp/pop-form": "2.*@dev",
         "popphp/pop-ftp": "2.*@dev",
+        "popphp/pop-http": "2.*@dev",
         "popphp/pop-mail": "2.*@dev",
         "popphp/pop-nav": "2.*@dev",
         "popphp/pop-paginator": "2.*@dev",
+        "popphp/pop-view": "2.*@dev",
         "popphp/pop-web": "2.*@dev"
     },
     "autoload": {

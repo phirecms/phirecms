@@ -2,9 +2,9 @@
 
 namespace Phire\Controller\Phire;
 
-use Pop\Controller\Controller;
+use Phire\Controller\AbstractController;
 
-class IndexController extends Controller
+class IndexController extends AbstractController
 {
 
     public function index()
