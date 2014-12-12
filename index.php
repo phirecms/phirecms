@@ -9,3 +9,4 @@ $app = new Phire\Application(
 );
 
 $app->run();
+
