@@ -24,20 +24,22 @@ class IndexController extends AbstractController
             Response::redirect(BASE_PATH . APP_URI);
         } else {
             $view        = new View($this->viewPath . '/login.phtml');
+            $form        = new Form\Login();
             $view->title = 'Login';
-            $view->form  = new Form\Login();
 
             if ($this->request->isPost()) {
-                $view->form->setFieldValues($this->request->getPost(), [
+                $form->setFieldValues($this->request->getPost(), [
                     'strip_tags'         => null,
                     'html_entity_decode' => [ENT_QUOTES, 'UTF-8']
                 ]);
-                if ($view->form->isValid()) {
+
+                if ($form->isValid()) {
                     echo 'Good!';
                     exit();
                 }
             }
 
+            $view->form = $form;
             $this->response->setBody($view->render());
             $this->send();
         }

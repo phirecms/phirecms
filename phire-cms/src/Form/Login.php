@@ -2,6 +2,8 @@
 
 namespace Phire\Form;
 
+use Pop\Auth\Auth;
+use Pop\Auth\Adapter\Table;
 use Pop\Form\Form;
 use Pop\Validator;
 
@@ -41,6 +43,30 @@ class Login extends Form
         ];
         parent::__construct($fields, $action, $method);
         $this->setIndent('    ');
+    }
+
+    /**
+     * Set the field values
+     *
+     * @param  array $values
+     * @param  array $filters
+     * @return Login
+     */
+    public function setFieldValues(array $values = null, array $filters = null)
+    {
+        parent::setFieldValues($values, $filters);
+
+        if (($_POST) && (null !== $this->username) && (null !== $this->password)) {
+            $auth = new Auth(new Table('Phire\Table\Users'));
+            $auth->authenticate($this->username, $this->password);
+
+            if (!($auth->isValid())) {
+                $this->getElement('password')
+                     ->addValidator(new Validator\NotEqual($this->password, 'The username or password were not correct.'));
+            }
+        }
+
+        return $this;
     }
 
 }
