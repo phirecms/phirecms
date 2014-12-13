@@ -55,25 +55,20 @@ class Config extends AbstractModel
     public function save(array $post)
     {
         $config = Table\Config::findById('datetime_format');
-        echo $config->value . '<br />' . PHP_EOL;
-        //$config->value = (!empty($post['datetime_format_custom'])) ? $post['datetime_format_custom'] : $post['datetime_format'];
-        //$config->save();
+        $config->value = (!empty($post['datetime_format_custom'])) ? $post['datetime_format_custom'] : $post['datetime_format'];
+        $config->save();
 
         $config = Table\Config::findById('pagination');
-        echo $config->value . '<br />' . PHP_EOL;
-        //$config->value = (int)$post['pagination'];
-        //$config->save();
+        $config->value = (int)$post['pagination'];
+        $config->save();
 
         $config = Table\Config::findById('force_ssl');
-        echo $config->value . '<br />' . PHP_EOL;
-        //$config->value = (int)$post['force_ssl'];
-        //$config->save();
+        $config->value = (int)$post['force_ssl'];
+        $config->save();
 
         $config = Table\Config::findById('live');
-        echo $config->value . '<br />' . PHP_EOL;
-        //$config->value = (int)$post['live'];
-        //$config->save();
-        exit();
+        $config->value = (int)$post['live'];
+        $config->save();
     }
 
 }
