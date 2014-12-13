@@ -6,6 +6,7 @@ use Pop\Controller\Controller;
 use Pop\Http\Request;
 use Pop\Http\Response;
 use Pop\Service\Locator;
+use Pop\View\View;
 
 class AbstractController extends Controller
 {
@@ -53,6 +54,15 @@ class AbstractController extends Controller
         $this->response = $response;
         $this->sess     = $this->services['session'];
         $this->viewPath = __DIR__ . '/../../view';
+    }
+
+    public function error()
+    {
+        $view = new View($this->viewPath . '/error.phtml');
+        $view->title = 'Error';
+
+        $this->response->setBody($view->render());
+        $this->send(404);
     }
 
     /**

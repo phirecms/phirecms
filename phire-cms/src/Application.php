@@ -9,6 +9,11 @@ use Pop\Http\Response;
 class Application extends \Pop\Application
 {
 
+    /**
+     * Phire version
+     */
+    const VERSION = '2.0.0b';
+
     public function init()
     {
         if ($this->services->isAvailable('database')) {

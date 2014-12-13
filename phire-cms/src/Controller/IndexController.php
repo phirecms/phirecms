@@ -69,13 +69,4 @@ class IndexController extends AbstractController
         Response::redirect(BASE_PATH . APP_URI . '/login');
     }
 
-    public function error()
-    {
-        $view = new View($this->viewPath . '/error.phtml');
-        $view->title = 'Error';
-
-        $this->response->setBody($view->render());
-        $this->send(404);
-    }
-
 }
