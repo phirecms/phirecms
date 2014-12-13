@@ -19,24 +19,21 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]config` (
 --
 
 INSERT INTO `[{prefix}]config` (`setting`, `value`) VALUES
-('domain', ''),
-('document_root', ''),
 ('installed_on', '0000-00-00 00:00:00'),
 ('updated_on', '0000-00-00 00:00:00'),
 ('datetime_format', 'M j Y g:i A'),
 ('password_encryption', '4'),
-('pagination_limit', '25'),
-('pagination_range', '10'),
+('pagination', '25'),
 ('force_ssl', '0'),
 ('live', '1');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_roles`
+-- Table structure for table `roles`
 --
 
-CREATE TABLE IF NOT EXISTS `[{prefix}]user_roles` (
+CREATE TABLE IF NOT EXISTS `[{prefix}]roles` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `permissions` text,
@@ -51,11 +48,11 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]user_roles` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2002 ;
 
 --
--- Dumping data for table `user_roles`
+-- Dumping data for table `roles`
 --
 
-INSERT INTO `[{prefix}]user_roles` (`id`, `name`, `permissions`, `login`, `registration`, `registration_notification`, `email_as_username`, `verification`, `approval`) VALUES
-(2001, 'Admin', NULL, 0, 0, 0, 0, 0, 0);
+INSERT INTO `[{prefix}]roles` (`id`, `name`, `permissions`, `login`, `registration`, `registration_notification`, `email_as_username`, `verification`, `approval`) VALUES
+(2001, 'Phire', NULL, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -76,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]users` (
   INDEX `user_role_id` (`role_id`),
   INDEX `username` (`username`),
   INDEX `user_email` (`email`),
-  CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `[{prefix}]user_roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `[{prefix}]roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1001 ;
 
 --

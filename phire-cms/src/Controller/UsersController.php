@@ -4,14 +4,16 @@ namespace Phire\Controller;
 
 use Phire\Form;
 use Pop\Http\Response;
-use Pop\View\View;
 
 class UsersController extends AbstractController
 {
 
     public function index()
     {
-        echo 'Users controller.';
+        $this->prepareView('users/index.phtml');
+        $this->view->title = 'Users';
+        $this->response->setBody($this->view->render());
+        $this->send();
     }
 
 }

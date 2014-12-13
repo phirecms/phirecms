@@ -41,6 +41,7 @@ class Login extends Form
             ]
         ];
         parent::__construct($fields, $action, $method);
+        $this->setAttribute('id', 'login-form');
         $this->setIndent('    ');
     }
 
@@ -57,8 +58,10 @@ class Login extends Form
         parent::setFieldValues($values, $filters);
 
         if (($_POST) && (null !== $this->username) && (null !== $this->password) && (null !== $auth)) {
-
-            $auth->authenticate($this->username, $this->password);
+            $auth->authenticate(
+                html_entity_decode($this->username, ENT_QUOTES, 'UTF-8'),
+                html_entity_decode($this->password, ENT_QUOTES, 'UTF-8')
+            );
 
             if (!($auth->isValid())) {
                 $this->getElement('password')

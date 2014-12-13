@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title><?=$title; ?></title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</head>
+
+<body>
+<?php if (isset($user)): ?>
+    <p><strong><?=$user['username']; ?></strong> | <a href="<?=BASE_PATH . APP_URI; ?>">Home</a> | <a href="<?=BASE_PATH . APP_URI . '/logout'; ?>">Logout</a></p>
+<?php include __DIR__ . '/nav.phtml'; ?>
+<?php endif; ?>

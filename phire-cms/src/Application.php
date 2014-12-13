@@ -16,10 +16,12 @@ class Application extends \Pop\Application
 
     public function init()
     {
+        // Set the database
         if ($this->services->isAvailable('database')) {
             Record::setDb($this->getService('database'));
         }
 
+        // Add route params for the controllers
         if (null !== $this->router) {
             $this->router->addRouteParams(
                 '*', [
@@ -29,6 +31,21 @@ class Application extends \Pop\Application
                 ]
             );
         }
+
+        // Session check
+        $this->on('app.dispatch.pre', function(Application $application){
+            $sess   = $application->getService('session');
+            $action = $application->router()->getRouteMatch()->getAction();
+
+            if (isset($sess->user) && (($action == 'login') || ($action == 'register'))) {
+                Response::redirect(BASE_PATH . APP_URI);
+                exit();
+            } else if (!isset($sess->user) && (($action != 'login') && ($action != 'register') &&
+                    ($action != 'unsubscribe') && (null !== $action))) {
+                Response::redirect(BASE_PATH . APP_URI . '/login');
+                exit();
+            }
+        });
 
         return parent::init();
     }

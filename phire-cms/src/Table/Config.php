@@ -8,12 +8,6 @@ class Config extends Record
 {
 
     /**
-     * Table name
-     * @var string
-     */
-    protected static $table = 'config';
-
-    /**
      * Table prefix
      * @var string
      */
@@ -25,4 +19,18 @@ class Config extends Record
      */
     protected $primaryKeys = ['setting'];
 
+    /**
+     * Get config values
+     */
+    public static function getConfig()
+    {
+        $config = static::findAll();
+        $values = [];
+
+        foreach ($config->rows() as $row) {
+            $values[$row['setting']] = $row['value'];
+        }
+
+        return $values;
+    }
 }

@@ -10,6 +10,14 @@ return [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'login'
     ],
+    APP_URI . '/register' => [
+        'controller' => 'Phire\Controller\IndexController',
+        'action'     => 'register'
+    ],
+    APP_URI . '/unsubscribe' => [
+        'controller' => 'Phire\Controller\IndexController',
+        'action'     => 'unsubscribe'
+    ],
     APP_URI . '/logout' => [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'logout'
@@ -27,7 +35,7 @@ return [
         'action'     => 'index'
     ],
     APP_URI . '/roles[/]' => [
-        'controller' => 'Phire\Controller\UserRolesController',
+        'controller' => 'Phire\Controller\RolesController',
         'action'     => 'index'
     ]
 ];

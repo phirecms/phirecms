@@ -41,6 +41,12 @@ class AbstractController extends Controller
     protected $viewPath = null;
 
     /**
+     * View object
+     * @var \Pop\View\View
+     */
+    protected $view = null;
+
+    /**
      * Constructor for the controller
      *
      * @param Locator $services
@@ -58,10 +64,10 @@ class AbstractController extends Controller
 
     public function error()
     {
-        $view = new View($this->viewPath . '/error.phtml');
-        $view->title = 'Error';
+        $this->prepareView('error.phtml');
+        $this->view->title = 'Error';
 
-        $this->response->setBody($view->render());
+        $this->response->setBody($this->view->render());
         $this->send(404);
     }
 
@@ -75,6 +81,20 @@ class AbstractController extends Controller
     public function send($code = null, array $headers = null)
     {
         $this->response->send($code, $headers);
+    }
+
+    /**
+     * Prepare view
+     *
+     * @param  string $template
+     * @return void
+     */
+    protected function prepareView($template)
+    {
+        $this->view = new View($this->viewPath . '/' . $template);
+        if (isset($this->sess->user)) {
+            $this->view->user = $this->sess->user;
+        }
     }
 
 }

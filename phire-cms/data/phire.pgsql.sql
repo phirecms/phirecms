@@ -19,26 +19,23 @@ PRIMARY KEY ("setting")
 --
 
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES
-('domain', ''),
-('document_root', ''),
 ('installed_on', '0000-00-00 00:00:00'),
 ('updated_on', '0000-00-00 00:00:00'),
 ('datetime_format', 'M j Y g:i A'),
 ('password_encryption', '4'),
-('pagination_limit', '25'),
-('pagination_range', '10'),
+('pagination', '25'),
 ('force_ssl', '0'),
 ('live', '1');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table "user_roles"
+-- Table structure for table "roles"
 --
 
 CREATE SEQUENCE role_id_seq START 2001;
 
-CREATE TABLE IF NOT EXISTS "[{prefix}]user_roles" (
+CREATE TABLE IF NOT EXISTS "[{prefix}]roles" (
   "id" integer NOT NULL DEFAULT nextval('role_id_seq'),
   "name" varchar(255) NOT NULL,
   "permissions" text,
@@ -51,15 +48,15 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]user_roles" (
   PRIMARY KEY ("id")
 ) ;
 
-ALTER SEQUENCE role_id_seq OWNED BY "[{prefix}]user_roles"."id";
-CREATE INDEX "user_role_name" ON "[{prefix}]user_roles" ("name");
+ALTER SEQUENCE role_id_seq OWNED BY "[{prefix}]roles"."id";
+CREATE INDEX "user_role_name" ON "[{prefix}]roles" ("name");
 
 --
--- Dumping data for table "user_roles"
+-- Dumping data for table "roles"
 --
 
-INSERT INTO "[{prefix}]user_roles" ("name", "permissions", "login", "registration", "registration_notification", "email_as_username", "verification", "approval") VALUES
-('Admin', NULL, 0, 0, 0, 0, 0, 0);
+INSERT INTO "[{prefix}]roles" ("name", "permissions", "login", "registration", "registration_notification", "email_as_username", "verification", "approval") VALUES
+('Phire', NULL, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -79,7 +76,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "created" timestamp,
   "updated" timestamp,
   PRIMARY KEY ("id"),
-  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]user_roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 ) ;
 
 ALTER SEQUENCE user_id_seq OWNED BY "[{prefix}]users"."id";

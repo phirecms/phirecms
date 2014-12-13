@@ -8,12 +8,6 @@ class Modules extends Record
 {
 
     /**
-     * Table name
-     * @var string
-     */
-    protected static $table = 'modules';
-
-    /**
      * Table prefix
      * @var string
      */

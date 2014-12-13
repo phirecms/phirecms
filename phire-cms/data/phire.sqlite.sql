@@ -27,24 +27,21 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]config" (
 -- Dumping data for table "config"
 --
 
-INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('domain', '');
-INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('document_root', '');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('installed_on', '0000-00-00 00:00:00');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updated_on', '0000-00-00 00:00:00');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('datetime_format', 'M j Y g:i A');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('password_encryption', '4');
-INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('pagination_limit', '25');
-INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('pagination_range', '10');
+INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('pagination', '25');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('force_ssl', '0');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('live', '1');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table "user_roles"
+-- Table structure for table "roles"
 --
 
-CREATE TABLE IF NOT EXISTS "[{prefix}]user_roles" (
+CREATE TABLE IF NOT EXISTS "[{prefix}]roles" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
   "name" varchar NOT NULL,
   "permissions" text,
@@ -57,15 +54,15 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]user_roles" (
   UNIQUE ("id")
 ) ;
 
-INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]user_roles', 2000);
-CREATE INDEX "user_role_name" ON "[{prefix}]user_roles" ("name");
+INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]roles', 2000);
+CREATE INDEX "user_role_name" ON "[{prefix}]roles" ("name");
 
 --
--- Dumping data for table "user_roles"
+-- Dumping data for table "roles"
 --
 
-INSERT INTO "[{prefix}]user_roles" ("id", "name", "permissions", "login", "registration", "registration_notification", "email_as_username", "verification", "approval") VALUES
-(2001, 'Admin', NULL, 0, 0, 0, 0, 0, 0);
+INSERT INTO "[{prefix}]roles" ("id", "name", "permissions", "login", "registration", "registration_notification", "email_as_username", "verification", "approval") VALUES
+(2001, 'Phire', NULL, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -83,7 +80,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "created" datetime,
   "updated" datetime,
   UNIQUE ("id"),
-  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]user_roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 ) ;
 
 INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]users', 1000);

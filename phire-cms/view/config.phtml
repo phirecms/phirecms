@@ -1,0 +1,64 @@
+<?php include __DIR__ . '/header.phtml'; ?>
+    <h1><?=$title; ?></h1>
+    <form id="config-form" method="post" action="<?=BASE_PATH . APP_URI; ?>/config">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tr><th colspan="2">&nbsp;</th></tr>
+<?php foreach($overview as $setting => $value): ?>
+            <tr>
+                <td><strong><?=ucwords(str_replace(['_', 'php'], [' ', 'PHP'], $setting)); ?></strong></td><td><?=$value; ?></td>
+            </tr>
+<?php endforeach; ?>
+            <tr><th colspan="2">&nbsp;</th></tr>
+            <tr>
+                <td>
+                    <strong>Date &amp; Time Format</strong>
+                </td>
+                <td>
+<?php
+$wasChecked = false;
+foreach($config['datetime_formats'] as $datetime):
+    if ($config['datetime_format'] == $datetime) {
+        $checked    = 'checked="checked" ';
+        $wasChecked = true;
+    } else {
+        $checked = '';
+    }
+?>
+                    <div><input type="radio" name="datetime_format" id="datetime_format" <?=$checked; ?>value="<?=$datetime; ?>" /> <span class="radio-block-span"><?=date($datetime); ?></span></div>
+<?php endforeach; ?>
+                    <div><input type="radio" name="datetime_format" id="datetime_format8" <?=((!$wasChecked) ? 'checked="checked" ' : ''); ?>value="<?=((!$wasChecked) ? $config['datetime_format'] : ''); ?>" /> <input type="text" name="datetime_format_custom" id="datetime_format_custom" value="<?=((!$wasChecked) ? $config['datetime_format'] : ''); ?>" size="10" /> <span id="datetime-custom"><?=((!$wasChecked) ? date($config['datetime_format']) : ''); ?></span></div>
+                </td>
+            </tr>
+            <tr><th colspan="2">&nbsp;</th></tr>
+            <tr>
+                <td>
+                    <strong>Pagination</strong>
+                </td>
+                <td>
+                    <input type="text" name="pagination" id="pagination" size="5" value="<?=$config['pagination']; ?>" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Force SSL</strong>
+                </td>
+                <td>
+                    <input type="radio" name="force_ssl" id="force_ssl" value="1" <?=(((bool)$config['force_ssl']) ? 'checked="checked" ' : ''); ?>/> Yes <input type="radio" name="force_ssl" id="force_ssl" value="0" <?=((!(bool)$config['force_ssl']) ? 'checked="checked" ' : ''); ?>/> No
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Live</strong>
+                </td>
+                <td>
+                    <input type="radio" name="live" id="live" value="1" <?=(((bool)$config['live']) ? 'checked="checked" ' : ''); ?>/> Yes <input type="radio" name="live" id="live" value="0" <?=((!(bool)$config['live']) ? 'checked="checked" ' : ''); ?>/> No
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" name="submit" value="Save" />
+                </td>
+            </tr>
+        </table>
+    </form>
+<?php include __DIR__ . '/footer.phtml'; ?>
