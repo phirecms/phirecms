@@ -3,7 +3,6 @@
 namespace Phire\Form;
 
 use Pop\Auth\Auth;
-use Pop\Auth\Adapter\Table;
 use Pop\Form\Form;
 use Pop\Validator;
 
@@ -50,14 +49,15 @@ class Login extends Form
      *
      * @param  array $values
      * @param  array $filters
+     * @param  Auth  $auth
      * @return Login
      */
-    public function setFieldValues(array $values = null, array $filters = null)
+    public function setFieldValues(array $values = null, array $filters = null, Auth $auth = null)
     {
         parent::setFieldValues($values, $filters);
 
-        if (($_POST) && (null !== $this->username) && (null !== $this->password)) {
-            $auth = new Auth(new Table('Phire\Table\Users', (int)\Phire\Table\Config::findById('password_encryption')->value));
+        if (($_POST) && (null !== $this->username) && (null !== $this->password) && (null !== $auth)) {
+
             $auth->authenticate($this->username, $this->password);
 
             if (!($auth->isValid())) {
