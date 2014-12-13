@@ -57,7 +57,7 @@ class Login extends Form
         parent::setFieldValues($values, $filters);
 
         if (($_POST) && (null !== $this->username) && (null !== $this->password)) {
-            $auth = new Auth(new Table('Phire\Table\Users'));
+            $auth = new Auth(new Table('Phire\Table\Users', (int)\Phire\Table\Config::findById('password_encryption')->value));
             $auth->authenticate($this->username, $this->password);
 
             if (!($auth->isValid())) {

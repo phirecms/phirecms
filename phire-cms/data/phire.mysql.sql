@@ -24,6 +24,7 @@ INSERT INTO `[{prefix}]config` (`setting`, `value`) VALUES
 ('installed_on', '0000-00-00 00:00:00'),
 ('updated_on', '0000-00-00 00:00:00'),
 ('datetime_format', 'M j Y g:i A'),
+('password_encryption', '4'),
 ('pagination_limit', '25'),
 ('pagination_range', '10'),
 ('force_ssl', '0'),
@@ -45,7 +46,6 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]user_roles` (
   `email_as_username` int(1),
   `verification` int(1),
   `approval` int(1),
-  `password_encryption` varchar(255),
   PRIMARY KEY (`id`),
   INDEX `user_role_name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2002 ;
@@ -54,8 +54,8 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]user_roles` (
 -- Dumping data for table `user_roles`
 --
 
-INSERT INTO `[{prefix}]user_roles` (`id`, `name`, `permissions`, `login`, `registration`, `registration_notification`, `email_as_username`, `verification`, `approval`, `password_encryption`) VALUES
-(2001, 'Admin', NULL, 0, 0, 0, 0, 0, 0, 'Bcrypt');
+INSERT INTO `[{prefix}]user_roles` (`id`, `name`, `permissions`, `login`, `registration`, `registration_notification`, `email_as_username`, `verification`, `approval`) VALUES
+(2001, 'Admin', NULL, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 

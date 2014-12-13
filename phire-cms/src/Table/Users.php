@@ -8,12 +8,6 @@ class Users extends Record
 {
 
     /**
-     * Table name
-     * @var string
-     */
-    protected static $table = 'users';
-
-    /**
      * Table prefix
      * @var string
      */

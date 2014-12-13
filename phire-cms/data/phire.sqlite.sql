@@ -32,6 +32,7 @@ INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('document_root', '')
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('installed_on', '0000-00-00 00:00:00');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updated_on', '0000-00-00 00:00:00');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('datetime_format', 'M j Y g:i A');
+INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('password_encryption', '4');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('pagination_limit', '25');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('pagination_range', '10');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('force_ssl', '0');
@@ -53,7 +54,6 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]user_roles" (
   "email_as_username" integer,
   "verification" integer,
   "approval" integer,
-  "password_encryption" varchar,
   UNIQUE ("id")
 ) ;
 
@@ -64,8 +64,8 @@ CREATE INDEX "user_role_name" ON "[{prefix}]user_roles" ("name");
 -- Dumping data for table "user_roles"
 --
 
-INSERT INTO "[{prefix}]user_roles" ("id", "name", "permissions", "login", "registration", "registration_notification", "email_as_username", "verification", "approval", "password_encryption") VALUES
-(2001, 'Admin', NULL, 0, 0, 0, 0, 0, 0, 'Bcrypt');
+INSERT INTO "[{prefix}]user_roles" ("id", "name", "permissions", "login", "registration", "registration_notification", "email_as_username", "verification", "approval") VALUES
+(2001, 'Admin', NULL, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
