@@ -3,6 +3,7 @@
 namespace Phire\Controller;
 
 use Phire\Form;
+use Phire\Model;
 use Pop\Http\Response;
 
 class RolesController extends AbstractController

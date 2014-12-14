@@ -44,7 +44,8 @@ class IndexController extends AbstractController
                     'username' => $auth->adapter()->getUser()->username,
                     'email'    => $auth->adapter()->getUser()->email,
                 ];
-                Response::redirect(BASE_PATH . APP_URI);
+
+                Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
                 exit();
             }
         }
@@ -56,12 +57,18 @@ class IndexController extends AbstractController
 
     public function register()
     {
-        echo 'Register.';
+        $this->prepareView('register.phtml');
+        $this->view->title = 'Register';
+        $this->response->setBody($this->view->render());
+        $this->send();
     }
 
     public function unsubscribe()
     {
-        echo 'Unsubscribe.';
+        $this->prepareView('register.phtml');
+        $this->view->title = 'Unsubscribe';
+        $this->response->setBody($this->view->render());
+        $this->send();
     }
 
     public function logout()

@@ -6,19 +6,19 @@ return [
         'action'     => 'index',
         'default'    => true
     ],
-    APP_URI . '/login' => [
+    APP_URI . '/login[/]' => [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'login'
     ],
-    APP_URI . '/register' => [
+    APP_URI . '/register[/]' => [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'register'
     ],
-    APP_URI . '/unsubscribe' => [
+    APP_URI . '/unsubscribe[/]' => [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'unsubscribe'
     ],
-    APP_URI . '/logout' => [
+    APP_URI . '/logout[/]' => [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'logout'
     ],

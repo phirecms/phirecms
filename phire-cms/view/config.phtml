@@ -47,14 +47,6 @@ foreach($config['datetime_formats'] as $datetime):
                 </td>
             </tr>
             <tr>
-                <td>
-                    <strong>Live</strong>
-                </td>
-                <td>
-                    <input type="radio" name="live" id="live" value="1" <?=(((bool)$config['live']) ? 'checked="checked" ' : ''); ?>/> Yes <input type="radio" name="live" id="live" value="0" <?=((!(bool)$config['live']) ? 'checked="checked" ' : ''); ?>/> No
-                </td>
-            </tr>
-            <tr>
                 <td colspan="2">
                     <input type="submit" name="submit" value="Save" />
                 </td>

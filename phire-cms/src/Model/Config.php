@@ -55,7 +55,7 @@ class Config extends AbstractModel
     public function save(array $post)
     {
         $config = Table\Config::findById('datetime_format');
-        $config->value = (!empty($post['datetime_format_custom'])) ? $post['datetime_format_custom'] : $post['datetime_format'];
+        $config->value = (!empty($post['datetime_format'])) ? $post['datetime_format'] : $post['datetime_format_custom'];
         $config->save();
 
         $config = Table\Config::findById('pagination');
@@ -64,10 +64,6 @@ class Config extends AbstractModel
 
         $config = Table\Config::findById('force_ssl');
         $config->value = (int)$post['force_ssl'];
-        $config->save();
-
-        $config = Table\Config::findById('live');
-        $config->value = (int)$post['live'];
         $config->save();
     }
 

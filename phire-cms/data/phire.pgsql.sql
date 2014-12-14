@@ -22,10 +22,8 @@ INSERT INTO "[{prefix}]config" ("setting", "value") VALUES
 ('installed_on', '0000-00-00 00:00:00'),
 ('updated_on', '0000-00-00 00:00:00'),
 ('datetime_format', 'M j Y g:i A'),
-('password_encryption', '4'),
 ('pagination', '25'),
-('force_ssl', '0'),
-('live', '1');
+('force_ssl', '0');
 
 -- --------------------------------------------------------
 
@@ -40,11 +38,11 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]roles" (
   "name" varchar(255) NOT NULL,
   "permissions" text,
   "login" integer,
-  "registration" integer,
-  "registration_notification" integer,
-  "email_as_username" integer,
+  "register" integer,
+  "register_notify" integer,
   "verification" integer,
   "approval" integer,
+  "email_as_username" integer,
   PRIMARY KEY ("id")
 ) ;
 
@@ -55,8 +53,8 @@ CREATE INDEX "user_role_name" ON "[{prefix}]roles" ("name");
 -- Dumping data for table "roles"
 --
 
-INSERT INTO "[{prefix}]roles" ("name", "permissions", "login", "registration", "registration_notification", "email_as_username", "verification", "approval") VALUES
-('Phire', NULL, 0, 0, 0, 0, 0, 0);
+INSERT INTO "[{prefix}]roles" ("name", "permissions", "login", "register", "register_notify", "verification", "approval", "email_as_username") VALUES
+('Phire', NULL, 1, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 

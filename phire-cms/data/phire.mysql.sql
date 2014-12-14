@@ -22,10 +22,8 @@ INSERT INTO `[{prefix}]config` (`setting`, `value`) VALUES
 ('installed_on', '0000-00-00 00:00:00'),
 ('updated_on', '0000-00-00 00:00:00'),
 ('datetime_format', 'M j Y g:i A'),
-('password_encryption', '4'),
 ('pagination', '25'),
-('force_ssl', '0'),
-('live', '1');
+('force_ssl', '0');
 
 -- --------------------------------------------------------
 
@@ -38,11 +36,11 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]roles` (
   `name` varchar(255) NOT NULL,
   `permissions` text,
   `login` int(1),
-  `registration` int(1),
-  `registration_notification` int(1),
-  `email_as_username` int(1),
+  `register` int(1),
+  `register_notify` int(1),
   `verification` int(1),
   `approval` int(1),
+  `email_as_username` int(1),
   PRIMARY KEY (`id`),
   INDEX `user_role_name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2002 ;
@@ -51,8 +49,8 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]roles` (
 -- Dumping data for table `roles`
 --
 
-INSERT INTO `[{prefix}]roles` (`id`, `name`, `permissions`, `login`, `registration`, `registration_notification`, `email_as_username`, `verification`, `approval`) VALUES
-(2001, 'Phire', NULL, 0, 0, 0, 0, 0, 0);
+INSERT INTO `[{prefix}]roles` (`id`, `name`, `permissions`, `login`, `register`, `register_notify`, `verification`, `approval`, `email_as_username`) VALUES
+(2001, 'Phire', NULL, 1, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
