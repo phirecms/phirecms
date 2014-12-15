@@ -10,7 +10,7 @@ return [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'login'
     ],
-    APP_URI . '/register[/:id]' => [
+    APP_URI . '/register/:id' => [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'register'
     ],

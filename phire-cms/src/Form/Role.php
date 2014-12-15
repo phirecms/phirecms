@@ -21,10 +21,19 @@ class Role extends Form
      */
     public function __construct(array $permissions = [], array $fields = null, $action = null, $method = 'post')
     {
+        $omitRoutes = [
+            APP_URI . '/verify/:id/:hash',
+            APP_URI . '/forgot[/]',
+            APP_URI . '/unsubscribe[/]',
+            APP_URI . '/logout[/]'
+        ];
+
         $routes = array_keys(include __DIR__ . '/../../config/routes.php');
         $routeValues = ['----' => '----'];
         foreach ($routes as $route) {
-            $routeValues[$route] = str_replace('[/]', '', $route);
+            if (!in_array($route, $omitRoutes)) {
+                $routeValues[$route] = str_replace('[/]', '', $route);
+            }
         }
 
         $fields = [

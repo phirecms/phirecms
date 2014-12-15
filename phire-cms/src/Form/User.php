@@ -109,7 +109,7 @@ class User extends Form
                     $hidden = new Element\Input\Hidden('username', $this->childNodes[$index]->getValue());
                     $hidden->setLabel('&nbsp;');
                     $this->childNodes[$index] = $hidden;
-                    $this->getElement('email1')->setAttribute('onkeydown', 'phire.changeUsername();');
+                    $this->getElement('email1')->setAttribute('onblur', 'phire.changeUsername();');
                 }
             }
         }

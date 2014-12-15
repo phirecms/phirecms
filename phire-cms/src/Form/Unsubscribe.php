@@ -61,10 +61,11 @@ class Unsubscribe extends Form
                 $role = Table\Roles::findById($user->role_id);
                 if (null !== $role->permissions) {
                     $permissions = unserialize($role->permissions);
-                    if (!isset($permissions[BASE_PATH . APP_URI . '/login[/]']) ||
-                        ((isset($permissions[BASE_PATH . APP_URI . '/login[/]']) && ($permissions[BASE_PATH . APP_URI . '/login[/]'])))) {
+                    if (!isset($permissions[APP_URI . '/login[/]']) ||
+                        ((isset($permissions[APP_URI . '/login[/]']) && ($permissions[APP_URI . '/login[/]'])))) {
                             $this->getElement('email')
-                                 ->addValidator(new Validator\NotEqual($this->email, 'You must <a href="' . BASE_PATH . APP_URI . '/login">log in</a> to unsubscribe.'));
+                                 ->addValidator(new Validator\NotEqual($this->email, 'You must <a href="' .
+                                     BASE_PATH . APP_URI . '/login">log in</a> to unsubscribe.'));
                     }
                 }
             }

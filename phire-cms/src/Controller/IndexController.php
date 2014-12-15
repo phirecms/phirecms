@@ -56,12 +56,47 @@ class IndexController extends AbstractController
         $this->send();
     }
 
-    public function register($id = 2001)
+    public function register($id)
     {
-        $this->prepareView('register.phtml');
-        $this->view->title = 'Register';
-        $this->response->setBody($this->view->render());
-        $this->send();
+        $role = new Model\Role();
+
+        if ($role->canRegister($id)) {
+            $this->prepareView('register.phtml');
+            $this->view->title = 'Register';
+
+            $form = new Form\Register($id);
+
+            if ($this->request->isPost()) {
+                $form->setFieldValues($this->request->getPost(), [
+                    'strip_tags'   => null,
+                    'htmlentities' => [ENT_QUOTES, 'UTF-8']
+                ]);
+
+                if ($form->isValid()) {
+                    $fields = $form->getFields();
+                    $role->getById($id);
+                    $fields['verified'] = (int)!($role->verification);
+                    if ($role->approval) {
+                        $fields['role_id'] = null;
+                    }
+
+                    $user = new Model\User();
+                    $user->save($fields);
+
+                    $this->view->success = true;
+                } else {
+                    $this->view->form = $form;
+                }
+                $this->response->setBody($this->view->render());
+                $this->send();
+            } else {
+                $this->view->form = $form;
+                $this->response->setBody($this->view->render());
+                $this->send();
+            }
+        } else {
+            Response::redirect(BASE_PATH . APP_URI);
+        }
     }
 
     public function verify($id, $hash)

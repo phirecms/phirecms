@@ -59,6 +59,20 @@ class Role extends AbstractModel
         }
     }
 
+    public function canRegister($id)
+    {
+        $result = false;
+        $role = Table\Roles::findById((int)$id);
+        if (isset($role->id)) {
+            $permissions = (null !== $role->permissions) ? unserialize($role->permissions) : [];
+            if (!isset($permissions[APP_URI . '/register/:id']) ||
+                ((isset($permissions[APP_URI . '/register/:id']) && ($permissions[APP_URI . '/register/:id'])))) {
+                $result = true;
+            }
+        }
+        return $result;
+    }
+
     protected function getPermissions(array $post)
     {
         $permissions = [];

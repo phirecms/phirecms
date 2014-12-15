@@ -1,4 +1,9 @@
 <?php include __DIR__ . '/header.phtml'; ?>
     <h1><?=$title; ?></h1>
+<?php if (isset($form)): ?>
     <p>Please register.</p>
+<?=$form; ?>
+<?php elseif ($success): ?>
+    <p>You have successfully registered with this website.</p>
+<?php endif; ?>
 <?php include __DIR__ . '/footer.phtml'; ?>

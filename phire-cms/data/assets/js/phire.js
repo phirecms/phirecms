@@ -38,12 +38,12 @@ var phire = {
                 jax('#username').attrib('type', 'hidden');
                 jax('#username')[0].removeAttribute('required');
                 jax('#username').val(jax('#email1').val());
-                jax('#email1').on('keydown', phire.changeUsername);
+                jax('#email1').on('blur', phire.changeUsername);
             } else if ((!json.email_as_username) && (jax('#username').attrib('type') == 'hidden')) {
                 jax('label[for=username]').val('Username');
                 jax('#username').attrib('type', 'text');
                 jax('#username').attrib('required', 'required');
-                jax('#email1').off('keydown', phire.changeUsername);
+                jax('#email1').off('blur', phire.changeUsername);
             }
         }
     }
