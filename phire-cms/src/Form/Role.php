@@ -38,9 +38,12 @@ class Role extends Form
 
         $fields = [
             'name' => [
-                'type'      => 'text',
-                'label'     => 'Name',
-                'required'  => 'true'
+                'type'       => 'text',
+                'label'      => 'Name',
+                'required'   => 'true',
+                'attributes' => [
+                    'onkeyup' => 'phire.changeTitle(this.value);'
+                ]
             ],
             'verification' => [
                 'type'      => 'radio',

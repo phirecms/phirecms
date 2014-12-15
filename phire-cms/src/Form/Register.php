@@ -83,7 +83,6 @@ class Register extends Form
      */
     public function setFieldValues(array $values = null, array $filters = null)
     {
-
         parent::setFieldValues($values, $filters);
 
         if (($_POST) && (null !== $this->username)) {
@@ -98,7 +97,6 @@ class Register extends Form
                 $this->getElement('email1')
                      ->addValidator(new Validator\NotEqual($this->email1, 'That email already exists.'));
             }
-
 
             $this->getElement('email2')
                  ->addValidator(new Validator\Equal($this->email1, 'The emails do not match.'));

@@ -22,7 +22,7 @@ class User extends Form
      */
     public function __construct(array $fields = null, $action = null, $method = 'post')
     {
-        $roles = Table\Roles::findAll();
+        $roles      = Table\Roles::findAll();
         $roleValues = ['----' => '[Blocked]'];
         foreach ($roles->rows() as $role) {
             $roleValues[$role['id']] = $role['name'];
@@ -80,7 +80,6 @@ class User extends Form
                 'value' => '0'
             ]
         ];
-
 
         parent::__construct($fields, $action, $method);
 

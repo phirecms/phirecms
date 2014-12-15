@@ -13,7 +13,7 @@ class IndexController extends AbstractController
     public function index()
     {
         $this->prepareView('index.phtml');
-        $this->view->title = 'Welcome to Phire';
+        $this->view->title = 'Dashboard';
         $this->response->setBody($this->view->render());
         $this->send();
     }
@@ -21,7 +21,7 @@ class IndexController extends AbstractController
     public function login()
     {
         $this->prepareView('login.phtml');
-        $this->view->title = 'Login';
+        $this->view->title = 'Please Login';
 
         $form = new Form\Login();
 
@@ -103,7 +103,7 @@ class IndexController extends AbstractController
     {
         $user = new Model\User();
         $this->prepareView('verify.phtml');
-        $this->view->title  = 'Verify';
+        $this->view->title  = 'Verify Your Email';
         $this->view->result = $user->verify($id, $hash);
         $this->response->setBody($this->view->render());
         $this->send();
@@ -112,7 +112,7 @@ class IndexController extends AbstractController
     public function forgot()
     {
         $this->prepareView('forgot.phtml');
-        $this->view->title = 'Forgot your Password?';
+        $this->view->title = 'Forgot Your Password?';
 
         $form = new Form\Forgot();
 

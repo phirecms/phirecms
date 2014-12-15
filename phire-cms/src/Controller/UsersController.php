@@ -55,7 +55,8 @@ class UsersController extends AbstractController
         $user->getById($id);
 
         $this->prepareView('users/edit.phtml');
-        $this->view->title = 'Edit ' . $user->username;
+        $this->view->title    = 'Edit User';
+        $this->view->username = $user->username;
 
         $form = new Form\User();
         $form->setFieldValues($user->toArray(), [

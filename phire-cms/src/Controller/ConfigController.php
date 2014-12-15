@@ -4,7 +4,6 @@ namespace Phire\Controller;
 
 use Phire\Form;
 use Phire\Model;
-use Pop\Http\Response;
 
 class ConfigController extends AbstractController
 {

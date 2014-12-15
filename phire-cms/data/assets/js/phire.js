@@ -46,5 +46,12 @@ var phire = {
                 jax('#email1').off('blur', phire.changeUsername);
             }
         }
+    },
+
+    changeTitle : function(value) {
+        if (jax('#title-span')[0] != undefined) {
+            jax('#title-span').val(value);
+        }
     }
 };
+

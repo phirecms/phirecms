@@ -28,17 +28,16 @@ class User extends AbstractModel
     public function getAll()
     {
         $sql = Table\Users::sql();
-        $sql->select(new Sql\Select($sql, [
+        $sql->select([
             'user_id'   => DB_PREFIX . 'users.id',
             'role_id'   => DB_PREFIX . 'users.role_id',
             'username'  => DB_PREFIX . 'users.username',
             'email'     => DB_PREFIX . 'users.email',
             'id'        => DB_PREFIX . 'roles.id',
             'role_name' => DB_PREFIX . 'roles.name'
-        ]))->join(DB_PREFIX . 'roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'roles.id']);
+        ])->join(DB_PREFIX . 'roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'roles.id']);
         return Table\Users::query((string)$sql)->rows();
     }
-
 
     public function getById($id)
     {

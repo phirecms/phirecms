@@ -52,7 +52,8 @@ class RolesController extends AbstractController
         $role->getById($id);
 
         $this->prepareView('roles/edit.phtml');
-        $this->view->title = 'Edit ' . $role->name;
+        $this->view->title     = 'Edit Role';
+        $this->view->role_name = $role->name;
 
         $form = new Form\Role($role->permissions);
         $form->setFieldValues($role->toArray(), [

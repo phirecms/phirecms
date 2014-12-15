@@ -1,5 +1,5 @@
 <?php include __DIR__ . '/../header.phtml'; ?>
-    <h1><?=$title; ?></h1>
+    <h1><?=$title; ?> : <span id="title-span"><?=$username; ?></span></h1>
     <p><a href="<?=BASE_PATH . APP_URI . '/users/add'; ?>">+ Add</a> <a href="<?=BASE_PATH . APP_URI . '/users'; ?>">Back</a></p>
 <?=$form; ?>
 <?php include __DIR__ . '/../footer.phtml'; ?>
