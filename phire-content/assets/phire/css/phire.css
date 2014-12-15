@@ -1,0 +1,26 @@
+/**
+ * Phire CMS 2 Style Sheet
+ */
+
+dl {
+    margin: 0;
+    padding: 0
+}
+
+dt {
+    clear: left;
+    margin: 0;
+    padding: 0;
+}
+
+dd {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+}

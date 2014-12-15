@@ -1,4 +1,30 @@
 <?php include __DIR__ . '/../header.phtml'; ?>
     <h1><?=$title; ?></h1>
-    <p>Roles.</p>
+    <p><a href="<?=BASE_PATH . APP_URI . '/roles/add'; ?>">+ Add</a></p>
+<?php if (count($roles) > 0): ?>
+    <form id="roles-form" action="<?=BASE_PATH . APP_URI . '/roles/remove'; ?>" method="post">
+        <table class="data-table" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Edit</th>
+                <th><input type="checkbox" name="checkall" id="checkall" value="checkall" /></th>
+            </tr>
+<?php $i = 1; ?>
+<?php foreach ($roles as $role): ?>
+            <tr>
+                <td><?=$role['id']; ?></td>
+                <td><?=$role['name']; ?></td>
+                <td><a href="<?=BASE_PATH . APP_URI . '/roles/edit/' . $role['id']; ?>">Edit</a></td>
+                <td><?php if ($user['role_id'] != $role['id']): ?><input type="checkbox" name="rm_roles[]" id="rm_roles<?=$i++; ?>" value="<?=$role['id']; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
+            </tr>
+<?php endforeach; ?>
+            <tr>
+                <td colspan="4"><input type="submit" name="submit" value="Remove" /></td>
+            </tr>
+        </table>
+    </form>
+<?php else: ?>
+    <p>There are currently no roles.</p>
+<?php endif; ?>
 <?php include __DIR__ . '/../footer.phtml'; ?>

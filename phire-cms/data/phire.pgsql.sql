@@ -36,13 +36,10 @@ CREATE SEQUENCE role_id_seq START 2001;
 CREATE TABLE IF NOT EXISTS "[{prefix}]roles" (
   "id" integer NOT NULL DEFAULT nextval('role_id_seq'),
   "name" varchar(255) NOT NULL,
-  "permissions" text,
-  "login" integer,
-  "register" integer,
-  "register_notify" integer,
   "verification" integer,
   "approval" integer,
   "email_as_username" integer,
+  "permissions" text,
   PRIMARY KEY ("id")
 ) ;
 
@@ -53,8 +50,8 @@ CREATE INDEX "user_role_name" ON "[{prefix}]roles" ("name");
 -- Dumping data for table "roles"
 --
 
-INSERT INTO "[{prefix}]roles" ("name", "permissions", "login", "register", "register_notify", "verification", "approval", "email_as_username") VALUES
-('Phire', NULL, 1, 0, 0, 0, 0, 0);
+INSERT INTO "[{prefix}]roles" ("name",  "verification", "approval", "email_as_username", "permissions") VALUES
+('Phire', 0, 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -85,6 +82,9 @@ CREATE INDEX "user_email" ON "[{prefix}]users" ("email");
 --
 -- Dumping data for table "users"
 --
+
+INSERT INTO "[{prefix}]users" ("role_id", "username", "password", "email", "verified", "created", "updated") VALUES
+(2001, 'admin', '$2y$08$WVRWMjJ0ekdmVlRTMkJTaetlrg46K.PG59Q5PcsLQipBpyCKFp8Be', 'nick@nolainteractive.com', 1, '2014-12-13 17:49:12', NULL);
 
 -- --------------------------------------------------------
 

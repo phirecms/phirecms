@@ -3,6 +3,7 @@
 namespace Phire\Controller;
 
 use Phire\Form;
+use Phire\Model;
 use Pop\Auth;
 use Pop\Http\Response;
 
@@ -55,7 +56,7 @@ class IndexController extends AbstractController
         $this->send();
     }
 
-    public function register()
+    public function register($id = 2001)
     {
         $this->prepareView('register.phtml');
         $this->view->title = 'Register';
@@ -63,10 +64,38 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    public function verify($id, $hash)
+    {
+        $user = new Model\User();
+        $this->prepareView('verify.phtml');
+        $this->view->title  = 'Verify';
+        $this->view->result = $user->verify($id, $hash);
+        $this->response->setBody($this->view->render());
+        $this->send();
+    }
+
     public function unsubscribe()
     {
-        $this->prepareView('register.phtml');
+        $this->prepareView('unsubscribe.phtml');
         $this->view->title = 'Unsubscribe';
+
+        $form = new Form\Unsubscribe();
+
+        if ($this->request->isPost()) {
+            $form->setFieldValues($this->request->getPost(), [
+                'strip_tags'   => null,
+                'htmlentities' => [ENT_QUOTES, 'UTF-8']
+            ]);
+
+            if ($form->isValid()) {
+                $user = new Model\User();
+                $user->unsubscribe($form->getFields());
+                Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
+                exit();
+            }
+        }
+
+        $this->view->form = $form;
         $this->response->setBody($this->view->render());
         $this->send();
     }

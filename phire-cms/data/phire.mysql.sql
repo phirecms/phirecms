@@ -34,13 +34,10 @@ INSERT INTO `[{prefix}]config` (`setting`, `value`) VALUES
 CREATE TABLE IF NOT EXISTS `[{prefix}]roles` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `permissions` text,
-  `login` int(1),
-  `register` int(1),
-  `register_notify` int(1),
   `verification` int(1),
   `approval` int(1),
   `email_as_username` int(1),
+  `permissions` text,
   PRIMARY KEY (`id`),
   INDEX `user_role_name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2002 ;
@@ -49,8 +46,8 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]roles` (
 -- Dumping data for table `roles`
 --
 
-INSERT INTO `[{prefix}]roles` (`id`, `name`, `permissions`, `login`, `register`, `register_notify`, `verification`, `approval`, `email_as_username`) VALUES
-(2001, 'Phire', NULL, 1, 0, 0, 0, 0, 0);
+INSERT INTO `[{prefix}]roles` (`id`, `name`, `verification`, `approval`, `email_as_username`, `permissions`) VALUES
+(2001, 'Phire', 0, 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -72,11 +69,14 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]users` (
   INDEX `username` (`username`),
   INDEX `user_email` (`email`),
   CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `[{prefix}]roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1001 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1002 ;
 
 --
 -- Dumping data for table `users`
 --
+
+INSERT INTO `[{prefix}]users` (`id`, `role_id`, `username`, `password`, `email`, `verified`, `created`, `updated`) VALUES
+(1001, 2001, 'admin', '$2y$08$WVRWMjJ0ekdmVlRTMkJTaetlrg46K.PG59Q5PcsLQipBpyCKFp8Be', 'nick@nolainteractive.com', 1, '2014-12-13 17:49:12', NULL);
 
 -- --------------------------------------------------------
 

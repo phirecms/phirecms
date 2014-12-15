@@ -23,16 +23,16 @@ class Login extends Form
     {
         $fields = [
             'username' => [
-                'type'      => 'text',
-                'label'     => 'Username',
-                'required'  => 'true',
-                'validator' => new Validator\NotEmpty()
+                'type'       => 'text',
+                'label'      => 'Username',
+                'required'   => 'true',
+                'validators' => new Validator\NotEmpty()
             ],
             'password' => [
-                'type'      => 'password',
-                'label'     => 'Password',
-                'required'  => 'true',
-                'validator' => new Validator\NotEmpty()
+                'type'       => 'password',
+                'label'      => 'Password',
+                'required'   => 'true',
+                'validators' => new Validator\NotEmpty()
             ],
             'submit' => [
                 'type'  => 'submit',
@@ -40,7 +40,9 @@ class Login extends Form
                 'value' => 'Login'
             ]
         ];
+
         parent::__construct($fields, $action, $method);
+
         $this->setAttribute('id', 'login-form');
         $this->setIndent('    ');
     }
@@ -66,6 +68,12 @@ class Login extends Form
             if (!($auth->isValid())) {
                 $this->getElement('password')
                      ->addValidator(new Validator\NotEqual($this->password, 'The username or password were not correct.'));
+            } else if (!$auth->adapter()->getUser()->verified) {
+                $this->getElement('password')
+                     ->addValidator(new Validator\NotEqual($this->password, 'That user is not verified.'));
+            } else if (null === $auth->adapter()->getUser()->role_id) {
+                $this->getElement('password')
+                     ->addValidator(new Validator\NotEqual($this->password, 'That user is blocked.'));
             }
         }
 

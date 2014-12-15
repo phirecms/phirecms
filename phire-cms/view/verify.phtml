@@ -1,0 +1,8 @@
+<?php include __DIR__ . '/header.phtml'; ?>
+    <h1><?=$title; ?></h1>
+<?php if ($result): ?>
+    <p>Thank you. Your account has been verified.</p>
+<?php else: ?>
+    <p>Sorry, your account could not be verified at this time.</p>
+<?php endif; ?>
+<?php include __DIR__ . '/footer.phtml'; ?>

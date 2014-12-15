@@ -1,4 +1,34 @@
 <?php include __DIR__ . '/../header.phtml'; ?>
     <h1><?=$title; ?></h1>
-    <p>Users.</p>
+    <p><a href="<?=BASE_PATH . APP_URI . '/users/add'; ?>">+ Add</a></p>
+<?php if (count($users) > 0): ?>
+    <form id="users-form" action="<?=BASE_PATH . APP_URI . '/users/remove'; ?>" method="post">
+        <table class="data-table" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Edit</th>
+                <th><input type="checkbox" name="checkall" id="checkall" value="checkall" /></th>
+            </tr>
+<?php $i = 1; ?>
+<?php foreach ($users as $u): ?>
+            <tr>
+                <td><?=$u['user_id']; ?></td>
+                <td><?=$u['username']; ?></td>
+                <td><?=$u['email']; ?></td>
+                <td><?=(!empty($u['role_name']) ? $u['role_name'] : '[Blocked]'); ?></td>
+                <td><a href="<?=BASE_PATH . APP_URI . '/users/edit/' . $u['user_id']; ?>">Edit</a></td>
+                <td><?php if ($user['id'] != $u['user_id']): ?><input type="checkbox" name="rm_users[]" id="rm_users<?=$i++; ?>" value="<?=$u['user_id']; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
+            </tr>
+<?php endforeach; ?>
+            <tr>
+                <td colspan="4"><input type="submit" name="submit" value="Remove" /></td>
+            </tr>
+        </table>
+    </form>
+<?php else: ?>
+    <p>There are currently no users.</p>
+<?php endif; ?>
 <?php include __DIR__ . '/../footer.phtml'; ?>
