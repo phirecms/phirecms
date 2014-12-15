@@ -74,6 +74,35 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    public function forgot()
+    {
+        $this->prepareView('forgot.phtml');
+        $this->view->title = 'Forgot your Password?';
+
+        $form = new Form\Forgot();
+
+        if ($this->request->isPost()) {
+            $form->setFieldValues($this->request->getPost(), [
+                'strip_tags'   => null,
+                'htmlentities' => [ENT_QUOTES, 'UTF-8']
+            ]);
+
+            if ($form->isValid()) {
+                $user = new Model\User();
+                $user->forgot($form->getFields());
+                $this->view->success = true;
+            } else {
+                $this->view->form = $form;
+            }
+            $this->response->setBody($this->view->render());
+            $this->send();
+        } else {
+            $this->view->form = $form;
+            $this->response->setBody($this->view->render());
+            $this->send();
+        }
+    }
+
     public function unsubscribe()
     {
         $this->prepareView('unsubscribe.phtml');
@@ -90,14 +119,17 @@ class IndexController extends AbstractController
             if ($form->isValid()) {
                 $user = new Model\User();
                 $user->unsubscribe($form->getFields());
-                Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
-                exit();
+                $this->view->success = true;
+            } else {
+                $this->view->form = $form;
             }
+            $this->response->setBody($this->view->render());
+            $this->send();
+        } else {
+            $this->view->form = $form;
+            $this->response->setBody($this->view->render());
+            $this->send();
         }
-
-        $this->view->form = $form;
-        $this->response->setBody($this->view->render());
-        $this->send();
     }
 
     public function logout()

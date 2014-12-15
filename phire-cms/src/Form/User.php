@@ -129,7 +129,7 @@ class User extends Form
 
             // If existing
             if ((int)$_POST['id'] > 0) {
-                if ($user->email !== $this->email1) {
+                if (($user->email !== $this->email1) && ($email->email !== $this->email1)) {
                     $this->getElement('email2')
                          ->setRequired(true)
                          ->addValidator(new Validator\Equal($this->email1, 'The emails do not match.'));

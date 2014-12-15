@@ -1,9 +1,9 @@
 <?php include __DIR__ . '/header.phtml'; ?>
     <h1><?=$title; ?></h1>
 <?php if (isset($form)): ?>
-    <p>Please enter your email to unsubscribe.</p>
+    <p>Please enter your email.</p>
 <?=$form; ?>
 <?php elseif ($success): ?>
-    <p>You have been successfully unsubscribed from this website.</p>
+    <p>An email has been sent to you with a password reminder.</p>
 <?php endif; ?>
 <?php include __DIR__ . '/footer.phtml'; ?>

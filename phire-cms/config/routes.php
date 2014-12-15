@@ -18,6 +18,10 @@ return [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'verify'
     ],
+    APP_URI . '/forgot[/]' => [
+        'controller' => 'Phire\Controller\IndexController',
+        'action'     => 'forgot'
+    ],
     APP_URI . '/unsubscribe[/]' => [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'unsubscribe'

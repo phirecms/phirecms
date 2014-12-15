@@ -38,11 +38,12 @@ class Application extends \Pop\Application
             $sess   = $application->getService('session');
             $action = $application->router()->getRouteMatch()->getAction();
 
-            if (isset($sess->user) && (($action == 'login') || ($action == 'register') || ($action == 'verify'))) {
+            if (isset($sess->user) && (($action == 'login') || ($action == 'register') ||
+                    ($action == 'verify') || ($action == 'forgot'))) {
                 Response::redirect(BASE_PATH . APP_URI);
                 exit();
             } else if (!isset($sess->user) && (($action != 'login') && ($action != 'register') &&
-                    ($action != 'unsubscribe') && ($action != 'verify') && (null !== $action))) {
+                    ($action != 'unsubscribe') && ($action != 'verify') && ($action != 'forgot') && (null !== $action))) {
                 Response::redirect(BASE_PATH . APP_URI . '/login');
                 exit();
             }

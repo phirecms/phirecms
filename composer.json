@@ -25,6 +25,7 @@
         "popphp/pop-auth": "2.*@dev",
         "popphp/pop-db": "2.*@dev",
         "popphp/pop-file": "2.*@dev",
+        "popphp/pop-filter": "2.*@dev",
         "popphp/pop-form": "2.*@dev",
         "popphp/pop-ftp": "2.*@dev",
         "popphp/pop-http": "2.*@dev",

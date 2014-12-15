@@ -5,6 +5,7 @@ namespace Phire\Model;
 use Phire\Table;
 use Pop\Crypt\Bcrypt;
 use Pop\Db\Sql;
+use Pop\Filter\String;
 use Pop\Mail\Mail;
 
 class User extends AbstractModel
@@ -90,6 +91,14 @@ class User extends AbstractModel
         }
     }
 
+    public function forgot(array $fields)
+    {
+        $user = Table\Users::findBy(['email' => $fields['email']]);
+        if (isset($user->id)) {
+            $this->sendReminder($user);
+        }
+    }
+
     public function unsubscribe(array $fields)
     {
         $user = Table\Users::findBy(['email' => $fields['email']]);
@@ -110,7 +119,7 @@ class User extends AbstractModel
         }
     }
 
-    protected function sendVerification($user)
+    protected function sendVerification(Table\Users $user)
     {
         $domain  = str_replace('www.', '', $_SERVER['HTTP_HOST']);
 
@@ -118,7 +127,8 @@ class User extends AbstractModel
         $rcpt = [
             'name'   => $user->username,
             'email'  => $user->email,
-            'url'    => 'http://' . $_SERVER['HTTP_HOST'] . BASE_PATH . APP_URI . '/verify/' . $user->id . '/' . sha1($user->email),
+            'url'    => 'http://' . $_SERVER['HTTP_HOST'] . BASE_PATH . APP_URI . '/verify/' .
+                $user->id . '/' . sha1($user->email),
             'domain' => $domain
         ];
 
@@ -129,7 +139,7 @@ class User extends AbstractModel
         $mail->send();
     }
 
-    protected function sendApproval($user)
+    protected function sendApproval(Table\Users $user)
     {
         $domain  = str_replace('www.', '', $_SERVER['HTTP_HOST']);
 
@@ -144,6 +154,29 @@ class User extends AbstractModel
         $mail = new Mail($domain . ' - Approval', $rcpt);
         $mail->from('noreply@' . $domain);
         $mail->setText(file_get_contents(__DIR__ . '/../../view/mail/approval.txt'));
+        $mail->send();
+    }
+
+    protected function sendReminder(Table\Users $user)
+    {
+        $domain         = str_replace('www.', '', $_SERVER['HTTP_HOST']);
+        $newPassword    = String::random(8, ['type' => 'alphanum', 'case' => 'lower']);
+        $user->password = (new Bcrypt())->create($newPassword);
+        $user->save();
+
+        // Set the recipient
+        $rcpt = [
+            'name'     => $user->username,
+            'email'    => $user->email,
+            'domain'   => $domain,
+            'username' => $user->username,
+            'password' => $newPassword
+        ];
+
+        // Send email verification
+        $mail = new Mail($domain . ' - Forgot Password', $rcpt);
+        $mail->from('noreply@' . $domain);
+        $mail->setText(file_get_contents(__DIR__ . '/../../view/mail/forgot.txt'));
         $mail->send();
     }
 

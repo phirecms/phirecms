@@ -6,7 +6,7 @@ use Phire\Table;
 use Pop\Form\Form;
 use Pop\Validator;
 
-class Unsubscribe extends Form
+class Forgot extends Form
 {
 
     /**
@@ -17,7 +17,7 @@ class Unsubscribe extends Form
      * @param  array  $fields
      * @param  string $action
      * @param  string $method
-     * @return Unsubscribe
+     * @return Forgot
      */
     public function __construct(array $fields = null, $action = null, $method = 'post')
     {
@@ -31,13 +31,13 @@ class Unsubscribe extends Form
             'submit' => [
                 'type'  => 'submit',
                 'label' => '&nbsp;',
-                'value' => 'Unsubscribe'
+                'value' => 'Submit'
             ]
         ];
 
         parent::__construct($fields, $action, $method);
 
-        $this->setAttribute('id', 'unsubscribe-form');
+        $this->setAttribute('id', 'forgot-form');
         $this->setIndent('    ');
     }
 
@@ -57,16 +57,6 @@ class Unsubscribe extends Form
             if (!isset($user->id)) {
                 $this->getElement('email')
                      ->addValidator(new Validator\NotEqual($this->email, 'That email does not exist.'));
-            } else if (null !== $user->role_id) {
-                $role = Table\Roles::findById($user->role_id);
-                if (null !== $role->permissions) {
-                    $permissions = unserialize($role->permissions);
-                    if (!isset($permissions[BASE_PATH . APP_URI . '/login[/]']) ||
-                        ((isset($permissions[BASE_PATH . APP_URI . '/login[/]']) && ($permissions[BASE_PATH . APP_URI . '/login[/]'])))) {
-                            $this->getElement('email')
-                                 ->addValidator(new Validator\NotEqual($this->email, 'You must <a href="' . BASE_PATH . APP_URI . '/login">log in</a> to unsubscribe.'));
-                    }
-                }
             }
         }
 
