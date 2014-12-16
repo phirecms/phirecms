@@ -91,13 +91,12 @@ class User extends Form
      * Set the field values
      *
      * @param  array $values
-     * @param  array $filters
      * @return Login
      */
-    public function setFieldValues(array $values = null, array $filters = null)
+    public function setFieldValues(array $values = null)
     {
 
-        parent::setFieldValues($values, $filters);
+        parent::setFieldValues($values);
 
         // Change username to hidden if email used instead
         if (null !== $this->role_id) {

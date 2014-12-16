@@ -3,6 +3,7 @@
 namespace Phire\Model;
 
 use Phire\Table;
+use Pop\Acl;
 
 class Role extends AbstractModel
 {
@@ -25,6 +26,7 @@ class Role extends AbstractModel
     public function save(array $post)
     {
         $role = new Table\Roles([
+            'parent_id'         => ($post['parent_id'] != '----') ? (int)$post['parent_id'] : null,
             'name'              => html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8'),
             'verification'      => (int)$post['verification'],
             'approval'          => (int)$post['approval'],
@@ -38,6 +40,7 @@ class Role extends AbstractModel
     {
         $role = Table\Roles::findById((int)$post['id']);
         if (isset($role->id)) {
+            $role->parent_id         = ($post['parent_id'] != '----') ? (int)$post['parent_id'] : null;
             $role->name              = html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8');
             $role->verification      = (int)$post['verification'];
             $role->approval          = (int)$post['approval'];
@@ -71,6 +74,48 @@ class Role extends AbstractModel
             }
         }
         return $result;
+    }
+
+    public static function getPermissionsConfig()
+    {
+        $config = [
+            'roles'     => [],
+            'resources' => []
+        ];
+
+        $roles   = Table\Roles::findAll();
+
+        foreach ($roles->getRowObjects() as $role) {
+            $config['roles'][$role->id] = [
+                'role'   => new Acl\Role($role->name),
+                'allow'  => [],
+                'deny'   => [],
+                'parent' => $role->parent_id
+            ];
+
+            $permissions = (null !== $role->permissions) ? unserialize($role->permissions) : [];
+
+            if (count($permissions) > 0) {
+                foreach ($permissions as $resource => $permission) {
+                    $config['resources'][$resource] = new Acl\Resource($resource);
+                    if ($permission) {
+                        $config['roles'][$role->id]['role']->addPermission($resource);
+                        $config['roles'][$role->id]['allow'][] = $resource;
+                    } else {
+                        $config['roles'][$role->id]['deny'][] = $resource;
+                    }
+                }
+            }
+        }
+
+        // Discover any parents
+        foreach ($config['roles'] as $id => $role) {
+            if ((null !== $role['parent']) && isset($config['roles'][$role['parent']])) {
+                $role['role']->inheritsFrom($config['roles'][$role['parent']]['role']);
+            }
+        }
+
+        return $config;
     }
 
     protected function getPermissions(array $post)

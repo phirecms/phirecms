@@ -27,10 +27,9 @@ class RolesController extends AbstractController
         $form = new Form\Role();
 
         if ($this->request->isPost()) {
-            $form->setFieldValues($this->request->getPost(), [
-                'strip_tags'   => null,
-                'htmlentities' => [ENT_QUOTES, 'UTF-8']
-            ]);
+            $form->addFilter('strip_tags')
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->setFieldValues($this->request->getPost());
 
             if ($form->isValid()) {
                 $role = new Model\Role();
@@ -55,16 +54,14 @@ class RolesController extends AbstractController
         $this->view->title     = 'Edit Role';
         $this->view->role_name = $role->name;
 
-        $form = new Form\Role($role->permissions);
-        $form->setFieldValues($role->toArray(), [
-            'htmlentities' => [ENT_QUOTES, 'UTF-8']
-        ]);
+        $form = new Form\Role($role->permissions, $id);
+        $form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+             ->setFieldValues($role->toArray());
 
         if ($this->request->isPost()) {
-            $form->setFieldValues($this->request->getPost(), [
-                'strip_tags'   => null,
-                'htmlentities' => [ENT_QUOTES, 'UTF-8']
-            ]);
+            $form->addFilter('strip_tags')
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->setFieldValues($this->request->getPost());
 
             if ($form->isValid()) {
                 $role = new Model\Role();

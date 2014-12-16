@@ -41,12 +41,14 @@ INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('force_ssl', '0');
 
 CREATE TABLE IF NOT EXISTS "[{prefix}]roles" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "parent_id" integer,
   "name" varchar NOT NULL,
   "email_as_username" integer,
   "verification" integer,
   "approval" integer,
   "permissions" text,
-  UNIQUE ("id")
+  UNIQUE ("id"),
+  CONSTRAINT "fk_role_parent_id" FOREIGN KEY ("parent_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 ) ;
 
 INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]roles', 2000);
@@ -56,8 +58,8 @@ CREATE INDEX "user_role_name" ON "[{prefix}]roles" ("name");
 -- Dumping data for table "roles"
 --
 
-INSERT INTO "[{prefix}]roles" ("id", "name", "verification", "approval", "email_as_username", "permissions") VALUES
-(2001, 'Phire', 0, 0, 0, NULL);
+INSERT INTO "[{prefix}]roles" ("id", "parent_id", "name", "verification", "approval", "email_as_username", "permissions") VALUES
+(2001, NULL, 'Phire', 0, 0, 0, NULL);
 
 -- --------------------------------------------------------
 

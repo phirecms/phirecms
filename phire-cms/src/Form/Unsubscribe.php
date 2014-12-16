@@ -45,12 +45,11 @@ class Unsubscribe extends Form
      * Set the field values
      *
      * @param  array $values
-     * @param  array $filters
      * @return Login
      */
-    public function setFieldValues(array $values = null, array $filters = null)
+    public function setFieldValues(array $values = null)
     {
-        parent::setFieldValues($values, $filters);
+        parent::setFieldValues($values);
 
         if (($_POST) && (null !== $this->email)) {
             $user = Table\Users::findBy(['email' => $this->email]);

@@ -51,13 +51,12 @@ class Login extends Form
      * Set the field values
      *
      * @param  array $values
-     * @param  array $filters
      * @param  Auth  $auth
      * @return Login
      */
-    public function setFieldValues(array $values = null, array $filters = null, Auth $auth = null)
+    public function setFieldValues(array $values = null, Auth $auth = null)
     {
-        parent::setFieldValues($values, $filters);
+        parent::setFieldValues($values);
 
         if (($_POST) && (null !== $this->username) && (null !== $this->password) && (null !== $auth)) {
             $auth->authenticate(

@@ -47,9 +47,61 @@ class Application extends \Pop\Application
                 Response::redirect(BASE_PATH . APP_URI . '/login');
                 exit();
             }
-        });
+        }, 1000);
+
+        // ACL Check
+        $this->on('app.dispatch.pre', function(Application $application){
+            $sess = $application->getService('session');
+            $acl  = $application->getService('acl');
+
+            if (isset($sess->user) && isset($sess->user->role_name) && ($acl->hasRole($sess->user->role_name))) {
+                // Get routes with slash options
+                $route  =  $application->router()->getRouteMatch()->getRoute();
+                $routes = [$route];
+                if (substr($route, -1) == '/') {
+                    $bareRoute = substr($route, 0, -1);
+                    $routes[]  = $bareRoute;
+                    $routes[]  = $bareRoute . '[/]';
+                } else {
+                    $bareRoute = $route;
+                    $routes[]  = $route . '[/]';
+                    $routes[]  = $route . '/';
+                }
+
+                // Get the resource
+                $resource = null;
+                foreach ($routes as $route) {
+                    if ($acl->hasResource($route)) {
+                        $resource = $route;
+                    }
+                }
+
+                // Check for resources with params
+                if (null === $resource) {
+                    $resources = $acl->getResources();
+
+                    foreach ($resources as $key => $value) {
+                        if ((strpos($key, '/[:') !== false) && (substr($key, 0, strpos($key, '/[:')) == $bareRoute)) {
+                            $resource = $key;
+                        } else if ((strpos($key, '/[:') === false) && (strpos($key, '/:') !== false) &&
+                            (substr($key, 0, strpos($key, '/:')) == $bareRoute)) {
+                            $resource = $key;
+                        }
+                    }
+                }
+
+                // If role and resource exists, check if denied
+                if (null !== $resource) {
+                    if ($acl->isDenied($sess->user->role_name, $resource)) {
+                        Response::redirect(BASE_PATH . APP_URI);
+                        exit();
+                    }
+                }
+            }
+        }, 500);
 
         $this->loadAssets(__DIR__ . '/../data/assets', 'phire');
+        $this->initAcl();
 
         return parent::init();
     }
@@ -93,6 +145,38 @@ class Application extends \Pop\Application
                 }
             }
         }
+    }
+
+    public function initAcl()
+    {
+        $config = \Phire\Model\Role::getPermissionsConfig();
+
+        if (count($config['resources']) > 0) {
+            foreach ($config['resources'] as $resource) {
+                $this->services['acl']->addResource($resource);
+            }
+        }
+        if (count($config['roles']) > 0) {
+            foreach ($config['roles'] as $role) {
+                $this->services['acl']->addRole($role['role']);
+
+                if (count($role['allow']) > 0) {
+                    foreach ($role['allow'] as $resource) {
+                        $this->services['acl']->allow($role['role']->getName(), $resource);
+                    }
+                }
+                if (count($role['deny']) > 0) {
+                    foreach ($role['deny'] as $resource) {
+                        $this->services['acl']->deny($role['role']->getName(), $resource);
+                    }
+                }
+                if (count($role['allow']) == 0) {
+                    $this->services['acl']->allow($role['role']->getName());
+                }
+            }
+        }
+
+        $this->services['nav.phire']->setAcl($this->services['acl']);
     }
 
 }

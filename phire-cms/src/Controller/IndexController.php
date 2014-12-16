@@ -4,6 +4,7 @@ namespace Phire\Controller;
 
 use Phire\Form;
 use Phire\Model;
+use Phire\Table;
 use Pop\Auth;
 use Pop\Http\Response;
 
@@ -33,18 +34,18 @@ class IndexController extends AbstractController
                 )
             );
 
-            $form->setFieldValues($this->request->getPost(), [
-                'strip_tags'   => null,
-                'htmlentities' => [ENT_QUOTES, 'UTF-8']
-            ], $auth);
+            $form->addFilter('strip_tags')
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->setFieldValues($this->request->getPost(), $auth);
 
             if ($form->isValid()) {
-                $this->sess->user = [
-                    'id'       => $auth->adapter()->getUser()->id,
-                    'role_id'  => $auth->adapter()->getUser()->role_id,
-                    'username' => $auth->adapter()->getUser()->username,
-                    'email'    => $auth->adapter()->getUser()->email,
-                ];
+                $this->sess->user = new \ArrayObject([
+                    'id'        => $auth->adapter()->getUser()->id,
+                    'role_id'   => $auth->adapter()->getUser()->role_id,
+                    'role_name' => Table\Roles::findById($auth->adapter()->getUser()->role_id)->name,
+                    'username'  => $auth->adapter()->getUser()->username,
+                    'email'     => $auth->adapter()->getUser()->email,
+                ], \ArrayObject::ARRAY_AS_PROPS);
 
                 Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
                 exit();
@@ -67,10 +68,9 @@ class IndexController extends AbstractController
             $form = new Form\Register($id);
 
             if ($this->request->isPost()) {
-                $form->setFieldValues($this->request->getPost(), [
-                    'strip_tags'   => null,
-                    'htmlentities' => [ENT_QUOTES, 'UTF-8']
-                ]);
+                $form->addFilter('strip_tags')
+                     ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                     ->setFieldValues($this->request->getPost());
 
                 if ($form->isValid()) {
                     $fields = $form->getFields();
@@ -117,10 +117,9 @@ class IndexController extends AbstractController
         $form = new Form\Forgot();
 
         if ($this->request->isPost()) {
-            $form->setFieldValues($this->request->getPost(), [
-                'strip_tags'   => null,
-                'htmlentities' => [ENT_QUOTES, 'UTF-8']
-            ]);
+            $form->addFilter('strip_tags')
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->setFieldValues($this->request->getPost());
 
             if ($form->isValid()) {
                 $user = new Model\User();
@@ -146,10 +145,9 @@ class IndexController extends AbstractController
         $form = new Form\Unsubscribe();
 
         if ($this->request->isPost()) {
-            $form->setFieldValues($this->request->getPost(), [
-                'strip_tags'   => null,
-                'htmlentities' => [ENT_QUOTES, 'UTF-8']
-            ]);
+            $form->addFilter('strip_tags')
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->setFieldValues($this->request->getPost());
 
             if ($form->isValid()) {
                 $user = new Model\User();

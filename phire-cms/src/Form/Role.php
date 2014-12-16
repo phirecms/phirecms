@@ -2,6 +2,7 @@
 
 namespace Phire\Form;
 
+use Phire\Table;
 use Pop\Form\Form;
 use Pop\Validator;
 
@@ -19,7 +20,7 @@ class Role extends Form
      * @param  string $method
      * @return Role
      */
-    public function __construct(array $permissions = [], array $fields = null, $action = null, $method = 'post')
+    public function __construct(array $permissions = [], $id = 0, array $fields = null, $action = null, $method = 'post')
     {
         $omitRoutes = [
             APP_URI . '/verify/:id/:hash',
@@ -36,7 +37,23 @@ class Role extends Form
             }
         }
 
+        $parentRoles = ['----' => '----'];
+
+        $roles = Table\Roles::findAll();
+        if ($roles->count() > 0) {
+            foreach ($roles->rows() as $role) {
+                if ($role['id'] != $id) {
+                    $parentRoles[$role['id']] = $role['name'];
+                }
+            }
+        }
+
         $fields = [
+            'parent_id' => [
+                'type'       => 'select',
+                'label'      => 'Parent',
+                'value'      => $parentRoles
+            ],
             'name' => [
                 'type'       => 'text',
                 'label'      => 'Name',

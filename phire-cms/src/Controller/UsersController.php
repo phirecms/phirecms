@@ -27,15 +27,14 @@ class UsersController extends AbstractController
         $form = new Form\User();
 
         if ($this->request->isPost()) {
-            $form->setFieldValues($this->request->getPost(), [
-                'strip_tags'   => null,
-                'htmlentities' => [ENT_QUOTES, 'UTF-8']
-            ]);
+            $form->addFilter('strip_tags')
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->setFieldValues($this->request->getPost());
 
             if ($form->isValid()) {
-                $form->filter([
-                    'html_entity_decode' => [ENT_QUOTES, 'UTF-8']
-                ]);
+                $form->clearFilters()
+                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                     ->filter();
                 $user = new Model\User();
                 $user->save($form->getFields());
 
@@ -59,15 +58,13 @@ class UsersController extends AbstractController
         $this->view->username = $user->username;
 
         $form = new Form\User();
-        $form->setFieldValues($user->toArray(), [
-            'htmlentities' => [ENT_QUOTES, 'UTF-8']
-        ]);
+        $form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+             ->setFieldValues($user->toArray());
 
         if ($this->request->isPost()) {
-            $form->setFieldValues($this->request->getPost(), [
-                'strip_tags'   => null,
-                'htmlentities' => [ENT_QUOTES, 'UTF-8']
-            ]);
+            $form->addFilter('strip_tags')
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->setFieldValues($this->request->getPost());
 
             if ($form->isValid()) {
                 $form->filter([

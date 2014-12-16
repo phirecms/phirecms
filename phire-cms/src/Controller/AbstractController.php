@@ -100,8 +100,14 @@ class AbstractController extends Controller
     protected function prepareView($template)
     {
         $this->view = new View($this->viewPath . '/' . $template);
+
         if (isset($this->sess->user)) {
-            $this->view->user = $this->sess->user;
+            $this->services['nav.phire']->setRole($this->services['acl']->getRole($this->sess->user->role_name));
+            $this->view->phireNav = $this->services['nav.phire'];
+            $this->view->user     = $this->sess->user;
+            $this->view->acl      = $this->services['acl'];
+        } else {
+            $this->view->phireNav = null;
         }
     }
 

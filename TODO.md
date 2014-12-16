@@ -1,6 +1,6 @@
 TO DO
 =====
-- ACL/Nav
+- ACL/Nav [DONE]
 - Modules System
-- Installation
+- Installation/System Check
 - Style/Design

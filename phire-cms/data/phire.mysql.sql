@@ -33,21 +33,23 @@ INSERT INTO `[{prefix}]config` (`setting`, `value`) VALUES
 
 CREATE TABLE IF NOT EXISTS `[{prefix}]roles` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(16),
   `name` varchar(255) NOT NULL,
   `verification` int(1),
   `approval` int(1),
   `email_as_username` int(1),
   `permissions` text,
   PRIMARY KEY (`id`),
-  INDEX `user_role_name` (`name`)
+  INDEX `user_role_name` (`name`),
+  CONSTRAINT `fk_role_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `[{prefix}]roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2002 ;
 
 --
 -- Dumping data for table `roles`
 --
 
-INSERT INTO `[{prefix}]roles` (`id`, `name`, `verification`, `approval`, `email_as_username`, `permissions`) VALUES
-(2001, 'Phire', 0, 0, 0, NULL);
+INSERT INTO `[{prefix}]roles` (`id`, `parent_id`, `name`, `verification`, `approval`, `email_as_username`, `permissions`) VALUES
+(2001, NULL, 'Phire', 0, 0, 0, NULL);
 
 -- --------------------------------------------------------
 
