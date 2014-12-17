@@ -55,3 +55,30 @@ var phire = {
     }
 };
 
+jax(document).ready(function(){
+    if (jax('#users-form')[0] != undefined) {
+        jax('#checkall').click(function(){
+            if (this.checked) {
+                jax('#users-form').checkAll(this.value);
+            } else {
+                jax('#users-form').uncheckAll(this.value);
+            }
+        });
+        jax('#users-form').submit(function(){
+            return jax('#users-form').checkValidate('checkbox', true);
+        });
+    }
+    if (jax('#roles-form')[0] != undefined) {
+        jax('#checkall').click(function(){
+            if (this.checked) {
+                jax('#roles-form').checkAll(this.value);
+            } else {
+                jax('#roles-form').uncheckAll(this.value);
+            }
+        });
+        jax('#roles-form').submit(function(){
+            return jax('#roles-form').checkValidate('checkbox', true);
+        });
+    }
+});
+

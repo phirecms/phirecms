@@ -17,12 +17,12 @@
 <?php
 $wasChecked = false;
 foreach($config['datetime_formats'] as $datetime):
-    if ($config['datetime_format'] == $datetime) {
+    if ($config['datetime_format'] == $datetime):
         $checked    = 'checked="checked" ';
         $wasChecked = true;
-    } else {
+    else:
         $checked = '';
-    }
+    endif;
 ?>
                     <div><input type="radio" name="datetime_format" id="datetime_format" <?=$checked; ?>value="<?=$datetime; ?>" /> <span class="radio-block-span"><?=date($datetime); ?></span></div>
 <?php endforeach; ?>

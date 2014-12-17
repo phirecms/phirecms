@@ -15,6 +15,7 @@ class Role extends Form
      * Instantiate the form object
      *
      * @param  array  $permissions
+     * @param  int    $id
      * @param  array  $fields
      * @param  string $action
      * @param  string $method

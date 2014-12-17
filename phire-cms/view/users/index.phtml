@@ -12,17 +12,17 @@
                 <th>Email</th>
                 <th>Role</th>
                 <th>Edit</th>
-                <th><input type="checkbox" name="checkall" id="checkall" value="checkall" /></th>
+                <th><input type="checkbox" name="checkall" id="checkall" value="rm_users" /></th>
             </tr>
 <?php $i = 1; ?>
 <?php foreach ($users as $u): ?>
             <tr>
-                <td><?=$u['user_id']; ?></td>
-                <td><?=$u['username']; ?></td>
-                <td><?=$u['email']; ?></td>
-                <td><?=(!empty($u['role_name']) ? $u['role_name'] : '[Blocked]'); ?></td>
-                <td><?php if ($acl->isAllowed($user->role_name, BASE_PATH . APP_URI . '/users/edit/:id')): ?><a href="<?=BASE_PATH . APP_URI . '/users/edit/' . $u['user_id']; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
-                <td><?php if ($user['id'] != $u['user_id']): ?><input type="checkbox" name="rm_users[]" id="rm_users<?=$i++; ?>" value="<?=$u['user_id']; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
+                <td><?=$u->user_id; ?></td>
+                <td><?=$u->username; ?></td>
+                <td><?=$u->email; ?></td>
+                <td><?=(!empty($u->role_name) ? $u->role_name : '[Blocked]'); ?></td>
+                <td><?php if ($acl->isAllowed($user->role_name, BASE_PATH . APP_URI . '/users/edit/:id')): ?><a href="<?=BASE_PATH . APP_URI . '/users/edit/' . $u->user_id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
+                <td><?php if ($user->id != $u->user_id): ?><input type="checkbox" name="rm_users[]" id="rm_users<?=$i++; ?>" value="<?=$u->user_id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
             </tr>
 <?php endforeach; ?>
             <tr>

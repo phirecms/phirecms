@@ -8,15 +8,15 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Edit</th>
-                <th><input type="checkbox" name="checkall" id="checkall" value="checkall" /></th>
+                <th><input type="checkbox" name="checkall" id="checkall" value="rm_roles" /></th>
             </tr>
 <?php $i = 1; ?>
 <?php foreach ($roles as $role): ?>
             <tr>
-                <td><?=$role['id']; ?></td>
-                <td><?=$role['name']; ?></td>
-                <td><a href="<?=BASE_PATH . APP_URI . '/roles/edit/' . $role['id']; ?>">Edit</a></td>
-                <td><?php if ($user['role_id'] != $role['id']): ?><input type="checkbox" name="rm_roles[]" id="rm_roles<?=$i++; ?>" value="<?=$role['id']; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
+                <td><?=$role->id; ?></td>
+                <td><?=$role->name; ?></td>
+                <td><a href="<?=BASE_PATH . APP_URI . '/roles/edit/' . $role->id; ?>">Edit</a></td>
+                <td><?php if ($user->role_id != $role->id): ?><input type="checkbox" name="rm_roles[]" id="rm_roles<?=$i++; ?>" value="<?=$role->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
             </tr>
 <?php endforeach; ?>
             <tr>

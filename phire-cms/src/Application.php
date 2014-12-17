@@ -91,6 +91,7 @@ class Application extends \Pop\Application
                 }
 
                 // If role and resource exists, check if denied
+                // If denied, then redirect
                 if (null !== $resource) {
                     if ($acl->isDenied($sess->user->role_name, $resource)) {
                         Response::redirect(BASE_PATH . APP_URI);
@@ -176,6 +177,7 @@ class Application extends \Pop\Application
             }
         }
 
+        // Set the acl in the main nav object
         $this->services['nav.phire']->setAcl($this->services['acl']);
     }
 

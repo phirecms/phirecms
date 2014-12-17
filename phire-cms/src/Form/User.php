@@ -125,7 +125,7 @@ class User extends Form
                      ->addValidator(new Validator\NotEqual($this->email1, 'That email already exists.'));
             }
 
-            // If existing
+            // If existing user
             if ((int)$_POST['id'] > 0) {
                 if (($user->email !== $this->email1) && ($email->email !== $this->email1)) {
                     $this->getElement('email2')
@@ -137,7 +137,7 @@ class User extends Form
                          ->setRequired(true)
                          ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
                 }
-            // Else, if new
+            // Else, if new user
             } else {
                 $this->getElement('email2')
                      ->setRequired(true)

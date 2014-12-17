@@ -17,6 +17,6 @@
 
 <body>
 <?php if (isset($user)): ?>
-    <p><strong><?=$user['username']; ?></strong> | <a href="<?=BASE_PATH . APP_URI; ?>">Home</a> | <a href="<?=BASE_PATH . APP_URI . '/logout'; ?>">Logout</a></p>
-<?php include __DIR__ . '/nav.phtml'; ?>
+    <p><strong><?=$user->username; ?></strong> | <a href="<?=BASE_PATH . APP_URI; ?>">Home</a> | <a href="<?=BASE_PATH . APP_URI . '/logout'; ?>">Logout</a></p>
+<?=$phireNav; ?>
 <?php endif; ?>
