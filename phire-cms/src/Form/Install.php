@@ -111,10 +111,7 @@ class Install extends Form
             }
 
             // Check the database credentials
-            if ($this->isValid()) {
-                $oldError = ini_get('error_reporting');
-                error_reporting(E_ERROR);
-
+            if ($this->isValid() && (stripos($this->db_adapter, 'sqlite') === false)) {
                 if (stripos($this->db_adapter, 'pdo_') !== false) {
                     $adapter = 'Pdo';
                     $type    = str_replace('pdo_', '', strtolower($this->db_adapter));
@@ -123,12 +120,15 @@ class Install extends Form
                     $type    = null;
                 }
 
+                $oldError = ini_get('error_reporting');
+                error_reporting(E_ERROR);
+
                 $creds = [
                     'database' => $this->db_name,
                     'username' => $this->db_username,
                     'password' => $this->db_password,
-                    'host'     => $this->db_host,
-                    'type'     => $type,
+                    'host' => $this->db_host,
+                    'type' => $type,
                 ];
 
                 $dbCheck = Db::check($creds, $adapter);

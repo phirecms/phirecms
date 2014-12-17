@@ -107,9 +107,3 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
 
 ALTER SEQUENCE module_id_seq OWNED BY "[{prefix}]modules"."id";
 CREATE INDEX "module_name" ON "[{prefix}]modules" ("name");
-
---
--- Dumping data for table "modules"
---
-
--- --------------------------------------------------------

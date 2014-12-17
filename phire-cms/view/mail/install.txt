@@ -1,7 +1,6 @@
 Dear [{name}],
 
-Thank you for installing Phire CMS for [{domain}]. The website will be viewable here:
-[{url}]
+Thank you for installing Phire CMS for [{domain}].
 
 To manage the website, you can login to Phire here:
 [{login}]

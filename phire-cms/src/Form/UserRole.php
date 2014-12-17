@@ -24,10 +24,14 @@ class UserRole extends Form
     public function __construct(array $permissions = [], $id = 0, array $fields = null, $action = null, $method = 'post')
     {
         $omitRoutes = [
+            APP_URI . '/install[/]',
+            APP_URI . '/install/config[/]',
+            APP_URI . '/install/user[/]',
             APP_URI . '/verify/:id/:hash',
             APP_URI . '/forgot[/]',
             APP_URI . '/unsubscribe[/]',
-            APP_URI . '/logout[/]'
+            APP_URI . '/logout[/]',
+            APP_URI . '/users/roles/json/:id'
         ];
 
         $routes = array_keys(include __DIR__ . '/../../config/routes.php');

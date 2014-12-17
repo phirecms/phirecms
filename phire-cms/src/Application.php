@@ -64,14 +64,16 @@ class Application extends \Pop\Application
 
         // Session check
         $this->on('app.dispatch.pre', function(Application $application){
-            $sess   = $application->getService('session');
-            $action = $application->router()->getRouteMatch()->getAction();
+            $sess      = $application->getService('session');
+            $action    = $application->router()->getRouteMatch()->getAction();
+            $route     = $application->router()->getRouteMatch()->getRoute();
+            $isInstall = (substr($route, 0, strlen(BASE_PATH . APP_URI . '/install')) == BASE_PATH . APP_URI . '/install');
 
             if (isset($sess->user) && (($action == 'login') || ($action == 'register') ||
-                    ($action == 'verify') || ($action == 'forgot') || ($action == 'install'))) {
+                    ($action == 'verify') || ($action == 'forgot') || ($isInstall))) {
                 Response::redirect(BASE_PATH . APP_URI);
                 exit();
-            } else if (!isset($sess->user) && (($action != 'login') && ($action != 'register') && ($action != 'install') &&
+            } else if (!isset($sess->user) && (($action != 'login') && ($action != 'register') && (!$isInstall) &&
                     ($action != 'unsubscribe') && ($action != 'verify') && ($action != 'forgot') && (null !== $action))) {
                 Response::redirect(BASE_PATH . APP_URI . '/login');
                 exit();

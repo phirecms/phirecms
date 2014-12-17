@@ -63,6 +63,8 @@ class User extends AbstractModel
         ]);
         $user->save();
 
+        $this->data = array_merge($this->data, $user->getColumns());
+
         if (!$user->verified) {
             $this->sendVerification($user);
         }
@@ -87,6 +89,8 @@ class User extends AbstractModel
                 $sess->user->username = $user->username;
                 $sess->user->email    = $user->email;
             }
+
+            $this->data = array_merge($this->data, $user->getColumns());
 
             if ((null === $oldRoleId) && (null !== $user->role_id)) {
                 $this->sendApproval($user);

@@ -7,8 +7,16 @@ return [
         'default'    => true
     ],
     APP_URI . '/install[/]' => [
-        'controller' => 'Phire\Controller\IndexController',
-        'action'     => 'install'
+        'controller' => 'Phire\Controller\Install\IndexController',
+        'action'     => 'index'
+    ],
+    APP_URI . '/install/config[/]' => [
+        'controller' => 'Phire\Controller\Install\IndexController',
+        'action'     => 'config'
+    ],
+    APP_URI . '/install/user[/]' => [
+        'controller' => 'Phire\Controller\Install\IndexController',
+        'action'     => 'user'
     ],
     APP_URI . '/login[/]' => [
         'controller' => 'Phire\Controller\IndexController',

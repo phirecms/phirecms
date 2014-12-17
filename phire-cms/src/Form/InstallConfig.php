@@ -57,6 +57,13 @@ class InstallConfig extends Form
     {
         parent::setFieldValues($values);
 
+        if (($_POST) && !empty($this->config)) {
+            if ((DB_INTERFACE == '') || (DB_NAME == '')) {
+                $this->getElement('config')->addValidator(
+                    new Validator\NotEqual($this->config,'The configuration file has not been written yet.')
+                );
+            }
+        }
         return $this;
     }
 

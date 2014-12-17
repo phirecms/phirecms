@@ -4,6 +4,7 @@ namespace Phire\Model;
 
 use Phire\Table;
 use Pop\Db\Db;
+use Pop\Mail\Mail;
 
 class Install extends AbstractModel
 {
@@ -89,6 +90,31 @@ class Install extends AbstractModel
             ], $config);
 
         return htmlentities($config, ENT_QUOTES, 'UTF-8');
+    }
+
+    /**
+     * Send installation confirmation
+     *
+     * @param  Table\Users
+     * @return void
+     */
+    public function sendConfirmation($user)
+    {
+        $domain  = str_replace('www.', '', $_SERVER['HTTP_HOST']);
+
+        // Set the recipient
+        $rcpt = [
+            'name'   => $user->username,
+            'email'  => $user->email,
+            'login'  => 'http://' . $_SERVER['HTTP_HOST'] . BASE_PATH . APP_URI . '/login',
+            'domain' => $domain
+        ];
+
+        // Send email verification
+        $mail = new Mail($domain . ' - Phire CMS Installation', $rcpt);
+        $mail->from('noreply@' . $domain);
+        $mail->setText(file_get_contents(__DIR__ . '/../../view/mail/install.txt'));
+        $mail->send();
     }
 
 }
