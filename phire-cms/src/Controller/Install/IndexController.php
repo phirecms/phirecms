@@ -36,12 +36,13 @@ class IndexController extends AbstractController
                 $install = new Model\Install();
                 $install->installDb($form->getFields());
                 $config  = $install->createConfig($form->getFields());
-                if (is_writable(__DIR__ . '/../../../config.php')) {
-                    file_put_contents(__DIR__ . '/../../../config.php', $config);
+
+                if (is_writable(__DIR__ . '/../../../../config.php')) {
+                    file_put_contents(__DIR__ . '/../../../../config.php', $config);
                     Response::redirect(BASE_PATH . APP_URI . '/install/user');
                     exit();
                 } else {
-                    $this->sess->config = $config;
+                    $this->sess->config = htmlentities($config, ENT_QUOTES, 'UTF-8');
                     Response::redirect(BASE_PATH . APP_URI . '/install/config');
                     exit();
                 }

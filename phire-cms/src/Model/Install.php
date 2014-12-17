@@ -89,7 +89,7 @@ class Install extends AbstractModel
                 "define('DB_PREFIX', '" . $fields['db_prefix'] . "');"
             ], $config);
 
-        return htmlentities($config, ENT_QUOTES, 'UTF-8');
+        return $config;
     }
 
     /**
