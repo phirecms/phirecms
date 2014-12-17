@@ -20,14 +20,15 @@ class Application extends \Pop\Application
         // Set the database
         if ($this->services->isAvailable('database')) {
             Record::setDb($this->getService('database'));
+            $this->config['db'] = (count($this->getService('database')->getTables()) > 0);
+        } else {
+            $this->config['db'] = false;
         }
 
         // Check PHP version
         if (version_compare(PHP_VERSION, '5.4.0') < 0) {
             throw new Exception('Error: Phire CMS requires PHP 5.4.0 or greater.');
         }
-
-        $this->config['db'] = (count($this->getService('database')->getTables()) > 0);
 
         // Add route params for the controllers
         if (null !== $this->router) {
@@ -83,20 +84,20 @@ class Application extends \Pop\Application
             if ($config['db']) {
                 $application->initAcl();
                 $sess = $application->getService('session');
-                $acl = $application->getService('acl');
+                $acl  = $application->getService('acl');
 
                 if (isset($sess->user) && isset($sess->user->role_name) && ($acl->hasRole($sess->user->role_name))) {
                     // Get routes with slash options
-                    $route = $application->router()->getRouteMatch()->getRoute();
+                    $route  = $application->router()->getRouteMatch()->getRoute();
                     $routes = [$route];
                     if (substr($route, -1) == '/') {
                         $bareRoute = substr($route, 0, -1);
-                        $routes[] = $bareRoute;
-                        $routes[] = $bareRoute . '[/]';
+                        $routes[]  = $bareRoute;
+                        $routes[]  = $bareRoute . '[/]';
                     } else {
                         $bareRoute = $route;
-                        $routes[] = $route . '[/]';
-                        $routes[] = $route . '/';
+                        $routes[]  = $route . '[/]';
+                        $routes[]  = $route . '/';
                     }
 
                     // Get the resource
@@ -115,8 +116,7 @@ class Application extends \Pop\Application
                             if ((strpos($key, '/[:') !== false) && (substr($key, 0, strpos($key, '/[:')) == $bareRoute)) {
                                 $resource = $key;
                             } else if ((strpos($key, '/[:') === false) && (strpos($key, '/:') !== false) &&
-                                (substr($key, 0, strpos($key, '/:')) == $bareRoute)
-                            ) {
+                                (substr($key, 0, strpos($key, '/:')) == $bareRoute)) {
                                 $resource = $key;
                             }
                         }

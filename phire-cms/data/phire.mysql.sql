@@ -3,11 +3,12 @@
 --
 
 -- --------------------------------------------------------
-
+SET FOREIGN_KEY_CHECKS = 0;
 --
 -- Table structure for table `config`
 --
 
+DROP TABLE IF EXISTS `[{prefix}]config`;
 CREATE TABLE IF NOT EXISTS `[{prefix}]config` (
   `setting` varchar(255) NOT NULL,
   `value` text NOT NULL,
@@ -29,7 +30,7 @@ INSERT INTO `[{prefix}]config` (`setting`, `value`) VALUES
 --
 -- Table structure for table `user_roles`
 --
-
+DROP TABLE IF EXISTS `[{prefix}]user_roles`;
 CREATE TABLE IF NOT EXISTS `[{prefix}]user_roles` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `parent_id` int(16),
@@ -55,7 +56,7 @@ INSERT INTO `[{prefix}]user_roles` (`id`, `parent_id`, `name`, `verification`, `
 --
 -- Table structure for table `users`
 --
-
+DROP TABLE IF EXISTS `[{prefix}]users`;
 CREATE TABLE IF NOT EXISTS `[{prefix}]users` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `role_id` int(16),
@@ -70,14 +71,11 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]users` (
   INDEX `username` (`username`),
   INDEX `user_email` (`email`),
   CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `[{prefix}]user_roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1002 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1001 ;
 
 --
 -- Dumping data for table `users`
 --
-
-INSERT INTO `[{prefix}]users` (`id`, `role_id`, `username`, `password`, `email`, `verified`, `created`, `updated`) VALUES
-(1001, 2001, 'admin', '$2y$08$WVRWMjJ0ekdmVlRTMkJTaetlrg46K.PG59Q5PcsLQipBpyCKFp8Be', 'nick@nolainteractive.com', 1, '2014-12-13 17:49:12', NULL);
 
 -- --------------------------------------------------------
 
@@ -85,6 +83,7 @@ INSERT INTO `[{prefix}]users` (`id`, `role_id`, `username`, `password`, `email`,
 -- Table structure for table `modules`
 --
 
+DROP TABLE IF EXISTS `[{prefix}]modules`;
 CREATE TABLE IF NOT EXISTS `[{prefix}]modules` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -100,3 +99,5 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]modules` (
 --
 
 --  --------------------------------------------------------
+
+SET FOREIGN_KEY_CHECKS = 1;

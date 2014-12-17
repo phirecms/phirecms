@@ -91,7 +91,7 @@ class User extends Form
      * Set the field values
      *
      * @param  array $values
-     * @return Login
+     * @return User
      */
     public function setFieldValues(array $values = null)
     {

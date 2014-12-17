@@ -1,22 +1,10 @@
 <?php
 
-return array_merge([
+$config = [
     'routes'   => include 'routes.php',
     'services' => [
         'session' => [
             'call' => 'Pop\Web\Session::getInstance'
-        ],
-        'database' => [
-            'call'   => 'Pop\Db\Db::connect',
-            'params' => [
-                'adapter' => DB_INTERFACE,
-                'options' => [
-                    'database' => DB_NAME,
-                    'username' => DB_USER,
-                    'password' => DB_PASS,
-                    'host'     => DB_HOST
-                ]
-            ]
         ],
         'acl' => [
             'call' => 'Pop\Acl\Acl'
@@ -72,4 +60,25 @@ return array_merge([
             ]
         ]
     ]
-], include __DIR__ . '/../..' . CONTENT_PATH . '/modules/phire.php');
+];
+
+if ((DB_INTERFACE != '') && (DB_NAME != '')) {
+    $config['services']['database'] = [
+        'call'   => 'Pop\Db\Db::connect',
+        'params' => [
+            'adapter' => DB_INTERFACE,
+            'options' => [
+                'database' => DB_NAME,
+                'username' => DB_USER,
+                'password' => DB_PASS,
+                'host'     => DB_HOST
+            ]
+        ]
+    ];
+}
+
+if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/modules/phire.php')) {
+    $config = array_merge($config, include __DIR__ . '/../..' . CONTENT_PATH . '/modules/phire.php');
+};
+
+return $config;

@@ -45,7 +45,7 @@ class Forgot extends Form
      * Set the field values
      *
      * @param  array $values
-     * @return Login
+     * @return Forgot
      */
     public function setFieldValues(array $values = null)
     {

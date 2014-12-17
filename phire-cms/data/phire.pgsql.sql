@@ -8,6 +8,7 @@
 -- Table structure for table "config"
 --
 
+DROP TABLE IF EXISTS "[{prefix}]config" CASCADE;
 CREATE TABLE IF NOT EXISTS "[{prefix}]config" (
 "setting" varchar(255) NOT NULL,
 "value" text NOT NULL,
@@ -32,6 +33,7 @@ INSERT INTO "[{prefix}]config" ("setting", "value") VALUES
 
 CREATE SEQUENCE role_id_seq START 2001;
 
+DROP TABLE IF EXISTS "[{prefix}]user_roles" CASCADE;
 CREATE TABLE IF NOT EXISTS "[{prefix}]user_roles" (
   "id" integer NOT NULL DEFAULT nextval('role_id_seq'),
   "parent_id" integer,
@@ -62,6 +64,7 @@ INSERT INTO "[{prefix}]user_roles" ("parent_id", "name", "verification", "approv
 
 CREATE SEQUENCE user_id_seq START 1001;
 
+DROP TABLE IF EXISTS "[{prefix}]users" CASCADE;
 CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "id" integer NOT NULL DEFAULT nextval('user_id_seq'),
   "role_id" integer,
@@ -84,10 +87,7 @@ CREATE INDEX "user_email" ON "[{prefix}]users" ("email");
 -- Dumping data for table "users"
 --
 
-INSERT INTO "[{prefix}]users" ("role_id", "username", "password", "email", "verified", "created", "updated") VALUES
-(2001, 'admin', '$2y$08$WVRWMjJ0ekdmVlRTMkJTaetlrg46K.PG59Q5PcsLQipBpyCKFp8Be', 'nick@nolainteractive.com', 1, '2014-12-13 17:49:12', NULL);
-
--- --------------------------------------------------------
+--  --------------------------------------------------------
 
 --
 -- Table structure for table "modules"
@@ -95,6 +95,7 @@ INSERT INTO "[{prefix}]users" ("role_id", "username", "password", "email", "veri
 
 CREATE SEQUENCE module_id_seq START 3001;
 
+DROP TABLE IF EXISTS "[{prefix}]modules" CASCADE;
 CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
   "id" integer NOT NULL DEFAULT nextval('module_id_seq'),
   "name" varchar(255) NOT NULL,

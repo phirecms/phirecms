@@ -78,7 +78,7 @@ class Register extends Form
      * Set the field values
      *
      * @param  array $values
-     * @return Login
+     * @return Register
      */
     public function setFieldValues(array $values = null)
     {

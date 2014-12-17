@@ -59,7 +59,7 @@ class Install extends Form
                 'type'     => 'text',
                 'label'    => 'Content Path',
                 'required' => true,
-                'value' => CONTENT_PATH
+                'value'    => CONTENT_PATH
             ],
             'submit' => [
                 'type'  => 'submit',
@@ -78,7 +78,7 @@ class Install extends Form
      * Set the field values
      *
      * @param  array $values
-     * @return Login
+     * @return Install
      */
     public function setFieldValues(array $values = null)
     {

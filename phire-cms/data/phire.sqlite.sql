@@ -17,6 +17,7 @@ PRAGMA foreign_keys = ON;
 -- Table structure for table "config"
 --
 
+DROP TABLE IF EXISTS "[{prefix}]config";
 CREATE TABLE IF NOT EXISTS "[{prefix}]config" (
   "setting" varchar NOT NULL PRIMARY KEY,
   "value" text NOT NULL,
@@ -38,6 +39,7 @@ INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('pagination', '25');
 -- Table structure for table "user_roles"
 --
 
+DROP TABLE IF EXISTS "[{prefix}]user_roles";
 CREATE TABLE IF NOT EXISTS "[{prefix}]user_roles" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
   "parent_id" integer,
@@ -66,6 +68,7 @@ INSERT INTO "[{prefix}]user_roles" ("id", "parent_id", "name", "verification", "
 -- Table structure for table "users"
 --
 
+DROP TABLE IF EXISTS "[{prefix}]users";
 CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
   "role_id" integer,
@@ -88,16 +91,13 @@ CREATE INDEX "user_email" ON "[{prefix}]users" ("email");
 -- Dumping data for table "users"
 --
 
-INSERT INTO "[{prefix}]users" ("id", "role_id", "username", "password", "email", "verified", "created", "updated") VALUES
-(1001, 2001, 'admin', '$2y$08$WVRWMjJ0ekdmVlRTMkJTaetlrg46K.PG59Q5PcsLQipBpyCKFp8Be', 'nick@nolainteractive.com', 1, '2014-12-13 17:49:12', NULL);
-
-
 -- --------------------------------------------------------
 
 -- --
 -- Table structure for table "modules"
 --
 
+DROP TABLE IF EXISTS "[{prefix}]modules";
 CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
   "name" varchar NOT NULL,

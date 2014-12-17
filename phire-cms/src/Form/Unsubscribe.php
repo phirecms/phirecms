@@ -45,7 +45,7 @@ class Unsubscribe extends Form
      * Set the field values
      *
      * @param  array $values
-     * @return Login
+     * @return Unsubscribe
      */
     public function setFieldValues(array $values = null)
     {

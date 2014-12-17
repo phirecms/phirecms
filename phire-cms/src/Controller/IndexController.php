@@ -21,7 +21,7 @@ class IndexController extends AbstractController
 
     public function install()
     {
-        if (count($this->services['database']->getTables()) > 0) {
+        if (($this->services->isAvailable('database')) && count($this->services['database']->getTables()) > 0) {
             Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
             exit();
         }
@@ -40,8 +40,16 @@ class IndexController extends AbstractController
                 $form->clearFilters()
                      ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
                      ->filter();
+
                 $install = new Model\Install();
-                $install->config($form->getFields());
+                $install->installDb($form->getFields());
+                if (!is_writable(__DIR__ . '/../../../config.php')) {
+                    $form = new Form\InstallConfig($install->createConfig($form->getFields()));
+                } else {
+                    file_put_contents(__DIR__ . '/../../../config.php', $install->createConfig($form->getFields()));
+                }
+                //$install = new Model\Install();
+                //$install->config($form->getFields());
             }
         }
 

@@ -52,7 +52,7 @@ class Profile extends Form
             'submit' => [
                 'type'  => 'submit',
                 'label' => '&nbsp;',
-                'value' => 'Register'
+                'value' => 'Save'
             ],
             'role_id' => [
                 'type'  => 'hidden',
@@ -72,7 +72,7 @@ class Profile extends Form
 
         parent::__construct($fields, $action, $method);
 
-        $this->setAttribute('id', 'register-form');
+        $this->setAttribute('id', 'profile-form');
         $this->setIndent('    ');
     }
 
@@ -80,7 +80,7 @@ class Profile extends Form
      * Set the field values
      *
      * @param  array $values
-     * @return Login
+     * @return Profile
      */
     public function setFieldValues(array $values = null)
     {
