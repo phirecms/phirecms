@@ -1,11 +1,12 @@
 <?php
 
-namespace Phire\Controller;
+namespace Phire\Controller\Config;
 
+use Phire\Controller\AbstractController;
 use Phire\Form;
 use Phire\Model;
 
-class ConfigController extends AbstractController
+class IndexController extends AbstractController
 {
 
     public function index()
@@ -17,7 +18,7 @@ class ConfigController extends AbstractController
             $config = new Model\Config();
         }
 
-        $this->prepareView('config.phtml');
+        $this->prepareView('config/index.phtml');
         $this->view->title    = 'Configuration';
         $this->view->overview = $config->overview;
         $this->view->config   = $config->config;

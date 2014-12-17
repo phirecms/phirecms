@@ -14,6 +14,10 @@ return [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'login'
     ],
+    APP_URI . '/profile[/]' => [
+        'controller' => 'Phire\Controller\IndexController',
+        'action'     => 'profile'
+    ],
     APP_URI . '/register/:id' => [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'register'
@@ -35,47 +39,47 @@ return [
         'action'     => 'logout'
     ],
     APP_URI . '/config[/]' => [
-        'controller' => 'Phire\Controller\ConfigController',
+        'controller' => 'Phire\Controller\Config\IndexController',
         'action'     => 'index'
     ],
     APP_URI . '/modules[/]' => [
-        'controller' => 'Phire\Controller\ModulesController',
+        'controller' => 'Phire\Controller\Modules\IndexController',
         'action'     => 'index'
     ],
     APP_URI . '/users[/]' => [
-        'controller' => 'Phire\Controller\UsersController',
+        'controller' => 'Phire\Controller\Users\IndexController',
         'action'     => 'index'
     ],
     APP_URI . '/users/add[/]' => [
-        'controller' => 'Phire\Controller\UsersController',
+        'controller' => 'Phire\Controller\Users\IndexController',
         'action'     => 'add'
     ],
     APP_URI . '/users/edit/:id' => [
-        'controller' => 'Phire\Controller\UsersController',
+        'controller' => 'Phire\Controller\Users\IndexController',
         'action'     => 'edit'
     ],
     APP_URI . '/users/remove' => [
-        'controller' => 'Phire\Controller\UsersController',
+        'controller' => 'Phire\Controller\Users\IndexController',
         'action'     => 'remove'
     ],
-    APP_URI . '/roles[/]' => [
-        'controller' => 'Phire\Controller\RolesController',
+    APP_URI . '/users/roles[/]' => [
+        'controller' => 'Phire\Controller\Users\RolesController',
         'action'     => 'index'
     ],
-    APP_URI . '/roles/add[/]' => [
-        'controller' => 'Phire\Controller\RolesController',
+    APP_URI . '/users/roles/add[/]' => [
+        'controller' => 'Phire\Controller\Users\RolesController',
         'action'     => 'add'
     ],
-    APP_URI . '/roles/edit/:id' => [
-        'controller' => 'Phire\Controller\RolesController',
+    APP_URI . '/users/roles/edit/:id' => [
+        'controller' => 'Phire\Controller\Users\RolesController',
         'action'     => 'edit'
     ],
-    APP_URI . '/roles/json/:id' => [
-        'controller' => 'Phire\Controller\RolesController',
+    APP_URI . '/users/roles/json/:id' => [
+        'controller' => 'Phire\Controller\Users\RolesController',
         'action'     => 'json'
     ],
-    APP_URI . '/roles/remove' => [
-        'controller' => 'Phire\Controller\RolesController',
+    APP_URI . '/users/roles/remove' => [
+        'controller' => 'Phire\Controller\Users\RolesController',
         'action'     => 'remove'
     ]
 ];

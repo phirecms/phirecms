@@ -38,8 +38,8 @@ class IndexController extends AbstractController
 
             if ($form->isValid()) {
                 $form->clearFilters()
-                    ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                    ->filter();
+                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                     ->filter();
                 $install = new Model\Install();
                 $install->config($form->getFields());
             }
@@ -73,7 +73,7 @@ class IndexController extends AbstractController
                 $this->sess->user = new \ArrayObject([
                     'id'        => $auth->adapter()->getUser()->id,
                     'role_id'   => $auth->adapter()->getUser()->role_id,
-                    'role_name' => Table\Roles::findById($auth->adapter()->getUser()->role_id)->name,
+                    'role_name' => Table\UserRoles::findById($auth->adapter()->getUser()->role_id)->name,
                     'username'  => $auth->adapter()->getUser()->username,
                     'email'     => $auth->adapter()->getUser()->email,
                 ], \ArrayObject::ARRAY_AS_PROPS);
@@ -90,7 +90,7 @@ class IndexController extends AbstractController
 
     public function register($id)
     {
-        $role = new Model\Role();
+        $role = new Model\UserRole();
 
         if ($role->canRegister($id)) {
             $this->prepareView('register.phtml');
@@ -104,6 +104,10 @@ class IndexController extends AbstractController
                      ->setFieldValues($this->request->getPost());
 
                 if ($form->isValid()) {
+                    $form->clearFilters()
+                         ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                         ->filter();
+
                     $fields = $form->getFields();
                     $role->getById($id);
                     $fields['verified'] = (int)!($role->verification);
@@ -130,6 +134,44 @@ class IndexController extends AbstractController
         }
     }
 
+    public function profile()
+    {
+        $this->prepareView('profile.phtml');
+        $this->view->title = 'Profile';
+
+        $user = new Model\User();
+        $user->getById($this->sess->user->id);
+
+        $form = new Form\Profile($this->sess->user->role_id);
+
+        $form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+             ->setFieldValues($user->toArray());
+
+        if ($this->request->isPost()) {
+            $form->addFilter('strip_tags')
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->setFieldValues($this->request->getPost());
+
+            if ($form->isValid()) {
+                $form->clearFilters()
+                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                     ->filter();
+
+                $fields = $form->getFields();
+                $role   = new Model\UserRole();
+                $role->getById($this->sess->user->role_id);
+                $fields['verified'] = (int)!($role->verification);
+
+                $user = new Model\User();
+                $user->update($fields, $this->sess);
+            }
+        }
+
+        $this->view->form = $form;
+        $this->response->setBody($this->view->render());
+        $this->send();
+    }
+
     public function verify($id, $hash)
     {
         $user = new Model\User();
@@ -153,6 +195,10 @@ class IndexController extends AbstractController
                  ->setFieldValues($this->request->getPost());
 
             if ($form->isValid()) {
+                $form->clearFilters()
+                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                     ->filter();
+
                 $user = new Model\User();
                 $user->forgot($form->getFields());
                 $this->view->success = true;
@@ -181,6 +227,10 @@ class IndexController extends AbstractController
                  ->setFieldValues($this->request->getPost());
 
             if ($form->isValid()) {
+                $form->clearFilters()
+                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                     ->filter();
+
                 $user = new Model\User();
                 $user->unsubscribe($form->getFields());
                 $this->view->success = true;

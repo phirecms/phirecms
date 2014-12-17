@@ -57,7 +57,7 @@ class Unsubscribe extends Form
                 $this->getElement('email')
                      ->addValidator(new Validator\NotEqual($this->email, 'That email does not exist.'));
             } else if (null !== $user->role_id) {
-                $role = Table\Roles::findById($user->role_id);
+                $role = Table\UserRoles::findById($user->role_id);
                 if (null !== $role->permissions) {
                     $permissions = unserialize($role->permissions);
                     if (!isset($permissions[APP_URI . '/login[/]']) ||

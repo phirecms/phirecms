@@ -37,13 +37,15 @@ return array_merge([
                         'href' => BASE_PATH . APP_URI . '/users',
                         'acl'  => [
                             'resource'   => BASE_PATH . APP_URI . '/users[/]'
-                        ]
-                    ],
-                    [
-                        'name' => 'Roles',
-                        'href' => BASE_PATH . APP_URI . '/roles',
-                        'acl'  => [
-                            'resource'   => BASE_PATH . APP_URI . '/roles[/]'
+                        ],
+                        'children' => [
+                            [
+                                'name' => 'Roles',
+                                'href' => BASE_PATH . APP_URI . '/users/roles',
+                                'acl'  => [
+                                    'resource'   => BASE_PATH . APP_URI . '/users/roles[/]'
+                                ]
+                            ]
                         ]
                     ],
                     [

@@ -1,7 +1,8 @@
 <?php
 
-namespace Phire\Controller;
+namespace Phire\Controller\Users;
 
+use Phire\Controller\AbstractController;
 use Phire\Form;
 use Phire\Model;
 use Pop\Http\Response;
@@ -11,8 +12,8 @@ class RolesController extends AbstractController
 
     public function index()
     {
-        $role = new Model\Role();
-        $this->prepareView('roles/index.phtml');
+        $role = new Model\UserRole();
+        $this->prepareView('users/roles/index.phtml');
         $this->view->title = 'Roles';
         $this->view->roles = $role->getAll();
         $this->response->setBody($this->view->render());
@@ -21,10 +22,10 @@ class RolesController extends AbstractController
 
     public function add()
     {
-        $this->prepareView('roles/add.phtml');
+        $this->prepareView('users/roles/add.phtml');
         $this->view->title = 'Add Role';
 
-        $form = new Form\Role();
+        $form = new Form\UserRole();
 
         if ($this->request->isPost()) {
             $form->addFilter('strip_tags')
@@ -35,7 +36,7 @@ class RolesController extends AbstractController
                 $role = new Model\Role();
                 $role->save($this->request->getPost());
 
-                Response::redirect(BASE_PATH . APP_URI . '/roles');
+                Response::redirect(BASE_PATH . APP_URI . '/users/roles');
                 exit();
             }
         }
@@ -47,14 +48,14 @@ class RolesController extends AbstractController
 
     public function edit($id)
     {
-        $role = new Model\Role();
+        $role = new Model\UserRole();
         $role->getById($id);
 
-        $this->prepareView('roles/edit.phtml');
+        $this->prepareView('users/roles/edit.phtml');
         $this->view->title     = 'Edit Role';
         $this->view->role_name = $role->name;
 
-        $form = new Form\Role($role->permissions, $id);
+        $form = new Form\UserRole($role->permissions, $id);
         $form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($role->toArray());
 
@@ -64,10 +65,10 @@ class RolesController extends AbstractController
                  ->setFieldValues($this->request->getPost());
 
             if ($form->isValid()) {
-                $role = new Model\Role();
+                $role = new Model\UserRole();
                 $role->update($this->request->getPost());
 
-                Response::redirect(BASE_PATH . APP_URI . '/roles');
+                Response::redirect(BASE_PATH . APP_URI . '/users/roles');
                 exit();
             }
         }
@@ -79,7 +80,7 @@ class RolesController extends AbstractController
 
     public function json($id)
     {
-        $role = new Model\Role();
+        $role = new Model\UserRole();
         $role->getById($id);
         $json = [];
 
@@ -97,10 +98,10 @@ class RolesController extends AbstractController
     public function remove()
     {
         if ($this->request->isPost()) {
-            $role = new Model\Role();
+            $role = new Model\UserRole();
             $role->remove($this->request->getPost());
         }
-        Response::redirect(BASE_PATH . APP_URI . '/roles');
+        Response::redirect(BASE_PATH . APP_URI . '/users/roles');
     }
 
 }

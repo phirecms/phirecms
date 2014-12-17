@@ -33,9 +33,9 @@ class User extends AbstractModel
             'role_id'   => DB_PREFIX . 'users.role_id',
             'username'  => DB_PREFIX . 'users.username',
             'email'     => DB_PREFIX . 'users.email',
-            'id'        => DB_PREFIX . 'roles.id',
-            'role_name' => DB_PREFIX . 'roles.name'
-        ])->join(DB_PREFIX . 'roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'roles.id']);
+            'id'        => DB_PREFIX . 'user_roles.id',
+            'role_name' => DB_PREFIX . 'user_roles.name'
+        ])->join(DB_PREFIX . 'user_roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'user_roles.id']);
         return Table\Users::query((string)$sql)->rows();
     }
 
@@ -68,7 +68,7 @@ class User extends AbstractModel
         }
     }
 
-    public function update(array $fields)
+    public function update(array $fields, $sess = null)
     {
         $user = Table\Users::findById((int)$fields['id']);
         if (isset($user->id)) {
@@ -83,6 +83,10 @@ class User extends AbstractModel
 
             $user->save();
 
+            if (null !== $sess) {
+                $sess->user->username = $user->username;
+                $sess->user->email    = $user->email;
+            }
 
             if ((null === $oldRoleId) && (null !== $user->role_id)) {
                 $this->sendApproval($user);

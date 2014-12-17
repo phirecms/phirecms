@@ -68,16 +68,16 @@ jax(document).ready(function(){
             return jax('#users-form').checkValidate('checkbox', true);
         });
     }
-    if (jax('#roles-form')[0] != undefined) {
+    if (jax('#user-roles-form')[0] != undefined) {
         jax('#checkall').click(function(){
             if (this.checked) {
-                jax('#roles-form').checkAll(this.value);
+                jax('#user-roles-form').checkAll(this.value);
             } else {
-                jax('#roles-form').uncheckAll(this.value);
+                jax('#user-roles-form').uncheckAll(this.value);
             }
         });
-        jax('#roles-form').submit(function(){
-            return jax('#roles-form').checkValidate('checkbox', true);
+        jax('#user-roles-form').submit(function(){
+            return jax('#user-roles-form').checkValidate('checkbox', true);
         });
     }
 });

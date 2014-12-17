@@ -6,7 +6,7 @@ use Phire\Table;
 use Pop\Form\Form;
 use Pop\Validator;
 
-class Role extends Form
+class UserRole extends Form
 {
 
     /**
@@ -19,7 +19,7 @@ class Role extends Form
      * @param  array  $fields
      * @param  string $action
      * @param  string $method
-     * @return Role
+     * @return UserRole
      */
     public function __construct(array $permissions = [], $id = 0, array $fields = null, $action = null, $method = 'post')
     {
@@ -40,7 +40,7 @@ class Role extends Form
 
         $parentRoles = ['----' => '----'];
 
-        $roles = Table\Roles::findAll();
+        $roles = Table\UserRoles::findAll();
         if ($roles->count() > 0) {
             foreach ($roles->rows() as $role) {
                 if ($role['id'] != $id) {
@@ -157,7 +157,7 @@ class Role extends Form
 
         parent::__construct($fields, $action, $method);
 
-        $this->setAttribute('id', 'role-form');
+        $this->setAttribute('id', 'user-role-form');
         $this->setIndent('    ');
     }
 

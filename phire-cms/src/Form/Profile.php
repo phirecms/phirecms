@@ -6,7 +6,7 @@ use Phire\Table;
 use Pop\Form\Form;
 use Pop\Validator;
 
-class Register extends Form
+class Profile extends Form
 {
 
     /**
@@ -18,7 +18,7 @@ class Register extends Form
      * @param  array  $fields
      * @param  string $action
      * @param  string $method
-     * @return Register
+     * @return Profile
      */
     public function __construct($id, array $fields = null, $action = null, $method = 'post')
     {
@@ -38,7 +38,6 @@ class Register extends Form
             ],
             'email2' => [
                 'type'      => 'email',
-                'required'  => true,
                 'label'     => 'Re-Type Email'
             ],
             'password1' => [
@@ -48,7 +47,6 @@ class Register extends Form
             ],
             'password2' => [
                 'type'      => 'password',
-                'required'  => true,
                 'label'     => 'Re-Type Password'
             ],
             'submit' => [
@@ -59,6 +57,10 @@ class Register extends Form
             'role_id' => [
                 'type'  => 'hidden',
                 'value' => $id
+            ],
+            'id' => [
+                'type'  => 'hidden',
+                'value' => '0'
             ]
         ];
 
@@ -86,21 +88,28 @@ class Register extends Form
 
         if (($_POST) && (null !== $this->username)) {
             $user = Table\Users::findBy(['username' => $this->username]);
-            if (isset($user->id)) {
+            if (isset($user->id) && ($this->id != $user->id)) {
                 $this->getElement('username')
                      ->addValidator(new Validator\NotEqual($this->username, 'That username already exists.'));
             }
 
             $email = Table\Users::findBy(['email' => $this->email1]);
-            if (isset($email->id)) {
+            if (isset($email->id) && ($this->id != $email->id)) {
                 $this->getElement('email1')
                      ->addValidator(new Validator\NotEqual($this->email1, 'That email already exists.'));
             }
 
-            $this->getElement('email2')
-                 ->addValidator(new Validator\Equal($this->email1, 'The emails do not match.'));
-            $this->getElement('password2')
-                 ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
+            if (($user->email !== $this->email1) && ($email->email !== $this->email1)) {
+                $this->getElement('email2')
+                     ->setRequired(true)
+                     ->addValidator(new Validator\Equal($this->email1, 'The emails do not match.'));
+            }
+
+            if (!empty($this->password1)) {
+                $this->getElement('password2')
+                     ->setRequired(true)
+                     ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
+            }
         }
     }
 

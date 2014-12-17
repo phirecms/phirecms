@@ -22,7 +22,7 @@ class User extends Form
      */
     public function __construct(array $fields = null, $action = null, $method = 'post')
     {
-        $roles      = Table\Roles::findAll();
+        $roles      = Table\UserRoles::findAll();
         $roleValues = ['----' => '[Blocked]'];
         foreach ($roles->rows() as $role) {
             $roleValues[$role['id']] = $role['name'];
@@ -101,7 +101,7 @@ class User extends Form
         // Change username to hidden if email used instead
         if (null !== $this->role_id) {
             $index = $this->getElementIndex('username');
-            $role  = Table\Roles::findById((int)$this->role_id);
+            $role  = Table\UserRoles::findById((int)$this->role_id);
             if (isset($role->id)) {
                 if (($role->email_as_username) && ($this->childNodes[$index] instanceof Element\Input\Text)) {
                     $hidden = new Element\Input\Hidden('username', $this->childNodes[$index]->getValue());

@@ -182,7 +182,7 @@ class Application extends \Pop\Application
 
     public function initAcl()
     {
-        $config = \Phire\Model\Role::getPermissionsConfig();
+        $config = \Phire\Model\UserRole::getPermissionsConfig();
 
         if (count($config['resources']) > 0) {
             foreach ($config['resources'] as $resource) {

@@ -5,17 +5,17 @@ namespace Phire\Model;
 use Phire\Table;
 use Pop\Acl;
 
-class Role extends AbstractModel
+class UserRole extends AbstractModel
 {
 
     public function getAll()
     {
-        return Table\Roles::findAll()->rows();
+        return Table\UserRoles::findAll()->rows();
     }
 
     public function getById($id)
     {
-        $role = Table\Roles::findById((int)$id);
+        $role = Table\UserRoles::findById((int)$id);
         if (isset($role->id)) {
             $role = $role->getColumns();
             $role['permissions'] = (null !== $role['permissions']) ? unserialize($role['permissions']) : [];
@@ -25,7 +25,7 @@ class Role extends AbstractModel
 
     public function save(array $post)
     {
-        $role = new Table\Roles([
+        $role = new Table\UserRoles([
             'parent_id'         => ($post['parent_id'] != '----') ? (int)$post['parent_id'] : null,
             'name'              => html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8'),
             'verification'      => (int)$post['verification'],
@@ -38,7 +38,7 @@ class Role extends AbstractModel
 
     public function update(array $post)
     {
-        $role = Table\Roles::findById((int)$post['id']);
+        $role = Table\UserRoles::findById((int)$post['id']);
         if (isset($role->id)) {
             $role->parent_id         = ($post['parent_id'] != '----') ? (int)$post['parent_id'] : null;
             $role->name              = html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8');
@@ -54,7 +54,7 @@ class Role extends AbstractModel
     {
         if (isset($post['rm_roles'])) {
             foreach ($post['rm_roles'] as $id) {
-                $role = Table\Roles::findById((int)$id);
+                $role = Table\UserRoles::findById((int)$id);
                 if (isset($role->id)) {
                     $role->delete();
                 }
@@ -65,7 +65,7 @@ class Role extends AbstractModel
     public function canRegister($id)
     {
         $result = false;
-        $role = Table\Roles::findById((int)$id);
+        $role = Table\UserRoles::findById((int)$id);
         if (isset($role->id)) {
             $permissions = (null !== $role->permissions) ? unserialize($role->permissions) : [];
             if (!isset($permissions[APP_URI . '/register/:id']) ||
@@ -83,7 +83,7 @@ class Role extends AbstractModel
             'resources' => []
         ];
 
-        $roles   = Table\Roles::findAll();
+        $roles   = Table\UserRoles::findAll();
 
         foreach ($roles->getRowObjects() as $role) {
             $config['roles'][$role->id] = [

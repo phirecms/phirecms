@@ -1,12 +1,13 @@
 <?php
 
-namespace Phire\Controller;
+namespace Phire\Controller\Users;
 
+use Phire\Controller\AbstractController;
 use Phire\Form;
 use Phire\Model;
 use Pop\Http\Response;
 
-class UsersController extends AbstractController
+class IndexController extends AbstractController
 {
 
     public function index()

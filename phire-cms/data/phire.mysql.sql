@@ -27,10 +27,10 @@ INSERT INTO `[{prefix}]config` (`setting`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Table structure for table `user_roles`
 --
 
-CREATE TABLE IF NOT EXISTS `[{prefix}]roles` (
+CREATE TABLE IF NOT EXISTS `[{prefix}]user_roles` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `parent_id` int(16),
   `name` varchar(255) NOT NULL,
@@ -40,14 +40,14 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]roles` (
   `permissions` text,
   PRIMARY KEY (`id`),
   INDEX `user_role_name` (`name`),
-  CONSTRAINT `fk_role_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `[{prefix}]roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `fk_role_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `[{prefix}]user_roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2002 ;
 
 --
--- Dumping data for table `roles`
+-- Dumping data for table `user_roles`
 --
 
-INSERT INTO `[{prefix}]roles` (`id`, `parent_id`, `name`, `verification`, `approval`, `email_as_username`, `permissions`) VALUES
+INSERT INTO `[{prefix}]user_roles` (`id`, `parent_id`, `name`, `verification`, `approval`, `email_as_username`, `permissions`) VALUES
 (2001, NULL, 'Phire', 0, 0, 0, NULL);
 
 -- --------------------------------------------------------
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]users` (
   INDEX `user_role_id` (`role_id`),
   INDEX `username` (`username`),
   INDEX `user_email` (`email`),
-  CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `[{prefix}]roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `[{prefix}]user_roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1002 ;
 
 --
