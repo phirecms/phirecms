@@ -60,14 +60,6 @@ class AbstractController extends Controller
         $this->response = $response;
         $this->sess     = $this->services['session'];
         $this->viewPath = __DIR__ . '/../../view';
-
-        // If force SSL
-        if (((bool)\Phire\Table\Config::findById('force_ssl')->value) && !($this->request->isSecure())) {
-            $secureUrl = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .
-                ((!empty($_SERVER['QUERY_STRING'])) ? '?' . $_SERVER['QUERY_STRING'] : '');
-            Response::redirect($secureUrl);
-            exit();
-        }
     }
 
     public function error()

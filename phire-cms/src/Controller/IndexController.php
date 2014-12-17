@@ -19,6 +19,37 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    public function install()
+    {
+        if (count($this->services['database']->getTables()) > 0) {
+            Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
+            exit();
+        }
+
+        $this->prepareView('install.phtml');
+        $this->view->title = 'Installation';
+
+        $form = new Form\Install();
+
+        if ($this->request->isPost()) {
+            $form->addFilter('strip_tags')
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->setFieldValues($this->request->getPost());
+
+            if ($form->isValid()) {
+                $form->clearFilters()
+                    ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                    ->filter();
+                $install = new Model\Install();
+                $install->config($form->getFields());
+            }
+        }
+
+        $this->view->form = $form;
+        $this->response->setBody($this->view->render());
+        $this->send();
+    }
+
     public function login()
     {
         $this->prepareView('login.phtml');
@@ -95,7 +126,7 @@ class IndexController extends AbstractController
                 $this->send();
             }
         } else {
-            Response::redirect(BASE_PATH . APP_URI);
+            Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
         }
     }
 

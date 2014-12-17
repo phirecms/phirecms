@@ -31,7 +31,6 @@ INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('installed_on', '000
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updated_on', '0000-00-00 00:00:00');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('datetime_format', 'M j Y g:i A');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('pagination', '25');
-INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('force_ssl', '0');
 
 -- --------------------------------------------------------
 

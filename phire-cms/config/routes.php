@@ -6,6 +6,10 @@ return [
         'action'     => 'index',
         'default'    => true
     ],
+    APP_URI . '/install[/]' => [
+        'controller' => 'Phire\Controller\IndexController',
+        'action'     => 'install'
+    ],
     APP_URI . '/login[/]' => [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'login'

@@ -39,14 +39,6 @@ foreach($config['datetime_formats'] as $datetime):
                 </td>
             </tr>
             <tr>
-                <td>
-                    <strong>Force SSL</strong>
-                </td>
-                <td>
-                    <input type="radio" name="force_ssl" id="force_ssl" value="1" <?=(((bool)$config['force_ssl']) ? 'checked="checked" ' : ''); ?>/> Yes <input type="radio" name="force_ssl" id="force_ssl" value="0" <?=((!(bool)$config['force_ssl']) ? 'checked="checked" ' : ''); ?>/> No
-                </td>
-            </tr>
-            <tr>
                 <td colspan="2">
                     <input type="submit" name="submit" value="Save" />
                 </td>

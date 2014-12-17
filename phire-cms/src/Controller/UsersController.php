@@ -67,9 +67,9 @@ class UsersController extends AbstractController
                  ->setFieldValues($this->request->getPost());
 
             if ($form->isValid()) {
-                $form->filter([
-                    'html_entity_decode' => [ENT_QUOTES, 'UTF-8']
-                ]);
+                $form->clearFilters()
+                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                     ->filter();
                 $user = new Model\User();
                 $user->update($form->getFields());
 

@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array_merge([
     'routes'   => include 'routes.php',
     'services' => [
         'session' => [
@@ -70,4 +70,4 @@ return [
             ]
         ]
     ]
-];
+], include __DIR__ . '/../..' . CONTENT_PATH . '/modules/phire.php');
