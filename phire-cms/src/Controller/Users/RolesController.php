@@ -13,7 +13,7 @@ class RolesController extends AbstractController
 
     public function index()
     {
-        $role  = new Model\UserRole();
+        $role = new Model\UserRole();
 
         if ($role->hasPages($this->config->pagination)) {
             $limit = $this->config->pagination;

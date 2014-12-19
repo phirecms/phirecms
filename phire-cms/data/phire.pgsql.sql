@@ -98,8 +98,8 @@ CREATE SEQUENCE module_id_seq START 3001;
 DROP TABLE IF EXISTS "[{prefix}]modules" CASCADE;
 CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
   "id" integer NOT NULL DEFAULT nextval('module_id_seq'),
-  "name" varchar(255) NOT NULL,
   "file" varchar(255) NOT NULL,
+  "folder" varchar(255) NOT NULL,
   "active" integer NOT NULL,
   "assets" text,
   PRIMARY KEY ("id")

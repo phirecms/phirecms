@@ -70,6 +70,15 @@ var phire = {
 };
 
 jax(document).ready(function(){
+    if (jax('#modules-form')[0] != undefined) {
+        jax('#checkall').click(function(){
+            if (this.checked) {
+                jax('#modules-form').checkAll(this.value);
+            } else {
+                jax('#modules-form').uncheckAll(this.value);
+            }
+        });
+    }
     if (jax('#users-form')[0] != undefined) {
         jax('#checkall').click(function(){
             if (this.checked) {

@@ -100,8 +100,8 @@ CREATE INDEX "user_email" ON "[{prefix}]users" ("email");
 DROP TABLE IF EXISTS "[{prefix}]modules";
 CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-  "name" varchar NOT NULL,
   "file" varchar NOT NULL,
+  "folder" varchar NOT NULL,
   "active" integer NOT NULL,
   "assets" text,
   UNIQUE ("id")

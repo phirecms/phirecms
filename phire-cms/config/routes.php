@@ -58,6 +58,14 @@ return [
         'controller' => 'Phire\Controller\Modules\IndexController',
         'action'     => 'index'
     ],
+    APP_URI . '/modules/install[/]' => [
+        'controller' => 'Phire\Controller\Modules\IndexController',
+        'action'     => 'install'
+    ],
+    APP_URI . '/modules/process[/]' => [
+        'controller' => 'Phire\Controller\Modules\IndexController',
+        'action'     => 'process'
+    ],
     APP_URI . '/users[/]' => [
         'controller' => 'Phire\Controller\Users\IndexController',
         'action'     => 'index'

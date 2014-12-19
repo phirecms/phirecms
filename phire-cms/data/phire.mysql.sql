@@ -86,8 +86,8 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]users` (
 DROP TABLE IF EXISTS `[{prefix}]modules`;
 CREATE TABLE IF NOT EXISTS `[{prefix}]modules` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
   `file` varchar(255) NOT NULL,
+  `folder` varchar(255) NOT NULL,
   `active` int(1) NOT NULL,
   `assets` text,
   PRIMARY KEY (`id`),

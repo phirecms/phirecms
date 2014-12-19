@@ -1,4 +1,44 @@
 <?php include __DIR__ . '/../header.phtml'; ?>
     <h1><?=$title; ?></h1>
-    <p>Modules.</p>
+<?php if ($newModules > 0): ?>
+    <p>New modules detected. <a href="<?=BASE_PATH . APP_URI . '/modules/install'; ?>">Install (<?=$newModules; ?>)</a></p>
+<?php endif; ?>
+<?php if (count($modules) > 0): ?>
+<?php if (null !== $pages): ?>
+    <div class="page-links"><?=$pages; ?></div>
+<?php endif; ?>
+    <form id="modules-form" action="<?=BASE_PATH . APP_URI . '/modules/process'; ?>" method="post">
+        <table class="data-table" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <th><a href="<?=BASE_PATH . APP_URI . '/modules?sort=id';?>">#</a></th>
+                <th>Name</th>
+                <th>Version</th>
+                <th>Description</th>
+                <th>Author</th>
+                <th><a href="<?=BASE_PATH . APP_URI . '/modules?sort=active';?>">Active</a></th>
+                <th><input type="checkbox" name="checkall" id="checkall" value="rm_modules" /></th>
+            </tr>
+<?php $i = 1; ?>
+<?php foreach ($modules as $module): ?>
+<?php
+    $assets  = unserialize($module->assets);
+    $yesChecked = ($module->active)  ? ' checked="checked"' : null;
+    $noChecked  = (!$module->active) ? ' checked="checked"' : null;
+?>
+            <tr>
+                <td><?=$module->id; ?></td>
+                <td><?=($assets['info']['Module Name']) ? $assets['info']['Module Name'] : '&nbsp;'; ?></td>
+                <td><?=($assets['info']['Version']) ? $assets['info']['Version'] : '&nbsp;'; ?></td>
+                <td><?=($assets['info']['Description']) ? $assets['info']['Description'] : '&nbsp;'; ?></td>
+                <td><?=($assets['info']['Author']) ? $assets['info']['Author'] : '&nbsp;'; ?></td>
+                <td><input type="radio" name="active_<?=$module->id; ?>" value="1" <?=$yesChecked; ?>/> Yes &nbsp;&nbsp;&nbsp; <input type="radio" name="active_<?=$module->id; ?>" value="0" <?=$noChecked; ?>/> No</td>
+                <td><input type="checkbox" name="rm_modules[]" id="rm_modules<?=$i++; ?>" value="<?=$module->id; ?>" /></td>
+            </tr>
+<?php endforeach; ?>
+        </table>
+        <div><input type="submit" name="submit" value="Process" /></div>
+    </form>
+<?php else: ?>
+    <p>There are currently no modules.</p>
+<?php endif; ?>
 <?php include __DIR__ . '/../footer.phtml'; ?>
