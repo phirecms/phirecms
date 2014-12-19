@@ -5,7 +5,7 @@ namespace Phire\Model;
 use Phire\Table;
 use Pop\Crypt\Bcrypt;
 use Pop\Db\Sql;
-use Pop\Filter\String;
+use Pop\Filter\Random;
 use Pop\Mail\Mail;
 
 class User extends AbstractModel
@@ -167,7 +167,7 @@ class User extends AbstractModel
     protected function sendReminder(Table\Users $user)
     {
         $domain         = str_replace('www.', '', $_SERVER['HTTP_HOST']);
-        $newPassword    = String::random(8, ['type' => 'alphanum', 'case' => 'lower']);
+        $newPassword    = Random::create(8, Random::ALPHANUM|Random::LOWERCASE);
         $user->password = (new Bcrypt())->create($newPassword);
         $user->save();
 
