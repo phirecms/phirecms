@@ -161,7 +161,7 @@ class Application extends \Pop\Application
         // If logged in, and a system URL, redirect to dashboard
         if (isset($sess->user) && (($action == 'login') || ($action == 'register') ||
                 ($action == 'verify') || ($action == 'forgot') || ($isInstall))) {
-            Response::redirect(BASE_PATH . APP_URI);
+            Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
             exit();
         // Else, if NOT logged in and NOT a system URL, redirect to login
         } else if (!isset($sess->user) && (($action != 'login') && ($action != 'register') && (!$isInstall) &&
@@ -219,7 +219,7 @@ class Application extends \Pop\Application
                 // If denied, then redirect
                 if (null !== $resource) {
                     if ($acl->isDenied($sess->user->role_name, $resource)) {
-                        Response::redirect(BASE_PATH . APP_URI);
+                        Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
                         exit();
                     }
                 }
