@@ -46,6 +46,11 @@ class Config extends AbstractModel
         $this->data['config'] = $config;
     }
 
+    public function getAll()
+    {
+        return new \ArrayObject(Table\Config::getConfig(), \ArrayObject::ARRAY_AS_PROPS);
+    }
+
     /**
      * Save the config data
      *

@@ -115,6 +115,11 @@ class Install extends AbstractModel
         $mail->from('noreply@' . $domain);
         $mail->setText(file_get_contents(__DIR__ . '/../../view/mail/install.txt'));
         $mail->send();
+
+        // Save install timestamp
+        $config = Table\Config::findById('installed_on');
+        $config->value = date('Y-m-d H:i:s');
+        $config->save();
     }
 
 }

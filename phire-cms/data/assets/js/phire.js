@@ -52,7 +52,21 @@ var phire = {
         if (jax('#title-span')[0] != undefined) {
             jax('#title-span').val(value);
         }
+    },
+
+    customDatetime : function(path) {
+        if ((jax('#datetime_format8')[0].checked) && (jax('#datetime_format_custom').val() != '')) {
+            var val  = jax('#datetime_format_custom').val();
+            var json = jax.get(path + '/config/json/' + encodeURIComponent(val.replace(/\//g, '_')));
+            if ((jax('#datetime-custom')[0] != undefined) && (json != undefined)) {
+                var v = (json.format != undefined) ? '(' + json.format + ')' : '';
+                jax('#datetime-custom').val(v);
+            }
+        } else if (jax('#datetime-custom')[0] != undefined) {
+            jax('#datetime-custom').val('');
+        }
     }
+
 };
 
 jax(document).ready(function(){

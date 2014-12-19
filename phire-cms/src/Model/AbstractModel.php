@@ -35,6 +35,46 @@ abstract class AbstractModel implements \ArrayAccess
     }
 
     /**
+     * Get sort order
+     *
+     * @param  string $sort
+     * @param  string $page
+     * @param  string $ord
+     * @return array
+     */
+    public function getSortOrder($sort = null, $page = null, $ord = 'ASC')
+    {
+        $sess  = \Pop\Web\Session::getInstance();
+        $field = 'id';
+        $order = $ord;
+
+        if (null !== $sort) {
+            if ($page != $sess->lastPage) {
+                if ($sort != $sess->lastSortField) {
+                    $field = $sort;
+                    $order = $ord;
+                } else {
+                    $field = $sess->lastSortField;
+                    $order = $sess->lastSortOrder;
+                }
+            } else {
+                $field = $sort;
+                if (isset($sess->lastSortOrder)) {
+                    $order = ($sess->lastSortOrder == 'ASC') ? 'DESC' : 'ASC';
+                } else {
+                    $order = $ord;
+                }
+            }
+        }
+
+        $sess->lastSortField = $field;
+        $sess->lastSortOrder = $order;
+        $sess->lastPage      = $page;
+
+        return $field . ' ' . $order;
+    }
+
+    /**
      * Magic get method to return the value of data[$name].
      *
      * @param  string $name

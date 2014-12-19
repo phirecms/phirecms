@@ -41,103 +41,16 @@ class Application extends \Pop\Application
             );
         }
 
-        // SSL check
-        $this->on('app.route.pre', function(Application $application){
-            $config = $application->config();
-            if (isset($config['force_ssl']) && ($config['force_ssl']) && ($_SERVER['SERVER_PORT'] != '443')) {
-                $secureUrl = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .
-                    ((!empty($_SERVER['QUERY_STRING'])) ? '?' . $_SERVER['QUERY_STRING'] : '');
-                Response::redirect($secureUrl);
-                exit();
-            }
-        }, 5000);
+        // Set up triggers to check the application session
+        $this->on('app.route.pre', 'Phire\Application::sslCheck', 1000)
+             ->on('app.route.post', 'Phire\Application::dbCheck', 1000)
+             ->on('app.dispatch.pre', 'Phire\Application::sessionCheck', 1001)
+             ->on('app.dispatch.pre', 'Phire\Application::aclCheck', 1000);
 
-        // DB Check
-        $this->on('app.route.post', function(Application $application){
-            $config = $application->config();
-            $route  = $application->router()->getRouteMatch()->getRoute();
-            if (!$config['db'] &&
-                (substr($route, 0, strlen(BASE_PATH . APP_URI . '/install')) != BASE_PATH . APP_URI . '/install')) {
-                throw new Exception('Error: The database has not been installed. Please check the config file or install the system.');
-            }
-        });
-
-        // Session check
-        $this->on('app.dispatch.pre', function(Application $application){
-            $sess      = $application->getService('session');
-            $action    = $application->router()->getRouteMatch()->getAction();
-            $route     = $application->router()->getRouteMatch()->getRoute();
-            $isInstall = (substr($route, 0, strlen(BASE_PATH . APP_URI . '/install')) == BASE_PATH . APP_URI . '/install');
-
-            if (isset($sess->user) && (($action == 'login') || ($action == 'register') ||
-                    ($action == 'verify') || ($action == 'forgot') || ($isInstall))) {
-                Response::redirect(BASE_PATH . APP_URI);
-                exit();
-            } else if (!isset($sess->user) && (($action != 'login') && ($action != 'register') && (!$isInstall) &&
-                    ($action != 'unsubscribe') && ($action != 'verify') && ($action != 'forgot') && (null !== $action))) {
-                Response::redirect(BASE_PATH . APP_URI . '/login');
-                exit();
-            }
-        }, 1000);
-
-        // ACL Check
-        $this->on('app.dispatch.pre', function(Application $application){
-            $config = $application->config();
-            if ($config['db']) {
-                $application->initAcl();
-                $sess = $application->getService('session');
-                $acl  = $application->getService('acl');
-
-                if (isset($sess->user) && isset($sess->user->role_name) && ($acl->hasRole($sess->user->role_name))) {
-                    // Get routes with slash options
-                    $route  = $application->router()->getRouteMatch()->getRoute();
-                    $routes = [$route];
-                    if (substr($route, -1) == '/') {
-                        $bareRoute = substr($route, 0, -1);
-                        $routes[]  = $bareRoute;
-                        $routes[]  = $bareRoute . '[/]';
-                    } else {
-                        $bareRoute = $route;
-                        $routes[]  = $route . '[/]';
-                        $routes[]  = $route . '/';
-                    }
-
-                    // Get the resource
-                    $resource = null;
-                    foreach ($routes as $route) {
-                        if ($acl->hasResource($route)) {
-                            $resource = $route;
-                        }
-                    }
-
-                    // Check for resources with params
-                    if (null === $resource) {
-                        $resources = $acl->getResources();
-
-                        foreach ($resources as $key => $value) {
-                            if ((strpos($key, '/[:') !== false) && (substr($key, 0, strpos($key, '/[:')) == $bareRoute)) {
-                                $resource = $key;
-                            } else if ((strpos($key, '/[:') === false) && (strpos($key, '/:') !== false) &&
-                                (substr($key, 0, strpos($key, '/:')) == $bareRoute)) {
-                                $resource = $key;
-                            }
-                        }
-                    }
-
-                    // If role and resource exists, check if denied
-                    // If denied, then redirect
-                    if (null !== $resource) {
-                        if ($acl->isDenied($sess->user->role_name, $resource)) {
-                            Response::redirect(BASE_PATH . APP_URI);
-                            exit();
-                        }
-                    }
-                }
-            }
-        }, 500);
-
+        // Load assets, if they haven't been loaded already
         $this->loadAssets(__DIR__ . '/../data/assets', 'phire');
 
+        // Init the app
         return parent::init();
     }
 
@@ -213,6 +126,105 @@ class Application extends \Pop\Application
 
         // Set the acl in the main nav object
         $this->services['nav.phire']->setAcl($this->services['acl']);
+    }
+
+    public static function sslCheck(Application $application)
+    {
+        $config = $application->config();
+
+        // If force_ssl is checked, and request is not secure, redirect to secure request
+        if (isset($config['force_ssl']) && ($config['force_ssl']) && ($_SERVER['SERVER_PORT'] != '443')) {
+            $secureUrl = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .
+                ((!empty($_SERVER['QUERY_STRING'])) ? '?' . $_SERVER['QUERY_STRING'] : '');
+            Response::redirect($secureUrl);
+            exit();
+        }
+    }
+
+    public static function dbCheck(Application $application)
+    {
+        $config = $application->config();
+        $route  = $application->router()->getRouteMatch()->getRoute();
+        if (!$config['db'] &&
+            (substr($route, 0, strlen(BASE_PATH . APP_URI . '/install')) != BASE_PATH . APP_URI . '/install')) {
+            throw new Exception('Error: The database has not been installed. Please check the config file or install the system.');
+        }
+    }
+
+    public static function sessionCheck(Application $application)
+    {
+        $sess      = $application->getService('session');
+        $action    = $application->router()->getRouteMatch()->getAction();
+        $route     = $application->router()->getRouteMatch()->getRoute();
+        $isInstall = (substr($route, 0, strlen(BASE_PATH . APP_URI . '/install')) == BASE_PATH . APP_URI . '/install');
+
+        // If logged in, and a system URL, redirect to dashboard
+        if (isset($sess->user) && (($action == 'login') || ($action == 'register') ||
+                ($action == 'verify') || ($action == 'forgot') || ($isInstall))) {
+            Response::redirect(BASE_PATH . APP_URI);
+            exit();
+        // Else, if NOT logged in and NOT a system URL, redirect to login
+        } else if (!isset($sess->user) && (($action != 'login') && ($action != 'register') && (!$isInstall) &&
+                ($action != 'unsubscribe') && ($action != 'verify') && ($action != 'forgot') && (null !== $action))) {
+            Response::redirect(BASE_PATH . APP_URI . '/login');
+            exit();
+        }
+    }
+
+    public static function aclCheck(Application $application)
+    {
+        $config = $application->config();
+        if ($config['db']) {
+            $application->initAcl();
+            $sess = $application->getService('session');
+            $acl  = $application->getService('acl');
+
+            if (isset($sess->user) && isset($sess->user->role_name) && ($acl->hasRole($sess->user->role_name))) {
+                // Get routes with slash options
+                $route  = $application->router()->getRouteMatch()->getRoute();
+                $routes = [$route];
+                if (substr($route, -1) == '/') {
+                    $bareRoute = substr($route, 0, -1);
+                    $routes[]  = $bareRoute;
+                    $routes[]  = $bareRoute . '[/]';
+                } else {
+                    $bareRoute = $route;
+                    $routes[]  = $route . '[/]';
+                    $routes[]  = $route . '/';
+                }
+
+                // Get the resource
+                $resource = null;
+                foreach ($routes as $route) {
+                    if ($acl->hasResource($route)) {
+                        $resource = $route;
+                    }
+                }
+
+                // Check for resources with params
+                if (null === $resource) {
+                    $resources = $acl->getResources();
+
+                    foreach ($resources as $key => $value) {
+                        if ((strpos($key, '/[:') !== false) && (substr($key, 0, strpos($key, '/[:')) == $bareRoute)) {
+                            $resource = $key;
+                        } else if ((strpos($key, '/[:') === false) && (strpos($key, '/:') !== false) &&
+                            (substr($key, 0, strpos($key, '/:')) == $bareRoute)) {
+                            $resource = $key;
+                        }
+                    }
+                }
+
+                // If role and resource exists, check if denied
+                // If denied, then redirect
+                if (null !== $resource) {
+                    if ($acl->isDenied($sess->user->role_name, $resource)) {
+                        Response::redirect(BASE_PATH . APP_URI);
+                        exit();
+                    }
+                }
+            }
+        }
     }
 
 }

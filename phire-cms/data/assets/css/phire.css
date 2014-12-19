@@ -2,6 +2,13 @@
  * Phire CMS 2 Style Sheet
  */
 
+/* Global Definitions */
+
+html {
+    font-family: sans-serif;
+    font-size: 0.75em;
+}
+
 dl {
     margin: 0;
     padding: 0
@@ -24,4 +31,105 @@ fieldset {
     margin: 0;
     padding: 0;
     border: none;
+}
+
+input[type=checkbox], input[type=radio] {
+    margin: 0;
+    padding: 0;
+}
+
+/* ID Definitions */
+
+
+
+/* Class Definitions */
+
+.data-table {
+    clear: both;
+    margin: 0 auto 10px auto;
+    padding: 0;
+    width: 100%;
+    border-left: solid 1px #ccc;
+    border-right: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+}
+
+.data-table tr {
+    margin: 0;
+    padding: 0;
+}
+
+.data-table tr:hover {
+    background-color: #e8f4f7;
+}
+
+.data-table th {
+    margin: 0;
+    text-align: left;
+    padding: 8px 5px 8px 5px;
+    border-top: solid 1px #ccc;
+    background-color: #dedede;
+}
+
+.data-table td {
+    margin: 0;
+    padding: 8px 5px 8px 5px;
+    border-top: solid 1px #ccc;
+    font-size: 0.9em;
+}
+
+.data-table tr:nth-child(odd) {
+    background-color: #eee;
+}
+
+.data-table tr:nth-child(odd):hover {
+    background-color: #e8f4f7;
+}
+
+.data-table tr.no-background, .data-table td.no-background, .data-table tr.no-background:hover, .data-table td.no-background:hover {
+    background: transparent;
+}
+
+.required {
+    color: #006bc9;
+    font-weight: bold;
+}
+
+.error {
+    color: #f00;
+    font-weight: bold;
+}
+
+.page-links {
+    float: right;
+    margin: 5px 0 5px 0;
+    padding: 0;
+}
+
+.page-links > form {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+.page-links > form > div {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+.page-links > form > div > input {
+    margin: 0;
+    padding: 1px;
+    width: 20px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.page-links > a {
+    margin: 0;
+    padding: 0 3px 0 3px;
+    display: inline-block;
+    font-size: 1.1em;
+    text-decoration: none;
 }

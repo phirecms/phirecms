@@ -44,6 +44,7 @@ class Register extends Form
             'password1' => [
                 'type'       => 'password',
                 'label'      => 'Password',
+                'required'   => true,
                 'validators' => new Validator\LengthGte(6)
             ],
             'password2' => [

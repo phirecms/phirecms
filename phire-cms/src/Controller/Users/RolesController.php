@@ -6,16 +6,28 @@ use Phire\Controller\AbstractController;
 use Phire\Form;
 use Phire\Model;
 use Pop\Http\Response;
+use Pop\Paginator\Paginator;
 
 class RolesController extends AbstractController
 {
 
     public function index()
     {
-        $role = new Model\UserRole();
+        $role  = new Model\UserRole();
+
+        if ($role->hasPages($this->config->pagination)) {
+            $limit = $this->config->pagination;
+            $pages = new Paginator($role->getCount(), $limit);
+            $pages->useInput(true);
+        } else {
+            $limit = null;
+            $pages = null;
+        }
+
         $this->prepareView('users/roles/index.phtml');
-        $this->view->title = 'Roles';
-        $this->view->roles = $role->getAll();
+        $this->view->title = 'Users : Roles';
+        $this->view->pages = $pages;
+        $this->view->roles = $role->getAll($limit, $this->request->getQuery('page'), $this->request->getQuery('sort'));
         $this->response->setBody($this->view->render());
         $this->send();
     }
@@ -23,7 +35,7 @@ class RolesController extends AbstractController
     public function add()
     {
         $this->prepareView('users/roles/add.phtml');
-        $this->view->title = 'Add Role';
+        $this->view->title = 'Users : Add Role';
 
         $form = new Form\UserRole();
 
@@ -33,7 +45,7 @@ class RolesController extends AbstractController
                  ->setFieldValues($this->request->getPost());
 
             if ($form->isValid()) {
-                $role = new Model\Role();
+                $role = new Model\UserRole();
                 $role->save($this->request->getPost());
 
                 Response::redirect(BASE_PATH . APP_URI . '/users/roles');
@@ -52,7 +64,7 @@ class RolesController extends AbstractController
         $role->getById($id);
 
         $this->prepareView('users/roles/edit.phtml');
-        $this->view->title     = 'Edit Role';
+        $this->view->title     = 'Users : Edit Role';
         $this->view->role_name = $role->name;
 
         $form = new Form\UserRole($role->permissions, $id);

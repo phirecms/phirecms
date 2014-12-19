@@ -11,31 +11,29 @@ use Pop\Mail\Mail;
 class User extends AbstractModel
 {
 
-    public function verify($id, $hash)
-    {
-        $result = false;
-        $user   = Table\Users::findById((int)$id);
-
-        if (isset($user->id) && ($hash == sha1($user->email))) {
-            $user->verified = 1;
-            $user->save();
-            $result = true;
-        }
-
-        return $result;
-    }
-
-    public function getAll()
+    public function getAll($limit = null, $page = null, $sort = null)
     {
         $sql = Table\Users::sql();
         $sql->select([
-            'user_id'   => DB_PREFIX . 'users.id',
-            'role_id'   => DB_PREFIX . 'users.role_id',
-            'username'  => DB_PREFIX . 'users.username',
-            'email'     => DB_PREFIX . 'users.email',
-            'id'        => DB_PREFIX . 'user_roles.id',
-            'role_name' => DB_PREFIX . 'user_roles.name'
+            'id'           => DB_PREFIX . 'users.id',
+            'user_role_id' => DB_PREFIX . 'users.role_id',
+            'username'     => DB_PREFIX . 'users.username',
+            'email'        => DB_PREFIX . 'users.email',
+            'role_id'      => DB_PREFIX . 'user_roles.id',
+            'role_name'    => DB_PREFIX . 'user_roles.name'
         ])->join(DB_PREFIX . 'user_roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'user_roles.id']);
+
+        if (null !== $limit) {
+            $page = ((null !== $page) && ((int)$page > 1)) ?
+                ($page * $limit) - $limit : null;
+
+            $sql->select()->offset($page)->limit($limit);
+        }
+
+        $order = $this->getSortOrder($sort, $page);
+        $by    = explode(' ', $order);
+        $sql->select()->orderBy($by[0], $by[1]);
+
         return Table\Users::query((string)$sql)->rows();
     }
 
@@ -98,6 +96,32 @@ class User extends AbstractModel
         }
     }
 
+    public function remove(array $post)
+    {
+        if (isset($post['rm_users'])) {
+            foreach ($post['rm_users'] as $id) {
+                $user = Table\Users::findById((int)$id);
+                if (isset($user->id)) {
+                    $user->delete();
+                }
+            }
+        }
+    }
+
+    public function verify($id, $hash)
+    {
+        $result = false;
+        $user   = Table\Users::findById((int)$id);
+
+        if (isset($user->id) && ($hash == sha1($user->email))) {
+            $user->verified = 1;
+            $user->save();
+            $result = true;
+        }
+
+        return $result;
+    }
+
     public function forgot(array $fields)
     {
         $user = Table\Users::findBy(['email' => $fields['email']]);
@@ -114,16 +138,14 @@ class User extends AbstractModel
         }
     }
 
-    public function remove(array $post)
+    public function hasPages($limit)
     {
-        if (isset($post['rm_users'])) {
-            foreach ($post['rm_users'] as $id) {
-                $user = Table\Users::findById((int)$id);
-                if (isset($user->id)) {
-                    $user->delete();
-                }
-            }
-        }
+        return (Table\Users::findAll()->count() > $limit);
+    }
+
+    public function getCount()
+    {
+        return Table\Users::findAll()->count();
     }
 
     protected function sendVerification(Table\Users $user)

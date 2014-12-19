@@ -50,6 +50,10 @@ return [
         'controller' => 'Phire\Controller\Config\IndexController',
         'action'     => 'index'
     ],
+    APP_URI . '/config/json/:format' => [
+        'controller' => 'Phire\Controller\Config\IndexController',
+        'action'     => 'json'
+    ],
     APP_URI . '/modules[/]' => [
         'controller' => 'Phire\Controller\Modules\IndexController',
         'action'     => 'index'

@@ -6,6 +6,7 @@ use Phire\Controller\AbstractController;
 use Phire\Form;
 use Phire\Model;
 use Pop\Http\Response;
+use Pop\Paginator\Paginator;
 
 class IndexController extends AbstractController
 {
@@ -13,9 +14,20 @@ class IndexController extends AbstractController
     public function index()
     {
         $user = new Model\User();
+
+        if ($user->hasPages($this->config->pagination)) {
+            $limit = $this->config->pagination;
+            $pages = new Paginator($user->getCount(), $limit);
+            $pages->useInput(true);
+        } else {
+            $limit = null;
+            $pages = null;
+        }
+
         $this->prepareView('users/index.phtml');
         $this->view->title = 'Users';
-        $this->view->users = $user->getAll();
+        $this->view->pages = $pages;
+        $this->view->users = $user->getAll($limit, $this->request->getQuery('page'), $this->request->getQuery('sort'));
         $this->response->setBody($this->view->render());
         $this->send();
     }

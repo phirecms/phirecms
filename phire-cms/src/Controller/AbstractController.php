@@ -47,6 +47,12 @@ class AbstractController extends Controller
     protected $view = null;
 
     /**
+     * Config object
+     * @var \ArrayObject
+     */
+    protected $config = null;
+
+    /**
      * Constructor for the controller
      *
      * @param Locator $services
@@ -60,6 +66,10 @@ class AbstractController extends Controller
         $this->response = $response;
         $this->sess     = $this->services['session'];
         $this->viewPath = __DIR__ . '/../../view';
+
+        if ($this->services->isAvailable('database')) {
+            $this->config = (new \Phire\Model\Config())->getAll();
+        }
     }
 
     public function error()
@@ -98,6 +108,7 @@ class AbstractController extends Controller
             $this->view->phireNav = $this->services['nav.phire'];
             $this->view->user     = $this->sess->user;
             $this->view->acl      = $this->services['acl'];
+            $this->view->config   = $this->config;
         } else {
             $this->view->phireNav = null;
         }

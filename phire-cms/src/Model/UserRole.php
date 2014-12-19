@@ -8,9 +8,24 @@ use Pop\Acl;
 class UserRole extends AbstractModel
 {
 
-    public function getAll()
+    public function getAll($limit = null, $page = null, $sort = null)
     {
-        return Table\UserRoles::findAll()->rows();
+        $order = $this->getSortOrder($sort, $page);
+
+        if (null !== $limit) {
+            $page = ((null !== $page) && ((int)$page > 1)) ?
+                ($page * $limit) - $limit : null;
+
+            return Table\UserRoles::findAll(null, [
+                'offset' => $page,
+                'limit'  => $limit,
+                'order'  => $order
+            ])->rows();
+        } else {
+            return Table\UserRoles::findAll(null, [
+                'order'  => $order
+            ])->rows();
+        }
     }
 
     public function getById($id)
@@ -60,6 +75,16 @@ class UserRole extends AbstractModel
                 }
             }
         }
+    }
+
+    public function hasPages($limit)
+    {
+        return (Table\UserRoles::findAll()->count() > $limit);
+    }
+
+    public function getCount()
+    {
+        return Table\UserRoles::findAll()->count();
     }
 
     public function canRegister($id)
