@@ -67,13 +67,20 @@ class Application extends \Pop\Application
     public function loadModules()
     {
         if ($this->config['db']) {
+            if (isset($this->config['module_path']) && file_exists($this->config['module_path'])) {
+                $modulePath = $this->config['module_path'];
+                if (substr($modulePath, -1) != DIRECTORY_SEPARATOR) {
+                    $modulePath .= DIRECTORY_SEPARATOR;
+                }
+            } else {
+                $modulePath = __DIR__ . '/../..' . CONTENT_PATH . '/modules/';
+            }
+
             $modules = \Phire\Table\Modules::findBy(['active' => 1]);
             foreach ($modules->rows() as $module) {
-                if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module->folder . '/config/module.php')) {
-                    $moduleConfig = include __DIR__ . '/../..' . CONTENT_PATH .
-                        '/modules/' . $module->folder . '/config/module.php';
-
-                    $assets = unserialize($module->assets);
+                if (file_exists($modulePath . $module->folder . '/config/module.php')) {
+                    $moduleConfig = include $modulePath . $module->folder . '/config/module.php';
+                    $assets       = unserialize($module->assets);
 
                     // Load and register each module
                     foreach ($moduleConfig as $name => $config) {
@@ -110,9 +117,9 @@ class Application extends \Pop\Application
                         $this->services->setParams('nav.phire', $params);
 
                         // Load module assets
-                        if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module->folder . '/data/assets')) {
+                        if (file_exists($modulePath . $module->folder . '/data/assets')) {
                             $this->loadAssets(
-                                __DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module->folder . '/data/assets',
+                                $modulePath . $module->folder . '/data/assets',
                                 strtolower($name)
                             );
                         }

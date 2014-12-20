@@ -47,8 +47,16 @@ class Module extends AbstractModel
         return $modules;
     }
 
-    public function detectNew($count = true)
+    public function detectNew($modulePath = null, $count = true)
     {
+        if ((null !== $modulePath) && file_exists($modulePath)) {
+            if (substr($modulePath, -1) != DIRECTORY_SEPARATOR) {
+                $modulePath .= DIRECTORY_SEPARATOR;
+            }
+        } else {
+            $modulePath = __DIR__ . '/../../..' . CONTENT_PATH . '/modules/';
+        }
+
         $modules    = Table\Modules::findAll();
         $installed  = [];
         $newModules = [];
@@ -57,7 +65,7 @@ class Module extends AbstractModel
             $installed[] = $module->file;
         }
 
-        $dir = new Dir(__DIR__ . '/../../..' . CONTENT_PATH . '/modules', false, false, false);
+        $dir = new Dir($modulePath, false, false, false);
         foreach ($dir->getFiles() as $file) {
             if (((substr($file, -4) == '.zip') || (substr($file, -4) == '.tgz') || (substr($file, -7) == '.tar.gz')) &&
                 (!in_array($file, $installed))) {
@@ -78,15 +86,24 @@ class Module extends AbstractModel
         return Table\Modules::findAll()->count();
     }
 
-    public function install($services)
+    public function install($services, $modulePath = null)
     {
-        $modulePath = __DIR__ . '/../../..' . CONTENT_PATH . '/modules/';
+        if ((null !== $modulePath) && file_exists($modulePath)) {
+            if (substr($modulePath, -1) != DIRECTORY_SEPARATOR) {
+                $modulePath .= DIRECTORY_SEPARATOR;
+            }
+        } else {
+            $modulePath = __DIR__ . '/../../..' . CONTENT_PATH . '/modules/';
+        }
+
+        $modules = $this->detectNew($modulePath, false);
+
         if (!is_writable($modulePath)) {
-            throw new \Phire\Exception('Error: The modules folder is not writable.');
+            throw new \Phire\Exception('Error: The module folder is not writable.');
         }
 
         $formats = Archive::getFormats();
-        $modules = $this->detectNew(false);
+
         foreach ($modules as $module) {
             if (file_exists($modulePath . $module)) {
                 $ext  = null;
@@ -158,7 +175,7 @@ class Module extends AbstractModel
         }
     }
 
-    public function process($post, $services)
+    public function process($post, $services, $modulePath = null)
     {
         foreach ($post as $key => $value) {
             if (strpos($key, 'active_') !== false) {
@@ -170,15 +187,21 @@ class Module extends AbstractModel
                 }
             }
         }
-        if (isset($post['rm_modules']) && (count($post['rm_modules']) > 0)) {
-            $this->uninstall($post['rm_modules'], $services);
-        }
 
+        if (isset($post['rm_modules']) && (count($post['rm_modules']) > 0)) {
+            $this->uninstall($post['rm_modules'], $services, $modulePath);
+        }
     }
 
-    public function uninstall($ids, $services)
+    public function uninstall($ids, $services, $modulePath = null)
     {
-        $modulePath = __DIR__ . '/../../..' . CONTENT_PATH . '/modules/';
+        if ((null !== $modulePath) && file_exists($modulePath)) {
+            if (substr($modulePath, -1) != DIRECTORY_SEPARATOR) {
+                $modulePath .= DIRECTORY_SEPARATOR;
+            }
+        } else {
+            $modulePath = __DIR__ . '/../../..' . CONTENT_PATH . '/modules/';
+        }
 
         foreach ($ids as $id) {
             $module = Table\Modules::findById((int)$id);
@@ -221,6 +244,11 @@ class Module extends AbstractModel
                     unlink($modulePath . $module->file);
                 }
 
+                // Remove any assets
+                if (file_exists(__DIR__ . '/../../..' . CONTENT_PATH . '/assets/' . strtolower($module->folder))) {
+                    $dir = new Dir(__DIR__ . '/../../..' . CONTENT_PATH . '/assets/' . strtolower($module->folder));
+                    $dir->emptyDir(true);
+                }
                 $module->delete();
             }
         }
