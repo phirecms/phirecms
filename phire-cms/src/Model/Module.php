@@ -35,7 +35,9 @@ class Module extends AbstractModel
         foreach ($modules as $module) {
 
             if (isset($moduleConfigs[$module->folder]) && isset($moduleConfigs[$module->folder]['nav.module'])) {
-                $module->nav = new Nav($moduleConfigs[$module->folder]['nav.module'], ['top' => ['class' => 'module-nav']]);
+                $module->nav = new Nav(
+                    $moduleConfigs[$module->folder]['nav.module'], ['top' => ['class' => 'module-nav']]
+                );
                 $module->nav->setAcl($acl);
                 $module->nav->setRole($acl->getRole($sess->user->role_name));
                 $module->nav->setIndent('                    ');
