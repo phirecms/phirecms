@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]modules` (
   `active` int(1) NOT NULL,
   `assets` text,
   PRIMARY KEY (`id`),
-  INDEX `module_name` (`name`)
+  INDEX `module_folder` (`folder`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3001 ;
 
 --

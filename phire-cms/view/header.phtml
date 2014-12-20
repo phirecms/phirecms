@@ -7,11 +7,17 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <script type="text/javascript" src="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/js/jax.4.0.0a.min.js"></script>
-    <script type="text/javascript" src="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/js/jax.form.min.js"></script>
-    <script type="text/javascript" src="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/js/phire.js"></script>
+<?php if (count($assets['js']) > 0): ?>
+<?php foreach ($assets['js'] as $js): ?>
+    <script type="text/javascript" src="<?=$js; ?>"></script>
+<?php endforeach; ?>
+<?php endif; ?>
 
-    <link type="text/css" rel="stylesheet" href="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/css/phire.css" />
+<?php if (count($assets['css']) > 0): ?>
+<?php foreach ($assets['css'] as $css): ?>
+    <link type="text/css" rel="stylesheet" href="<?=$css; ?>" />
+<?php endforeach; ?>
+<?php endif; ?>
 
 </head>
 

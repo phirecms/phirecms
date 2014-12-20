@@ -15,6 +15,11 @@ class Application extends \Pop\Application
      */
     const VERSION = '2.0.0b';
 
+    protected $assets = [
+        'js'  => [],
+        'css' => []
+    ];
+
     public function init()
     {
         // Set the database
@@ -34,9 +39,9 @@ class Application extends \Pop\Application
         if (null !== $this->router) {
             $this->router->addRouteParams(
                 '*', [
-                    'services' => $this->services,
-                    'request'  => new Request(),
-                    'response' => new Response()
+                    'application' => $this,
+                    'request'     => new Request(),
+                    'response'    => new Response()
                 ]
             );
         }
@@ -49,9 +54,88 @@ class Application extends \Pop\Application
 
         // Load assets, if they haven't been loaded already
         $this->loadAssets(__DIR__ . '/../data/assets', 'phire');
+        sort($this->assets['js']);
+        sort($this->assets['css']);
+
+        // Load modules
+        $this->loadModules();
 
         // Init the app
         return parent::init();
+    }
+
+    public function loadModules()
+    {
+        if ($this->config['db']) {
+            $modules = \Phire\Table\Modules::findBy(['active' => 1]);
+            foreach ($modules->rows() as $module) {
+                if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module->folder . '/config/module.php')) {
+                    $moduleConfig = include __DIR__ . '/../..' . CONTENT_PATH .
+                        '/modules/' . $module->folder . '/config/module.php';
+
+                    $assets = unserialize($module->assets);
+
+                    // Load and register each module
+                    foreach ($moduleConfig as $name => $config) {
+                        $this->register($name, $config);
+
+                        // If the module has navigation
+                        $params = $this->services->getParams('nav.phire');
+
+                        // If the module has module-level navigation
+                        if (isset($config['nav.module'])) {
+                            $modulesBranch = 0;
+                            foreach ($params['tree'] as $i => $branch) {
+                                if ($branch['name'] == 'Modules') {
+                                    $modulesBranch = $i;
+                                }
+                            }
+                            if (!isset($params['tree'][$modulesBranch]['children'])) {
+                                $params['tree'][$modulesBranch]['children'] = [];
+                            }
+                            $params['tree'][$modulesBranch]['children'][] = [
+                                'name'     => (isset($assets['info']) && isset($assets['info']['Module Name'])) ?
+                                    $assets['info']['Module Name'] :$name,
+                                'href'     => '#',
+                                'children' => $config['nav.module']
+                            ];
+                        }
+
+                        // If the module has system-level navigation
+                        if (isset($config['nav.phire'])) {
+                            $params['tree'] = array_merge($config['nav.phire'], $params['tree']);
+                        }
+
+                        // Add the nav params back to the service
+                        $this->services->setParams('nav.phire', $params);
+
+                        // Load module assets
+                        if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module->folder . '/data/assets')) {
+                            $this->loadAssets(
+                                __DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module->folder . '/data/assets',
+                                strtolower($name)
+                            );
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    public function getAssets()
+    {
+        return $this->assets;
+    }
+
+    public function getJsAssets()
+    {
+        return $this->assets['js'];
+    }
+
+    public function getCssAssets()
+    {
+        return $this->assets['css'];
     }
 
     public function loadAssets($from, $to)
@@ -88,6 +172,20 @@ class Application extends \Pop\Application
                                 (filemtime($from . '/' . $aDir . '/' . $file) > filemtime($dir . '/' . $aDir . '/' . $file)))) {
                             copy($from . '/' . $aDir . '/' . $file, $dir . '/' . $aDir . '/' . $file);
                             chmod($dir . '/' . $aDir . '/' . $file, 0777);
+                        }
+                        if (($aDir == 'css') || ($aDir == 'styles') || ($aDir == 'style')) {
+                            if (file_exists($dir . '/' . $aDir . '/' . $file)) {
+                                $css = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $aDir . '/' . $file;
+                                if (!in_array($css, $this->assets['css'])) {
+                                    $this->assets['css'][] = $css;
+                                }
+                            }
+                        }
+                        if (($aDir == 'js') || ($aDir == 'scripts') || ($aDir == 'script') || ($aDir == 'scr')) {
+                            $js = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $aDir . '/' . $file;
+                            if (!in_array($js, $this->assets['js'])) {
+                                $this->assets['js'][] = $js;
+                            }
                         }
                     }
                 }

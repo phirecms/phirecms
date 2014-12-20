@@ -37,7 +37,7 @@ class RolesController extends AbstractController
         $this->prepareView('users/roles/add.phtml');
         $this->view->title = 'Users : Add Role';
 
-        $form = new Form\UserRole();
+        $form = new Form\UserRole(array_keys($this->application->router()->getRoutes()));
 
         if ($this->request->isPost()) {
             $form->addFilter('strip_tags')
@@ -67,7 +67,7 @@ class RolesController extends AbstractController
         $this->view->title     = 'Users : Edit Role';
         $this->view->role_name = $role->name;
 
-        $form = new Form\UserRole($role->permissions, $id);
+        $form = new Form\UserRole(array_keys($this->application->router()->getRoutes()), $role->permissions, $id);
         $form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($role->toArray());
 

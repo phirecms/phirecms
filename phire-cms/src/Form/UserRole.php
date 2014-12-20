@@ -14,6 +14,7 @@ class UserRole extends Form
      *
      * Instantiate the form object
      *
+     * @param  array  $routes
      * @param  array  $permissions
      * @param  int    $id
      * @param  array  $fields
@@ -21,7 +22,7 @@ class UserRole extends Form
      * @param  string $method
      * @return UserRole
      */
-    public function __construct(array $permissions = [], $id = 0, array $fields = null, $action = null, $method = 'post')
+    public function __construct(array $routes, array $permissions = [], $id = 0, array $fields = null, $action = null, $method = 'post')
     {
         $omitRoutes = [
             APP_URI . '/install[/]',
@@ -34,7 +35,6 @@ class UserRole extends Form
             APP_URI . '/users/roles/json/:id'
         ];
 
-        $routes = array_keys(include __DIR__ . '/../../config/routes.php');
         $routeValues = ['----' => '----'];
         foreach ($routes as $route) {
             if (!in_array($route, $omitRoutes)) {

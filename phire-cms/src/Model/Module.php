@@ -6,11 +6,13 @@ use Phire\Table;
 use Pop\Archive\Archive;
 use Pop\Db\Db;
 use Pop\File\Dir;
+use Pop\Nav\Nav;
+use Pop\Web\Session;
 
 class Module extends AbstractModel
 {
 
-    public function getAll($limit = null, $page = null, $sort = null)
+    public function getAll($moduleConfigs, $acl, $limit = null, $page = null, $sort = null)
     {
         $order = $this->getSortOrder($sort, $page);
 
@@ -18,16 +20,31 @@ class Module extends AbstractModel
             $page = ((null !== $page) && ((int)$page > 1)) ?
                 ($page * $limit) - $limit : null;
 
-            return Table\Modules::findAll(null, [
+            $modules = Table\Modules::findAll(null, [
                 'offset' => $page,
                 'limit'  => $limit,
                 'order'  => $order
             ])->rows();
         } else {
-            return Table\Modules::findAll(null, [
+            $modules = Table\Modules::findAll(null, [
                 'order'  => $order
             ])->rows();
         }
+
+        $sess = Session::getInstance();
+        foreach ($modules as $module) {
+
+            if (isset($moduleConfigs[$module->folder]) && isset($moduleConfigs[$module->folder]['nav.module'])) {
+                $module->nav = new Nav($moduleConfigs[$module->folder]['nav.module'], ['top' => ['class' => 'module-nav']]);
+                $module->nav->setAcl($acl);
+                $module->nav->setRole($acl->getRole($sess->user->role_name));
+                $module->nav->setIndent('                    ');
+            } else {
+                $module->nav = null;
+            }
+        }
+
+        return $modules;
     }
 
     public function detectNew($count = true)
@@ -36,7 +53,7 @@ class Module extends AbstractModel
         $installed  = [];
         $newModules = [];
 
-        foreach ($modules->getRowObjects() as $module) {
+        foreach ($modules->rows() as $module) {
             $installed[] = $module->file;
         }
 

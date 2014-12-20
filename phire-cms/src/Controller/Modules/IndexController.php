@@ -27,8 +27,12 @@ class IndexController extends AbstractController
         $this->prepareView('modules/index.phtml');
         $this->view->title      = 'Modules';
         $this->view->pages      = $pages;
-        $this->view->modules    = $module->getAll($limit, $this->request->getQuery('page'), $this->request->getQuery('sort'));
         $this->view->newModules = $module->detectNew();
+        $this->view->modules    = $module->getAll(
+            $this->application->modules(), $this->services['acl'],
+            $limit, $this->request->getQuery('page'), $this->request->getQuery('sort')
+        );
+
         $this->response->setBody($this->view->render());
         $this->send();
     }

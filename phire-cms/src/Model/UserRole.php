@@ -110,7 +110,7 @@ class UserRole extends AbstractModel
 
         $roles   = Table\UserRoles::findAll();
 
-        foreach ($roles->getRowObjects() as $role) {
+        foreach ($roles->rows() as $role) {
             $config['roles'][$role->id] = [
                 'role'   => new Acl\Role($role->name),
                 'allow'  => [],

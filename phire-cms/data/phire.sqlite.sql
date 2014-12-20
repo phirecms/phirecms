@@ -108,4 +108,4 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
 ) ;
 
 INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]modules', 3000);
-CREATE INDEX "module_name" ON "[{prefix}]modules" ("name");
+CREATE INDEX "module_folder" ON "[{prefix}]modules" ("folder");

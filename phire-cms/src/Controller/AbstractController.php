@@ -2,6 +2,7 @@
 
 namespace Phire\Controller;
 
+use Phire\Application;
 use Pop\Controller\Controller;
 use Pop\Http\Request;
 use Pop\Http\Response;
@@ -10,8 +11,15 @@ use Pop\View\View;
 
 class AbstractController extends Controller
 {
+
     /**
-     * Service locator
+     * Application object
+     * @var Application
+     */
+    protected $application = null;
+
+    /**
+     * Services locator
      * @var Locator
      */
     protected $services = null;
@@ -55,17 +63,19 @@ class AbstractController extends Controller
     /**
      * Constructor for the controller
      *
-     * @param Locator $services
-     * @param Request $request
-     * @param Response $response
+     * @param  Application $application
+     * @param  Request     $request
+     * @param  Response    $response
+     * @return AbstractController
      */
-    public function __construct(Locator $services, Request $request, Response $response)
+    public function __construct(Application $application, Request $request, Response $response)
     {
-        $this->services = $services;
-        $this->request  = $request;
-        $this->response = $response;
-        $this->sess     = $this->services['session'];
-        $this->viewPath = __DIR__ . '/../../view';
+        $this->application = $application;
+        $this->services    = $application->services();
+        $this->request     = $request;
+        $this->response    = $response;
+        $this->sess        = $this->services['session'];
+        $this->viewPath    = __DIR__ . '/../../view';
 
         if ($this->services->isAvailable('database')) {
             $this->config = (new \Phire\Model\Config())->getAll();
@@ -102,9 +112,11 @@ class AbstractController extends Controller
     protected function prepareView($template)
     {
         $this->view = new View($this->viewPath . '/' . $template);
+        $this->view->assets = $this->application->getAssets();
 
         if (isset($this->sess->user)) {
             $this->services['nav.phire']->setRole($this->services['acl']->getRole($this->sess->user->role_name));
+            $this->services['nav.phire']->returnFalse(true);
             $this->view->phireNav = $this->services['nav.phire'];
             $this->view->user     = $this->sess->user;
             $this->view->acl      = $this->services['acl'];
