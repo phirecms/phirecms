@@ -23,7 +23,8 @@ INSERT INTO `[{prefix}]config` (`setting`, `value`) VALUES
 ('installed_on', '0000-00-00 00:00:00'),
 ('updated_on', '0000-00-00 00:00:00'),
 ('datetime_format', 'M j Y g:i A'),
-('pagination', '25');
+('pagination', '25'),
+('force_ssl', '0');
 
 -- --------------------------------------------------------
 

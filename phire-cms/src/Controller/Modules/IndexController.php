@@ -24,13 +24,10 @@ class IndexController extends AbstractController
             $pages = null;
         }
 
-        $config     = $this->application->config();
-        $modulePath = (isset($config['module_path'])) ? $config['module_path'] : null;
-
         $this->prepareView('modules/index.phtml');
         $this->view->title      = 'Modules';
         $this->view->pages      = $pages;
-        $this->view->newModules = $module->detectNew($modulePath);
+        $this->view->newModules = $module->detectNew();
         $this->view->modules    = $module->getAll(
             $this->application->modules(), $this->services['acl'],
             $limit, $this->request->getQuery('page'), $this->request->getQuery('sort')
@@ -42,22 +39,16 @@ class IndexController extends AbstractController
 
     public function install()
     {
-        $config     = $this->application->config();
-        $modulePath = (isset($config['module_path'])) ? $config['module_path'] : null;
-
         $module = new Model\Module();
-        $module->install($this->services, $modulePath);
+        $module->install($this->services);
 
         Response::redirect(BASE_PATH . APP_URI . '/modules');
     }
 
     public function process()
     {
-        $config     = $this->application->config();
-        $modulePath = (isset($config['module_path'])) ? $config['module_path'] : null;
-
         $module = new Model\Module();
-        $module->process($this->request->getPost(), $this->services, $modulePath);
+        $module->process($this->request->getPost(), $this->services);
 
         Response::redirect(BASE_PATH . APP_URI . '/modules');
     }

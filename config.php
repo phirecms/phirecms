@@ -13,8 +13,11 @@ define('BASE_PATH', (!empty($basePath) ? $basePath : ''));
 // Define the application path
 define('APP_PATH', '/phire-cms');
 
-// Define the media path
+// Define the content path
 define('CONTENT_PATH', '/phire-content');
+
+// Define the module path
+define('MODULE_PATH', BASE_PATH . CONTENT_PATH . '/modules');
 
 // Define the application URI
 define('APP_URI', '/phire');

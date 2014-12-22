@@ -67,19 +67,12 @@ class Application extends \Pop\Application
     public function loadModules()
     {
         if ($this->config['db']) {
-            if (isset($this->config['module_path']) && file_exists($this->config['module_path'])) {
-                $modulePath = $this->config['module_path'];
-                if (substr($modulePath, -1) != DIRECTORY_SEPARATOR) {
-                    $modulePath .= DIRECTORY_SEPARATOR;
-                }
-            } else {
-                $modulePath = __DIR__ . '/../..' . CONTENT_PATH . '/modules/';
-            }
+            $modulePath = $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH;
 
             $modules = \Phire\Table\Modules::findBy(['active' => 1]);
             foreach ($modules->rows() as $module) {
-                if (file_exists($modulePath . $module->folder . '/config/module.php')) {
-                    $moduleConfig = include $modulePath . $module->folder . '/config/module.php';
+                if (file_exists($modulePath . '/' . $module->folder . '/config/module.php')) {
+                    $moduleConfig = include $modulePath . '/' . $module->folder . '/config/module.php';
                     $assets       = unserialize($module->assets);
 
                     // Load and register each module
@@ -117,9 +110,9 @@ class Application extends \Pop\Application
                         $this->services->setParams('nav.phire', $params);
 
                         // Load module assets
-                        if (file_exists($modulePath . $module->folder . '/data/assets')) {
+                        if (file_exists($modulePath . '/' . $module->folder . '/data/assets')) {
                             $this->loadAssets(
-                                $modulePath . $module->folder . '/data/assets',
+                                $modulePath . '/' . $module->folder . '/data/assets',
                                 strtolower($name)
                             );
                         }
@@ -236,13 +229,15 @@ class Application extends \Pop\Application
     public static function sslCheck(Application $application)
     {
         $config = $application->config();
-
-        // If force_ssl is checked, and request is not secure, redirect to secure request
-        if (isset($config['force_ssl']) && ($config['force_ssl']) && ($_SERVER['SERVER_PORT'] != '443')) {
-            $secureUrl = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .
-                ((!empty($_SERVER['QUERY_STRING'])) ? '?' . $_SERVER['QUERY_STRING'] : '');
-            Response::redirect($secureUrl);
-            exit();
+        if ($config['db']) {
+            $forceSsl = \Phire\Table\Config::findById('force_ssl')->value;
+            // If force_ssl is checked, and request is not secure, redirect to secure request
+            if (($forceSsl) && ($_SERVER['SERVER_PORT'] != '443')) {
+                $secureUrl = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .
+                    ((!empty($_SERVER['QUERY_STRING'])) ? '?' . $_SERVER['QUERY_STRING'] : '');
+                Response::redirect($secureUrl);
+                exit();
+            }
         }
     }
 

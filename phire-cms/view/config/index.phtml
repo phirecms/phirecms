@@ -41,6 +41,14 @@ foreach($config['datetime_formats'] as $datetime):
                     <input type="text" name="pagination" id="pagination" size="5" value="<?=$config['pagination']; ?>" />
                 </td>
             </tr>
+            <tr class="no-background">
+                <td class="no-background">
+                    <strong>Force SSL</strong>
+                </td>
+                <td class="no-background">
+                    <input type="radio" name="force_ssl" id="force_ssl" value="1" <?=(($config['force_ssl']) ? 'checked="checked" ' : null); ?>/> Yes &nbsp;&nbsp;&nbsp; <input type="radio" name="force_ssl" id="force_ssl" value="0" <?=((!$config['force_ssl']) ? 'checked="checked" ' : null); ?>/> No
+                </td>
+            </tr>
         </table>
         <div><input type="submit" name="submit" value="Save" /></div>
     </form>

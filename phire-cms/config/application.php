@@ -77,8 +77,4 @@ if ((DB_INTERFACE != '') && (DB_NAME != '')) {
     ];
 }
 
-if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/modules/phire.php')) {
-    $config = array_merge($config, include __DIR__ . '/../..' . CONTENT_PATH . '/modules/phire.php');
-};
-
 return $config;
