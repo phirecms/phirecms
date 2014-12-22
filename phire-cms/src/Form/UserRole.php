@@ -54,63 +54,67 @@ class UserRole extends Form
         }
 
         $fields = [
-            'parent_id' => [
-                'type'       => 'select',
-                'label'      => 'Parent',
-                'value'      => $parentRoles
-            ],
-            'name' => [
-                'type'       => 'text',
-                'label'      => 'Name',
-                'required'   => 'true',
-                'attributes' => [
-                    'onkeyup' => 'phire.changeTitle(this.value);'
+            [
+                'parent_id' => [
+                    'type'       => 'select',
+                    'label'      => 'Parent',
+                    'value'      => $parentRoles
+                ],
+                'name' => [
+                    'type'       => 'text',
+                    'label'      => 'Name',
+                    'required'   => 'true',
+                    'attributes' => [
+                        'onkeyup' => 'phire.changeTitle(this.value);'
+                    ]
+                ],
+                'verification' => [
+                    'type'      => 'radio',
+                    'label'     => 'Verification',
+                    'value'     => [
+                        '1' => 'Yes',
+                        '0' => 'No'
+                    ],
+                    'marked' => 0
+                ],
+                'approval' => [
+                    'type'      => 'radio',
+                    'label'     => 'Approval',
+                    'value'     => [
+                        '1' => 'Yes',
+                        '0' => 'No'
+                    ],
+                    'marked' => 0
+                ],
+                'email_as_username' => [
+                    'type'      => 'radio',
+                    'label'     => 'Email as Username',
+                    'value'     => [
+                        '1' => 'Yes',
+                        '0' => 'No'
+                    ],
+                    'marked' => 0
                 ]
             ],
-            'verification' => [
-                'type'      => 'radio',
-                'label'     => 'Verification',
-                'value'     => [
-                    '1' => 'Yes',
-                    '0' => 'No'
+            [
+                'permission_new_1' => [
+                    'type'       => 'select',
+                    'label'      => '<a href="#" onclick="phire.addPermissions(); return false">[+]</a> Permissions',
+                    'value'      => $routeValues,
+                    'attributes' => [
+                        'style' => 'display: block;'
+                    ]
                 ],
-                'marked' => 0
-            ],
-            'approval' => [
-                'type'      => 'radio',
-                'label'     => 'Approval',
-                'value'     => [
-                    '1' => 'Yes',
-                    '0' => 'No'
-                ],
-                'marked' => 0
-            ],
-            'email_as_username' => [
-                'type'      => 'radio',
-                'label'     => 'Email as Username',
-                'value'     => [
-                    '1' => 'Yes',
-                    '0' => 'No'
-                ],
-                'marked' => 0
-            ],
-            'permission_new_1' => [
-                'type'       => 'select',
-                'label'      => '<a href="#" onclick="phire.addPermissions(); return false">[+]</a> Permissions',
-                'value'      => $routeValues,
-                'attributes' => [
-                    'style' => 'display: block;'
-                ]
-            ],
-            'allow_new_1' => [
-                'type'     => 'select',
-                'value'    => [
-                    '----' => '----',
-                    '0'    => 'deny',
-                    '1'    => 'allow'
-                ],
-                'attributes' => [
-                    'style' => 'display: block;'
+                'allow_new_1' => [
+                    'type'     => 'select',
+                    'value'    => [
+                        '----' => '----',
+                        '0'    => 'deny',
+                        '1'    => 'allow'
+                    ],
+                    'attributes' => [
+                        'style' => 'display: block;'
+                    ]
                 ]
             ]
         ];
@@ -118,7 +122,7 @@ class UserRole extends Form
         if (count($permissions) > 0) {
             $i = 1;
             foreach ($permissions as $route => $permission) {
-                $fields['permission_cur_' . $i] = [
+                $fields[1]['permission_cur_' . $i] = [
                     'type'       => 'select',
                     'label'      => '&nbsp;',
                     'value'      => $routeValues,
@@ -127,7 +131,7 @@ class UserRole extends Form
                     ],
                     'marked' => $route
                 ];
-                $fields['allow_cur_' . $i] = [
+                $fields[1]['allow_cur_' . $i] = [
                     'type'     => 'select',
                     'value'    => [
                         '----' => '----',
@@ -139,7 +143,7 @@ class UserRole extends Form
                     ],
                     'marked' => (int)$permission
                 ];
-                $fields['rm_permissions_' . $i] = [
+                $fields[1]['rm_permissions_' . $i] = [
                     'type' => 'checkbox',
                     'value' => [
                         $route => '&nbsp;'
@@ -149,14 +153,16 @@ class UserRole extends Form
             }
         }
 
-        $fields['submit'] = [
-            'type'  => 'submit',
-            'label' => '&nbsp;',
-            'value' => 'Save'
-        ];
-        $fields['id'] = [
-            'type'  => 'hidden',
-            'value' => '0'
+        $fields[] = [
+            'submit' => [
+                'type'   => 'submit',
+                'label'  => '&nbsp;',
+                'value'  => 'Save'
+            ],
+            'id' => [
+                'type'  => 'hidden',
+                'value' => '0'
+            ]
         ];
 
         parent::__construct($fields, $action, $method);

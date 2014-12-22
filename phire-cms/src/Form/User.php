@@ -29,55 +29,59 @@ class User extends Form
         }
 
         $fields = [
-            'role_id' => [
-                'type'       => 'select',
-                'label'      => 'Role',
-                'value'      => $roleValues,
-                'attributes' => [
-                    'onchange' => 'phire.changeRole(this.value, \'' . BASE_PATH . APP_URI . '\');'
+            [
+                'role_id' => [
+                    'type'       => 'select',
+                    'label'      => 'Role',
+                    'value'      => $roleValues,
+                    'attributes' => [
+                        'onchange' => 'phire.changeRole(this.value, \'' . BASE_PATH . APP_URI . '\');'
+                    ]
+                ],
+                'username' => [
+                    'type'     => 'text',
+                    'label'    => 'Username',
+                    'required' => true
+                ],
+                'email1' => [
+                    'type'       => 'email',
+                    'label'      => 'Email',
+                    'required'   => true,
+                    'validators' => new Validator\Email()
+                ],
+                'email2' => [
+                    'type'      => 'email',
+                    'label'     => 'Re-Type Email'
+                ],
+                'password1' => [
+                    'type'       => 'password',
+                    'label'      => 'Password',
+                    'validators' => new Validator\LengthGte(6)
+                ],
+                'password2' => [
+                    'type'      => 'password',
+                    'label'     => 'Re-Type Password'
+                ],
+                'verified' => [
+                    'type'      => 'radio',
+                    'label'     => 'Verified',
+                    'value' => [
+                        '1' => 'Yes',
+                        '0' => 'No'
+                    ],
+                    'marked' => 0
                 ]
             ],
-            'username' => [
-                'type'     => 'text',
-                'label'    => 'Username',
-                'required' => true
-            ],
-            'email1' => [
-                'type'       => 'email',
-                'label'      => 'Email',
-                'required'   => true,
-                'validators' => new Validator\Email()
-            ],
-            'email2' => [
-                'type'      => 'email',
-                'label'     => 'Re-Type Email'
-            ],
-            'password1' => [
-                'type'       => 'password',
-                'label'      => 'Password',
-                'validators' => new Validator\LengthGte(6)
-            ],
-            'password2' => [
-                'type'      => 'password',
-                'label'     => 'Re-Type Password'
-            ],
-            'verified' => [
-                'type'      => 'radio',
-                'label'     => 'Verified',
-                'value' => [
-                    '1' => 'Yes',
-                    '0' => 'No'
+            [
+                'submit' => [
+                    'type'  => 'submit',
+                    'label' => '&nbsp;',
+                    'value' => 'Save'
                 ],
-                'marked' => 0
-            ],
-            'submit' => [
-                'type'  => 'submit',
-                'label' => '&nbsp;',
-                'value' => 'Save'
-            ],
-            'id' => [
-                'type'  => 'hidden',
-                'value' => '0'
+                'id' => [
+                    'type'  => 'hidden',
+                    'value' => '0'
+                ]
             ]
         ];
 

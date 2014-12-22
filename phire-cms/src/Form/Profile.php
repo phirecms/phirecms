@@ -25,47 +25,51 @@ class Profile extends Form
         $role = Table\UserRoles::findById($id);
 
         $fields = [
-            'username' => [
-                'type'     => ($role->email_as_username) ? 'hidden' : 'text',
-                'label'    => ($role->email_as_username) ? '&nbsp;' : 'Username',
-                'required' => !($role->email_as_username)
+            [
+                'username' => [
+                    'type'     => ($role->email_as_username) ? 'hidden' : 'text',
+                    'label'    => ($role->email_as_username) ? '&nbsp;' : 'Username',
+                    'required' => !($role->email_as_username)
+                ],
+                'email1' => [
+                    'type'       => 'email',
+                    'label'      => 'Email',
+                    'required'   => true,
+                    'validators' => new Validator\Email()
+                ],
+                'email2' => [
+                    'type'      => 'email',
+                    'label'     => 'Re-Type Email'
+                ],
+                'password1' => [
+                    'type'       => 'password',
+                    'label'      => 'Password',
+                    'validators' => new Validator\LengthGte(6)
+                ],
+                'password2' => [
+                    'type'      => 'password',
+                    'label'     => 'Re-Type Password'
+                ]
             ],
-            'email1' => [
-                'type'       => 'email',
-                'label'      => 'Email',
-                'required'   => true,
-                'validators' => new Validator\Email()
-            ],
-            'email2' => [
-                'type'      => 'email',
-                'label'     => 'Re-Type Email'
-            ],
-            'password1' => [
-                'type'       => 'password',
-                'label'      => 'Password',
-                'validators' => new Validator\LengthGte(6)
-            ],
-            'password2' => [
-                'type'      => 'password',
-                'label'     => 'Re-Type Password'
-            ],
-            'submit' => [
-                'type'  => 'submit',
-                'label' => '&nbsp;',
-                'value' => 'Save'
-            ],
-            'role_id' => [
-                'type'  => 'hidden',
-                'value' => $id
-            ],
-            'id' => [
-                'type'  => 'hidden',
-                'value' => '0'
+            [
+                'submit' => [
+                    'type'  => 'submit',
+                    'label' => '&nbsp;',
+                    'value' => 'Save'
+                ],
+                'role_id' => [
+                    'type'  => 'hidden',
+                    'value' => $id
+                ],
+                'id' => [
+                    'type'  => 'hidden',
+                    'value' => '0'
+                ]
             ]
         ];
 
         if ($role->email_as_username) {
-            $fields['email1']['attributes'] = [
+            $fields[0]['email1']['attributes'] = [
                 'onblur' => 'phire.changeUsername()'
             ];
         }

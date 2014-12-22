@@ -119,6 +119,39 @@ input[type=checkbox], input[type=radio] {
     display: block;
 }
 
+#sub-nav {
+    margin: 0;
+    padding: 0;
+}
+
+#sub-nav > nav {
+    margin: 0 0 5px 0;
+    padding: 0;
+    display: inline-block;
+}
+
+#sub-nav > nav > a {
+    margin: 0 5px 0 0;
+    padding: 5px 8px 5px 8px;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    border: none;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 4px;
+    font-size: 0.825em;
+    background-color: #1481bc;
+}
+
+#sub-nav > nav > a:hover {
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    background-color: #37ade8;
+}
+
 /* Class Definitions */
 
 .data-table {
@@ -209,4 +242,41 @@ input[type=checkbox], input[type=radio] {
     display: inline-block;
     font-size: 1.1em;
     text-decoration: none;
+}
+
+.edit-link {
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    width: 19px;
+    height: 21px;
+    background-image: url(../img/edit.png);
+    text-indent: -1000px;
+}
+
+.copy-link {
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    width: 19px;
+    height: 21px;
+    background-image: url(../img/copy.png);
+    text-indent: -1000px;
+}
+
+.download-link {
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    width: 19px;
+    height: 21px;
+    background-image: url(../img/download.png);
+    text-indent: -1000px;
+}
+
+th.text-center, td.text-center {
+    text-align: center;
 }
