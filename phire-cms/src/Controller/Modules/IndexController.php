@@ -3,7 +3,6 @@
 namespace Phire\Controller\Modules;
 
 use Phire\Controller\AbstractController;
-use Phire\Form;
 use Phire\Model;
 use Pop\Http\Response;
 use Pop\Paginator\Paginator;

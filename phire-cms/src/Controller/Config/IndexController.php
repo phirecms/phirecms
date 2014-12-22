@@ -3,7 +3,6 @@
 namespace Phire\Controller\Config;
 
 use Phire\Controller\AbstractController;
-use Phire\Form;
 use Phire\Model;
 
 class IndexController extends AbstractController
