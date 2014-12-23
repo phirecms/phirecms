@@ -36,8 +36,10 @@ class RolesController extends AbstractController
     {
         $this->prepareView('users/roles/add.phtml');
         $this->view->title = 'Users : Add Role';
+        $role = new Model\UserRole();
 
-        $form = new Form\UserRole(array_keys($this->application->router()->getRoutes()));
+        $routes = $role->getRoutes($this->application->router()->getRoutes(), $this->services['acl']);
+        $form   = new Form\UserRole($routes);
 
         if ($this->request->isPost()) {
             $form->addFilter('strip_tags')
@@ -45,7 +47,7 @@ class RolesController extends AbstractController
                  ->setFieldValues($this->request->getPost());
 
             if ($form->isValid()) {
-                $role = new Model\UserRole();
+
                 $role->save($this->request->getPost());
 
                 Response::redirect(BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id . '?saved=' . time());
@@ -67,7 +69,8 @@ class RolesController extends AbstractController
         $this->view->title     = 'Users : Edit Role';
         $this->view->role_name = $role->name;
 
-        $form = new Form\UserRole(array_keys($this->application->router()->getRoutes()), $role->permissions, $id);
+        $routes = $role->getRoutes($this->application->router()->getRoutes(), $this->services['acl']);
+        $form   = new Form\UserRole($routes, $role->permissions, $id);
         $form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($role->toArray());
 

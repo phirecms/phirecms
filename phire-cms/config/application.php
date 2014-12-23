@@ -7,7 +7,7 @@ $config = [
             'call' => 'Pop\Web\Session::getInstance'
         ],
         'acl' => [
-            'call' => 'Pop\Acl\Acl'
+            'call' => 'Phire\Acl\Acl'
         ],
         'nav.phire' => [
             'call'   => 'Pop\Nav\Nav',

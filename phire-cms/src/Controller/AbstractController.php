@@ -9,7 +9,7 @@ use Pop\Http\Response;
 use Pop\Service\Locator;
 use Pop\View\View;
 
-class AbstractController extends Controller
+abstract class AbstractController extends Controller
 {
 
     /**

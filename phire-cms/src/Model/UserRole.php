@@ -105,6 +105,25 @@ class UserRole extends AbstractModel
         return $result;
     }
 
+    public function getRoutes($routes, $acl)
+    {
+        $routes = array_keys($routes);
+
+        foreach ($acl->getIncluded() as $route) {
+            $routes[] = $route;
+        }
+
+        foreach ($acl->getExcluded() as $route) {
+            if (in_array($route, $routes)) {
+                unset($routes[array_search($route, $routes)]);
+            }
+        }
+
+        sort($routes);
+
+        return $routes;
+    }
+
     public static function getPermissionsConfig()
     {
         $config = [

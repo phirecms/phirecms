@@ -24,23 +24,9 @@ class UserRole extends Form
      */
     public function __construct(array $routes, array $permissions = [], $id = 0, array $fields = null, $action = null, $method = 'post')
     {
-        $omitRoutes = [
-            APP_URI . '/install[/]',
-            APP_URI . '/install/config[/]',
-            APP_URI . '/install/user[/]',
-            APP_URI . '/verify/:id/:hash',
-            APP_URI . '/forgot[/]',
-            APP_URI . '/unsubscribe[/]',
-            APP_URI . '/logout[/]',
-            APP_URI . '/users/roles/json/:id',
-            APP_URI . '/config/json/:format'
-        ];
-
         $routeValues = ['----' => '----'];
         foreach ($routes as $route) {
-            if (!in_array($route, $omitRoutes)) {
-                $routeValues[$route] = str_replace('[/]', '', $route);
-            }
+            $routeValues[$route] = str_replace('[/]', '', $route);
         }
 
         $parentRoles = ['----' => '----'];
