@@ -22,18 +22,21 @@ class Forgot extends Form
     public function __construct(array $fields = null, $action = null, $method = 'post')
     {
         $fields = [
-            'email' => [
-                'type'       => 'email',
-                'label'      => 'Email',
-                'required'   => 'true',
-                'validators' => new Validator\Email()
+            [
+                'email' => [
+                    'type'       => 'email',
+                    'label'      => 'Email',
+                    'required'   => 'true',
+                    'validators' => new Validator\Email()
+                ]
             ],
-            'submit' => [
-                'type'  => 'submit',
-                'label' => '&nbsp;',
-                'value' => 'Submit',
-                'attributes' => [
-                    'class'  => 'save-btn'
+            [
+                'submit' => [
+                    'type'  => 'submit',
+                    'value' => 'Submit',
+                    'attributes' => [
+                        'class'  => 'save-btn'
+                    ]
                 ]
             ]
         ];

@@ -23,23 +23,26 @@ class InstallConfig extends Form
     public function __construct($config, array $fields = null, $action = null, $method = 'post')
     {
         $fields = [
-            'config' => [
-                'type'       => 'textarea',
-                'label'      => 'Configuration',
-                'required'   => true,
-                'value'      => $config,
-                'attributes' => [
-                    'rows'  => 50,
-                    'cols'  => 120,
-                    'style' => 'width: 100%; height: 400px; display: block;'
+            [
+                'config' => [
+                    'type'       => 'textarea',
+                    'label'      => 'Configuration',
+                    'required'   => true,
+                    'value'      => $config,
+                    'attributes' => [
+                        'rows'  => 50,
+                        'cols'  => 120,
+                        'style' => 'width: 100%; height: 400px; display: block;'
+                    ]
                 ]
             ],
-            'submit' => [
-                'type'  => 'submit',
-                'label' => '&nbsp;',
-                'value' => 'Continue',
-                'attributes' => [
-                    'class'  => 'save-btn'
+            [
+                'submit' => [
+                    'type'  => 'submit',
+                    'value' => 'Continue',
+                    'attributes' => [
+                        'class'  => 'save-btn'
+                    ]
                 ]
             ]
         ];

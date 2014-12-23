@@ -57,6 +57,9 @@ class Application extends \Pop\Application
         sort($this->assets['js']);
         sort($this->assets['css']);
 
+        // Load any custom/override assets
+        $this->loadAssets(__DIR__ . '/../..' . MODULE_PATH . '/phire/assets', 'phire-custom');
+
         // Load modules
         $this->loadModules();
 
@@ -167,24 +170,27 @@ class Application extends \Pop\Application
                     }
                     $d = new Dir($from . '/' . $aDir, false, false, false);
                     foreach ($d->getFiles() as $file) {
-                        if (!file_exists($dir . '/' . $aDir . '/' . $file) ||
-                            (file_exists($dir . '/' . $aDir . '/' . $file) &&
-                                (filemtime($from . '/' . $aDir . '/' . $file) > filemtime($dir . '/' . $aDir . '/' . $file)))) {
-                            copy($from . '/' . $aDir . '/' . $file, $dir . '/' . $aDir . '/' . $file);
-                            chmod($dir . '/' . $aDir . '/' . $file, 0777);
-                        }
-                        if (($aDir == 'css') || ($aDir == 'styles') || ($aDir == 'style')) {
-                            if (file_exists($dir . '/' . $aDir . '/' . $file)) {
-                                $css = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $aDir . '/' . $file;
-                                if (!in_array($css, $this->assets['css'])) {
-                                    $this->assets['css'][] = $css;
+                        if ($file !== 'index.html') {
+                            if (!file_exists($dir . '/' . $aDir . '/' . $file) ||
+                                (file_exists($dir . '/' . $aDir . '/' . $file) &&
+                                    (filemtime($from . '/' . $aDir . '/' . $file) > filemtime($dir . '/' . $aDir . '/' . $file)))
+                            ) {
+                                copy($from . '/' . $aDir . '/' . $file, $dir . '/' . $aDir . '/' . $file);
+                                chmod($dir . '/' . $aDir . '/' . $file, 0777);
+                            }
+                            if (($aDir == 'css') || ($aDir == 'styles') || ($aDir == 'style')) {
+                                if (file_exists($dir . '/' . $aDir . '/' . $file)) {
+                                    $css = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $aDir . '/' . $file;
+                                    if (!in_array($css, $this->assets['css'])) {
+                                        $this->assets['css'][] = $css;
+                                    }
                                 }
                             }
-                        }
-                        if (($aDir == 'js') || ($aDir == 'scripts') || ($aDir == 'script') || ($aDir == 'scr')) {
-                            $js = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $aDir . '/' . $file;
-                            if (!in_array($js, $this->assets['js'])) {
-                                $this->assets['js'][] = $js;
+                            if (($aDir == 'js') || ($aDir == 'scripts') || ($aDir == 'script') || ($aDir == 'scr')) {
+                                $js = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $aDir . '/' . $file;
+                                if (!in_array($js, $this->assets['js'])) {
+                                    $this->assets['js'][] = $js;
+                                }
                             }
                         }
                     }

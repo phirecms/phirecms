@@ -111,8 +111,14 @@ class AbstractController extends Controller
      */
     protected function prepareView($template)
     {
-        $this->view = new View($this->viewPath . '/' . $template);
-        $this->view->assets = $this->application->getAssets();
+        // Check for an override template
+        $viewTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/' . $template)) ?
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
+
+        $this->view              = new View($viewTemplate);
+        $this->view->assets      = $this->application->getAssets();
+        $this->view->phireHeader = __DIR__ . '/../../view/header.phtml';
+        $this->view->phireFooter = __DIR__ . '/../../view/footer.phtml';
 
         if (isset($this->sess->user)) {
             $this->services['nav.phire']->setRole($this->services['acl']->getRole($this->sess->user->role_name));

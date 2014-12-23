@@ -197,7 +197,9 @@ select {
     background-color: #37ade8;
 }
 
-#login-form > dl:last-child > dd, #profile-form > dl:last-child > dd, #register-form > dl:last-child > dd {
+#login-form > dl:last-child > dd, #profile-form > dl:last-child > dd, #register-form > dl:last-child > dd,
+#install-form > dl:last-child > dd, #install-config-form > dl:last-child > dd, #forgot-form > dl:last-child > dd,
+#unsubscribe-form > dl:last-child > dd {
     clear: left;
     float: none;
 }
