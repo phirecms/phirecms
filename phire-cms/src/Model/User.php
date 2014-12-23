@@ -83,7 +83,7 @@ class User extends AbstractModel
 
             $user->save();
 
-            if (null !== $sess) {
+            if ((null !== $sess) && ($sess->user->id == $user->id)) {
                 $sess->user->username = $user->username;
                 $sess->user->email    = $user->email;
             }

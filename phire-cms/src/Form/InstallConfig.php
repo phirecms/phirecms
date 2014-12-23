@@ -37,7 +37,10 @@ class InstallConfig extends Form
             'submit' => [
                 'type'  => 'submit',
                 'label' => '&nbsp;',
-                'value' => 'Continue'
+                'value' => 'Continue',
+                'attributes' => [
+                    'class'  => 'save-btn'
+                ]
             ]
         ];
 

@@ -5,8 +5,31 @@
 /* Global Definitions */
 
 html {
-    font-family: sans-serif;
-    font-size: 0.75em;
+    font-family: "Open Sans", sans-serif;
+    font-size: 0.825em;
+}
+
+a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #006bc9;
+}
+
+a:hover {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #e86000;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+    clear: both;
+}
+
+h1 {
+    margin: 10px 0 10px 0;
+    padding: 0;
 }
 
 dl {
@@ -18,13 +41,13 @@ dl {
 dt {
     clear: left;
     margin: 0;
-    padding: 0;
+    padding: 0 0 2px 0;
 }
 
 dd {
     float: left;
     margin: 0;
-    padding: 0;
+    padding: 0 0 8px 0;
 }
 
 fieldset {
@@ -33,9 +56,31 @@ fieldset {
     border: none;
 }
 
-input[type=checkbox], input[type=radio] {
+input[type=text], input[type=email], input[type=password]  {
     margin: 0;
-    padding: 0;
+    padding: 5px;
+    font-family: "Open Sans", sans-serif;
+    border-radius: 4px;
+    border: solid 1px #999;
+}
+
+select {
+    margin: 0;
+    padding: 3px;
+    font-family: "Open Sans", sans-serif;
+}
+
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+    border: solid 1px #52b2e5;
+    box-shadow: 0 0 4px 1px #8cd6ff;
+}
+
+input[type=submit]:focus, button:focus {
+    outline: none;
+}
+
+select {
+    min-width: 100px;
 }
 
 /* ID Definitions */
@@ -125,14 +170,14 @@ input[type=checkbox], input[type=radio] {
 }
 
 #sub-nav > nav {
-    margin: 0 0 5px 0;
+    margin: 0;
     padding: 0;
     display: inline-block;
 }
 
 #sub-nav > nav > a {
     margin: 0 5px 0 0;
-    padding: 5px 8px 5px 8px;
+    padding: 4px 7px 4px 7px;
     display: inline-block;
     color: #fff;
     text-align: center;
@@ -141,7 +186,7 @@ input[type=checkbox], input[type=radio] {
     text-decoration: none;
     text-transform: uppercase;
     border-radius: 4px;
-    font-size: 0.825em;
+    font-size: 0.75em;
     background-color: #1481bc;
 }
 
@@ -152,11 +197,98 @@ input[type=checkbox], input[type=radio] {
     background-color: #37ade8;
 }
 
+#login-form > dl:last-child > dd, #profile-form > dl:last-child > dd, #register-form > dl:last-child > dd {
+    clear: left;
+    float: none;
+}
+
+#forgot {
+    margin: 0;
+    padding: 0;
+    font-size: 0.9em;
+}
+
+#forgot > a {
+    font-weight: normal;
+}
+
+#user-form, #user-role-form {
+    margin: 10px auto 10px auto;
+    padding: 15px 0 15px 0;
+    width: 100%;
+    border-top: solid 1px #ccc;
+}
+
+#user-form > dl:first-child, #user-role-form > dl:first-child {
+    margin: 0;
+    padding: 0;
+    float: right;
+    width: 150px;
+}
+
+#config-form {
+    margin: 5px auto 10px auto;
+    padding: 0 0 10px 0;
+    width: 100%;
+}
+
+#user-role-form-field-group-3 > dd > fieldset {
+    padding: 7px 0 0 0;
+}
+
+#saved {
+    position: absolute;
+    z-index: 10000;
+    right: 20px;
+    top: 95px;
+    display: none;
+    opacity: 0;
+    margin: 0;
+    font-weight: bold;
+    text-align: right;
+    padding: 7px 15px 7px 15px;
+    width: 400px;
+    height: 20px;
+    color: #315900;
+    background-color: #dbf2bf;
+    border-radius: 7px;
+    box-shadow: 0 0 10px 3px #b8c9a1;
+}
+
+#removed {
+    position: absolute;
+    z-index: 10000;
+    right: 12px;
+    top: 95px;
+    display: none;
+    opacity: 0;
+    margin: 0;
+    font-weight: bold;
+    text-align: right;
+    padding: 5px 15px 5px 15px;
+    width: 400px;
+    height: 20px;
+    color: #8e0202;
+    background-color: #e8d0d0;
+    border-radius: 7px;
+    box-shadow: 0 0 10px 3px #BFA4A4;
+}
+
+#form-footer {
+    margin: 0 auto;
+    padding: 0;
+    text-align: right;
+}
+
+#form-footer > input {
+    float: right;
+}
+
 /* Class Definitions */
 
 .data-table {
     clear: both;
-    margin: 0 auto 10px auto;
+    margin: 10px auto 10px auto;
     padding: 0;
     width: 100%;
     border-left: solid 1px #ccc;
@@ -212,7 +344,7 @@ input[type=checkbox], input[type=radio] {
 
 .page-links {
     float: right;
-    margin: 5px 0 5px 0;
+    margin: 0 0 5px 0;
     padding: 0;
 }
 
@@ -223,24 +355,37 @@ input[type=checkbox], input[type=radio] {
 }
 
 .page-links > form > div {
-    margin: 0;
+    margin: 0 4px 0 0;
     padding: 0;
     display: inline;
 }
 
 .page-links > form > div > input {
-    margin: 0;
+    margin: 0 0 0 4px;
     padding: 1px;
     width: 20px;
+    height: 17px;
     text-align: center;
     font-size: 0.9em;
 }
 
 .page-links > a {
-    margin: 0;
-    padding: 0 3px 0 3px;
+    margin: 0 3px 0 3px;
+    padding: 0 5px 6px 5px;
+    width: 10px;
+    height: 17px;
     display: inline-block;
     font-size: 1.1em;
+    text-align: center;
+    text-decoration: none;
+    color: #666;
+    background-color: #ddd;
+    border-radius: 4px;
+}
+
+.page-links > a:hover {
+    color: #fff;
+    background-color: #bbb;
     text-decoration: none;
 }
 
@@ -279,4 +424,65 @@ input[type=checkbox], input[type=radio] {
 
 th.text-center, td.text-center {
     text-align: center;
+}
+
+.radio {
+    margin: 0 0 5px 0;
+    padding: 0 0 5px 0;
+}
+
+.radio-span {
+    margin: 0 8px 5px 0;
+    padding: 0 8px 5px 0;
+}
+
+.checkbox {
+    margin: 2px;
+    padding: 2px;
+    clear: left;
+    float: left;
+}
+
+.checkbox-span {
+    margin: 2px;
+    padding: 2px;
+    float: left;
+}
+
+.save-btn {
+    margin: 0;
+    padding: 5px 15px 5px 15px;
+    display: block;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.0em;
+    background-color: #1481bc;
+    border-radius: 5px;
+    border: none;
+}
+
+.save-btn:hover {
+    cursor: pointer;
+    background-color: #37ade8;
+}
+
+.process-btn {
+    margin: 0;
+    padding: 5px 15px 5px 15px;
+    display: block;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.0em;
+    background-color: #636363;
+    border-radius: 5px;
+    border: none;
+}
+
+.process-btn:hover {
+    cursor: pointer;
+    background-color: #969696;
 }

@@ -31,7 +31,10 @@ class Forgot extends Form
             'submit' => [
                 'type'  => 'submit',
                 'label' => '&nbsp;',
-                'value' => 'Submit'
+                'value' => 'Submit',
+                'attributes' => [
+                    'class'  => 'save-btn'
+                ]
             ]
         ];
 

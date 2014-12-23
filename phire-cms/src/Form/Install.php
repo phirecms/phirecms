@@ -64,7 +64,10 @@ class Install extends Form
             'submit' => [
                 'type'  => 'submit',
                 'label' => '&nbsp;',
-                'value' => 'Submit'
+                'value' => 'Continue',
+                'attributes' => [
+                    'class'  => 'save-btn'
+                ]
             ]
         ];
 

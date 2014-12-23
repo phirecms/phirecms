@@ -31,7 +31,10 @@ class Unsubscribe extends Form
             'submit' => [
                 'type'  => 'submit',
                 'label' => '&nbsp;',
-                'value' => 'Unsubscribe'
+                'value' => 'Unsubscribe',
+                'attributes' => [
+                    'class'  => 'save-btn'
+                ]
             ]
         ];
 

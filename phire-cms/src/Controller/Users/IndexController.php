@@ -51,7 +51,7 @@ class IndexController extends AbstractController
                 $user = new Model\User();
                 $user->save($form->getFields());
 
-                Response::redirect(BASE_PATH . APP_URI . '/users');
+                Response::redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id . '?saved=' . time());
                 exit();
             }
         }
@@ -84,9 +84,9 @@ class IndexController extends AbstractController
                      ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
                      ->filter();
                 $user = new Model\User();
-                $user->update($form->getFields());
+                $user->update($form->getFields(), $this->sess);
 
-                Response::redirect(BASE_PATH . APP_URI . '/users');
+                Response::redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id . '?saved=' . time());
                 exit();
             }
         }
@@ -102,7 +102,7 @@ class IndexController extends AbstractController
             $user = new Model\User();
             $user->remove($this->request->getPost());
         }
-        Response::redirect(BASE_PATH . APP_URI . '/users');
+        Response::redirect(BASE_PATH . APP_URI . '/users?removed=' . time());
     }
 
 }

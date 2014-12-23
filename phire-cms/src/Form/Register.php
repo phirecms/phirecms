@@ -57,8 +57,10 @@ class Register extends Form
             [
                 'submit' => [
                     'type'  => 'submit',
-                    'label' => '&nbsp;',
-                    'value' => 'Register'
+                    'value' => 'Register',
+                    'attributes' => [
+                        'class'  => 'save-btn'
+                    ]
                 ],
                 'role_id' => [
                     'type'  => 'hidden',

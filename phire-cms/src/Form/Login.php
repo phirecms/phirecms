@@ -22,22 +22,28 @@ class Login extends Form
     public function __construct(array $fields = null, $action = null, $method = 'post')
     {
         $fields = [
-            'username' => [
-                'type'       => 'text',
-                'label'      => 'Username',
-                'required'   => 'true',
-                'validators' => new Validator\NotEmpty()
+            [
+                'username' => [
+                    'type'       => 'text',
+                    'label'      => 'Username',
+                    'required'   => 'true',
+                    'validators' => new Validator\NotEmpty()
+                ],
+                'password' => [
+                    'type'       => 'password',
+                    'label'      => 'Password',
+                    'required'   => 'true',
+                    'validators' => new Validator\NotEmpty()
+                ]
             ],
-            'password' => [
-                'type'       => 'password',
-                'label'      => 'Password',
-                'required'   => 'true',
-                'validators' => new Validator\NotEmpty()
-            ],
-            'submit' => [
-                'type'  => 'submit',
-                'label' => '&nbsp;',
-                'value' => 'Login'
+            [
+                'submit' => [
+                    'type'  => 'submit',
+                    'value' => 'Login',
+                    'attributes' => [
+                        'class'  => 'save-btn'
+                    ]
+                ]
             ]
         ];
 

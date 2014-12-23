@@ -4,6 +4,7 @@ namespace Phire\Controller\Config;
 
 use Phire\Controller\AbstractController;
 use Phire\Model;
+use Pop\Http\Response;
 
 class IndexController extends AbstractController
 {
@@ -14,7 +15,8 @@ class IndexController extends AbstractController
 
         if ($this->request->isPost()) {
             $config->save($this->request->getPost());
-            $config = new Model\Config();
+            Response::redirect(BASE_PATH . APP_URI . '/config?saved=' . time());
+            exit();
         }
 
         $this->prepareView('config/index.phtml');

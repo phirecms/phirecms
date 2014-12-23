@@ -3,6 +3,7 @@
  */
 
 var phire = {
+    clear           : null,
     permissionCount : 1,
 
     addPermissions : function() {
@@ -65,11 +66,34 @@ var phire = {
         } else if (jax('#datetime-custom')[0] != undefined) {
             jax('#datetime-custom').val('');
         }
+    },
+
+    clearStatus : function(id) {
+        jax(id).fade(0, {tween : 10, speed: 200});
+        clearTimeout(phire.clear);
     }
 
 };
 
 jax(document).ready(function(){
+    if (jax.query('saved') != undefined) {
+        if (jax('#saved')[0] != undefined) {
+            jax('#saved').css({"opacity" : 0});
+            jax('#saved').fade(100, {tween : 10, speed: 200});
+            phire.clear = setTimeout(function(){
+                phire.clearStatus('#saved');
+            }, 2500);
+        }
+    }
+    if (jax.query('removed') != undefined) {
+        if (jax('#removed')[0] != undefined) {
+            jax('#removed').css({"opacity" : 0});
+            jax('#removed').fade(100, {tween : 10, speed: 200});
+            phire.clear = setTimeout(function(){
+                phire.clearStatus('#removed');
+            }, 2500);
+        }
+    }
     if (jax('#modules-form')[0] != undefined) {
         jax('#checkall').click(function(){
             if (this.checked) {

@@ -41,7 +41,7 @@ class IndexController extends AbstractController
         $module = new Model\Module();
         $module->install($this->services);
 
-        Response::redirect(BASE_PATH . APP_URI . '/modules');
+        Response::redirect(BASE_PATH . APP_URI . '/modules?saved=' . time());
     }
 
     public function process()
@@ -49,7 +49,11 @@ class IndexController extends AbstractController
         $module = new Model\Module();
         $module->process($this->request->getPost(), $this->services);
 
-        Response::redirect(BASE_PATH . APP_URI . '/modules');
+        if (null !== $this->request->getPost('rm_modules')) {
+            Response::redirect(BASE_PATH . APP_URI . '/modules?removed=' . time());
+        } else {
+            Response::redirect(BASE_PATH . APP_URI . '/modules?saved=' . time());
+        }
     }
 
 }

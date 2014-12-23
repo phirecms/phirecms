@@ -30,6 +30,13 @@ class User extends Form
 
         $fields = [
             [
+                'submit' => [
+                    'type'       => 'submit',
+                    'value'      => 'Save',
+                    'attributes' => [
+                        'class'  => 'save-btn'
+                    ]
+                ],
                 'role_id' => [
                     'type'       => 'select',
                     'label'      => 'Role',
@@ -38,6 +45,21 @@ class User extends Form
                         'onchange' => 'phire.changeRole(this.value, \'' . BASE_PATH . APP_URI . '\');'
                     ]
                 ],
+                'verified' => [
+                    'type'      => 'radio',
+                    'label'     => 'Verified',
+                    'value' => [
+                        '1' => 'Yes',
+                        '0' => 'No'
+                    ],
+                    'marked' => 0
+                ],
+                'id' => [
+                    'type'  => 'hidden',
+                    'value' => '0'
+                ]
+            ],
+            [
                 'username' => [
                     'type'     => 'text',
                     'label'    => 'Username',
@@ -61,26 +83,6 @@ class User extends Form
                 'password2' => [
                     'type'      => 'password',
                     'label'     => 'Re-Type Password'
-                ],
-                'verified' => [
-                    'type'      => 'radio',
-                    'label'     => 'Verified',
-                    'value' => [
-                        '1' => 'Yes',
-                        '0' => 'No'
-                    ],
-                    'marked' => 0
-                ]
-            ],
-            [
-                'submit' => [
-                    'type'  => 'submit',
-                    'label' => '&nbsp;',
-                    'value' => 'Save'
-                ],
-                'id' => [
-                    'type'  => 'hidden',
-                    'value' => '0'
                 ]
             ]
         ];

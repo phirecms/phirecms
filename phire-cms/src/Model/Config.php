@@ -28,6 +28,7 @@ class Config extends AbstractModel
             'base_path'        => (BASE_PATH == '') ? '&nbsp;' : BASE_PATH,
             'application_path' => (APP_PATH == '') ? '&nbsp;' : APP_PATH,
             'content_path'     => CONTENT_PATH,
+            'module_path'      => MODULE_PATH,
             'operating_system' => $server->getOs() . ' (' . $server->getDistro() . ')',
             'software'         => $server->getServer() . ' ' . $server->getServerVersion(),
             'database_version' => Table\Config::getDb()->version(),

@@ -54,8 +54,10 @@ class Profile extends Form
             [
                 'submit' => [
                     'type'  => 'submit',
-                    'label' => '&nbsp;',
-                    'value' => 'Save'
+                    'value' => 'Save',
+                    'attributes' => [
+                        'class'  => 'save-btn'
+                    ]
                 ],
                 'role_id' => [
                     'type'  => 'hidden',

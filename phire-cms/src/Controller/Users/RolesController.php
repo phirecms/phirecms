@@ -48,7 +48,7 @@ class RolesController extends AbstractController
                 $role = new Model\UserRole();
                 $role->save($this->request->getPost());
 
-                Response::redirect(BASE_PATH . APP_URI . '/users/roles');
+                Response::redirect(BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id . '?saved=' . time());
                 exit();
             }
         }
@@ -80,7 +80,7 @@ class RolesController extends AbstractController
                 $role = new Model\UserRole();
                 $role->update($this->request->getPost());
 
-                Response::redirect(BASE_PATH . APP_URI . '/users/roles');
+                Response::redirect(BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id . '?saved=' . time());
                 exit();
             }
         }
@@ -113,7 +113,7 @@ class RolesController extends AbstractController
             $role = new Model\UserRole();
             $role->remove($this->request->getPost());
         }
-        Response::redirect(BASE_PATH . APP_URI . '/users/roles');
+        Response::redirect(BASE_PATH . APP_URI . '/users/roles?removed=' . time());
     }
 
 }

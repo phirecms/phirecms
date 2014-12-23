@@ -49,6 +49,8 @@ class UserRole extends AbstractModel
             'permissions'       => serialize($this->getPermissions($post))
         ]);
         $role->save();
+
+        $this->data = array_merge($this->data, $role->getColumns());
     }
 
     public function update(array $post)
@@ -62,6 +64,8 @@ class UserRole extends AbstractModel
             $role->email_as_username = (int)$post['email_as_username'];
             $role->permissions       = serialize($this->getPermissions($post));
             $role->save();
+
+            $this->data = array_merge($this->data, $role->getColumns());
         }
     }
 
