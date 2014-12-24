@@ -48,7 +48,7 @@ class Module extends AbstractModel
                     $moduleConfigs[$module->folder]['nav.module'], ['top' => ['class' => 'module-nav']]
                 );
                 $module->nav->setAcl($acl);
-                $module->nav->setRole($acl->getRole($sess->user->role_name));
+                $module->nav->setRole($acl->getRole($sess->user->role));
                 $module->nav->setIndent('                    ');
             } else {
                 $module->nav = null;

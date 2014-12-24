@@ -50,11 +50,11 @@ class IndexController extends AbstractController
 
             if ($form->isValid()) {
                 $this->sess->user = new \ArrayObject([
-                    'id'        => $auth->adapter()->getUser()->id,
-                    'role_id'   => $auth->adapter()->getUser()->role_id,
-                    'role_name' => Table\UserRoles::findById($auth->adapter()->getUser()->role_id)->name,
-                    'username'  => $auth->adapter()->getUser()->username,
-                    'email'     => $auth->adapter()->getUser()->email,
+                    'id'       => $auth->adapter()->getUser()->id,
+                    'role_id'  => $auth->adapter()->getUser()->role_id,
+                    'role'     => Table\UserRoles::findById($auth->adapter()->getUser()->role_id)->name,
+                    'username' => $auth->adapter()->getUser()->username,
+                    'email'    => $auth->adapter()->getUser()->email,
                 ], \ArrayObject::ARRAY_AS_PROPS);
 
                 Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));

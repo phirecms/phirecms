@@ -132,7 +132,7 @@ abstract class AbstractController extends Controller
         $this->view->phireFooter = $footerTemplate;
 
         if (isset($this->sess->user)) {
-            $this->services['nav.phire']->setRole($this->services['acl']->getRole($this->sess->user->role_name));
+            $this->services['nav.phire']->setRole($this->services['acl']->getRole($this->sess->user->role));
             $this->services['nav.phire']->returnFalse(true);
             $this->view->phireNav = $this->services['nav.phire'];
             $this->view->user     = $this->sess->user;
