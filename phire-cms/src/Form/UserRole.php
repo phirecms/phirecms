@@ -154,7 +154,7 @@ class UserRole extends Form
                         'type' => 'select',
                         'value' => $permissionsValues,
                         'attributes' => [
-                            'style' => 'display: block; margin-bottom: 5px;'
+                            'style' => 'display: block; margin-right: 5px; margin-bottom: 5px;'
                         ],
                         'marked' => $permission['permission']
                     ];
@@ -201,7 +201,7 @@ class UserRole extends Form
                         'type' => 'select',
                         'value' => $permissionsValues,
                         'attributes' => [
-                            'style' => 'display: block; margin-bottom: 5px;'
+                            'style' => 'display: block; margin-right: 5px; margin-bottom: 5px;'
                         ],
                         'marked' => $permission['permission']
                     ];

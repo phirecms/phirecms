@@ -100,7 +100,7 @@ class Application extends \Pop\Application
                             }
                             $params['tree'][$modulesBranch]['children'][] = [
                                 'name'     => (isset($assets['info']) && isset($assets['info']['Module Name'])) ?
-                                    $assets['info']['Module Name'] :$name,
+                                    $assets['info']['Module Name'] : $name,
                                 'href'     => '#',
                                 'children' => $config['nav.module']
                             ];
@@ -109,6 +109,11 @@ class Application extends \Pop\Application
                         // If the module has system-level navigation
                         if (isset($config['nav.phire'])) {
                             $params['tree'] = array_merge($config['nav.phire'], $params['tree']);
+                        }
+
+                        // If the module has ACL resources
+                        if (isset($config['resources'])) {
+                            $this->config['resources'] = array_merge($this->config['resources'], $config['resources']);
                         }
 
                         // Add the nav params back to the service
