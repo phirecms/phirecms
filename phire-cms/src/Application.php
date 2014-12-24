@@ -2,6 +2,8 @@
 
 namespace Phire;
 
+use Pop\Acl\Resource;
+use Pop\Acl\Role;
 use Pop\Db\Record;
 use Pop\File\Dir;
 use Pop\Http\Request;
@@ -201,30 +203,54 @@ class Application extends \Pop\Application
 
     public function initAcl()
     {
-        $config = \Phire\Model\UserRole::getPermissionsConfig();
+        foreach ($this->config['resources'] as $resource => $permissions) {
+            $this->services['acl']->addResource(new Resource($resource));
+        }
 
-        if (count($config['resources']) > 0) {
-            foreach ($config['resources'] as $resource) {
-                $this->services['acl']->addResource($resource);
+        $roles       = (new \Phire\Model\UserRole())->getAll();
+        $parentRoles = [];
+        $childRoles  = [];
+
+        foreach ($roles as $role) {
+            $r = new Role($role->name);
+            if (null !== $role->parent_id) {
+                $childRoles[$role->id] = $r;
+            } else {
+                $parentRoles[$role->id] = $r;
+            }
+            $this->services['acl']->addRole($r);
+
+            if (null !== $role->permissions) {
+                $role->permissions = unserialize($role->permissions);
+            }
+            if ((null === $role->permissions) || (is_array($role->permissions) && (count($role->permissions) == 0))) {
+                $this->services['acl']->allow($role->name);
+            } else {
+                if (count($role->permissions['allow']) > 0) {
+                    foreach ($role->permissions['allow'] as $allow) {
+                        $this->services['acl']->allow($role->name, $allow['resource'], $allow['permission']);
+                    }
+                } else {
+                    $this->services['acl']->allow($role->name);
+                }
+                if (count($role->permissions['deny']) > 0) {
+                    foreach ($role->permissions['deny'] as $deny) {
+                        $this->services['acl']->deny($role->name, $deny['resource'], $deny['permission']);
+                    }
+                }
             }
         }
-        if (count($config['roles']) > 0) {
-            foreach ($config['roles'] as $role) {
-                $this->services['acl']->addRole($role['role']);
 
-                if (count($role['allow']) > 0) {
-                    foreach ($role['allow'] as $resource) {
-                        $this->services['acl']->allow($role['role']->getName(), $resource);
-                    }
+        // Set up parent/child roles
+        foreach ($childRoles as $id => $child) {
+            $r = \Phire\Table\UserRoles::findById($id);
+            while (null !== $r->parent_id) {
+                if (isset($childRoles[$r->parent_id])) {
+                    $child->setParent($childRoles[$r->parent_id]);
+                } else if (isset($parentRoles[$r->parent_id])) {
+                    $child->setParent($parentRoles[$r->parent_id]);
                 }
-                if (count($role['deny']) > 0) {
-                    foreach ($role['deny'] as $resource) {
-                        $this->services['acl']->deny($role['role']->getName(), $resource);
-                    }
-                }
-                if (count($role['allow']) == 0) {
-                    $this->services['acl']->allow($role['role']->getName());
-                }
+                $r = \Phire\Table\UserRoles::findById($r->parent_id);
             }
         }
 
@@ -288,43 +314,11 @@ class Application extends \Pop\Application
             if (isset($sess->user) && isset($sess->user->role_name) && ($acl->hasRole($sess->user->role_name))) {
                 // Get routes with slash options
                 $route  = $application->router()->getRouteMatch()->getRoute();
-                $routes = [$route];
-                if (substr($route, -1) == '/') {
-                    $bareRoute = substr($route, 0, -1);
-                    $routes[]  = $bareRoute;
-                    $routes[]  = $bareRoute . '[/]';
-                } else {
-                    $bareRoute = $route;
-                    $routes[]  = $route . '[/]';
-                    $routes[]  = $route . '/';
-                }
-
-                // Get the resource
-                $resource = null;
-                foreach ($routes as $route) {
-                    if ($acl->hasResource($route)) {
-                        $resource = $route;
-                    }
-                }
-
-                // Check for resources with params
-                if (null === $resource) {
-                    $resources = $acl->getResources();
-
-                    foreach ($resources as $key => $value) {
-                        if ((strpos($key, '/[:') !== false) && (substr($key, 0, strpos($key, '/[:')) == $bareRoute)) {
-                            $resource = $key;
-                        } else if ((strpos($key, '/[:') === false) && (strpos($key, '/:') !== false) &&
-                            (substr($key, 0, strpos($key, '/:')) == $bareRoute)) {
-                            $resource = $key;
-                        }
-                    }
-                }
-
-                // If role and resource exists, check if denied
-                // If denied, then redirect
-                if (null !== $resource) {
-                    if ($acl->isDenied($sess->user->role_name, $resource)) {
+                $routes = $application->router()->getRouteMatch()->getRoutes();
+                if (isset($routes[$route]) && isset($routes[$route]['acl']) && isset($routes[$route]['acl']['resource'])) {
+                    $resource   = $routes[$route]['acl']['resource'];
+                    $permission = (isset($routes[$route]['acl']['permission'])) ? $routes[$route]['acl']['permission'] : null;
+                    if (!$acl->isAllowed($sess->user->role_name, $resource, $permission)) {
                         Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
                         exit();
                     }

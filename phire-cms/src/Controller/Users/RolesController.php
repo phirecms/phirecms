@@ -38,8 +38,8 @@ class RolesController extends AbstractController
         $this->view->title = 'Users : Add Role';
         $role = new Model\UserRole();
 
-        $routes = $role->getRoutes($this->application->router()->getRoutes(), $this->services['acl']);
-        $form   = new Form\UserRole($routes);
+        $config = $this->application->config();
+        $form   = new Form\UserRole($config['resources']);
 
         if ($this->request->isPost()) {
             $form->addFilter('strip_tags')
@@ -69,8 +69,8 @@ class RolesController extends AbstractController
         $this->view->title     = 'Users : Edit Role';
         $this->view->role_name = $role->name;
 
-        $routes = $role->getRoutes($this->application->router()->getRoutes(), $this->services['acl']);
-        $form   = new Form\UserRole($routes, $role->permissions, $id);
+        $config = $this->application->config();
+        $form   = new Form\UserRole($config['resources'], $role->permissions, $id);
         $form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($role->toArray());
 
@@ -95,15 +95,23 @@ class RolesController extends AbstractController
 
     public function json($id)
     {
-        $role = new Model\UserRole();
-        $role->getById($id);
         $json = [];
 
-        if (isset($role->id)) {
-            $json['id']                = $role->id;
-            $json['verification']      = $role->verification;
-            $json['approval']          = $role->approval;
-            $json['email_as_username'] = $role->email_as_username;
+        if (is_numeric($id)) {
+            $role = new Model\UserRole();
+            $role->getById($id);
+
+            if (isset($role->id)) {
+                $json['id'] = $role->id;
+                $json['verification'] = $role->verification;
+                $json['approval'] = $role->approval;
+                $json['email_as_username'] = $role->email_as_username;
+            }
+        } else {
+            $config    = $this->application->config();
+            if (isset($config['resources'][$id])) {
+                $json['permissions'] = $config['resources'][$id];
+            }
         }
 
         $this->response->setBody(json_encode($json, JSON_PRETTY_PRINT));

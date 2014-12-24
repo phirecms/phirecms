@@ -1,4 +1,4 @@
-<?php include __DIR__ . '/../header.phtml'; ?>
+<?php include $phireHeader; ?>
     <h1><?=$title; ?></h1>
     <form id="config-form" method="post" action="<?=BASE_PATH . APP_URI; ?>/config">
         <table class="data-table" cellpadding="0" cellspacing="0" border="0">
@@ -52,4 +52,4 @@ foreach($config['datetime_formats'] as $datetime):
         </table>
         <div><input type="submit" name="submit" value="Save" /></div>
     </form>
-<?php include __DIR__ . '/../footer.phtml'; ?>
+<?php include $phireFooter; ?>

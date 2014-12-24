@@ -20,15 +20,24 @@ return [
     ],
     APP_URI . '/login[/]' => [
         'controller' => 'Phire\Controller\IndexController',
-        'action'     => 'login'
+        'action'     => 'login',
+        'acl'        => [
+            'resource'   => 'login'
+        ]
     ],
     APP_URI . '/profile[/]' => [
         'controller' => 'Phire\Controller\IndexController',
-        'action'     => 'profile'
+        'action'     => 'profile',
+        'acl'        => [
+            'resource'   => 'profile'
+        ]
     ],
     APP_URI . '/register/:id' => [
         'controller' => 'Phire\Controller\IndexController',
-        'action'     => 'register'
+        'action'     => 'register',
+        'acl'        => [
+            'resource'   => 'register'
+        ]
     ],
     APP_URI . '/verify/:id/:hash' => [
         'controller' => 'Phire\Controller\IndexController',
@@ -48,7 +57,10 @@ return [
     ],
     APP_URI . '/config[/]' => [
         'controller' => 'Phire\Controller\Config\IndexController',
-        'action'     => 'index'
+        'action'     => 'index',
+        'acl'        => [
+            'resource'   => 'config'
+        ]
     ],
     APP_URI . '/config/json/:format' => [
         'controller' => 'Phire\Controller\Config\IndexController',
@@ -56,43 +68,83 @@ return [
     ],
     APP_URI . '/modules[/]' => [
         'controller' => 'Phire\Controller\Modules\IndexController',
-        'action'     => 'index'
+        'action'     => 'index',
+        'acl'        => [
+            'resource'   => 'modules',
+            'permission' => 'index'
+        ]
     ],
     APP_URI . '/modules/install[/]' => [
         'controller' => 'Phire\Controller\Modules\IndexController',
-        'action'     => 'install'
+        'action'     => 'install',
+        'acl'        => [
+            'resource'   => 'modules',
+            'permission' => 'install'
+        ]
     ],
     APP_URI . '/modules/process[/]' => [
         'controller' => 'Phire\Controller\Modules\IndexController',
-        'action'     => 'process'
+        'action'     => 'process',
+        'acl'        => [
+            'resource'   => 'modules',
+            'permission' => 'process'
+        ]
     ],
     APP_URI . '/users[/]' => [
         'controller' => 'Phire\Controller\Users\IndexController',
-        'action'     => 'index'
+        'action'     => 'index',
+        'acl'        => [
+            'resource'   => 'users',
+            'permission' => 'index'
+        ]
     ],
     APP_URI . '/users/add[/]' => [
         'controller' => 'Phire\Controller\Users\IndexController',
-        'action'     => 'add'
+        'action'     => 'add',
+        'acl'        => [
+            'resource'   => 'users',
+            'permission' => 'add'
+        ]
     ],
     APP_URI . '/users/edit/:id' => [
         'controller' => 'Phire\Controller\Users\IndexController',
-        'action'     => 'edit'
+        'action'     => 'edit',
+        'acl'        => [
+            'resource'   => 'users',
+            'permission' => 'edit'
+        ]
     ],
     APP_URI . '/users/remove' => [
         'controller' => 'Phire\Controller\Users\IndexController',
-        'action'     => 'remove'
+        'action'     => 'remove',
+        'acl'        => [
+            'resource'   => 'users',
+            'permission' => 'remove'
+        ]
     ],
     APP_URI . '/users/roles[/]' => [
         'controller' => 'Phire\Controller\Users\RolesController',
-        'action'     => 'index'
+        'action'     => 'index',
+        'acl'        => [
+            'resource'   => 'roles',
+            'permission' => 'index'
+        ]
     ],
     APP_URI . '/users/roles/add[/]' => [
         'controller' => 'Phire\Controller\Users\RolesController',
-        'action'     => 'add'
+        'action'     => 'add',
+        'acl'        => [
+            'resource'   => 'roles',
+            'permission' => 'add'
+        ]
     ],
     APP_URI . '/users/roles/edit/:id' => [
         'controller' => 'Phire\Controller\Users\RolesController',
-        'action'     => 'edit'
+        'action'     => 'edit',
+        'acl'        => [
+            'resource'   => 'roles',
+            'permission' => 'edit'
+        ]
     ],
     APP_URI . '/users/roles/json/:id' => [
         'controller' => 'Phire\Controller\Users\RolesController',
@@ -100,6 +152,10 @@ return [
     ],
     APP_URI . '/users/roles/remove' => [
         'controller' => 'Phire\Controller\Users\RolesController',
-        'action'     => 'remove'
+        'action'     => 'remove',
+        'acl'        => [
+            'resource'   => 'roles',
+            'permission' => 'remove'
+        ]
     ]
 ];

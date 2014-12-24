@@ -135,6 +135,7 @@ class User extends AbstractModel
         $user = Table\Users::findBy(['email' => $fields['email']]);
         if (isset($user->id)) {
             $user->delete();
+            $this->sendUnsubscribe($user);
         }
     }
 
@@ -161,10 +162,14 @@ class User extends AbstractModel
             'domain' => $domain
         ];
 
+        // Check for an override template
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/verify.txt')) ?
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/verify.txt' : __DIR__ . '/../../view/mail/verify.txt';
+
         // Send email verification
         $mail = new Mail($domain . ' - Email Verification', $rcpt);
         $mail->from('noreply@' . $domain);
-        $mail->setText(file_get_contents(__DIR__ . '/../../view/mail/verify.txt'));
+        $mail->setText(file_get_contents($mailTemplate));
         $mail->send();
     }
 
@@ -179,10 +184,14 @@ class User extends AbstractModel
             'domain' => $domain
         ];
 
+        // Check for an override template
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/approval.txt')) ?
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/approval.txt' : __DIR__ . '/../../view/mail/approval.txt';
+
         // Send email verification
         $mail = new Mail($domain . ' - Approval', $rcpt);
         $mail->from('noreply@' . $domain);
-        $mail->setText(file_get_contents(__DIR__ . '/../../view/mail/approval.txt'));
+        $mail->setText(file_get_contents($mailTemplate));
         $mail->send();
     }
 
@@ -202,10 +211,36 @@ class User extends AbstractModel
             'password' => $newPassword
         ];
 
+        // Check for an override template
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/forgot.txt')) ?
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/forgot.txt' : __DIR__ . '/../../view/mail/forgot.txt';
+
         // Send email verification
         $mail = new Mail($domain . ' - Forgot Password', $rcpt);
         $mail->from('noreply@' . $domain);
-        $mail->setText(file_get_contents(__DIR__ . '/../../view/mail/forgot.txt'));
+        $mail->setText(file_get_contents($mailTemplate));
+        $mail->send();
+    }
+
+    protected function sendUnsubscribe(Table\Users $user)
+    {
+        $domain = str_replace('www.', '', $_SERVER['HTTP_HOST']);
+
+        // Set the recipient
+        $rcpt = [
+            'name'     => $user->username,
+            'email'    => $user->email,
+            'domain'   => $domain
+        ];
+
+        // Check for an override template
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/unsubscribe.txt')) ?
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/unsubscribe.txt' : __DIR__ . '/../../view/mail/unsubscribe.txt';
+
+        // Send email verification
+        $mail = new Mail($domain . ' - Unsubscribed', $rcpt);
+        $mail->from('noreply@' . $domain);
+        $mail->setText(file_get_contents($mailTemplate));
         $mail->send();
     }
 

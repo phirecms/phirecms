@@ -1,4 +1,4 @@
-<?php include __DIR__ . '/header.phtml'; ?>
+<?php include $phireHeader; ?>
     <h1><?=$title; ?></h1>
 <?php if (isset($form)): ?>
     <p>Please enter your email to unsubscribe.</p>
@@ -6,4 +6,4 @@
 <?php elseif ($success): ?>
     <p>You have been successfully unsubscribed from this website.</p>
 <?php endif; ?>
-<?php include __DIR__ . '/footer.phtml'; ?>
+<?php include $phireFooter; ?>

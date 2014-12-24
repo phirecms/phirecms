@@ -105,83 +105,66 @@ class UserRole extends AbstractModel
         return $result;
     }
 
-    public function getRoutes($routes, $acl)
+    protected function getPermissions(array $post)
     {
-        $routes = array_keys($routes);
-
-        foreach ($acl->getIncluded() as $route) {
-            $routes[] = $route;
-        }
-
-        foreach ($acl->getExcluded() as $route) {
-            if (in_array($route, $routes)) {
-                unset($routes[array_search($route, $routes)]);
-            }
-        }
-
-        sort($routes);
-
-        return $routes;
-    }
-
-    public static function getPermissionsConfig()
-    {
-        $config = [
-            'roles'     => [],
-            'resources' => []
+        $permissions = [
+            'allow' => [],
+            'deny'  => []
         ];
 
-        $roles   = Table\UserRoles::findAll();
-
-        foreach ($roles->rows() as $role) {
-            $config['roles'][$role->id] = [
-                'role'   => new Acl\Role($role->name),
-                'allow'  => [],
-                'deny'   => [],
-                'parent' => $role->parent_id
-            ];
-
-            $permissions = (null !== $role->permissions) ? unserialize($role->permissions) : [];
-
-            if (count($permissions) > 0) {
-                foreach ($permissions as $resource => $permission) {
-                    $config['resources'][$resource] = new Acl\Resource($resource);
-                    if ($permission) {
-                        $config['roles'][$role->id]['role']->addPermission($resource);
-                        $config['roles'][$role->id]['allow'][] = $resource;
+        // Get new ones
+        foreach ($post as $key => $value) {
+            if (strpos($key, 'resource_new_') !== false) {
+                $id    = substr($key, 13);
+                $allow = $post['allow_new_' . $id];
+                if (($value != '----') && ($allow != '----')) {
+                    if ((bool)$allow) {
+                        $permissions['allow'][] = [
+                            'resource'   => $value,
+                            'permission' => ((!empty($post['permission_new_' . $id]) && ($post['permission_new_' . $id] != '----')) ?
+                                $post['permission_new_' . $id] : null),
+                        ];
                     } else {
-                        $config['roles'][$role->id]['deny'][] = $resource;
+                        $permissions['deny'][] = [
+                            'resource'   => $value,
+                            'permission' => ((!empty($post['permission_new_' . $id]) && ($post['permission_new_' . $id] != '----')) ?
+                                $post['permission_new_' . $id] : null),
+                        ];
                     }
                 }
             }
         }
 
-        // Discover any parents
-        foreach ($config['roles'] as $id => $role) {
-            if ((null !== $role['parent']) && isset($config['roles'][$role['parent']])) {
-                $role['role']->inheritsFrom($config['roles'][$role['parent']]['role']);
+        // Remove old ones
+        foreach ($post as $key => $value) {
+            if ((strpos($key, 'rm_resources') !== false) && isset($value[0])) {
+                $id = $value[0];
+                unset($post['resource_cur_' . $id]);
+                unset($post['permission_cur_' . $id]);
+                unset($post['allow_cur_' . $id]);
             }
         }
 
-        return $config;
-    }
-
-    protected function getPermissions(array $post)
-    {
-        $permissions = [];
-
+        // Save any remaining old ones
         foreach ($post as $key => $value) {
-            if (strpos($key, 'permission_') !== false) {
-                $allow = $post['allow_' . substr($key, 11)];
+            if (strpos($key, 'resource_cur_') !== false) {
+                $id    = substr($key, 13);
+                $allow = $post['allow_cur_' . $id];
                 if (($value != '----') && ($allow != '----')) {
-                    $permissions[$value] = $allow;
+                    if ((bool)$allow) {
+                        $permissions['allow'][] = [
+                            'resource'   => $value,
+                            'permission' => ((!empty($post['permission_cur_' . $id]) && ($post['permission_cur_' . $id] != '----')) ?
+                                $post['permission_cur_' . $id] : null),
+                        ];
+                    } else {
+                        $permissions['deny'][] = [
+                            'resource'   => $value,
+                            'permission' => ((!empty($post['permission_cur_' . $id]) && ($post['permission_cur_' . $id] != '----')) ?
+                                $post['permission_cur_' . $id] : null),
+                        ];
+                    }
                 }
-            }
-        }
-
-        foreach ($post as $key => $value) {
-            if ((strpos($key, 'rm_permissions') !== false) && isset($value[0]) && isset($permissions[$value[0]])) {
-                unset($permissions[$value[0]]);
             }
         }
 

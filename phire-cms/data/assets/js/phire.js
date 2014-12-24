@@ -3,26 +3,52 @@
  */
 
 var phire = {
-    clear           : null,
-    permissionCount : 1,
+    clear         : null,
+    resourceCount : 1,
 
-    addPermissions : function() {
-        phire.permissionCount++;
+    addResource : function() {
+        phire.resourceCount++;
+
+        // Add resource select field
+        jax('#resource_new_1').clone({
+            "name" : 'resource_new_' + phire.resourceCount,
+            "id"   : 'resource_new_' + phire.resourceCount
+        }).appendTo(jax('#resource_new_1').parent());
 
         // Add permission select field
         jax('#permission_new_1').clone({
-            "name" : 'permission_new_' + phire.permissionCount,
-            "id"   : 'permission_new_' + phire.permissionCount
+            "name" : 'permission_new_' + phire.resourceCount,
+            "id"   : 'permission_new_' + phire.resourceCount
         }).appendTo(jax('#permission_new_1').parent());
 
         // Add allow select field
         jax('#allow_new_1').clone({
-            "name" : 'allow_new_' + phire.permissionCount,
-            "id"   : 'allow_new_' + phire.permissionCount
+            "name" : 'allow_new_' + phire.resourceCount,
+            "id"   : 'allow_new_' + phire.resourceCount
         }).appendTo(jax('#allow_new_1').parent());
 
-        jax('#permission_new_' + phire.permissionCount).val(jax('#permission_new_' + (phire.permissionCount - 1) + ' > option:selected').val());
-        jax('#allow_new_' + phire.permissionCount).val(jax('#allow_new_' + (phire.permissionCount - 1) + ' > option:selected').val());
+        jax('#resource_new_' + phire.resourceCount).val(jax('#resource_new_' + (phire.resourceCount - 1) + ' > option:selected').val());
+        jax('#permission_new_' + phire.resourceCount).val(jax('#permission_new_' + (phire.resourceCount - 1) + ' > option:selected').val());
+        jax('#allow_new_' + phire.resourceCount).val(jax('#allow_new_' + (phire.resourceCount - 1) + ' > option:selected').val());
+    },
+
+    changePermissions : function(sel, path) {
+        var id    = sel.id.substring(sel.id.lastIndexOf('_') + 1);
+        var opts  = jax('#permission_new_' + id + ' > option').toArray();
+        var start = opts.length - 1;
+        for (var i = start; i >= 0; i--) {
+            jax(opts[i]).remove();
+        }
+        jax('#permission_new_' + id).append('option', {"value" : '----'}, '----');
+
+        if (jax(sel).val() != '----') {
+            var json = jax.get(path + '/users/roles/json/' + jax(sel).val());
+            if (json.permissions != undefined) {
+                for (var i = 0; i < json.permissions.length; i++) {
+                    jax('#permission_new_' + id).append('option', {"value" : json.permissions[i]}, json.permissions[i]);
+                }
+            }
+        }
     },
 
     changeUsername : function(){
@@ -32,7 +58,7 @@ var phire = {
     },
 
     changeRole : function(id, path) {
-        var json = jax.get(path + '/roles/json/' + id);
+        var json = jax.get(path + '/users/roles/json/' + id);
         if (json.email_as_username != undefined) {
             if ((json.email_as_username) && (jax('#username').attrib('type') == 'text')) {
                 jax('label[for=username]').val('&nbsp;');

@@ -1,15 +1,15 @@
-<?php include __DIR__ . '/../../header.phtml'; ?>
+<?php include $phireHeader; ?>
     <h1><?=$title; ?></h1>
 <?php if (count($roles) > 0): ?>
 <?php if (null !== $pages): ?>
     <div class="page-links"><?=$pages; ?></div>
 <?php endif; ?>
-<?php if ($acl->isAllowed($user->role_name, BASE_PATH . APP_URI . '/users/add[/]')): ?>
+<?php if ($acl->isAllowed($user->role_name, 'roles', 'add')): ?>
     <nav id="sub-nav">
         <nav><a href="<?=BASE_PATH . APP_URI . '/users/roles/add'; ?>">+ Add</a></nav>
     </nav>
 <?php endif; ?>
-<?php if ($acl->isAllowed($user->role_name, BASE_PATH . APP_URI . '/users/roles/remove')): ?>
+<?php if ($acl->isAllowed($user->role_name, 'roles', 'remove')): ?>
     <form id="user-roles-form" action="<?=BASE_PATH . APP_URI . '/users/roles/remove'; ?>" method="post">
 <?php endif; ?>
         <table class="data-table" cellpadding="0" cellspacing="0" border="0">
@@ -17,28 +17,28 @@
                 <th><a href="<?=BASE_PATH . APP_URI . '/users/roles?sort=id';?>">#</a></th>
                 <th><a href="<?=BASE_PATH . APP_URI . '/users/roles?sort=name';?>">Name</a></th>
                 <th class="text-center">Edit</th>
-                <th class="text-center"><?php if ($acl->isAllowed($user->role_name, BASE_PATH . APP_URI . '/users/roles/remove')): ?><input type="checkbox" name="checkall" id="checkall" value="rm_roles" /><?php else: ?>&nbsp;<?php endif; ?></th>
+                <th class="text-center"><?php if ($acl->isAllowed($user->role_name, 'roles', 'remove')): ?><input type="checkbox" name="checkall" id="checkall" value="rm_roles" /><?php else: ?>&nbsp;<?php endif; ?></th>
             </tr>
 <?php $i = 1; ?>
 <?php foreach ($roles as $role): ?>
             <tr>
                 <td><?=$role->id; ?></td>
                 <td><?=$role->name; ?></td>
-                <td class="text-center"><a class="edit-link" href="<?=BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id; ?>">Edit</a></td>
-                <td class="text-center"><?php if (($user->role_id != $role->id) && ($acl->isAllowed($user->role_name, BASE_PATH . APP_URI . '/users/roles/remove'))): ?><input type="checkbox" name="rm_roles[]" id="rm_roles<?=$i++; ?>" value="<?=$role->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
+                <td class="text-center"><?php if ($acl->isAllowed($user->role_name, 'roles', 'edit')): ?><a class="edit-link" href="<?=BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
+                <td class="text-center"><?php if (($user->role_id != $role->id) && ($acl->isAllowed($user->role_name, 'roles', 'remove'))): ?><input type="checkbox" name="rm_roles[]" id="rm_roles<?=$i++; ?>" value="<?=$role->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
             </tr>
 <?php endforeach; ?>
         </table>
-<?php if ($acl->isAllowed($user->role_name, BASE_PATH . APP_URI . '/users/roles/remove')): ?>
+<?php if ($acl->isAllowed($user->role_name, 'roles', 'remove')): ?>
         <div id="form-footer"><input type="submit" name="submit" class="process-btn" value="Remove" /></div>
     </form>
 <?php endif; ?>
 <?php else: ?>
-<?php if ($acl->isAllowed($user->role_name, BASE_PATH . APP_URI . '/users/add[/]')): ?>
+<?php if ($acl->isAllowed($user->role_name, 'roles', 'add')): ?>
     <nav id="sub-nav">
         <nav><a href="<?=BASE_PATH . APP_URI . '/users/roles/add'; ?>">+ Add</a></nav>
     </nav>
 <?php endif; ?>
     <p>There are currently no roles.</p>
 <?php endif; ?>
-<?php include __DIR__ . '/../../footer.phtml'; ?>
+<?php include $phireFooter; ?>

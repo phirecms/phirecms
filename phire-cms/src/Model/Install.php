@@ -110,10 +110,14 @@ class Install extends AbstractModel
             'domain' => $domain
         ];
 
+        // Check for an override template
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/install.txt')) ?
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/install.txt' : __DIR__ . '/../../view/mail/install.txt';
+
         // Send email verification
         $mail = new Mail($domain . ' - Phire CMS Installation', $rcpt);
         $mail->from('noreply@' . $domain);
-        $mail->setText(file_get_contents(__DIR__ . '/../../view/mail/install.txt'));
+        $mail->setText(file_get_contents($mailTemplate));
         $mail->send();
 
         // Save install timestamp

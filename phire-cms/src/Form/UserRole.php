@@ -14,7 +14,7 @@ class UserRole extends Form
      *
      * Instantiate the form object
      *
-     * @param  array  $routes
+     * @param  array  $resources
      * @param  array  $permissions
      * @param  int    $id
      * @param  array  $fields
@@ -22,13 +22,8 @@ class UserRole extends Form
      * @param  string $method
      * @return UserRole
      */
-    public function __construct(array $routes, array $permissions = [], $id = 0, array $fields = null, $action = null, $method = 'post')
+    public function __construct(array $resources, array $permissions = null, $id = 0, array $fields = null, $action = null, $method = 'post')
     {
-        $routeValues = ['----' => '----'];
-        foreach ($routes as $route) {
-            $routeValues[$route] = str_replace('[/]', '', $route);
-        }
-
         $parentRoles = ['----' => '----'];
 
         $roles = Table\UserRoles::findAll();
@@ -98,13 +93,28 @@ class UserRole extends Form
                 ]
             ],
         ];
+
+        $resourceValues = ['----' => '----'];
+
+        foreach ($resources as $resource => $perms) {
+            $resourceValues[$resource] = $resource ;
+        }
+
         $fields[] = [
+            'resource_new_1' => [
+                'type'       => 'select',
+                'label'      => '<a href="#" onclick="phire.addResource(); return false">[+]</a> Resources &amp; Permissions',
+                'value'      => $resourceValues,
+                'attributes' => [
+                    'style'    => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 200px;',
+                    'onchange' => 'phire.changePermissions(this, \'' . BASE_PATH . APP_URI . '\');'
+                ]
+            ],
             'permission_new_1' => [
                 'type'       => 'select',
-                'label'      => '<a href="#" onclick="phire.addPermissions(); return false">[+]</a> Permissions',
-                'value'      => $routeValues,
+                'value'      => ['----' => '----'],
                 'attributes' => [
-                    'style' => 'display: block; margin-bottom: 5px;'
+                    'style' => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 100px;'
                 ]
             ],
             'allow_new_1' => [
@@ -115,42 +125,106 @@ class UserRole extends Form
                     '1'    => 'allow'
                 ],
                 'attributes' => [
-                    'style' => 'display: block; margin-bottom: 5px;'
+                    'style' => 'display: block; margin-bottom: 5px; width: 100px;'
                 ]
             ]
         ];
 
-        if (count($permissions) > 0) {
+        if (null !== $permissions) {
             $i = 1;
-            foreach ($permissions as $route => $permission) {
-                $fields[2]['permission_cur_' . $i] = [
-                    'type'       => 'select',
-                    'label'      => '&nbsp;',
-                    'value'      => $routeValues,
-                    'attributes' => [
-                        'style' => 'display: block; margin-bottom: 5px;'
-                    ],
-                    'marked' => $route
-                ];
-                $fields[2]['allow_cur_' . $i] = [
-                    'type'     => 'select',
-                    'value'    => [
-                        '----' => '----',
-                        '0'    => 'deny',
-                        '1'    => 'allow'
-                    ],
-                    'attributes' => [
-                        'style' => 'display: block; margin-bottom: 5px;'
-                    ],
-                    'marked' => (int)$permission
-                ];
-                $fields[2]['rm_permissions_' . $i] = [
-                    'type' => 'checkbox',
-                    'value' => [
-                        $route => '&nbsp;'
-                    ]
-                ];
-                $i++;
+            if (isset($permissions['allow'])) {
+                foreach ($permissions['allow'] as $key => $permission) {
+                    $permissionsValues = ['----' => '----'];
+                    if (isset($resources[$permission['resource']])) {
+                        foreach ($resources[$permission['resource']] as $perm) {
+                            $permissionsValues[$perm] = $perm;
+                        }
+                    }
+
+                    $fields[2]['resource_cur_' . $i] = [
+                        'type' => 'select',
+                        'label' => '&nbsp;',
+                        'value' => $resourceValues,
+                        'attributes' => [
+                            'style' => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 200px;',
+                        ],
+                        'marked' => $permission['resource']
+                    ];
+                    $fields[2]['permission_cur_' . $i] = [
+                        'type' => 'select',
+                        'value' => $permissionsValues,
+                        'attributes' => [
+                            'style' => 'display: block; margin-bottom: 5px;'
+                        ],
+                        'marked' => $permission['permission']
+                    ];
+                    $fields[2]['allow_cur_' . $i] = [
+                        'type' => 'select',
+                        'value' => [
+                            '----' => '----',
+                            '0' => 'deny',
+                            '1' => 'allow'
+                        ],
+                        'attributes' => [
+                            'style' => 'display: block; margin-bottom: 5px;'
+                        ],
+                        'marked' => 1
+                    ];
+                    $fields[2]['rm_resources_' . $i] = [
+                        'type' => 'checkbox',
+                        'value' => [
+                            $i => '&nbsp;'
+                        ]
+                    ];
+                    $i++;
+                }
+            }
+            if (isset($permissions['deny'])) {
+                foreach ($permissions['deny'] as $key => $permission) {
+                    $permissionsValues = ['----' => '----'];
+                    if (isset($resources[$permission['resource']])) {
+                        foreach ($resources[$permission['resource']] as $perm) {
+                            $permissionsValues[$perm] = $perm;
+                        }
+                    }
+
+                    $fields[2]['resource_cur_' . $i] = [
+                        'type' => 'select',
+                        'label' => '&nbsp;',
+                        'value' => $resourceValues,
+                        'attributes' => [
+                            'style' => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 200px;',
+                        ],
+                        'marked' => $permission['resource']
+                    ];
+                    $fields[2]['permission_cur_' . $i] = [
+                        'type' => 'select',
+                        'value' => $permissionsValues,
+                        'attributes' => [
+                            'style' => 'display: block; margin-bottom: 5px;'
+                        ],
+                        'marked' => $permission['permission']
+                    ];
+                    $fields[2]['allow_cur_' . $i] = [
+                        'type' => 'select',
+                        'value' => [
+                            '----' => '----',
+                            '0' => 'deny',
+                            '1' => 'allow'
+                        ],
+                        'attributes' => [
+                            'style' => 'display: block; margin-bottom: 5px;'
+                        ],
+                        'marked' => 0
+                    ];
+                    $fields[2]['rm_resources_' . $i] = [
+                        'type' => 'checkbox',
+                        'value' => [
+                            $i => '&nbsp;'
+                        ]
+                    ];
+                    $i++;
+                }
             }
         }
 

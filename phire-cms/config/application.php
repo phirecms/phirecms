@@ -18,21 +18,24 @@ $config = [
                         'name' => 'Modules',
                         'href' => BASE_PATH . APP_URI . '/modules',
                         'acl'  => [
-                            'resource'   => BASE_PATH . APP_URI . '/modules[/]'
+                            'resource'   => 'modules',
+                            'permission' => 'index'
                         ]
                     ],
                     [
                         'name' => 'Users',
                         'href' => BASE_PATH . APP_URI . '/users',
                         'acl'  => [
-                            'resource'   => BASE_PATH . APP_URI . '/users[/]'
+                            'resource'   => 'users',
+                            'permission' => 'index'
                         ],
                         'children' => [
                             [
                                 'name' => 'Roles',
                                 'href' => BASE_PATH . APP_URI . '/users/roles',
                                 'acl'  => [
-                                    'resource'   => BASE_PATH . APP_URI . '/users/roles[/]'
+                                    'resource'   => 'roles',
+                                    'permission' => 'index'
                                 ]
                             ]
                         ]
@@ -41,7 +44,8 @@ $config = [
                         'name' => 'Config',
                         'href' => BASE_PATH . APP_URI . '/config',
                         'acl'  => [
-                            'resource'   => BASE_PATH . APP_URI . '/config[/]'
+                            'resource'   => 'config',
+                            'permission' => 'index'
                         ]
                     ]
                 ],

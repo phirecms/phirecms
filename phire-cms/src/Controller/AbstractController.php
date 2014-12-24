@@ -111,14 +111,20 @@ abstract class AbstractController extends Controller
      */
     protected function prepareView($template)
     {
-        // Check for an override template
+        // Check for an override templates
+        $headerTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/header.phtml')) ?
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/header.phtml' : __DIR__ . '/../../view/header.phtml';
+
+        $footerTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/footer.phtml')) ?
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/footer.phtml' : __DIR__ . '/../../view/footer.phtml';
+
         $viewTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/' . $template)) ?
             __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
 
         $this->view              = new View($viewTemplate);
         $this->view->assets      = $this->application->getAssets();
-        $this->view->phireHeader = __DIR__ . '/../../view/header.phtml';
-        $this->view->phireFooter = __DIR__ . '/../../view/footer.phtml';
+        $this->view->phireHeader = $headerTemplate;
+        $this->view->phireFooter = $footerTemplate;
 
         if (isset($this->sess->user)) {
             $this->services['nav.phire']->setRole($this->services['acl']->getRole($this->sess->user->role_name));
