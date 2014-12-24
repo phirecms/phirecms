@@ -28,8 +28,8 @@ class Register extends Form
             [
                 'username' => [
                     'type'     => ($role->email_as_username) ? 'hidden' : 'text',
-                    'label'    => ($role->email_as_username) ? '&nbsp;' : 'Username',
-                    'required' => !($role->email_as_username)
+                    'label'    => 'Username',
+                    'required' => true
                 ],
                 'email1' => [
                     'type'       => 'email',
@@ -109,6 +109,8 @@ class Register extends Form
             $this->getElement('password2')
                  ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
         }
+
+        return $this;
     }
 
 }

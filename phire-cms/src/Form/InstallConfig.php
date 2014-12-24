@@ -2,7 +2,6 @@
 
 namespace Phire\Form;
 
-use Pop\Db\Db;
 use Pop\Form\Form;
 use Pop\Validator;
 
@@ -70,6 +69,7 @@ class InstallConfig extends Form
                 );
             }
         }
+
         return $this;
     }
 

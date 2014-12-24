@@ -111,7 +111,10 @@ class Install extends Form
             if (!$this->checkContentPath()) {
                 $this->getElement('content_path')->addValidator(
                     new Validator\NotEqual($this->content_path,
-                        wordwrap('The content directory (or subdirectories) either do not exist or are not writable.', 50, '<br />')
+                        wordwrap(
+                            'The content directory (or subdirectories) either do not exist or are not writable.',
+                            50, '<br />'
+                        )
                     )
                 );
             }
@@ -133,8 +136,8 @@ class Install extends Form
                     'database' => $this->db_name,
                     'username' => $this->db_username,
                     'password' => $this->db_password,
-                    'host' => $this->db_host,
-                    'type' => $type,
+                    'host'     => $this->db_host,
+                    'type'     => $type,
                 ];
 
                 $dbCheck = Db::check($creds, $adapter);

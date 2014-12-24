@@ -12,7 +12,17 @@ use Pop\Web\Session;
 class Module extends AbstractModel
 {
 
-    public function getAll($moduleConfigs, $acl, $limit = null, $page = null, $sort = null)
+    /**
+     * Get all modules
+     *
+     * @param  array        $moduleConfigs
+     * @param  \Pop\Acl\Acl $acl
+     * @param  int          $limit
+     * @param  int          $page
+     * @param  string       $sort
+     * @return array
+     */
+    public function getAll(array $moduleConfigs, \Pop\Acl\Acl $acl, $limit = null, $page = null, $sort = null)
     {
         $order = $this->getSortOrder($sort, $page);
 
@@ -33,7 +43,6 @@ class Module extends AbstractModel
 
         $sess = Session::getInstance();
         foreach ($modules as $module) {
-
             if (isset($moduleConfigs[$module->folder]) && isset($moduleConfigs[$module->folder]['nav.module'])) {
                 $module->nav = new Nav(
                     $moduleConfigs[$module->folder]['nav.module'], ['top' => ['class' => 'module-nav']]
@@ -49,6 +58,12 @@ class Module extends AbstractModel
         return $modules;
     }
 
+    /**
+     * Detect new modules
+     *
+     * @param  boolean $count
+     * @return mixed
+     */
     public function detectNew($count = true)
     {
         $modulePath = $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH;
@@ -64,8 +79,8 @@ class Module extends AbstractModel
 
             $dir = new Dir($modulePath, false, false, false);
             foreach ($dir->getFiles() as $file) {
-                if (((substr($file, -4) == '.zip') || (substr($file, -4) == '.tgz') || (substr($file, -7) == '.tar.gz')) &&
-                    (!in_array($file, $installed))
+                if (((substr($file, -4) == '.zip') || (substr($file, -4) == '.tgz') ||
+                        (substr($file, -7) == '.tar.gz')) && (!in_array($file, $installed))
                 ) {
                     $newModules[] = $file;
                 }
@@ -75,17 +90,35 @@ class Module extends AbstractModel
         return ($count) ? count($newModules) : $newModules;
     }
 
+    /**
+     * Determine if list of modules have pages
+     *
+     * @param  int $limit
+     * @return boolean
+     */
     public function hasPages($limit)
     {
         return (Table\Modules::findAll()->count() > $limit);
     }
 
+    /**
+     * Get count of modules
+     *
+     * @return int
+     */
     public function getCount()
     {
         return Table\Modules::findAll()->count();
     }
 
-    public function install($services)
+    /**
+     * Install modules
+     *
+     * @param  \Pop\Service\Locator $services
+     * @throws \Exception
+     * @return void
+     */
+    public function install(\Pop\Service\Locator $services)
     {
         $modulePath = $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH;
         $modules    = $this->detectNew(false);
@@ -118,7 +151,8 @@ class Module extends AbstractModel
                         unlink($modulePath . '/' . $name . '.tar');
                     }
 
-                    if (file_exists($modulePath . '/' . $name) && file_exists($modulePath . '/' . $name . '/config/module.php')) {
+                    if (file_exists($modulePath . '/' . $name) &&
+                        file_exists($modulePath . '/' . $name . '/config/module.php')) {
                         // Get SQL, if exists
                         $sqlType = strtolower(((DB_INTERFACE == 'pdo') ? DB_TYPE : DB_INTERFACE));
                         $sqlFile = $modulePath . '/' . $name . '/data/' . strtolower($name) . '.' . $sqlType . '.sql';
@@ -167,7 +201,14 @@ class Module extends AbstractModel
         }
     }
 
-    public function process($post, $services)
+    /**
+     * Process modules
+     *
+     * @param  array                $post
+     * @param  \Pop\Service\Locator $services
+     * @return void
+     */
+    public function process($post, \Pop\Service\Locator $services)
     {
         foreach ($post as $key => $value) {
             if (strpos($key, 'active_') !== false) {
@@ -185,6 +226,13 @@ class Module extends AbstractModel
         }
     }
 
+    /**
+     * Uninstall modules
+     *
+     * @param  array                $ids
+     * @param  \Pop\Service\Locator $services
+     * @return void
+     */
     public function uninstall($ids, $services)
     {
         $modulePath = $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH;
@@ -240,6 +288,12 @@ class Module extends AbstractModel
         }
     }
 
+    /**
+     * Get module info
+     *
+     * @param  string $config
+     * @return array
+     */
     protected function getInfo($config)
     {
         $info = [];
@@ -262,6 +316,12 @@ class Module extends AbstractModel
         return $info;
     }
 
+    /**
+     * Get module tables
+     *
+     * @param  string $sql
+     * @return array
+     */
     protected function getTables($sql)
     {
         $tables  = [];

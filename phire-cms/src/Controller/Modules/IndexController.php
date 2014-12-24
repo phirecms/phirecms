@@ -10,6 +10,11 @@ use Pop\Paginator\Paginator;
 class IndexController extends AbstractController
 {
 
+    /**
+     * Index action method
+     *
+     * @return void
+     */
     public function index()
     {
         $module = new Model\Module();
@@ -36,6 +41,11 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Install action method
+     *
+     * @return void
+     */
     public function install()
     {
         $module = new Model\Module();
@@ -44,6 +54,11 @@ class IndexController extends AbstractController
         Response::redirect(BASE_PATH . APP_URI . '/modules?saved=' . time());
     }
 
+    /**
+     * Process action method
+     *
+     * @return void
+     */
     public function process()
     {
         $module = new Model\Module();

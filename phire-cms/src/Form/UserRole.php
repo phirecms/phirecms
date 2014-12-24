@@ -22,7 +22,9 @@ class UserRole extends Form
      * @param  string $method
      * @return UserRole
      */
-    public function __construct(array $resources, array $permissions = null, $id = 0, array $fields = null, $action = null, $method = 'post')
+    public function __construct(
+        array $resources, array $permissions = null, $id = 0, array $fields = null, $action = null, $method = 'post'
+    )
     {
         $parentRoles = ['----' => '----'];
 
@@ -114,7 +116,7 @@ class UserRole extends Form
                 'type'       => 'select',
                 'value'      => ['----' => '----'],
                 'attributes' => [
-                    'style' => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 100px;'
+                    'style'  => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 100px;'
                 ]
             ],
             'allow_new_1' => [
@@ -142,38 +144,38 @@ class UserRole extends Form
                     }
 
                     $fields[2]['resource_cur_' . $i] = [
-                        'type' => 'select',
+                        'type'  => 'select',
                         'label' => '&nbsp;',
                         'value' => $resourceValues,
                         'attributes' => [
-                            'style' => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 200px;',
+                            'style'  => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 200px;',
                         ],
                         'marked' => $permission['resource']
                     ];
                     $fields[2]['permission_cur_' . $i] = [
-                        'type' => 'select',
+                        'type'  => 'select',
                         'value' => $permissionsValues,
                         'attributes' => [
-                            'style' => 'display: block; margin-right: 5px; margin-bottom: 5px;'
+                            'style'  => 'display: block; margin-right: 5px; margin-bottom: 5px;'
                         ],
                         'marked' => $permission['permission']
                     ];
                     $fields[2]['allow_cur_' . $i] = [
-                        'type' => 'select',
+                        'type'  => 'select',
                         'value' => [
                             '----' => '----',
-                            '0' => 'deny',
-                            '1' => 'allow'
+                            '0'    => 'deny',
+                            '1'    => 'allow'
                         ],
                         'attributes' => [
-                            'style' => 'display: block; margin-bottom: 5px;'
+                            'style'  => 'display: block; margin-bottom: 5px;'
                         ],
                         'marked' => 1
                     ];
                     $fields[2]['rm_resources_' . $i] = [
-                        'type' => 'checkbox',
+                        'type'  => 'checkbox',
                         'value' => [
-                            $i => '&nbsp;'
+                            $i  => '&nbsp;'
                         ]
                     ];
                     $i++;
@@ -189,38 +191,38 @@ class UserRole extends Form
                     }
 
                     $fields[2]['resource_cur_' . $i] = [
-                        'type' => 'select',
+                        'type'  => 'select',
                         'label' => '&nbsp;',
                         'value' => $resourceValues,
                         'attributes' => [
-                            'style' => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 200px;',
+                            'style'  => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 200px;',
                         ],
                         'marked' => $permission['resource']
                     ];
                     $fields[2]['permission_cur_' . $i] = [
-                        'type' => 'select',
+                        'type'  => 'select',
                         'value' => $permissionsValues,
                         'attributes' => [
-                            'style' => 'display: block; margin-right: 5px; margin-bottom: 5px;'
+                            'style'  => 'display: block; margin-right: 5px; margin-bottom: 5px;'
                         ],
                         'marked' => $permission['permission']
                     ];
                     $fields[2]['allow_cur_' . $i] = [
-                        'type' => 'select',
+                        'type'  => 'select',
                         'value' => [
                             '----' => '----',
-                            '0' => 'deny',
-                            '1' => 'allow'
+                            '0'    => 'deny',
+                            '1'    => 'allow'
                         ],
                         'attributes' => [
-                            'style' => 'display: block; margin-bottom: 5px;'
+                            'style'  => 'display: block; margin-bottom: 5px;'
                         ],
                         'marked' => 0
                     ];
                     $fields[2]['rm_resources_' . $i] = [
-                        'type' => 'checkbox',
+                        'type'  => 'checkbox',
                         'value' => [
-                            $i => '&nbsp;'
+                            $i  => '&nbsp;'
                         ]
                     ];
                     $i++;

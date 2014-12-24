@@ -11,6 +11,11 @@ use Pop\Paginator\Paginator;
 class IndexController extends AbstractController
 {
 
+    /**
+     * Index action method
+     *
+     * @return void
+     */
     public function index()
     {
         $user = new Model\User();
@@ -32,6 +37,11 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Add action method
+     *
+     * @return void
+     */
     public function add()
     {
         $this->prepareView('users/add.phtml');
@@ -61,6 +71,12 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Edit action method
+     *
+     * @param  int $id
+     * @return void
+     */
     public function edit($id)
     {
         $user = new Model\User();
@@ -96,6 +112,11 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Remove action method
+     *
+     * @return void
+     */
     public function remove()
     {
         if ($this->request->isPost()) {

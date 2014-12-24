@@ -63,15 +63,23 @@ class Unsubscribe extends Form
                 $this->getElement('email')
                      ->addValidator(new Validator\NotEqual($this->email, 'That email does not exist.'));
             } else if (null !== $user->role_id) {
-                $role = Table\UserRoles::findById($user->role_id);
-                if (null !== $role->permissions) {
+                $requireLogin = true;
+                $role         = Table\UserRoles::findById($user->role_id);
+                if (isset($role->id) && (null !== $role->permissions)) {
                     $permissions = unserialize($role->permissions);
-                    if (!isset($permissions[APP_URI . '/login[/]']) ||
-                        ((isset($permissions[APP_URI . '/login[/]']) && ($permissions[APP_URI . '/login[/]'])))) {
-                            $this->getElement('email')
-                                 ->addValidator(new Validator\NotEqual($this->email, 'You must <a href="' .
-                                     BASE_PATH . APP_URI . '/login">log in</a> to unsubscribe.'));
+                    if (isset($permissions['deny'])) {
+                        foreach ($permissions['deny'] as $deny) {
+                            if ($deny['resource'] == 'login') {
+                                $requireLogin = false;
+                            }
+                        }
                     }
+                }
+
+                if ($requireLogin) {
+                    $this->getElement('email')
+                         ->addValidator(new Validator\NotEqual($this->email, 'You must <a href="' .
+                             BASE_PATH . APP_URI . '/login">log in</a> to unsubscribe.'));
                 }
             }
         }

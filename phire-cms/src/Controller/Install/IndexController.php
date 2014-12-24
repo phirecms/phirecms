@@ -11,6 +11,11 @@ use Pop\Http\Response;
 class IndexController extends AbstractController
 {
 
+    /**
+     * Index action method
+     *
+     * @return void
+     */
     public function index()
     {
         if (($this->services->isAvailable('database')) && count($this->services['database']->getTables()) > 0) {
@@ -54,6 +59,11 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Config action method
+     *
+     * @return void
+     */
     public function config()
     {
         if (!isset($this->sess->config)) {
@@ -84,6 +94,11 @@ class IndexController extends AbstractController
         }
     }
 
+    /**
+     * User action method
+     *
+     * @return void
+     */
     public function user()
     {
         $this->prepareView('install.phtml');

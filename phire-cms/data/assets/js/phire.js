@@ -61,14 +61,16 @@ var phire = {
         var json = jax.get(path + '/users/roles/json/' + id);
         if (json.email_as_username != undefined) {
             if ((json.email_as_username) && (jax('#username').attrib('type') == 'text')) {
-                jax('label[for=username]').val('&nbsp;');
+                jax(jax('label[for=username]').parent()).hide();
                 jax('#username').attrib('type', 'hidden');
+                jax(jax('#username').parent()).hide();
                 jax('#username')[0].removeAttribute('required');
                 jax('#username').val(jax('#email1').val());
                 jax('#email1').on('blur', phire.changeUsername);
             } else if ((!json.email_as_username) && (jax('#username').attrib('type') == 'hidden')) {
-                jax('label[for=username]').val('Username');
+                jax(jax('label[for=username]').parent()).show();
                 jax('#username').attrib('type', 'text');
+                jax(jax('#username').parent()).show();
                 jax('#username').attrib('required', 'required');
                 jax('#email1').off('blur', phire.changeUsername);
             }
@@ -152,6 +154,18 @@ jax(document).ready(function(){
         jax('#user-roles-form').submit(function(){
             return jax('#user-roles-form').checkValidate('checkbox', true);
         });
+    }
+    if (jax('#user-form')[0] != undefined) {
+        if (jax('#username').attrib('type') == 'hidden') {
+            jax(jax('label[for=username]').parent()).hide();
+            jax(jax('#username').parent()).hide();
+        }
+    }
+    if ((jax('#profile-form')[0] != undefined) || (jax('#register-form')[0] != undefined)) {
+        if (jax('#username').attrib('type') == 'hidden') {
+            jax(jax('label[for=username]').parent()).hide();
+            jax(jax('#username').parent()).hide();
+        }
     }
 });
 

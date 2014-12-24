@@ -9,6 +9,11 @@ use Pop\Http\Response;
 class IndexController extends AbstractController
 {
 
+    /**
+     * Index action method
+     *
+     * @return void
+     */
     public function index()
     {
         $config = new Model\Config();
@@ -28,6 +33,12 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * JSON action method
+     *
+     * @param  string $format
+     * @return void
+     */
     public function json($format)
     {
         $json = [

@@ -11,6 +11,14 @@ use Pop\Mail\Mail;
 class User extends AbstractModel
 {
 
+    /**
+     * Get all users
+     *
+     * @param  int    $limit
+     * @param  int    $page
+     * @param  string $sort
+     * @return array
+     */
     public function getAll($limit = null, $page = null, $sort = null)
     {
         $sql = Table\Users::sql();
@@ -37,6 +45,12 @@ class User extends AbstractModel
         return Table\Users::query((string)$sql)->rows();
     }
 
+    /**
+     * Get user by ID
+     *
+     * @param  int $id
+     * @return void
+     */
     public function getById($id)
     {
         $user = Table\Users::findById((int)$id);
@@ -49,6 +63,12 @@ class User extends AbstractModel
         }
     }
 
+    /**
+     * Save new user
+     *
+     * @param  array $fields
+     * @return void
+     */
     public function save(array $fields)
     {
         $user = new Table\Users([
@@ -68,7 +88,14 @@ class User extends AbstractModel
         }
     }
 
-    public function update(array $fields, $sess = null)
+    /**
+     * Update an existing user
+     *
+     * @param  array            $fields
+     * @param  \Pop\Web\Session $sess
+     * @return void
+     */
+    public function update(array $fields, \Pop\Web\Session $sess = null)
     {
         $user = Table\Users::findById((int)$fields['id']);
         if (isset($user->id)) {
@@ -96,6 +123,12 @@ class User extends AbstractModel
         }
     }
 
+    /**
+     * Remove a user
+     *
+     * @param  array $post
+     * @return void
+     */
     public function remove(array $post)
     {
         if (isset($post['rm_users'])) {
@@ -108,6 +141,13 @@ class User extends AbstractModel
         }
     }
 
+    /**
+     * Verify a user
+     *
+     * @param  int    $id
+     * @param  string $hash
+     * @return boolean
+     */
     public function verify($id, $hash)
     {
         $result = false;
@@ -122,6 +162,12 @@ class User extends AbstractModel
         return $result;
     }
 
+    /**
+     * Send a user a forgot password reminder
+     *
+     * @param  array $fields
+     * @return void
+     */
     public function forgot(array $fields)
     {
         $user = Table\Users::findBy(['email' => $fields['email']]);
@@ -130,6 +176,12 @@ class User extends AbstractModel
         }
     }
 
+    /**
+     * Unsubscribe a user from the application
+     *
+     * @param  array $fields
+     * @return void
+     */
     public function unsubscribe(array $fields)
     {
         $user = Table\Users::findBy(['email' => $fields['email']]);
@@ -139,16 +191,33 @@ class User extends AbstractModel
         }
     }
 
+    /**
+     * Determine if list of users have pages
+     *
+     * @param  int $limit
+     * @return boolean
+     */
     public function hasPages($limit)
     {
         return (Table\Users::findAll()->count() > $limit);
     }
 
+    /**
+     * Get count of users
+     *
+     * @return int
+     */
     public function getCount()
     {
         return Table\Users::findAll()->count();
     }
 
+    /**
+     * Send user verification notification
+     *
+     * @param  Table\Users $user
+     * @return void
+     */
     protected function sendVerification(Table\Users $user)
     {
         $domain  = str_replace('www.', '', $_SERVER['HTTP_HOST']);
@@ -173,6 +242,12 @@ class User extends AbstractModel
         $mail->send();
     }
 
+    /**
+     * Send user approval notification
+     *
+     * @param  Table\Users $user
+     * @return void
+     */
     protected function sendApproval(Table\Users $user)
     {
         $domain  = str_replace('www.', '', $_SERVER['HTTP_HOST']);
@@ -195,6 +270,12 @@ class User extends AbstractModel
         $mail->send();
     }
 
+    /**
+     * Send user password reminder notification
+     *
+     * @param  Table\Users $user
+     * @return void
+     */
     protected function sendReminder(Table\Users $user)
     {
         $domain         = str_replace('www.', '', $_SERVER['HTTP_HOST']);
@@ -222,6 +303,12 @@ class User extends AbstractModel
         $mail->send();
     }
 
+    /**
+     * Send user unsubscribe notification
+     *
+     * @param  Table\Users $user
+     * @return void
+     */
     protected function sendUnsubscribe(Table\Users $user)
     {
         $domain = str_replace('www.', '', $_SERVER['HTTP_HOST']);

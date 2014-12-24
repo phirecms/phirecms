@@ -11,6 +11,11 @@ use Pop\Http\Response;
 class IndexController extends AbstractController
 {
 
+    /**
+     * Index action method
+     *
+     * @return void
+     */
     public function index()
     {
         $this->prepareView('index.phtml');
@@ -19,6 +24,11 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Login action method
+     *
+     * @return void
+     */
     public function login()
     {
         $this->prepareView('login.phtml');
@@ -57,6 +67,12 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Register action method
+     *
+     * @param  int $id
+     * @return void
+     */
     public function register($id)
     {
         $role = new Model\UserRole();
@@ -103,6 +119,11 @@ class IndexController extends AbstractController
         }
     }
 
+    /**
+     * Profile action method
+     *
+     * @return void
+     */
     public function profile()
     {
         $this->prepareView('profile.phtml');
@@ -133,6 +154,8 @@ class IndexController extends AbstractController
 
                 $user = new Model\User();
                 $user->update($fields, $this->sess);
+                Response::redirect(BASE_PATH . APP_URI . '/profile?saved=' . time());
+                exit();
             }
         }
 
@@ -141,6 +164,13 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Verify action method
+     *
+     * @param  int    $id
+     * @param  string $hash
+     * @return void
+     */
     public function verify($id, $hash)
     {
         $user = new Model\User();
@@ -151,6 +181,11 @@ class IndexController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Forgot action method
+     *
+     * @return void
+     */
     public function forgot()
     {
         $this->prepareView('forgot.phtml');
@@ -183,6 +218,11 @@ class IndexController extends AbstractController
         }
     }
 
+    /**
+     * Unsubscribe action method
+     *
+     * @return void
+     */
     public function unsubscribe()
     {
         $this->prepareView('unsubscribe.phtml');
@@ -215,6 +255,11 @@ class IndexController extends AbstractController
         }
     }
 
+    /**
+     * Logout action method
+     *
+     * @return void
+     */
     public function logout()
     {
         $this->sess->kill();

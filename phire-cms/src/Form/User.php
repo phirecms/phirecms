@@ -101,7 +101,6 @@ class User extends Form
      */
     public function setFieldValues(array $values = null)
     {
-
         parent::setFieldValues($values);
 
         // Change username to hidden if email used instead
@@ -111,7 +110,8 @@ class User extends Form
             if (isset($role->id)) {
                 if (($role->email_as_username) && ($this->childNodes[$index] instanceof Element\Input\Text)) {
                     $hidden = new Element\Input\Hidden('username', $this->childNodes[$index]->getValue());
-                    $hidden->setLabel('&nbsp;');
+                    $hidden->setLabel('Username');
+                    $hidden->setRequired(true);
                     $this->childNodes[$index] = $hidden;
                     $this->getElement('email1')->setAttribute('onblur', 'phire.changeUsername();');
                 }
@@ -153,6 +153,8 @@ class User extends Form
                      ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
             }
         }
+
+        return $this;
     }
 
 }

@@ -17,11 +17,21 @@ class Application extends \Pop\Application
      */
     const VERSION = '2.0.0b';
 
+    /**
+     * Application JS and CSS assets
+     * @var array
+     */
     protected $assets = [
         'js'  => [],
         'css' => []
     ];
 
+    /**
+     * Initialize the application
+     *
+     * @throws Exception
+     * @return Application
+     */
     public function init()
     {
         // Set the database
@@ -69,6 +79,11 @@ class Application extends \Pop\Application
         return parent::init();
     }
 
+    /**
+     * Load application modules
+     *
+     * @return Application
+     */
     public function loadModules()
     {
         if ($this->config['db']) {
@@ -128,26 +143,30 @@ class Application extends \Pop\Application
                         }
                     }
                 }
-
             }
         }
+
+        return $this;
     }
 
-    public function getAssets()
+    /**
+     * Get application assets
+     *
+     * @param  string $type
+     * @return array
+     */
+    public function getAssets($type = null)
     {
-        return $this->assets;
+        return ((null !== $type) && isset($this->assets[$type])) ? $this->assets[$type] : $this->assets;
     }
 
-    public function getJsAssets()
-    {
-        return $this->assets['js'];
-    }
-
-    public function getCssAssets()
-    {
-        return $this->assets['css'];
-    }
-
+    /**
+     * Load application assets to a public folder
+     *
+     * @param  string $from
+     * @param  string $to
+     * @return Application
+     */
     public function loadAssets($from, $to)
     {
         if (file_exists($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets') &&
@@ -180,8 +199,8 @@ class Application extends \Pop\Application
                         if ($file !== 'index.html') {
                             if (!file_exists($dir . '/' . $aDir . '/' . $file) ||
                                 (file_exists($dir . '/' . $aDir . '/' . $file) &&
-                                    (filemtime($from . '/' . $aDir . '/' . $file) > filemtime($dir . '/' . $aDir . '/' . $file)))
-                            ) {
+                                    (filemtime($from . '/' . $aDir . '/' . $file) >
+                                        filemtime($dir . '/' . $aDir . '/' . $file)))) {
                                 copy($from . '/' . $aDir . '/' . $file, $dir . '/' . $aDir . '/' . $file);
                                 chmod($dir . '/' . $aDir . '/' . $file, 0777);
                             }
@@ -204,8 +223,15 @@ class Application extends \Pop\Application
                 }
             }
         }
+
+        return $this;
     }
 
+    /**
+     * Initialize the ACL service
+     *
+     * @return Application
+     */
     public function initAcl()
     {
         foreach ($this->config['resources'] as $resource => $permissions) {
@@ -261,8 +287,16 @@ class Application extends \Pop\Application
 
         // Set the acl in the main nav object
         $this->services['nav.phire']->setAcl($this->services['acl']);
+
+        return $this;
     }
 
+    /**
+     * Check if the application requires an SSL connection
+     *
+     * @param  Application $application
+     * @return void
+     */
     public static function sslCheck(Application $application)
     {
         $config = $application->config();
@@ -278,16 +312,31 @@ class Application extends \Pop\Application
         }
     }
 
+    /**
+     * Check if the database has been installed and a database connection is available
+     *
+     * @param  Application $application
+     * @throws Exception
+     * @return void
+     */
     public static function dbCheck(Application $application)
     {
         $config = $application->config();
         $route  = $application->router()->getRouteMatch()->getRoute();
         if (!$config['db'] &&
             (substr($route, 0, strlen(BASE_PATH . APP_URI . '/install')) != BASE_PATH . APP_URI . '/install')) {
-            throw new Exception('Error: The database has not been installed. Please check the config file or install the system.');
+            throw new Exception(
+                'Error: The database has not been installed. Please check the config file or install the system.'
+            );
         }
     }
 
+    /**
+     * Check if the user session
+     *
+     * @param  Application $application
+     * @return void
+     */
     public static function sessionCheck(Application $application)
     {
         $sess      = $application->getService('session');
@@ -308,6 +357,12 @@ class Application extends \Pop\Application
         }
     }
 
+    /**
+     * Check if the user session with the ACL service
+     *
+     * @param  Application $application
+     * @return void
+     */
     public static function aclCheck(Application $application)
     {
         $config = $application->config();
@@ -320,9 +375,11 @@ class Application extends \Pop\Application
                 // Get routes with slash options
                 $route  = $application->router()->getRouteMatch()->getRoute();
                 $routes = $application->router()->getRouteMatch()->getRoutes();
-                if (isset($routes[$route]) && isset($routes[$route]['acl']) && isset($routes[$route]['acl']['resource'])) {
+                if (isset($routes[$route]) && isset($routes[$route]['acl']) &&
+                    isset($routes[$route]['acl']['resource'])) {
                     $resource   = $routes[$route]['acl']['resource'];
-                    $permission = (isset($routes[$route]['acl']['permission'])) ? $routes[$route]['acl']['permission'] : null;
+                    $permission = (isset($routes[$route]['acl']['permission'])) ?
+                        $routes[$route]['acl']['permission'] : null;
                     if (!$acl->isAllowed($sess->user->role_name, $resource, $permission)) {
                         Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
                         exit();

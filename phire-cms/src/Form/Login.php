@@ -2,6 +2,7 @@
 
 namespace Phire\Form;
 
+use Phire\Table;
 use Pop\Auth\Auth;
 use Pop\Form\Form;
 use Pop\Validator;
@@ -79,6 +80,21 @@ class Login extends Form
             } else if (null === $auth->adapter()->getUser()->role_id) {
                 $this->getElement('password')
                      ->addValidator(new Validator\NotEqual($this->password, 'That user is blocked.'));
+            } else  {
+                $role = Table\UserRoles::findById($auth->adapter()->getUser()->role_id);
+                if (isset($role->id) && (null !== $role->permissions)) {
+                    $permissions = unserialize($role->permissions);
+                    if (isset($permissions['deny'])) {
+                        foreach ($permissions['deny'] as $deny) {
+                            if ($deny['resource'] == 'login') {
+                                $this->getElement('password')
+                                     ->addValidator(new Validator\NotEqual(
+                                         $this->password, 'That user role is not allowed to login.'
+                                     ));
+                            }
+                        }
+                    }
+                }
             }
         }
 

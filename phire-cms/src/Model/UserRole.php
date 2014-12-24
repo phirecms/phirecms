@@ -8,6 +8,14 @@ use Pop\Acl;
 class UserRole extends AbstractModel
 {
 
+    /**
+     * Get all user roles
+     *
+     * @param  int    $limit
+     * @param  int    $page
+     * @param  string $sort
+     * @return array
+     */
     public function getAll($limit = null, $page = null, $sort = null)
     {
         $order = $this->getSortOrder($sort, $page);
@@ -28,6 +36,12 @@ class UserRole extends AbstractModel
         }
     }
 
+    /**
+     * Get user role by ID
+     *
+     * @param  int $id
+     * @return void
+     */
     public function getById($id)
     {
         $role = Table\UserRoles::findById((int)$id);
@@ -38,6 +52,12 @@ class UserRole extends AbstractModel
         }
     }
 
+    /**
+     * Save new user role
+     *
+     * @param  array $post
+     * @return void
+     */
     public function save(array $post)
     {
         $role = new Table\UserRoles([
@@ -53,6 +73,12 @@ class UserRole extends AbstractModel
         $this->data = array_merge($this->data, $role->getColumns());
     }
 
+    /**
+     * Update an existing user role
+     *
+     * @param  array $post
+     * @return void
+     */
     public function update(array $post)
     {
         $role = Table\UserRoles::findById((int)$post['id']);
@@ -69,6 +95,12 @@ class UserRole extends AbstractModel
         }
     }
 
+    /**
+     * Remove a user role
+     *
+     * @param  array $post
+     * @return void
+     */
     public function remove(array $post)
     {
         if (isset($post['rm_roles'])) {
@@ -81,30 +113,58 @@ class UserRole extends AbstractModel
         }
     }
 
+    /**
+     * Determine if list of user roles have pages
+     *
+     * @param  int $limit
+     * @return boolean
+     */
     public function hasPages($limit)
     {
         return (Table\UserRoles::findAll()->count() > $limit);
     }
 
+    /**
+     * Get count of user roles
+     *
+     * @return int
+     */
     public function getCount()
     {
         return Table\UserRoles::findAll()->count();
     }
 
+    /**
+     * Determine if user role has permission to register
+     *
+     * @param  int $id
+     * @return boolean
+     */
     public function canRegister($id)
     {
-        $result = false;
-        $role = Table\UserRoles::findById((int)$id);
-        if (isset($role->id)) {
-            $permissions = (null !== $role->permissions) ? unserialize($role->permissions) : [];
-            if (!isset($permissions[APP_URI . '/register/:id']) ||
-                ((isset($permissions[APP_URI . '/register/:id']) && ($permissions[APP_URI . '/register/:id'])))) {
-                $result = true;
+        $result = true;
+        $role   = Table\UserRoles::findById((int)$id);
+
+        if (isset($role->id) && (null !== $role->permissions)) {
+            $permissions = unserialize($role->permissions);
+            if (isset($permissions['deny'])) {
+                foreach ($permissions['deny'] as $deny) {
+                    if ($deny['resource'] == 'register') {
+                        $result = false;
+                    }
+                }
             }
         }
+
         return $result;
     }
 
+    /**
+     * Get permissions from $_POST data
+     *
+     * @param  array $post
+     * @return array
+     */
     protected function getPermissions(array $post)
     {
         $permissions = [

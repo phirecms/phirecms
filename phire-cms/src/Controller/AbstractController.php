@@ -82,6 +82,11 @@ abstract class AbstractController extends Controller
         }
     }
 
+    /**
+     * Default error action method
+     *
+     * @return void
+     */
     public function error()
     {
         $this->prepareView('error.phtml');
@@ -111,7 +116,7 @@ abstract class AbstractController extends Controller
      */
     protected function prepareView($template)
     {
-        // Check for an override templates
+        // Check for any override templates
         $headerTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/header.phtml')) ?
             __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/header.phtml' : __DIR__ . '/../../view/header.phtml';
 

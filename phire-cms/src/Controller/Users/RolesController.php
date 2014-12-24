@@ -11,6 +11,11 @@ use Pop\Paginator\Paginator;
 class RolesController extends AbstractController
 {
 
+    /**
+     * Index action method
+     *
+     * @return void
+     */
     public function index()
     {
         $role = new Model\UserRole();
@@ -32,6 +37,11 @@ class RolesController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Add action method
+     *
+     * @return void
+     */
     public function add()
     {
         $this->prepareView('users/roles/add.phtml');
@@ -60,6 +70,12 @@ class RolesController extends AbstractController
         $this->send();
     }
 
+    /**
+     * Edit action method
+     *
+     * @param  int $id
+     * @return void
+     */
     public function edit($id)
     {
         $role = new Model\UserRole();
@@ -93,6 +109,12 @@ class RolesController extends AbstractController
         $this->send();
     }
 
+    /**
+     * JSON action method
+     *
+     * @param  int $id
+     * @return void
+     */
     public function json($id)
     {
         $json = [];
@@ -118,6 +140,11 @@ class RolesController extends AbstractController
         $this->send(200, ['Content-Type' => 'application/json']);
     }
 
+    /**
+     * Remove action method
+     *
+     * @return void
+     */
     public function remove()
     {
         if ($this->request->isPost()) {
