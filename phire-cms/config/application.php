@@ -1,13 +1,14 @@
 <?php
 
 $config = [
-    'routes'   => include 'routes.php',
+    'routes'    => include 'routes.php',
+    'resources' => include 'resources.php',
     'services' => [
         'session' => [
             'call' => 'Pop\Web\Session::getInstance'
         ],
         'acl' => [
-            'call' => 'Phire\Acl\Acl'
+            'call' => 'Pop\Acl\Acl'
         ],
         'nav.phire' => [
             'call'   => 'Pop\Nav\Nav',
