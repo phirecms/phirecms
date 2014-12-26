@@ -1,5 +1,5 @@
 <?php include $phireHeader; ?>
-    <h1><?=$title; ?></h1>
+    <h1 class="modules-header"><?=$title; ?></h1>
 <?php if (($newModules > 0) && ($acl->isAllowed($user->role, 'modules', 'install'))): ?>
     <nav id="sub-nav">
         <nav><a href="<?=BASE_PATH . APP_URI . '/modules/install'; ?>">Install (<?=$newModules; ?>)</a>(New modules detected.)</nav>

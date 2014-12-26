@@ -3,7 +3,7 @@
 
 <head>
 
-    <title><?=$title; ?></title>
+    <title>Phire CMS : <?=$title; ?></title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -13,17 +13,32 @@
 <?php endforeach; ?>
 <?php endif; ?>
 
-    <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic" />
+    <link type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic" />
 <?php if (count($assets['css']) > 0): ?>
 <?php foreach ($assets['css'] as $css): ?>
     <link type="text/css" rel="stylesheet" href="<?=$css; ?>" />
 <?php endforeach; ?>
 <?php endif; ?>
 
+    <link rel="shortcut icon" href="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/img/phire-icon.png" type="image/png" />
+
 </head>
 
 <body>
 <?php if (isset($user)): ?>
-    <p><?php if ($acl->isAllowed($user->role, 'profile')): ?><strong><a href="<?=BASE_PATH . APP_URI; ?>/profile"><?=$user->username; ?></a></strong> | <?php endif; ?><a href="<?=BASE_PATH . APP_URI; ?>">Home</a> | <a href="<?=BASE_PATH . APP_URI . '/logout'; ?>">Logout</a></p>
+<div id="container">
+    <header>
+        <a class="logo" href="<?=BASE_PATH . (APP_URI != '') ? APP_URI : '/'; ?>">Home</a>
+        <nav id="header-nav">
+            <nav>
+                Logged in as: <a href="<?=BASE_PATH . APP_URI; ?>/profile"><?=$user->username; ?></a>
+                <nav>
+                    <nav><a href="<?=BASE_PATH . APP_URI; ?>/profile">Profile</a></nav>
+                    <nav><a href="<?=BASE_PATH . APP_URI; ?>/logout">Logout</a></nav>
+                </nav>
+            </nav>
+        </nav>
+    </header>
 <?=$phireNav; ?>
+    <div id="content">
 <?php endif; ?>

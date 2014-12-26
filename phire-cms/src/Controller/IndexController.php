@@ -32,7 +32,7 @@ class IndexController extends AbstractController
     public function login()
     {
         $this->prepareView('login.phtml');
-        $this->view->title = 'Please Login';
+        $this->view->title = 'Login';
 
         $form = new Form\Login();
 
@@ -189,7 +189,7 @@ class IndexController extends AbstractController
     public function forgot()
     {
         $this->prepareView('forgot.phtml');
-        $this->view->title = 'Forgot Your Password?';
+        $this->view->title = 'Password Reminder';
 
         $form = new Form\Forgot();
 

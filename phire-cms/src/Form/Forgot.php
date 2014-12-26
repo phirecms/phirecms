@@ -25,9 +25,12 @@ class Forgot extends Form
             [
                 'email' => [
                     'type'       => 'email',
-                    'label'      => 'Email',
+                    'label'      => 'Forgot Your Password?',
                     'required'   => 'true',
-                    'validators' => new Validator\Email()
+                    'validators' => new Validator\Email(),
+                    'attributes' => [
+                        'placeholder' => 'Please enter your email'
+                    ]
                 ]
             ],
             [

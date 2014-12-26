@@ -1,9 +1,16 @@
 <?php include $phireHeader; ?>
-    <h1><?=$title; ?></h1>
+<div id="login">
 <?php if (isset($form)): ?>
-    <p>Please enter your email.</p>
 <?=$form; ?>
 <?php elseif ($success): ?>
-    <p>An email has been sent to you with a password reminder.</p>
+    <div id="forgot-form">
+        <h2><?=$title; ?></h2>
+        <p>An email has been sent to you with a password reminder.</p>
+    </div>
 <?php endif; ?>
+    <div id="forgot"><a href="<?=BASE_PATH . APP_URI . '/login'; ?>">Login</a></div>
+</div>
+<footer id="login-footer">
+    Phire CMS. &copy; 2009-<?=date('Y'); ?> <a href="http://www.nolainteractive.com/" target="_blank">NOLA Interactive, LLC</a>. All Rights Reserved.
+</footer>
 <?php include $phireFooter; ?>

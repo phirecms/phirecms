@@ -1,5 +1,9 @@
 <?php include $phireHeader; ?>
-    <h1><?=$title; ?></h1>
+<div id="login">
 <?=$form; ?>
     <div id="forgot"><a href="<?=BASE_PATH . APP_URI . '/forgot'; ?>">Forgot?</a></div>
+</div>
+<footer id="login-footer">
+    Phire CMS. &copy; 2009-<?=date('Y'); ?> <a href="http://www.nolainteractive.com/" target="_blank">NOLA Interactive, LLC</a>. All Rights Reserved.
+</footer>
 <?php include $phireFooter; ?>

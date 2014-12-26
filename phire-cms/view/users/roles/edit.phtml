@@ -1,5 +1,5 @@
 <?php include $phireHeader; ?>
-    <h1><?=$title; ?> : <span id="title-span"><?=$role_name; ?></span></h1>
+    <h1 class="users-header"><?=$title; ?> : <span id="title-span"><?=$role_name; ?></span></h1>
     <nav id="sub-nav">
 <?php if ($acl->isAllowed($user->role, 'roles', 'add')): ?>
             <nav><a href="<?=BASE_PATH . APP_URI . '/users/roles/add'; ?>">+ Add</a></nav>

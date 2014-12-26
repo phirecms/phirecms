@@ -26,15 +26,19 @@ class Login extends Form
             [
                 'username' => [
                     'type'       => 'text',
-                    'label'      => 'Username',
                     'required'   => 'true',
-                    'validators' => new Validator\NotEmpty()
+                    'validators' => new Validator\NotEmpty(),
+                    'attributes' => [
+                        'placeholder' => 'Username'
+                    ]
                 ],
                 'password' => [
                     'type'       => 'password',
-                    'label'      => 'Password',
                     'required'   => 'true',
-                    'validators' => new Validator\NotEmpty()
+                    'validators' => new Validator\NotEmpty(),
+                    'attributes' => [
+                        'placeholder' => 'Password'
+                    ]
                 ]
             ],
             [
@@ -73,7 +77,7 @@ class Login extends Form
 
             if (!($auth->isValid())) {
                 $this->getElement('password')
-                     ->addValidator(new Validator\NotEqual($this->password, 'The username or password were not correct.'));
+                     ->addValidator(new Validator\NotEqual($this->password, 'The login was not correct.'));
             } else if (!$auth->adapter()->getUser()->verified) {
                 $this->getElement('password')
                      ->addValidator(new Validator\NotEqual($this->password, 'That user is not verified.'));

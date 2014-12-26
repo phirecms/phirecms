@@ -20,6 +20,9 @@ $config = [
                         'acl'  => [
                             'resource'   => 'modules',
                             'permission' => 'index'
+                        ],
+                        'attributes' => [
+                            'class' => 'modules-nav-icon'
                         ]
                     ],
                     [
@@ -29,9 +32,12 @@ $config = [
                             'resource'   => 'users',
                             'permission' => 'index'
                         ],
+                        'attributes' => [
+                            'class' => 'users-nav-icon'
+                        ],
                         'children' => [
                             [
-                                'name' => 'Roles',
+                                'name' => '&raquo; Roles',
                                 'href' => BASE_PATH . APP_URI . '/users/roles',
                                 'acl'  => [
                                     'resource'   => 'roles',
@@ -46,6 +52,9 @@ $config = [
                         'acl'  => [
                             'resource'   => 'config',
                             'permission' => 'index'
+                        ],
+                        'attributes' => [
+                            'class' => 'config-nav-icon'
                         ]
                     ]
                 ],
