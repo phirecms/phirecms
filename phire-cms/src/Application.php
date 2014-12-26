@@ -113,12 +113,7 @@ class Application extends \Pop\Application
                             if (!isset($params['tree'][$modulesBranch]['children'])) {
                                 $params['tree'][$modulesBranch]['children'] = [];
                             }
-                            $params['tree'][$modulesBranch]['children'][] = [
-                                'name'     => (isset($assets['info']) && isset($assets['info']['Module Name'])) ?
-                                    $assets['info']['Module Name'] : $name,
-                                'href'     => '#',
-                                'children' => $config['nav.module']
-                            ];
+                            $params['tree'][$modulesBranch]['children'][] = $config['nav.module'];
                         }
 
                         // If the module has system-level navigation

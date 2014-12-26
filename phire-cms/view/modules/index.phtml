@@ -39,8 +39,8 @@
                 <td class="text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><input type="checkbox" name="rm_modules[]" id="rm_modules<?=$i++; ?>" value="<?=$module->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
             </tr>
 <?php if (null !== $module->nav): ?>
-            <tr class="no-background">
-                <td colspan="7" class="no-background">
+            <tr class="no-background no-padding">
+                <td colspan="7" class="no-background no-padding">
 <?=$module->nav; ?>
                 </td>
             </tr>

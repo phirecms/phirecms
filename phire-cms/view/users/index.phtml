@@ -18,7 +18,7 @@
                 <th><a href="<?=BASE_PATH . APP_URI . '/users?sort=username';?>">Username</a></th>
                 <th><a href="<?=BASE_PATH . APP_URI . '/users?sort=email';?>">Email</a></th>
                 <th><a href="<?=BASE_PATH . APP_URI . '/users?sort=role_name';?>">Role</a></th>
-                <th class="text-center">Edit</th>
+                <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'edit')): ?>Edit<?php else: ?>&nbsp;<?php endif; ?></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'remove')): ?><input type="checkbox" name="checkall" id="checkall" value="rm_users" /><?php else: ?>&nbsp;<?php endif; ?></th>
             </tr>
 <?php $i = 1; ?>

@@ -37,7 +37,7 @@ $config = [
                         ],
                         'children' => [
                             [
-                                'name' => '&raquo; Roles',
+                                'name' => 'Roles',
                                 'href' => BASE_PATH . APP_URI . '/users/roles',
                                 'acl'  => [
                                     'resource'   => 'roles',

@@ -46,7 +46,10 @@ class Unsubscribe extends Form
 
         parent::__construct($fields, $action, $method);
 
-        $this->setAttribute('id', 'unsubscribe-form');
+        $sess = \Pop\Web\Session::getInstance();
+        $id   = (isset($sess->user)) ? 'unsubscribe-user-form' : 'unsubscribe-form';
+
+        $this->setAttribute('id', $id);
         $this->setIndent('    ');
     }
 

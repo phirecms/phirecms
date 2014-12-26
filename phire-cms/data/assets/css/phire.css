@@ -113,8 +113,9 @@ textarea {
 }
 
 
-input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, input[type=file]:focus, select:focus, textarea:focus {
     border: solid 1px #52b2e5;
+    background-color: #efefef;
     box-shadow: 0 0 4px 1px #8cd6ff;
 }
 
@@ -175,6 +176,14 @@ select {
     background-color: #fff;
 }
 
+#profile-form, #unsubscribe-user-form {
+    margin: 0;
+    padding: 0;
+    display: block;
+    width: 270px;
+    min-height: 160px;
+}
+
 #install-form dl, #install-config-form dl, #install > #register-form dl {
     overflow: auto;
 }
@@ -198,7 +207,13 @@ select {
     padding: 10px 0 0 0;
 }
 
-#login-form > dl > dd, #forgot-form > dl > dd, #unsubscribe-form > dl > dd {
+#profile-form-field-group-2, #unsubscribe-user-form-field-group-2 {
+    clear: both;
+    margin: 0;
+    padding: 15px 0 0 0;
+}
+
+#login-form > dl > dd, #forgot-form > dl > dd, #unsubscribe-form > dl > , #profile-form > dl > dd, #unsubscribe-user-form > dl > dd {
     padding: 0 0 18px 0;
     width: 100%;
 }
@@ -206,13 +221,17 @@ select {
 #install-form > dl > dd > input[type=text], #install > #register-form > dl > dd > input[type=text],
 #install > #register-form > dl > dd > input[type=email], #install > #register-form > dl > dd > input[type=password],
 #login-form > dl > dd > input[type=text], #login-form > dl > dd > input[type=password],
-#forgot-form > dl > dd > input[type=email], #unsubscribe-form > dl > dd > input[type=email] {
+#forgot-form > dl > dd > input[type=email], #unsubscribe-form > dl > dd > input[type=email],
+#profile-form > dl > dd > input[type=text], #profile-form > dl > dd > input[type=email], #profile-form > dl > dd > input[type=password],
+#unsubscribe-user-form > dl > dd > input[type=email] {
     width: 256px;
     display: block;
 }
 
 #install-form > dl > dd > input[type=submit], #install > #register-form > dl > dd > input[type=submit],
-#login-form > dl > dd > input[type=submit], #forgot-form > dl > dd > input[type=submit], #unsubscribe-form > dl > dd > input[type=submit] {
+#login-form > dl > dd > input[type=submit], #forgot-form > dl > dd > input[type=submit],
+#unsubscribe-form > dl > dd > input[type=submit], #profile-form > dl > dd > input[type=submit],
+#unsubscribe-user-form > dl > dd > input[type=submit] {
     width: 270px;
     padding: 10px 0 10px 0;
     display: block;
@@ -395,18 +414,22 @@ select {
 #phire-nav > nav > nav {
     position: absolute;
     display: none;
-    width: 120px;
+    width: 150px;
 }
 
 #phire-nav > nav > nav > nav > a {
     position: relative;
     margin: 0;
-    padding: 10px;
+    padding: 8px 10px 8px 10px;
     display: block;
     color: #fff;
     text-align: left;
     text-decoration: none;
     background-color: #000;
+}
+
+#phire-nav > nav > nav > nav > a:hover {
+    background-color: #666;
 }
 
 #phire-nav > nav:hover > nav {
@@ -424,7 +447,7 @@ select {
 #phire-nav > nav > nav > nav > nav > nav > a {
     position: relative;
     margin: 0;
-    padding: 10px;
+    padding: 8px 10px 8px 10px;
     display: block;
     color: #fff;
     text-align: left;
@@ -433,6 +456,7 @@ select {
 }
 
 #phire-nav > nav > nav > nav > nav > nav > a:hover {
+    text-decoration: underline;
     background-color: #666;
 }
 
@@ -633,6 +657,10 @@ select {
 
 .data-table tr.no-background, .data-table td.no-background, .data-table tr.no-background:hover, .data-table td.no-background:hover {
     background: transparent;
+}
+
+.data-table tr.no-padding, .data-table td.no-padding {
+    padding: 0;
 }
 
 .required {
@@ -844,4 +872,29 @@ th.text-center, td.text-center {
     background-image: url(../img/sliders-icon-lg.png);
     background-position: left center;
     background-repeat: no-repeat;
+}
+
+.module-nav {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.module-nav > nav > a {
+    padding: 5px 5px 5px 10px;
+    display: block;
+}
+
+.module-nav > nav > nav {
+    padding: 5px 5px 5px 25px;
+    border-top: solid 1px #ccc;
+    display: block;
+}
+
+.module-nav > nav > nav > nav > a {
+    padding: 3px;
+    display: block;
+    font-weight: normal;
+    font-size: 0.9em;
+    color: #575656;
 }
