@@ -1,9 +1,17 @@
 <?php include $phireHeader; ?>
-    <h1><?=$title; ?></h1>
+<div id="install-container">
+    <div id="install">
+        <h1><?=$title; ?></h1>
 <?php if (isset($form)): ?>
-    <p>Please register.</p>
 <?=$form; ?>
 <?php elseif ($success): ?>
-    <p>You have successfully registered with this website.</p>
+    <div id="register-form" style="margin-top: 25px;">
+        <p style="text-align: center;">Thank you. You have successfully registered with this website.</p>
+    </div>
 <?php endif; ?>
+    </div>
+    <footer id="login-footer">
+        Phire CMS. &copy; 2009-<?=date('Y'); ?> <a href="http://www.nolainteractive.com/" target="_blank">NOLA Interactive, LLC</a>. All Rights Reserved.
+    </footer>
+</div>
 <?php include $phireFooter; ?>

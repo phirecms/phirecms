@@ -31,7 +31,7 @@ class InstallConfig extends Form
                     'attributes' => [
                         'rows'  => 50,
                         'cols'  => 120,
-                        'style' => 'width: 100%; height: 400px; display: block;'
+                        'style' => 'width: 98%; height: 420px; display: block;'
                     ]
                 ]
             ],
@@ -40,7 +40,8 @@ class InstallConfig extends Form
                     'type'  => 'submit',
                     'value' => 'Continue',
                     'attributes' => [
-                        'class'  => 'save-btn'
+                        'class'  => 'save-btn',
+                        'style'  => 'float: right; margin: 0 15px 0 0;'
                     ]
                 ]
             ]

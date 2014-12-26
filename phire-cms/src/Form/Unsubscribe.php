@@ -25,9 +25,12 @@ class Unsubscribe extends Form
             [
                 'email' => [
                     'type'       => 'email',
-                    'label'      => 'Email',
+                    'label'      => 'Unsubscribe',
                     'required'   => 'true',
-                    'validators' => new Validator\Email()
+                    'validators' => new Validator\Email(),
+                    'attributes' => [
+                        'placeholder' => 'Please enter your email'
+                    ]
                 ]
             ],
             [
@@ -63,6 +66,7 @@ class Unsubscribe extends Form
                 $this->getElement('email')
                      ->addValidator(new Validator\NotEqual($this->email, 'That email does not exist.'));
             } else if (null !== $user->role_id) {
+                $sess         = \Pop\Web\Session::getInstance();
                 $requireLogin = true;
                 $role         = Table\UserRoles::findById($user->role_id);
                 if (isset($role->id) && (null !== $role->permissions)) {
@@ -77,9 +81,11 @@ class Unsubscribe extends Form
                 }
 
                 if ($requireLogin) {
-                    $this->getElement('email')
-                         ->addValidator(new Validator\NotEqual($this->email, 'You must <a href="' .
-                             BASE_PATH . APP_URI . '/login">log in</a> to unsubscribe.'));
+                    if (!isset($sess->user) || (isset($sess->user) && ($sess->user->id != $user->id))) {
+                        $this->getElement('email')
+                             ->addValidator(new Validator\NotEqual($this->email, 'You must <a href="' .
+                                 BASE_PATH . APP_URI . '/login">log in</a> to unsubscribe.'));
+                    }
                 }
             }
         }

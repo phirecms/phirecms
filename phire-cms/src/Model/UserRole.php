@@ -154,6 +154,8 @@ class UserRole extends AbstractModel
                     }
                 }
             }
+        } else if (!isset($role->id)) {
+            $result = false;
         }
 
         return $result;

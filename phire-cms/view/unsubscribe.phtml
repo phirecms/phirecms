@@ -1,9 +1,15 @@
 <?php include $phireHeader; ?>
-    <h1><?=$title; ?></h1>
-<?php if (isset($form)): ?>
-    <p>Please enter your email to unsubscribe.</p>
+<div id="login">
+<?php if ((isset($success)) || (isset($_GET['success']))): ?>
+    <div id="forgot-form">
+        <h2><?=$title; ?></h2>
+        <p>You have been successfully unsubscribed from this website.</p>
+    </div>
+<?php elseif (isset($form)): ?>
 <?=$form; ?>
-<?php elseif ($success): ?>
-    <p>You have been successfully unsubscribed from this website.</p>
 <?php endif; ?>
+</div>
+<footer id="login-footer">
+    Phire CMS. &copy; 2009-<?=date('Y'); ?> <a href="http://www.nolainteractive.com/" target="_blank">NOLA Interactive, LLC</a>. All Rights Reserved.
+</footer>
 <?php include $phireFooter; ?>

@@ -243,6 +243,9 @@ class IndexController extends AbstractController
                 $user = new Model\User();
                 $user->unsubscribe($form->getFields());
                 $this->view->success = true;
+                $this->sess->kill();
+                Response::redirect(BASE_PATH . APP_URI . '/unsubscribe?success=1');
+                exit();
             } else {
                 $this->view->form = $form;
             }

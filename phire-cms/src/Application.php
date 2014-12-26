@@ -238,7 +238,7 @@ class Application extends \Pop\Application
             $this->services['acl']->addResource(new Resource($resource));
         }
 
-        $roles       = (new \Phire\Model\UserRole())->getAll();
+        $roles       = Table\UserRoles::findAll()->rows();
         $parentRoles = [];
         $childRoles  = [];
 

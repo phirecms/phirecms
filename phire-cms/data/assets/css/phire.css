@@ -13,12 +13,14 @@ html {
     box-shadow: inset 0 0 120px 90px #d1cecb;
     background-color: #f0eeec;
     height: 100%;
+    overflow: auto;
 }
 
 body {
     margin: 0;
     padding: 0;
     height: 100%;
+    overflow: auto;
 }
 
 a {
@@ -106,7 +108,7 @@ textarea {
     background-color: #d3d3d3;
     border: solid 1px #aaa;
     border-radius: 4px;
-    font-size: 1.0em;
+    font-size: 0.825em;
     font-family: "Courier New", "Courier10 BT", courier, serif;
 }
 
@@ -126,12 +128,26 @@ select {
 
 /* ID Definitions */
 
+
+#install {
+    margin: 0 auto;
+    padding: 20px 0 50px 0;
+    overflow: auto;
+}
+
+#install > h1 {
+    margin: 10px 0 10px 0;
+    padding: 0 0 10px 0;
+    text-align: center;
+}
+
 #login {
     margin: 0 auto;
     padding: 160px 0 0 0;
+    overflow: auto;
 }
 
-#login-form, #forgot-form {
+#install-form, #install > #register-form, #login-form, #forgot-form, #unsubscribe-form {
     margin: 0 auto 25px auto;
     padding: 150px 35px 35px 35px;
     display: block;
@@ -145,21 +161,58 @@ select {
     background-color: #fff;
 }
 
-#forgot-form > dl > dt {
-    padding: 5px 0 5px 0;
+#install-config-form {
+    margin: 0 auto 25px auto;
+    padding: 150px 35px 35px 35px;
+    display: block;
+    box-shadow: 0 0 10px 10px #dbd8d5;
+    width: 80%;
+    min-height: 500px;
+    border-radius: 10px;
+    background-image: url(../img/phire-seal.png);
+    background-position: center 40px;
+    background-repeat: no-repeat;
+    background-color: #fff;
 }
 
-#login-form > dl > dd, #forgot-form > dl > dd {
+#install-form dl, #install-config-form dl, #install > #register-form dl {
+    overflow: auto;
+}
+
+#install-form select {
+    width: 100%;
+}
+
+#install-form > dl > dt, #install-config-form > dl > dt, #install > #register-form > dl > dt, #forgot-form > dl > dt,
+#unsubscribe-form > dl > dt {
+    padding: 2px 0 2px 0;
+}
+
+#install-form > dl > dd, #install-config-form > dl > dd, #install > #register-form dl > dd {
+    padding: 0 0 10px 0;
+    width: 100%;
+}
+
+#install-form-field-group-2, #install > #register-form > dl:last-child {
+    margin: 0;
+    padding: 10px 0 0 0;
+}
+
+#login-form > dl > dd, #forgot-form > dl > dd, #unsubscribe-form > dl > dd {
     padding: 0 0 18px 0;
     width: 100%;
 }
 
-#login-form > dl > dd > input[type=text], #login-form > dl > dd > input[type=password], #forgot-form > dl > dd > input[type=email] {
+#install-form > dl > dd > input[type=text], #install > #register-form > dl > dd > input[type=text],
+#install > #register-form > dl > dd > input[type=email], #install > #register-form > dl > dd > input[type=password],
+#login-form > dl > dd > input[type=text], #login-form > dl > dd > input[type=password],
+#forgot-form > dl > dd > input[type=email], #unsubscribe-form > dl > dd > input[type=email] {
     width: 256px;
     display: block;
 }
 
-#login-form > dl > dd > input[type=submit], #forgot-form > dl > dd > input[type=submit] {
+#install-form > dl > dd > input[type=submit], #install > #register-form > dl > dd > input[type=submit],
+#login-form > dl > dd > input[type=submit], #forgot-form > dl > dd > input[type=submit], #unsubscribe-form > dl > dd > input[type=submit] {
     width: 270px;
     padding: 10px 0 10px 0;
     display: block;
@@ -174,7 +227,7 @@ select {
     text-align: center;
 }
 
-#forgot-form > h2, #forgot-form > p {
+#forgot-form > h2, #forgot-form > p, #unsubscribe-form > h2, #unsubscribe-form > p {
     text-align: center;
 }
 
@@ -188,6 +241,15 @@ select {
     height: 20px;
     font-size: 0.825em;
     text-align: center;
+}
+
+#login-footer > a {
+    font-weight: normal;
+}
+
+#install-container {
+    position: relative;
+    min-height: 100%;
 }
 
 #container {
@@ -210,6 +272,10 @@ select {
     background-color: #d1d0d0;
 }
 
+#container > footer > a {
+    font-weight: normal;
+}
+
 #header-nav {
     position: relative;
     z-index: 10000;
@@ -217,8 +283,7 @@ select {
     padding: 0;
     color: #f0eeec;
     float: right;
-    width: 150px;
-    height: 30px;
+    height: 35px;
     text-align: right;
 }
 
@@ -227,6 +292,7 @@ select {
     z-index: 10000;
     margin: 0;
     padding: 0;
+    height: 35px;
     display: inline-block;
 }
 
@@ -248,10 +314,11 @@ select {
 }
 
 #header-nav > nav > nav {
-    position: relative;
+    position: absolute;
     display: none;
     z-index: 10000;
-    top: 10px;
+    top: 28px;
+    right: 0;
     margin: 0;
     padding: 8px 0 0 0;
     width: 120px;

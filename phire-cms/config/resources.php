@@ -1,9 +1,10 @@
 <?php
 
 return [
-    'login'    => [],
-    'register' => [],
-    'profile'  => [],
+    'login'       => [],
+    'register'    => [],
+    'profile'     => [],
+    'unsubscribe' => [],
     'modules'  => [
         'index',
         'install',
