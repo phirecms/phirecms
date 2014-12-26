@@ -53,6 +53,21 @@ h1 {
     margin: 10px 0 10px 0;
     padding: 10px 0 10px 0;
     font-weight: normal;
+    font-size: 2.4em;
+}
+
+h2 {
+    margin: 0 0 8px 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: 2.0em;
+}
+
+h3 {
+    margin: 0 0 6px 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: 1.6em;
 }
 
 dl {
@@ -148,6 +163,22 @@ select {
     overflow: auto;
 }
 
+#error {
+    position: relative;
+    clear: both;
+    margin: 125px auto 25px auto;
+    padding: 130px 35px 35px 35px;
+    display: block;
+    box-shadow: 0 0 10px 10px #dbd8d5;
+    width: 270px;
+    min-height: 160px;
+    border-radius: 10px;
+    background-image: url(../img/phire-seal.png);
+    background-position: center 40px;
+    background-repeat: no-repeat;
+    background-color: #fff;
+}
+
 #install-form, #install > #register-form, #login-form, #forgot-form, #unsubscribe-form {
     margin: 0 auto 25px auto;
     padding: 150px 35px 35px 35px;
@@ -192,8 +223,8 @@ select {
     width: 100%;
 }
 
-#install-form > dl > dt, #install-config-form > dl > dt, #install > #register-form > dl > dt, #forgot-form > dl > dt,
-#unsubscribe-form > dl > dt {
+#install-form > dl > dt, #install-config-form > dl > dt, #install > #register-form > dl > dt,
+#forgot-form > dl > dt, #unsubscribe-form > dl > dt {
     padding: 2px 0 2px 0;
 }
 
@@ -213,7 +244,8 @@ select {
     padding: 15px 0 0 0;
 }
 
-#login-form > dl > dd, #forgot-form > dl > dd, #unsubscribe-form > dl > , #profile-form > dl > dd, #unsubscribe-user-form > dl > dd {
+#login-form > dl > dd, #forgot-form > dl > dd, #unsubscribe-form > dl > , #profile-form > dl > dd,
+#unsubscribe-user-form > dl > dd {
     padding: 0 0 18px 0;
     width: 100%;
 }
@@ -222,7 +254,8 @@ select {
 #install > #register-form > dl > dd > input[type=email], #install > #register-form > dl > dd > input[type=password],
 #login-form > dl > dd > input[type=text], #login-form > dl > dd > input[type=password],
 #forgot-form > dl > dd > input[type=email], #unsubscribe-form > dl > dd > input[type=email],
-#profile-form > dl > dd > input[type=text], #profile-form > dl > dd > input[type=email], #profile-form > dl > dd > input[type=password],
+#profile-form > dl > dd > input[type=text], #profile-form > dl > dd > input[type=email],
+#profile-form > dl > dd > input[type=password],
 #unsubscribe-user-form > dl > dd > input[type=email] {
     width: 256px;
     display: block;
@@ -332,12 +365,27 @@ select {
     display: block;
 }
 
+#header-nav > nav:last-child > a {
+    position: relative;
+    top: 5px;
+    margin: 0 0 0 6px;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-image: url(../img/logout.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    text-indent: 9999px;
+}
+
 #header-nav > nav > nav {
     position: absolute;
     display: none;
     z-index: 10000;
-    top: 28px;
-    right: 0;
+    top: 22px;
+    right: 10px;
     margin: 0;
     padding: 8px 0 0 0;
     width: 120px;
@@ -587,9 +635,25 @@ select {
     background-repeat: no-repeat;
 }
 
+#loading {
+    position: absolute;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/loading.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
 #form-footer {
     margin: 0 auto 10px auto;
-    padding: 0 0 10px auto;
+    padding: 0 0 10px 0;
     text-align: right;
 }
 
@@ -611,6 +675,66 @@ select {
     background-position: center;
     overflow: hidden;
     text-indent: -9999px;
+}
+
+@media screen and (min-width: 1140px)
+{
+    .system-overview {
+        margin: 0;
+        padding: 0;
+        float: right;
+        width: 25%;
+        border: solid 1px #ccc;
+    }
+
+    .dashboard-table {
+        margin: 0 10px 20px 0;
+        padding: 0;
+        clear: left;
+        float: left;
+        width: 72%;
+        border: solid 1px #ccc;
+    }
+}
+
+@media screen and (max-width: 1139px)
+{
+    .system-overview {
+        margin: 0 auto 20px auto;
+        padding: 0;
+        width: 99.5%;
+        border: solid 1px #ccc;
+    }
+
+    .dashboard-table {
+        margin: 0 auto 20px auto;
+        padding: 0;
+        width: 99.5%;
+        border: solid 1px #ccc;
+    }
+}
+
+.system-overview tr, .dashboard-table tr {
+    margin: 0;
+    padding: 0;
+}
+
+.system-overview tr:hover, .dashboard-table tr:hover {
+    background-color: #e8f4f7;
+}
+
+.system-overview th, .dashboard-table th {
+    margin: 0;
+    text-align: left;
+    padding: 8px 5px 8px 5px;
+    background-color: #dedede;
+}
+
+.system-overview td, .dashboard-table td {
+    margin: 0;
+    padding: 8px 5px 8px 5px;
+    border-top: solid 1px #ccc;
+    font-size: 0.9em;
 }
 
 .data-table {
@@ -655,7 +779,8 @@ select {
     background-color: #e8f4f7;
 }
 
-.data-table tr.no-background, .data-table td.no-background, .data-table tr.no-background:hover, .data-table td.no-background:hover {
+.data-table tr.no-background, .data-table td.no-background,
+.data-table tr.no-background:hover, .data-table td.no-background:hover {
     background: transparent;
 }
 

@@ -1,4 +1,13 @@
 <?php include $phireHeader; ?>
+<?php if (!isset($user)): ?>
+<div id="error">
+<?php endif; ?>
     <h1 style="color: #f00;"><?=$title; ?></h1>
     <p>Sorry, that page was not found.</p>
+<?php if (!isset($user)): ?>
+</div>
+<footer id="login-footer">
+    Phire CMS. &copy; 2009-<?=date('Y'); ?> <a href="http://www.nolainteractive.com/" target="_blank">NOLA Interactive, LLC</a>. All Rights Reserved.
+</footer>
+<?php endif; ?>
 <?php include $phireFooter; ?>

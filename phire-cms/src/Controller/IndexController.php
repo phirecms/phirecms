@@ -18,8 +18,13 @@ class IndexController extends AbstractController
      */
     public function index()
     {
+        $config = new Model\Config();
+
         $this->prepareView('index.phtml');
-        $this->view->title = 'Dashboard';
+        $this->view->title    = 'Dashboard';
+        $this->view->overview = $config->overview;
+        $this->view->config   = $config->config;
+        $this->view->modules  = $config->modules;
         $this->response->setBody($this->view->render());
         $this->send();
     }

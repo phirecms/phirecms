@@ -44,7 +44,8 @@ class Config extends AbstractModel
             'F d, Y g:i A', 'M j Y g:i A', 'm/d/Y g:i A', 'Y/m/d g:i A'
         ];
 
-        $this->data['config'] = $config;
+        $this->data['config']  = $config;
+        $this->data['modules'] = Table\Modules::findAll()->rows();
     }
 
     /**
