@@ -80,6 +80,24 @@ class Application extends \Pop\Application
     }
 
     /**
+     * Application error handler
+     *
+     * @param  \Exception $exception
+     * @return void
+     */
+    public function error(\Exception $exception)
+    {
+        $view = new \Pop\View\View(__DIR__ . '/../view/exception.phtml');
+        $view->title   = 'Application Error';
+        $view->assets  = $this->assets;
+        $view->message = $exception->getMessage();
+
+        $response = new Response();
+        $response->setBody((string)$view);
+        $response->send();
+    }
+
+    /**
      * Load application modules
      *
      * @return Application

@@ -21,5 +21,5 @@ try {
     );
     $app->run();
 } catch (Exception $exception) {
-    echo $exception->getMessage();
+    $app->error($exception);
 }
