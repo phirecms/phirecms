@@ -34,6 +34,14 @@ class Application extends \Pop\Application
      */
     public function init()
     {
+        // Load assets, if they haven't been loaded already
+        $this->loadAssets(__DIR__ . '/../data/assets', 'phire');
+        sort($this->assets['js']);
+        sort($this->assets['css']);
+
+        // Load any custom/override assets
+        $this->loadAssets(__DIR__ . '/../..' . MODULE_PATH . '/phire/assets', 'phire-custom');
+
         // Set the database
         if ($this->services->isAvailable('database')) {
             Record::setDb($this->getService('database'));
@@ -63,14 +71,6 @@ class Application extends \Pop\Application
              ->on('app.route.post', 'Phire\Application::dbCheck', 1000)
              ->on('app.dispatch.pre', 'Phire\Application::sessionCheck', 1001)
              ->on('app.dispatch.pre', 'Phire\Application::aclCheck', 1000);
-
-        // Load assets, if they haven't been loaded already
-        $this->loadAssets(__DIR__ . '/../data/assets', 'phire');
-        sort($this->assets['js']);
-        sort($this->assets['css']);
-
-        // Load any custom/override assets
-        $this->loadAssets(__DIR__ . '/../..' . MODULE_PATH . '/phire/assets', 'phire-custom');
 
         // Load modules
         $this->loadModules();

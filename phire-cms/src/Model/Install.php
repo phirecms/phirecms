@@ -122,7 +122,7 @@ class Install extends AbstractModel
 
         // Save install timestamp
         $config = Table\Config::findById('installed_on');
-        $config->value = date('Y-m-d H:i:s');
+        $config->value = (string)date('Y-m-d H:i:s');
         $config->save();
     }
 

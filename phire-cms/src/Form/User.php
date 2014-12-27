@@ -34,7 +34,7 @@ class User extends Form
                     'type'       => 'submit',
                     'value'      => 'Save',
                     'attributes' => [
-                        'class'  => 'save-btn'
+                        'class'  => 'save-btn wide'
                     ]
                 ],
                 'role_id' => [
@@ -42,6 +42,7 @@ class User extends Form
                     'label'      => 'Role',
                     'value'      => $roleValues,
                     'attributes' => [
+                        'class'    => 'wide',
                         'onchange' => 'phire.changeRole(this.value, \'' . BASE_PATH . APP_URI . '\');'
                     ]
                 ],
@@ -63,26 +64,41 @@ class User extends Form
                 'username' => [
                     'type'     => 'text',
                     'label'    => 'Username',
-                    'required' => true
+                    'required' => true,
+                    'attributes' => [
+                        'size'    => 40
+                    ]
                 ],
                 'email1' => [
                     'type'       => 'email',
                     'label'      => 'Email',
                     'required'   => true,
-                    'validators' => new Validator\Email()
+                    'validators' => new Validator\Email(),
+                    'attributes' => [
+                        'size'    => 40
+                    ]
                 ],
                 'email2' => [
                     'type'      => 'email',
-                    'label'     => 'Re-Type Email'
+                    'label'     => 'Re-Type Email',
+                    'attributes' => [
+                        'size'    => 40
+                    ]
                 ],
                 'password1' => [
                     'type'       => 'password',
                     'label'      => 'Password',
-                    'validators' => new Validator\LengthGte(6)
+                    'validators' => new Validator\LengthGte(6),
+                    'attributes' => [
+                        'size'    => 40
+                    ]
                 ],
                 'password2' => [
                     'type'      => 'password',
-                    'label'     => 'Re-Type Password'
+                    'label'     => 'Re-Type Password',
+                    'attributes' => [
+                        'size'    => 40
+                    ]
                 ]
             ]
         ];
@@ -113,7 +129,10 @@ class User extends Form
                     $hidden->setLabel('Username');
                     $hidden->setRequired(true);
                     $this->childNodes[$index] = $hidden;
-                    $this->getElement('email1')->setAttribute('onblur', 'phire.changeUsername();');
+                    $this->getElement('email1')->setAttribute('onblur', 'phire.changeUsername();')
+                                               ->setAttribute('onkeyup', 'phire.changeTitle(this.value);');
+                } else {
+                    $this->getElement('username')->setAttribute('onkeyup', 'phire.changeTitle(this.value);');
                 }
             }
         }

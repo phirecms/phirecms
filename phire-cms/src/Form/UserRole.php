@@ -44,13 +44,16 @@ class UserRole extends Form
                 'type'       => 'submit',
                 'value'      => 'Save',
                 'attributes' => [
-                    'class'  => 'save-btn'
+                    'class'  => 'save-btn wide'
                 ]
             ],
             'parent_id' => [
                 'type'       => 'select',
                 'label'      => 'Parent',
-                'value'      => $parentRoles
+                'value'      => $parentRoles,
+                'attributes' => [
+                    'class'    => 'wide'
+                ]
             ],
             'verification' => [
                 'type'      => 'radio',
@@ -91,6 +94,7 @@ class UserRole extends Form
                 'label'      => 'Name',
                 'required'   => 'true',
                 'attributes' => [
+                    'size'    => 55,
                     'onkeyup' => 'phire.changeTitle(this.value);'
                 ]
             ],

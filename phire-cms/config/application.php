@@ -85,7 +85,8 @@ if ((DB_INTERFACE != '') && (DB_NAME != '')) {
                 'database' => DB_NAME,
                 'username' => DB_USER,
                 'password' => DB_PASS,
-                'host'     => DB_HOST
+                'host'     => DB_HOST,
+                'type'     => DB_TYPE
             ]
         ]
     ];

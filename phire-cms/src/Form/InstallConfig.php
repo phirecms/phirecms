@@ -29,9 +29,10 @@ class InstallConfig extends Form
                     'required'   => true,
                     'value'      => $config,
                     'attributes' => [
-                        'rows'  => 50,
-                        'cols'  => 120,
-                        'style' => 'width: 98%; height: 420px; display: block;'
+                        'rows'    => 50,
+                        'cols'    => 120,
+                        'style'   => 'width: 98%; height: 420px; display: block;',
+                        'onfocus' => 'this.select();'
                     ]
                 ]
             ],

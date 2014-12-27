@@ -96,7 +96,7 @@ fieldset {
 
 input[type=text], input[type=email], input[type=password]  {
     margin: 0;
-    padding: 8px 6px 8px 6px;
+    padding: 6px;
     font-family: "Source Sans Pro", sans-serif;
     border-radius: 6px;
     font-size: 1.0em;
@@ -161,6 +161,11 @@ select {
     margin: 0 auto;
     padding: 160px 0 0 0;
     overflow: auto;
+}
+
+#login-form-field-group-1 > dd {
+    clear: left;
+    padding: 0 0 20px 0;
 }
 
 #error {
@@ -244,7 +249,7 @@ select {
     padding: 15px 0 0 0;
 }
 
-#login-form > dl > dd, #forgot-form > dl > dd, #unsubscribe-form > dl > , #profile-form > dl > dd,
+#forgot-form > dl > dd, #unsubscribe-form > dl > , #profile-form > dl > dd,
 #unsubscribe-user-form > dl > dd {
     padding: 0 0 18px 0;
     width: 100%;
@@ -570,10 +575,27 @@ select {
 }
 
 #user-form > dl:first-child, #user-role-form > dl:first-child {
-    margin: 0;
-    padding: 0;
+    margin: 0 0 0 20px;
+    padding: 0 0 0 20px;
+    width: 160px;
+    border-left: solid 1px #ccc;
     float: right;
-    width: 150px;
+    min-height: 300px;
+    height: 100%;
+}
+
+#user-form > dl:first-child > dd, #user-form > dl:first-child > dt,
+#user-role-form > dl:first-child > dd, #user-role-form > dl:first-child > dt {
+    width: 100%;
+}
+
+#user-form > dl:first-child > dt, #user-role-form > dl:first-child > dt {
+    margin: 0 0 5px 0;
+    border-bottom: dotted 1px #aaa;
+}
+
+#user-form > dl:first-child > dd, #user-role-form > dl:first-child > dd {
+    margin: 0 0 10px 0;
 }
 
 #config-form {
@@ -927,6 +949,10 @@ th.text-center, td.text-center {
 .save-btn:hover {
     cursor: pointer;
     background-color: #30b6f9;
+}
+
+.wide {
+    width: 100%;
 }
 
 .process-btn {
