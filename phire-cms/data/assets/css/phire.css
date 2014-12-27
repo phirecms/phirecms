@@ -1043,9 +1043,6 @@ th.text-center, td.text-center {
 }
 
 .module-nav > nav > nav > nav > a {
-    padding: 3px;
-    display: block;
     font-weight: normal;
-    font-size: 0.9em;
-    color: #575656;
 }
+

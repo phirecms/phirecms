@@ -14,7 +14,7 @@ $config = [
             'call'   => 'Pop\Nav\Nav',
             'params' => [
                 'tree' => [
-                    [
+                    'modules' => [
                         'name' => 'Modules',
                         'href' => BASE_PATH . APP_URI . '/modules',
                         'acl'  => [
@@ -25,7 +25,7 @@ $config = [
                             'class' => 'modules-nav-icon'
                         ]
                     ],
-                    [
+                    'users' => [
                         'name' => 'Users',
                         'href' => BASE_PATH . APP_URI . '/users',
                         'acl'  => [
@@ -36,7 +36,7 @@ $config = [
                             'class' => 'users-nav-icon'
                         ],
                         'children' => [
-                            [
+                            'roles' => [
                                 'name' => 'Roles',
                                 'href' => BASE_PATH . APP_URI . '/users/roles',
                                 'acl'  => [
@@ -46,7 +46,7 @@ $config = [
                             ]
                         ]
                     ],
-                    [
+                    'config' => [
                         'name' => 'Config',
                         'href' => BASE_PATH . APP_URI . '/config',
                         'acl'  => [

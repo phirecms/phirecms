@@ -111,7 +111,6 @@ class Application extends \Pop\Application
             foreach ($modules->rows() as $module) {
                 if (file_exists($modulePath . '/' . $module->folder . '/config/module.php')) {
                     $moduleConfig = include $modulePath . '/' . $module->folder . '/config/module.php';
-                    $assets       = unserialize($module->assets);
 
                     // Load and register each module
                     foreach ($moduleConfig as $name => $config) {
@@ -122,21 +121,22 @@ class Application extends \Pop\Application
 
                         // If the module has module-level navigation
                         if (isset($config['nav.module'])) {
-                            $modulesBranch = 0;
-                            foreach ($params['tree'] as $i => $branch) {
-                                if ($branch['name'] == 'Modules') {
-                                    $modulesBranch = $i;
-                                }
+                            if (!isset($params['tree']['modules']['children'])) {
+                                $params['tree']['modules']['children'] = [];
                             }
-                            if (!isset($params['tree'][$modulesBranch]['children'])) {
-                                $params['tree'][$modulesBranch]['children'] = [];
-                            }
-                            $params['tree'][$modulesBranch]['children'][] = $config['nav.module'];
+                            $params['tree']['modules']['children'][] = $config['nav.module'];
                         }
 
                         // If the module has system-level navigation
                         if (isset($config['nav.phire'])) {
-                            $params['tree'] = array_merge($config['nav.phire'], $params['tree']);
+                            $newNav = [];
+                            foreach ($config['nav.phire'] as $key => $value) {
+                                if (($key != 'modules') && ($key != 'users') &&($key != 'config')) {
+                                    $newNav[$key] = $value;
+                                    unset($config['nav.phire'][$key]);
+                                }
+                            }
+                            $params['tree'] = array_merge_recursive($newNav, $params['tree'], $config['nav.phire']);
                         }
 
                         // If the module has ACL resources
