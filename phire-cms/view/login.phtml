@@ -6,4 +6,7 @@
 <footer id="login-footer">
     Phire CMS. &copy; 2009-<?=date('Y'); ?> <a href="http://www.nolainteractive.com/" target="_blank">NOLA Interactive, LLC</a>. All Rights Reserved.
 </footer>
+<?php if (isset($_GET['installed'])): ?>
+<div id="installed">Installation Successful</div>
+<?php endif; ?>
 <?php include $phireFooter; ?>

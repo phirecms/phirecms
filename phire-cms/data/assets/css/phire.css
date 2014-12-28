@@ -533,50 +533,6 @@ select {
     padding: 7px 0 0 0;
 }
 
-#saved {
-    position: absolute;
-    z-index: 10000;
-    right: 30px;
-    top: 155px;
-    display: none;
-    opacity: 0;
-    margin: 0;
-    font-weight: bold;
-    text-align: left;
-    padding: 12px 20px 12px 35px;
-    width: 150px;
-    height: 20px;
-    color: #315900;
-    background-color: #dbf2bf;
-    border-radius: 7px;
-    box-shadow: 0 0 10px 3px #b8c9a1;
-    background-image: url(../img/check.png);
-    background-position: 10px center;
-    background-repeat: no-repeat;
-}
-
-#removed {
-    position: absolute;
-    z-index: 10000;
-    right: 30px;
-    top: 155px;
-    display: none;
-    opacity: 0;
-    margin: 0;
-    font-weight: bold;
-    text-align: left;
-    padding: 12px 20px 12px 35px;
-    width: 150px;
-    height: 20px;
-    color: #8e0202;
-    background-color: #e8d0d0;
-    border-radius: 7px;
-    box-shadow: 0 0 10px 3px #bfa4a4;
-    background-image: url(../img/x.png);
-    background-position: 10px center;
-    background-repeat: no-repeat;
-}
-
 #loading {
     position: absolute;
     z-index: 10000;
@@ -601,6 +557,28 @@ select {
 
 #form-footer > input {
     float: right;
+}
+
+#installed {
+    position: absolute;
+    z-index: 10000;
+    top: 55px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    opacity: 0;
+    margin: 0 auto;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px 20px 12px 35px;
+    width: 200px;
+    height: 20px;
+    font-size: 0.9em;
+    color: #0c96d6;
+    background-color: #bde8fc;
+    border-radius: 7px;
+    box-shadow: 0 0 10px 3px #a6b5bc;
 }
 
 /* Class Definitions */

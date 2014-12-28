@@ -104,6 +104,15 @@ var phire = {
 };
 
 jax(document).ready(function(){
+    if (jax.query('installed') != undefined) {
+        if (jax('#installed')[0] != undefined) {
+            jax('#installed').css({"opacity" : 0});
+            jax('#installed').fade(100, {tween : 10, speed: 200});
+            phire.clear = setTimeout(function(){
+                phire.clearStatus('#installed');
+            }, 3500);
+        }
+    }
     if (jax.query('saved') != undefined) {
         if (jax('#saved')[0] != undefined) {
             jax('#saved').css({"opacity" : 0});

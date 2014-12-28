@@ -92,6 +92,11 @@ class UserRole extends AbstractModel
             $role->save();
 
             $this->data = array_merge($this->data, $role->getColumns());
+
+            $sess = \Pop\Web\Session::getInstance();
+            if ($sess->user->role_id == $role->id) {
+                $sess->user->role = $role->name;
+            }
         }
     }
 

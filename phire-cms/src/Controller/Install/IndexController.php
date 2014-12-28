@@ -125,7 +125,7 @@ class IndexController extends AbstractController
                 $install = new Model\Install();
                 $install->sendConfirmation($user);
 
-                Response::redirect(BASE_PATH . APP_URI . '/login');
+                Response::redirect(BASE_PATH . APP_URI . '/login?installed=' . time());
             } else {
                 $this->view->form = $form;
                 $this->response->setBody($this->view->render());
