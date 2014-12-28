@@ -118,6 +118,10 @@ class Application extends \Pop\Application
 
                     // Load and register each module
                     foreach ($moduleConfig as $name => $config) {
+                        // Check for module config override
+                        if (file_exists($modulePath . '/phire/config/' . strtolower($name) . '.php')) {
+                            $config = array_merge($config, include $modulePath . '/phire/config/' . strtolower($name) . '.php');
+                        }
                         $this->register($name, $config);
 
                         // If the module has navigation
