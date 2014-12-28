@@ -23,7 +23,10 @@ class Application extends \Pop\Application
      */
     protected $assets = [
         'js'  => [],
-        'css' => []
+        'css' => [
+            'link'   => [],
+            'import' => []
+        ]
     ];
 
     /**
@@ -37,10 +40,11 @@ class Application extends \Pop\Application
         // Load assets, if they haven't been loaded already
         $this->loadAssets(__DIR__ . '/../data/assets', 'phire');
         sort($this->assets['js']);
-        sort($this->assets['css']);
+        sort($this->assets['css']['link']);
+        sort($this->assets['css']['import']);
 
         // Load any custom/override assets
-        $this->loadAssets(__DIR__ . '/../..' . MODULE_PATH . '/phire/assets', 'phire-custom');
+        $this->loadAssets(__DIR__ . '/../..' . MODULE_PATH . '/phire/assets', 'phire-custom', true);
 
         // Set the database
         if ($this->services->isAvailable('database')) {
@@ -131,7 +135,7 @@ class Application extends \Pop\Application
                         if (isset($config['nav.phire'])) {
                             $newNav = [];
                             foreach ($config['nav.phire'] as $key => $value) {
-                                if (($key != 'modules') && ($key != 'users') &&($key != 'config')) {
+                                if (($key !== 'modules') && ($key !== 'users') && ($key !== 'config')) {
                                     $newNav[$key] = $value;
                                     unset($config['nav.phire'][$key]);
                                 }
@@ -176,11 +180,12 @@ class Application extends \Pop\Application
     /**
      * Load application assets to a public folder
      *
-     * @param  string $from
-     * @param  string $to
+     * @param  string  $from
+     * @param  string  $to
+     * @param  boolean $import
      * @return Application
      */
-    public function loadAssets($from, $to)
+    public function loadAssets($from, $to, $import = false)
     {
         if (file_exists($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets') &&
             is_writable($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets')) {
@@ -198,6 +203,9 @@ class Application extends \Pop\Application
                 'js', 'scripts', 'script', 'scr',                                     // JS folders
                 'image', 'images', 'img', 'imgs'                                      // Image folders
             );
+
+            $cssType     = ($import) ? 'import' : 'link';
+            $navVertical = (isset($this->config['nav_vertical']) && ($this->config['nav_vertical']));
 
             foreach ($assetDirs as $aDir) {
                 if (file_exists($from . '/' . $aDir)) {
@@ -220,8 +228,12 @@ class Application extends \Pop\Application
                             if (($aDir == 'css') || ($aDir == 'styles') || ($aDir == 'style')) {
                                 if (file_exists($dir . '/' . $aDir . '/' . $file)) {
                                     $css = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $aDir . '/' . $file;
-                                    if (!in_array($css, $this->assets['css'])) {
-                                        $this->assets['css'][] = $css;
+                                    if (!in_array($css, $this->assets['css'][$cssType])) {
+                                        if ((($file != 'phire.nav.horz.css') && ($file != 'phire.nav.vert.css')) ||
+                                            (($file == 'phire.nav.horz.css') && (!$navVertical)) ||
+                                            (($file == 'phire.nav.vert.css') && ($navVertical))) {
+                                            $this->assets['css'][$cssType][] = $css;
+                                        }
                                     }
                                 }
                             }

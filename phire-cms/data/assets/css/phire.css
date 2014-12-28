@@ -312,10 +312,21 @@ select {
 #container {
     position: relative;
     min-height: 100%;
+    overflow: auto;
     background-color: #f0eeec;
 }
 
-#container > footer {
+#container-vert {
+    position: relative;
+    min-height: 100%;
+    overflow: auto;
+    background-image: url(../img/nav-back.gif);
+    background-repeat: repeat-y;
+    background-position: left top;
+    background-color: #f0eeec;
+}
+
+#container > footer, #container-vert > footer {
     position: absolute;
     bottom: 0;
     clear: both;
@@ -424,97 +435,6 @@ select {
     color: #383635;
     font-size: 0.9em;
     background-color: #d2ceca;
-}
-
-#content {
-    margin: 0 auto;
-    padding: 0 2% 50px 2%;
-    width: 96%;
-    overflow: auto;
-}
-
-#phire-nav {
-    position: relative;
-    z-index: 10;
-    margin: 0 auto;
-    padding: 0
-    width: 100%;
-    font-size: 0.9em;
-    background-color: #514e4c;
-}
-
-#phire-nav > nav {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-}
-
-#phire-nav > nav > a {
-    position: relative;
-    margin: 0;
-    padding: 10px 35px 10px 35px;
-    display: inline-block;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-}
-
-#phire-nav > nav:hover {
-    background-color: #000;
-}
-
-#phire-nav > nav > nav {
-    position: absolute;
-    display: none;
-    width: 150px;
-}
-
-#phire-nav > nav > nav > nav > a {
-    position: relative;
-    margin: 0;
-    padding: 8px 10px 8px 10px;
-    display: block;
-    color: #fff;
-    text-align: left;
-    text-decoration: none;
-    background-color: #000;
-}
-
-#phire-nav > nav > nav > nav > a:hover {
-    background-color: #666;
-}
-
-#phire-nav > nav:hover > nav {
-    display: block;
-}
-
-#phire-nav > nav > nav > nav > nav {
-    position: absolute;
-    display: none;
-    top: 0px;
-    left: 120px;
-    width: 120px;
-}
-
-#phire-nav > nav > nav > nav > nav > nav > a {
-    position: relative;
-    margin: 0;
-    padding: 8px 10px 8px 10px;
-    display: block;
-    color: #fff;
-    text-align: left;
-    text-decoration: none;
-    background-color: #aaa;
-}
-
-#phire-nav > nav > nav > nav > nav > nav > a:hover {
-    text-decoration: underline;
-    background-color: #666;
-}
-
-#phire-nav > nav > nav > nav:hover > nav {
-    display: block;
 }
 
 #sub-nav {
