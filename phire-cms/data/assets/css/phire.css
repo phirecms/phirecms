@@ -571,7 +571,7 @@ select {
     margin: 0 auto;
     font-weight: bold;
     text-align: center;
-    padding: 12px 20px 12px 35px;
+    padding: 12px 0 12px 0;
     width: 200px;
     height: 20px;
     font-size: 0.9em;
