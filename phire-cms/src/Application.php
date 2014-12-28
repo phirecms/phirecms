@@ -209,7 +209,7 @@ class Application extends \Pop\Application
             );
 
             $cssType     = ($import) ? 'import' : 'link';
-            $navVertical = (isset($this->config['nav_vertical']) && ($this->config['nav_vertical']));
+            $navVertical = (isset($this->config['navigation_vertical']) && ($this->config['navigation_vertical']));
 
             foreach ($assetDirs as $aDir) {
                 if (file_exists($from . '/' . $aDir)) {
@@ -372,6 +372,14 @@ class Application extends \Pop\Application
         $action    = $application->router()->getRouteMatch()->getAction();
         $route     = $application->router()->getRouteMatch()->getRoute();
         $isInstall = (substr($route, 0, strlen(BASE_PATH . APP_URI . '/install')) == BASE_PATH . APP_URI . '/install');
+
+        // Special install check
+        if (isset($sess->app_uri) && (strpos($_SERVER['REQUEST_URI'], 'install/config') !== false)) {
+            if ((BASE_PATH . APP_URI) == (BASE_PATH . $sess->app_uri)) {
+                Response::redirect(BASE_PATH . APP_URI . '/install/user');
+                exit();
+            }
+        }
 
         // If logged in, and a system URL, redirect to dashboard
         if (isset($sess->user) && (($action == 'login') || ($action == 'register') ||

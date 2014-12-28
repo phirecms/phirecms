@@ -79,7 +79,8 @@ class Install extends AbstractModel
             ],
             [
                 "define('CONTENT_PATH', '" . $fields['content_path'] . "');",
-                "define('APP_URI', '" . $fields['app_uri'] . "');",
+                "define('APP_URI', '" . ((!empty($fields['app_uri']) && ($fields['app_uri'] != '/')) ?
+                    $fields['app_uri'] : null) . "');",
                 "define('DB_INTERFACE', '" . $dbAdapter . "');",
                 "define('DB_TYPE', '" . $dbType . "');",
                 "define('DB_NAME', " . $dbName . ");",

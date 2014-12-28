@@ -44,10 +44,12 @@ class IndexController extends AbstractController
 
                 if (is_writable(__DIR__ . '/../../../../config.php')) {
                     file_put_contents(__DIR__ . '/../../../../config.php', $config);
-                    Response::redirect(BASE_PATH . APP_URI . '/install/user');
+                    $this->sess->app_uri = (!empty($form->app_uri) && ($form->app_uri != '/')) ? $form->app_uri : '';
+                    Response::redirect(BASE_PATH . $this->sess->app_uri . '/install/user');
                     exit();
                 } else {
-                    $this->sess->config = htmlentities($config, ENT_QUOTES, 'UTF-8');
+                    $this->sess->config  = htmlentities($config, ENT_QUOTES, 'UTF-8');
+                    $this->sess->app_uri = (!empty($form->app_uri) && ($form->app_uri != '/')) ? $form->app_uri : '';
                     Response::redirect(BASE_PATH . APP_URI . '/install/config');
                     exit();
                 }
@@ -80,7 +82,7 @@ class IndexController extends AbstractController
         if ($this->request->isPost()) {
             if ($form->isValid()) {
                 unset($this->sess->config);
-                Response::redirect(BASE_PATH . APP_URI . '/install/user');
+                Response::redirect(BASE_PATH . $this->sess->app_uri . '/install/user');
                 exit();
             } else {
                 $this->view->form = $form;
@@ -125,6 +127,7 @@ class IndexController extends AbstractController
                 $install = new Model\Install();
                 $install->sendConfirmation($user);
 
+                $this->sess->kill();
                 Response::redirect(BASE_PATH . APP_URI . '/login?installed=' . time());
             } else {
                 $this->view->form = $form;

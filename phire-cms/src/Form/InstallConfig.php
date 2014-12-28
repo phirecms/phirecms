@@ -31,7 +31,7 @@ class InstallConfig extends Form
                     'attributes' => [
                         'rows'    => 50,
                         'cols'    => 120,
-                        'style'   => 'width: 98%; height: 420px; display: block;',
+                        'style'   => 'width: 99%; height: 420px; display: block; margin: 0 auto;',
                         'onfocus' => 'this.select();'
                     ]
                 ]
@@ -42,7 +42,7 @@ class InstallConfig extends Form
                     'value' => 'Continue',
                     'attributes' => [
                         'class'  => 'save-btn',
-                        'style'  => 'float: right; margin: 0 15px 0 0;'
+                        'style'  => 'float: right; margin: 0 3px 0 0;'
                     ]
                 ]
             ]

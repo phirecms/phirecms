@@ -233,7 +233,35 @@ select {
     padding: 2px 0 2px 0;
 }
 
-#install-form > dl > dd, #install-config-form > dl > dd, #install > #register-form dl > dd {
+#install-form > dl > dd, #install > #register-form dl > dd {
+    width: 100%;
+}
+
+
+#install-form > dl > dd > input[type=text], #install > #register-form > dl > dd > input[type=text],
+#install > #register-form > dl > dd > input[type=email], #install > #register-form > dl > dd > input[type=password] {
+    margin: 0 auto;
+    width: 252px;
+    display: block;
+}
+
+#install-form > dl > dd > select {
+    margin: 0 auto;
+    display: block;
+    width: 266px;
+}
+
+#install-form > dl > dd > input[type=submit], #install > #register-form > dl > dd > input[type=submit] {
+    margin: 0 auto;
+    width: 266px;
+    padding: 10px 0 10px 0;
+    display: block;
+    font-size: 1.2em;
+    font-weight: normal;
+    font-family: "Source Sans Pro", Arial, sans-serif;
+}
+
+#install-config-form > dl > dd {
     padding: 0 0 10px 0;
     width: 100%;
 }
@@ -255,8 +283,6 @@ select {
     width: 100%;
 }
 
-#install-form > dl > dd > input[type=text], #install > #register-form > dl > dd > input[type=text],
-#install > #register-form > dl > dd > input[type=email], #install > #register-form > dl > dd > input[type=password],
 #login-form > dl > dd > input[type=text], #login-form > dl > dd > input[type=password],
 #forgot-form > dl > dd > input[type=email], #unsubscribe-form > dl > dd > input[type=email],
 #profile-form > dl > dd > input[type=text], #profile-form > dl > dd > input[type=email],
@@ -266,7 +292,6 @@ select {
     display: block;
 }
 
-#install-form > dl > dd > input[type=submit], #install > #register-form > dl > dd > input[type=submit],
 #login-form > dl > dd > input[type=submit], #forgot-form > dl > dd > input[type=submit],
 #unsubscribe-form > dl > dd > input[type=submit], #profile-form > dl > dd > input[type=submit],
 #unsubscribe-user-form > dl > dd > input[type=submit] {
