@@ -110,7 +110,7 @@ jax(document).ready(function(){
             jax('#installed').fade(100, {tween : 10, speed: 200});
             phire.clear = setTimeout(function(){
                 phire.clearStatus('#installed');
-            }, 3500);
+            }, 3000);
         }
     }
     if (jax.query('saved') != undefined) {
