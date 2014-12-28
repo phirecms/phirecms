@@ -328,8 +328,7 @@ class Application extends \Pop\Application
      */
     public static function sslCheck(Application $application)
     {
-        $config = $application->config();
-        if ($config['db']) {
+        if ($application->config()['db']) {
             $forceSsl = \Phire\Table\Config::findById('force_ssl')->value;
             // If force_ssl is checked, and request is not secure, redirect to secure request
             if (($forceSsl) && ($_SERVER['SERVER_PORT'] != '443')) {
@@ -350,9 +349,8 @@ class Application extends \Pop\Application
      */
     public static function dbCheck(Application $application)
     {
-        $config = $application->config();
         $route  = $application->router()->getRouteMatch()->getRoute();
-        if (!$config['db'] &&
+        if (!$application->config()['db'] &&
             (substr($route, 0, strlen(BASE_PATH . APP_URI . '/install')) != BASE_PATH . APP_URI . '/install')) {
             throw new Exception(
                 'Error: The database has not been installed. Please check the config file or install the system.'
@@ -375,7 +373,7 @@ class Application extends \Pop\Application
 
         // Special install check
         if (isset($sess->app_uri) && (strpos($_SERVER['REQUEST_URI'], 'install/config') !== false)) {
-            if ((BASE_PATH . APP_URI) == (BASE_PATH . $sess->app_uri)) {
+            if ((BASE_PATH . APP_URI) == (BASE_PATH . $sess->app_uri) && ($application->config()['db'])) {
                 Response::redirect(BASE_PATH . APP_URI . '/install/user');
                 exit();
             }
@@ -402,8 +400,7 @@ class Application extends \Pop\Application
      */
     public static function aclCheck(Application $application)
     {
-        $config = $application->config();
-        if ($config['db']) {
+        if ($application->config()['db']) {
             $application->initAcl();
             $sess = $application->getService('session');
             $acl  = $application->getService('acl');

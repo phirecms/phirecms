@@ -86,7 +86,13 @@ class IndexController extends AbstractController
             $this->prepareView('register.phtml');
             $this->view->title = 'Register';
 
-            $form = new Form\Register($id);
+            $captcha = (isset($this->application->config()['registration_captcha']) &&
+                ($this->application->config()['registration_captcha']));
+
+            $csrf = (isset($this->application->config()['registration_csrf']) &&
+                ($this->application->config()['registration_csrf']));
+
+            $form = new Form\Register($id, $captcha, $csrf);
 
             if ($this->request->isPost()) {
                 $form->addFilter('strip_tags')

@@ -14,13 +14,15 @@ class Register extends Form
      *
      * Instantiate the form object
      *
-     * @param  int    $id
-     * @param  array  $fields
-     * @param  string $action
-     * @param  string $method
+     * @param  int     $id
+     * @param  boolean $captcha
+     * @param  boolean $csrf
+     * @param  array   $fields
+     * @param  string  $action
+     * @param  string  $method
      * @return Register
      */
-    public function __construct($id, array $fields = null, $action = null, $method = 'post')
+    public function __construct($id, $captcha = false, $csrf = false, array $fields = null, $action = null, $method = 'post')
     {
         $role = Table\UserRoles::findById($id);
 
@@ -55,19 +57,36 @@ class Register extends Form
                 ]
             ],
             [
+                'role_id' => [
+                    'type'  => 'hidden',
+                    'value' => $id
+                ],
                 'submit' => [
                     'type'  => 'submit',
                     'value' => 'Register',
                     'attributes' => [
                         'class'  => 'save-btn'
                     ]
-                ],
-                'role_id' => [
-                    'type'  => 'hidden',
-                    'value' => $id
                 ]
             ]
         ];
+
+        if ($captcha) {
+            $fields[1] = array_merge([
+                'captcha'   => [
+                    'type'  => 'captcha',
+                    'label' => 'Please Solve:'
+                ]
+            ], $fields[1]);
+        }
+
+        if ($csrf) {
+            $fields[1] = array_merge([
+                'csrf'   => [
+                    'type'  => 'csrf'
+                ]
+            ], $fields[1]);
+        }
 
         if ($role->email_as_username) {
             $fields[0]['email1']['attributes'] = [
