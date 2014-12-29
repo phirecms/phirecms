@@ -22,9 +22,7 @@ class UserRole extends Form
      * @param  string $method
      * @return UserRole
      */
-    public function __construct(
-        array $resources, array $permissions = null, $id = 0, array $fields = null, $action = null, $method = 'post'
-    )
+    public function __construct(array $resources, array $permissions = null, $id = 0, array $fields = null, $action = null, $method = 'post')
     {
         $parentRoles = ['----' => '----'];
 

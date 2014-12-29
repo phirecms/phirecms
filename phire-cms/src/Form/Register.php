@@ -114,13 +114,13 @@ class Register extends Form
             $user = Table\Users::findBy(['username' => $this->username]);
             if (isset($user->id)) {
                 $this->getElement('username')
-                     ->addValidator(new Validator\NotEqual($this->username, 'That username already exists.'));
+                     ->addValidator(new Validator\NotEqual($this->username, 'That username is not allowed.'));
             }
 
             $email = Table\Users::findBy(['email' => $this->email1]);
             if (isset($email->id)) {
                 $this->getElement('email1')
-                     ->addValidator(new Validator\NotEqual($this->email1, 'That email already exists.'));
+                     ->addValidator(new Validator\NotEqual($this->email1, 'That email is not allowed.'));
             }
 
             $this->getElement('email2')

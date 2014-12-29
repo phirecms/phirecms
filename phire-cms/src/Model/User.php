@@ -147,7 +147,8 @@ class User extends AbstractModel
 
             $user->role_id  = ($fields['role_id'] != '----') ? $fields['role_id'] : null;
             $user->username = $fields['username'];
-            $user->password = (!empty($fields['password1'])) ? (new Bcrypt())->create($fields['password1']) : $user->password;
+            $user->password = (!empty($fields['password1'])) ?
+                (new Bcrypt())->create($fields['password1']) : $user->password;
             $user->email    = $fields['email1'];
             $user->verified = $fields['verified'];
             $user->updated  = date('Y-m-d H:i:s');

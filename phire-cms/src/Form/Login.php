@@ -93,7 +93,7 @@ class Login extends Form
                             if ($deny['resource'] == 'login') {
                                 $this->getElement('password')
                                      ->addValidator(new Validator\NotEqual(
-                                         $this->password, 'That user role is not allowed to login.'
+                                         $this->password, 'That user is not allowed to login.'
                                      ));
                             }
                         }

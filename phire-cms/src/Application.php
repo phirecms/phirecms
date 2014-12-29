@@ -120,7 +120,9 @@ class Application extends \Pop\Application
                     foreach ($moduleConfig as $name => $config) {
                         // Check for module config override
                         if (file_exists($modulePath . '/phire/config/' . strtolower($name) . '.php')) {
-                            $config = array_merge($config, include $modulePath . '/phire/config/' . strtolower($name) . '.php');
+                            $config = array_merge(
+                                $config, include $modulePath . '/phire/config/' . strtolower($name) . '.php'
+                            );
                         }
                         $this->register($name, $config);
 
