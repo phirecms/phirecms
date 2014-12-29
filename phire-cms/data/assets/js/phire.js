@@ -139,9 +139,6 @@ jax(document).ready(function(){
                 jax('#modules-form').uncheckAll(this.value);
             }
         });
-        jax('#modules-form').submit(function(){
-            return jax('#modules-form').checkValidate('checkbox', true);
-        });
     }
     if (jax('#users-form')[0] != undefined) {
         jax('#checkall').click(function(){
