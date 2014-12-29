@@ -623,6 +623,20 @@ select {
     font-size: 0.9em;
 }
 
+#user-search-form > div > input[type=submit] {
+    margin: 0;
+    padding: 0 4px 0 4px;
+    height: 22px;
+    font-size: 0.825em;
+    float: right;
+    display: block;
+    color: #444;
+    border-radius: 4px;
+    border: solid 1px #aaa;
+    background: linear-gradient(#dedede, #ababab);
+    background-color: #ddd;
+}
+
 /* Class Definitions */
 
 .logo {
