@@ -1,6 +1,6 @@
 <?php include $phireHeader; ?>
 <?php if (count($roles) > 0): ?>
-    <form id="user-search-form" action="<?=BASE_PATH . APP_URI . '/users'; ?>" method="get">
+    <form id="user-search-form" action="<?=$phireUri . '/users'; ?>" method="get">
         <div><input tabindex="3" type="submit" id="submit" value="Search" /></div>
         <div>
             <select tabindex="2" id="role_id" name="role_id">
@@ -20,18 +20,18 @@
 <?php endif; ?>
 <?php if ($acl->isAllowed($user->role, 'users', 'add')): ?>
     <nav id="sub-nav">
-        <nav><a href="<?=BASE_PATH . APP_URI . '/users/add'; ?>">+ Add</a></nav>
+        <nav><a href="<?=$phireUri . '/users/add'; ?>">+ Add</a></nav>
     </nav>
 <?php endif; ?>
 <?php if ($acl->isAllowed($user->role, 'users', 'remove')): ?>
-    <form id="users-form" action="<?=BASE_PATH . APP_URI . '/users/remove'; ?>" method="post">
+    <form id="users-form" action="<?=$phireUri . '/users/remove'; ?>" method="post">
 <?php endif; ?>
         <table class="data-table" cellpadding="0" cellspacing="0" border="0">
             <tr>
-                <th><a href="<?=BASE_PATH . APP_URI . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=id';?>">#</a></th>
-                <th><a href="<?=BASE_PATH . APP_URI . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=username';?>">Username</a></th>
-                <th><a href="<?=BASE_PATH . APP_URI . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=email';?>">Email</a></th>
-                <th><a href="<?=BASE_PATH . APP_URI . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=role_name';?>">Role</a></th>
+                <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=id';?>">#</a></th>
+                <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=username';?>">Username</a></th>
+                <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=email';?>">Email</a></th>
+                <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=role_name';?>">Role</a></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'edit')): ?>Edit<?php else: ?>&nbsp;<?php endif; ?></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'remove')): ?><input type="checkbox" name="checkall" id="checkall" value="rm_users" /><?php else: ?>&nbsp;<?php endif; ?></th>
             </tr>
@@ -42,7 +42,7 @@
                 <td><?=$u->username; ?></td>
                 <td><?=$u->email; ?></td>
                 <td><?=(!empty($u->role_name) ? $u->role_name : '[Blocked]'); ?></td>
-                <td><?php if ($acl->isAllowed($user->role, 'users', 'edit')): ?><a class="edit-link" href="<?=BASE_PATH . APP_URI . '/users/edit/' . $u->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
+                <td><?php if ($acl->isAllowed($user->role, 'users', 'edit')): ?><a class="edit-link" href="<?=$phireUri . '/users/edit/' . $u->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
                 <td class="text-center"><?php if (($user->id != $u->id) && ($acl->isAllowed($user->role, 'users', 'remove'))): ?><input type="checkbox" name="rm_users[]" id="rm_users<?=$i++; ?>" value="<?=$u->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
             </tr>
 <?php endforeach; ?>
@@ -54,7 +54,7 @@
 <?php else: ?>
 <?php if ($acl->isAllowed($user->role, 'users', 'add')): ?>
     <nav id="sub-nav">
-        <nav><a href="<?=BASE_PATH . APP_URI . '/users/add'; ?>">+ Add</a></nav>
+        <nav><a href="<?=$phireUri . '/users/add'; ?>">+ Add</a></nav>
     </nav>
 <?php endif; ?>
     <p>There are currently no users.</p>

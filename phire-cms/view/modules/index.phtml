@@ -2,7 +2,7 @@
     <h1 class="modules-header"><?=$title; ?></h1>
 <?php if (($newModules > 0) && ($acl->isAllowed($user->role, 'modules', 'install'))): ?>
     <nav id="sub-nav">
-        <nav><a href="<?=BASE_PATH . APP_URI . '/modules/install'; ?>">Install (<?=$newModules; ?>)</a></nav>
+        <nav><a href="<?=$phireUri . '/modules/install'; ?>">Install (<?=$newModules; ?>)</a></nav>
     </nav>
 <?php endif; ?>
 <?php if (count($modules) > 0): ?>
@@ -10,16 +10,16 @@
     <div class="page-links"><?=$pages; ?></div>
 <?php endif; ?>
 <?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?>
-    <form id="modules-form" action="<?=BASE_PATH . APP_URI . '/modules/process'; ?>" method="post">
+    <form id="modules-form" action="<?=$phireUri . '/modules/process'; ?>" method="post">
 <?php endif; ?>
         <table class="data-table" cellpadding="0" cellspacing="0" border="0">
             <tr>
-                <th><a href="<?=BASE_PATH . APP_URI . '/modules?sort=id';?>">#</a></th>
+                <th><a href="<?=$phireUri . '/modules?sort=id';?>">#</a></th>
                 <th>Name</th>
                 <th>Version</th>
                 <th>Description</th>
                 <th>Author</th>
-                <th class="text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><a href="<?=BASE_PATH . APP_URI . '/modules?sort=active';?>">Active</a><?php else: ?>&nbsp;<?php endif; ?></th>
+                <th class="text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><a href="<?=$phireUri . '/modules?sort=active';?>">Active</a><?php else: ?>&nbsp;<?php endif; ?></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><input type="checkbox" name="checkall" id="checkall" value="rm_modules" /><?php else: ?>&nbsp;<?php endif; ?></th>
             </tr>
 <?php $i = 1; ?>

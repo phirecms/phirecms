@@ -1,6 +1,6 @@
 <?php include $phireHeader; ?>
     <h1 class="config-header"><?=$title; ?></h1>
-    <form id="config-form" method="post" action="<?=BASE_PATH . APP_URI; ?>/config">
+    <form id="config-form" method="post" action="<?=$phireUri; ?>/config">
         <table class="data-table" cellpadding="0" cellspacing="0" border="0">
             <tr><th colspan="2">&nbsp;</th></tr>
 <?php foreach($overview as $setting => $value): ?>
@@ -24,11 +24,11 @@ foreach($config['datetime_formats'] as $datetime):
         $checked = '';
     endif;
 ?>
-                    <div class="datetime-format"><input type="radio" name="datetime_format" id="datetime_format" onclick="phire.customDatetime('<?=BASE_PATH . APP_URI; ?>');" <?=$checked; ?>value="<?=$datetime; ?>" /> <span class="radio-block-span"><?=date($datetime); ?></span></div>
+                    <div class="datetime-format"><input type="radio" name="datetime_format" id="datetime_format" onclick="phire.customDatetime('<?=$phireUri; ?>');" <?=$checked; ?>value="<?=$datetime; ?>" /> <span class="radio-block-span"><?=date($datetime); ?></span></div>
 <?php endforeach; ?>
                     <div class="datetime-format">
-                        <input type="radio" name="datetime_format" id="datetime_format8" onclick="phire.customDatetime('<?=BASE_PATH . APP_URI; ?>');" <?=((!$wasChecked) ? 'checked="checked" ' : ''); ?>value="<?=((!$wasChecked) ? $config['datetime_format'] : ''); ?>" />
-                        <input type="text" name="datetime_format_custom" id="datetime_format_custom" onkeyup="phire.customDatetime('<?=BASE_PATH . APP_URI; ?>')" value="<?=((!$wasChecked) ? $config['datetime_format'] : ''); ?>" size="10" />
+                        <input type="radio" name="datetime_format" id="datetime_format8" onclick="phire.customDatetime('<?=$phireUri; ?>');" <?=((!$wasChecked) ? 'checked="checked" ' : ''); ?>value="<?=((!$wasChecked) ? $config['datetime_format'] : ''); ?>" />
+                        <input type="text" name="datetime_format_custom" id="datetime_format_custom" onkeyup="phire.customDatetime('<?=$phireUri; ?>')" value="<?=((!$wasChecked) ? $config['datetime_format'] : ''); ?>" size="10" />
                         <span id="datetime-custom"><?=((!$wasChecked) ? '(' . date($config['datetime_format']) . ')' : ''); ?></span>
                     </div>
                 </td>
