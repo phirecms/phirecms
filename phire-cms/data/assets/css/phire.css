@@ -11,7 +11,7 @@ html {
     font-size: 0.9em;
     color: #727170;
     box-shadow: inset 0 0 120px 90px #d1cecb;
-    background-color: #f0eeec;
+    background-color: #f4f1ed;
     height: 100%;
     overflow: auto;
 }
@@ -100,15 +100,15 @@ input[type=text], input[type=email], input[type=password]  {
     font-family: "Source Sans Pro", sans-serif;
     border-radius: 6px;
     font-size: 1.0em;
-    border: solid 1px #d6d6d6;
-    background-color: #d6d6d6;
+    border: solid 1px #c9c9c9;
+    background-color: #d3d3d3;
 }
 
 select {
     margin: 0;
     padding: 2px;
     font-family: "Source Sans Pro", sans-serif;
-    border: solid 1px #d3d3d3;
+    border: solid 1px #c9c9c9;
     background-color: #d3d3d3;
     border-radius: 4px;
 }
@@ -121,12 +121,11 @@ textarea {
     margin: 0 0 10px 0;
     padding: 3px;
     background-color: #d3d3d3;
-    border: solid 1px #aaa;
+    border: solid 1px #c9c9c9;
     border-radius: 4px;
     font-size: 0.825em;
     font-family: "Courier New", "Courier10 BT", courier, serif;
 }
-
 
 input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, input[type=file]:focus, select:focus, textarea:focus {
     border: solid 1px #52b2e5;
@@ -338,47 +337,12 @@ select {
     min-height: 100%;
 }
 
-#container {
-    position: relative;
-    min-height: 100%;
-    overflow: auto;
-    background-color: #f0eeec;
-}
-
-#container-vert {
-    position: relative;
-    min-height: 100%;
-    overflow: auto;
-    background-image: url(../img/nav-back.gif);
-    background-repeat: repeat-y;
-    background-position: left top;
-    background-color: #f0eeec;
-}
-
-#container > footer, #container-vert > footer {
-    position: absolute;
-    bottom: 0;
-    clear: both;
-    margin: 0 auto;
-    padding: 10px 0 10px 0;
-    display: block;
-    width: 100%;
-    height: 15px;
-    font-size: 0.825em;
-    text-align: center;
-    background-color: #d1d0d0;
-}
-
-#container > footer > a {
-    font-weight: normal;
-}
-
 #header-nav {
     position: relative;
     z-index: 10000;
     margin: 55px 16px 0 0;
     padding: 0;
-    color: #f0eeec;
+    color: #f4f1ed;
     float: right;
     height: 35px;
     text-align: right;
@@ -448,7 +412,7 @@ select {
     font-size: 0.9em;
     font-weight: normal;
     color: #575656;
-    background-color: #f0eeec;
+    background-color: #f4f1ed;
     border-left: solid 1px #b3b0af;
     border-right: solid 1px #b3b0af;
     border-bottom: dotted 1px #b3b0af;
@@ -545,6 +509,10 @@ select {
 
 #user-form > dl:first-child > dd, #user-role-form > dl:first-child > dd {
     margin: 0 0 10px 0;
+}
+
+#user-form > dl:nth-child(2) > dd, #user-role-form > dl:nth-child(2) > dd, #user-role-form > dl:nth-child(3) > dd {
+    padding: 0 2px 18px 2px;
 }
 
 #config-form {

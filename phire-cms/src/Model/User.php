@@ -46,7 +46,7 @@ class User extends AbstractModel
         $sql->select()->orderBy($by[0], $by[1]);
 
         if (null !== $username) {
-            $sql->select()->where('username LIKE ?');
+            $sql->select()->where('username LIKE :username');
             $params['username'] = $username . '%';
         }
 
@@ -57,8 +57,8 @@ class User extends AbstractModel
                     Table\Users::execute((string)$sql, $params)->rows() :
                     Table\Users::query((string)$sql)->rows();
             } else {
-                $sql->select()->where(DB_PREFIX . 'users.role_id = ?');
-                $params[DB_PREFIX . 'users.role_id'] = $roleId;
+                $sql->select()->where(DB_PREFIX . 'users.role_id = :role_id');
+                $params['role_id'] = $roleId;
                 $rows = Table\Users::execute((string)$sql, $params)->rows();
             }
         } else {
@@ -250,12 +250,12 @@ class User extends AbstractModel
         $sql->select();
 
         if (null !== $username) {
-            $sql->select()->where('username LIKE ?');
+            $sql->select()->where('username LIKE :username');
             $params['username'] = $username . '%';
         }
 
         if (null !== $roleId) {
-            $sql->select()->where('role_id = ?');
+            $sql->select()->where('role_id = :role_id');
             $params['role_id'] = $roleId;
         }
 
@@ -280,12 +280,12 @@ class User extends AbstractModel
         $sql->select();
 
         if (null !== $username) {
-            $sql->select()->where('username LIKE ?');
+            $sql->select()->where('username LIKE :username');
             $params['username'] = $username . '%';
         }
 
         if (null !== $roleId) {
-            $sql->select()->where('role_id = ?');
+            $sql->select()->where('role_id = :role_id');
             $params['role_id'] = $roleId;
         }
 
