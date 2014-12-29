@@ -5,7 +5,8 @@ return [
     'register'    => [],
     'profile'     => [],
     'unsubscribe' => [],
-    'modules'  => [
+    'config'      => [],
+    'modules'     => [
         'index',
         'install',
         'process'
@@ -21,6 +22,5 @@ return [
         'add',
         'edit',
         'remove'
-    ],
-    'config' => []
+    ]
 ];

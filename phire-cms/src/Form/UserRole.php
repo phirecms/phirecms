@@ -238,4 +238,25 @@ class UserRole extends Form
         $this->setIndent('    ');
     }
 
+    /**
+     * Set the field values
+     *
+     * @param  array $values
+     * @return User
+     */
+    public function setFieldValues(array $values = null)
+    {
+        parent::setFieldValues($values);
+
+        if (($_POST) && (null !== $this->name)) {
+            $role = Table\UserRoles::findBy(['name' => $this->name]);
+            if (isset($role->id) && ($this->id != $role->id)) {
+                $this->getElement('name')
+                    ->addValidator(new Validator\NotEqual($this->name, 'That role already exists.'));
+            }
+        }
+
+        return $this;
+    }
+
 }

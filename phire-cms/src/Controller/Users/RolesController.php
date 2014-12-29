@@ -127,7 +127,7 @@ class RolesController extends AbstractController
                 $json['email_as_username'] = $role->email_as_username;
             }
         } else {
-            $config    = $this->application->config();
+            $config = $this->application->config();
             if (isset($config['resources'][$id])) {
                 $json['permissions'] = $config['resources'][$id];
             }
