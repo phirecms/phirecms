@@ -37,7 +37,6 @@ class IndexController extends AbstractController
             $limit, $this->request->getQuery('page'), $this->request->getQuery('sort')
         );
 
-        $this->response->setBody($this->view->render());
         $this->send();
     }
 

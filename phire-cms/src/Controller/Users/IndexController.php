@@ -14,15 +14,16 @@ class IndexController extends AbstractController
     /**
      * Index action method
      *
+     * @param  int $id
      * @return void
      */
-    public function index()
+    public function index($id = null)
     {
         $user = new Model\User();
 
-        if ($user->hasPages($this->config->pagination)) {
+        if ($user->hasPages($this->config->pagination, $id, $this->request->getQuery('username'))) {
             $limit = $this->config->pagination;
-            $pages = new Paginator($user->getCount(), $limit);
+            $pages = new Paginator($user->getCount($id), $limit, $this->request->getQuery('username'));
             $pages->useInput(true);
         } else {
             $limit = null;
@@ -30,10 +31,15 @@ class IndexController extends AbstractController
         }
 
         $this->prepareView('users/index.phtml');
-        $this->view->title = 'Users';
-        $this->view->pages = $pages;
-        $this->view->users = $user->getAll($limit, $this->request->getQuery('page'), $this->request->getQuery('sort'));
-        $this->response->setBody($this->view->render());
+        $this->view->title    = 'Users';
+        $this->view->pages    = $pages;
+        $this->view->roleId   = $id;
+        $this->view->username = $this->request->getQuery('username');
+        $this->view->users    = $user->getAll(
+            $id, $this->request->getQuery('username'), $limit,
+            $this->request->getQuery('page'), $this->request->getQuery('sort')
+        );
+        $this->view->roles  = $user->getRoles();
         $this->send();
     }
 
@@ -67,7 +73,6 @@ class IndexController extends AbstractController
         }
 
         $this->view->form = $form;
-        $this->response->setBody($this->view->render());
         $this->send();
     }
 
@@ -108,7 +113,6 @@ class IndexController extends AbstractController
         }
 
         $this->view->form = $form;
-        $this->response->setBody($this->view->render());
         $this->send();
     }
 

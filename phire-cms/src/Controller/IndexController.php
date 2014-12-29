@@ -25,7 +25,6 @@ class IndexController extends AbstractController
         $this->view->overview = $config->overview;
         $this->view->config   = $config->config;
         $this->view->modules  = $config->modules;
-        $this->response->setBody($this->view->render());
         $this->send();
     }
 
@@ -68,7 +67,6 @@ class IndexController extends AbstractController
         }
 
         $this->view->form = $form;
-        $this->response->setBody($this->view->render());
         $this->send();
     }
 
@@ -118,11 +116,9 @@ class IndexController extends AbstractController
                 } else {
                     $this->view->form = $form;
                 }
-                $this->response->setBody($this->view->render());
                 $this->send();
             } else {
                 $this->view->form = $form;
-                $this->response->setBody($this->view->render());
                 $this->send();
             }
         } else {
@@ -171,7 +167,6 @@ class IndexController extends AbstractController
         }
 
         $this->view->form = $form;
-        $this->response->setBody($this->view->render());
         $this->send();
     }
 
@@ -188,7 +183,6 @@ class IndexController extends AbstractController
         $this->prepareView('verify.phtml');
         $this->view->title  = 'Verify Your Email';
         $this->view->result = $user->verify($id, $hash);
-        $this->response->setBody($this->view->render());
         $this->send();
     }
 
@@ -220,11 +214,9 @@ class IndexController extends AbstractController
             } else {
                 $this->view->form = $form;
             }
-            $this->response->setBody($this->view->render());
             $this->send();
         } else {
             $this->view->form = $form;
-            $this->response->setBody($this->view->render());
             $this->send();
         }
     }
@@ -260,11 +252,9 @@ class IndexController extends AbstractController
             } else {
                 $this->view->form = $form;
             }
-            $this->response->setBody($this->view->render());
             $this->send();
         } else {
             $this->view->form = $form;
-            $this->response->setBody($this->view->render());
             $this->send();
         }
     }

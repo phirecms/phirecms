@@ -176,5 +176,18 @@ jax(document).ready(function(){
             jax(jax('#username').parent()).hide();
         }
     }
+    if (jax('#user-search-form')[0] != undefined) {
+        jax('#user-search-form').submit(function(){
+            var url = this.action;
+            if (jax(this.role_id).val() != '----') {
+                url = url +  '/' + jax(this.role_id).val();
+            }
+            if (jax(this.username).val() != '') {
+                url = url + '?username=' + encodeURIComponent(jax(this.username).val());
+            }
+            window.location.href = url;
+            return false;
+        });
+    }
 });
 

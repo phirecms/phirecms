@@ -57,7 +57,6 @@ class IndexController extends AbstractController
         }
 
         $this->view->form = $form;
-        $this->response->setBody($this->view->render());
         $this->send();
     }
 
@@ -86,12 +85,10 @@ class IndexController extends AbstractController
                 exit();
             } else {
                 $this->view->form = $form;
-                $this->response->setBody($this->view->render());
                 $this->send();
             }
         } else {
             $this->view->form = $form;
-            $this->response->setBody($this->view->render());
             $this->send();
         }
     }
@@ -131,12 +128,10 @@ class IndexController extends AbstractController
                 Response::redirect(BASE_PATH . APP_URI . '/login?installed=' . time());
             } else {
                 $this->view->form = $form;
-                $this->response->setBody($this->view->render());
                 $this->send();
             }
         } else {
             $this->view->form = $form;
-            $this->response->setBody($this->view->render());
             $this->send();
         }
     }

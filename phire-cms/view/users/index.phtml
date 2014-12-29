@@ -1,5 +1,19 @@
 <?php include $phireHeader; ?>
-    <h1 class="users-header"><?=$title; ?></h1>
+<?php if (count($roles) > 0): ?>
+    <form id="user-search-form" action="<?=BASE_PATH . APP_URI . '/users'; ?>" method="get">
+        <div><input tabindex="3" type="submit" id="submit" value="Search" /></div>
+        <div>
+            <select tabindex="2" id="role_id" name="role_id">
+                <option value="----">----</option>
+<?php foreach ($roles as $id => $role): ?>
+                <option value="<?=$id; ?>"<?=(((null !== $roleId) && ($roleId == $id)) ? ' selected="selected"' : null); ?>><?=$role; ?></option>
+<?php endforeach; ?>
+            </select>
+        </div>
+        <div><input tabindex="1" type="text" name="username" id="username" value="<?=((null !== $username) ? $username : null); ?>" placeholder="Username" size="15" /></div>
+    </form>
+<?php endif; ?>
+    <h1 class="users-header"><?=$title; ?><?php if (isset($roleId) && isset($roles) && isset($roles[$roleId])): ?> : <?=$roles[$roleId]; ?><?php endif; ?></h1>
 <?php if (count($users) > 0): ?>
 <?php if (null !== $pages): ?>
     <div class="page-links"><?=$pages; ?></div>
@@ -14,10 +28,10 @@
 <?php endif; ?>
         <table class="data-table" cellpadding="0" cellspacing="0" border="0">
             <tr>
-                <th><a href="<?=BASE_PATH . APP_URI . '/users?sort=id';?>">#</a></th>
-                <th><a href="<?=BASE_PATH . APP_URI . '/users?sort=username';?>">Username</a></th>
-                <th><a href="<?=BASE_PATH . APP_URI . '/users?sort=email';?>">Email</a></th>
-                <th><a href="<?=BASE_PATH . APP_URI . '/users?sort=role_name';?>">Role</a></th>
+                <th><a href="<?=BASE_PATH . APP_URI . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=id';?>">#</a></th>
+                <th><a href="<?=BASE_PATH . APP_URI . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=username';?>">Username</a></th>
+                <th><a href="<?=BASE_PATH . APP_URI . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=email';?>">Email</a></th>
+                <th><a href="<?=BASE_PATH . APP_URI . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=role_name';?>">Role</a></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'edit')): ?>Edit<?php else: ?>&nbsp;<?php endif; ?></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'remove')): ?><input type="checkbox" name="checkall" id="checkall" value="rm_users" /><?php else: ?>&nbsp;<?php endif; ?></th>
             </tr>

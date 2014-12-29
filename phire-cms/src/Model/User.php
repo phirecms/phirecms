@@ -14,12 +14,14 @@ class User extends AbstractModel
     /**
      * Get all users
      *
+     * @param  int    $roleId
+     * @param  string $username
      * @param  int    $limit
      * @param  int    $page
      * @param  string $sort
      * @return array
      */
-    public function getAll($limit = null, $page = null, $sort = null)
+    public function getAll($roleId = null, $username = null, $limit = null, $page = null, $sort = null)
     {
         $sql = Table\Users::sql();
         $sql->select([
@@ -38,11 +40,53 @@ class User extends AbstractModel
             $sql->select()->offset($page)->limit($limit);
         }
 
-        $order = $this->getSortOrder($sort, $page);
-        $by    = explode(' ', $order);
+        $params = [];
+        $order  = $this->getSortOrder($sort, $page);
+        $by     = explode(' ', $order);
         $sql->select()->orderBy($by[0], $by[1]);
 
-        return Table\Users::query((string)$sql)->rows();
+        if (null !== $username) {
+            $sql->select()->where('username LIKE ?');
+            $params['username'] = $username . '%';
+        }
+
+        if (null !== $roleId) {
+            if ($roleId == 0) {
+                $sql->select()->where(DB_PREFIX . 'users.role_id IS NULL');
+                $rows = (count($params) > 0) ?
+                    Table\Users::execute((string)$sql, $params)->rows() :
+                    Table\Users::query((string)$sql)->rows();
+            } else {
+                $sql->select()->where(DB_PREFIX . 'users.role_id = ?');
+                $params[DB_PREFIX . 'users.role_id'] = $roleId;
+                $rows = Table\Users::execute((string)$sql, $params)->rows();
+            }
+        } else {
+            $rows = (count($params) > 0) ?
+                Table\Users::execute((string)$sql, $params)->rows() :
+                Table\Users::query((string)$sql)->rows();
+        }
+
+        return $rows;
+
+    }
+
+    /**
+     * Get all user roles
+     *
+     * @return array
+     */
+    public function getRoles()
+    {
+        $roles    = Table\UserRoles::findAll()->rows();
+        $rolesAry = [];
+
+        foreach ($roles as $role) {
+            $rolesAry[$role->id] = $role->name;
+        }
+
+        $rolesAry[0] = '[Blocked]';
+        return $rolesAry;
     }
 
     /**
@@ -194,22 +238,62 @@ class User extends AbstractModel
     /**
      * Determine if list of users have pages
      *
-     * @param  int $limit
+     * @param  int    $limit
+     * @param  int    $roleId
+     * @param  string $username
      * @return boolean
      */
-    public function hasPages($limit)
+    public function hasPages($limit, $roleId = null, $username = null)
     {
-        return (Table\Users::findAll()->count() > $limit);
+        $params = [];
+        $sql    = Table\Users::sql();
+        $sql->select();
+
+        if (null !== $username) {
+            $sql->select()->where('username LIKE ?');
+            $params['username'] = $username . '%';
+        }
+
+        if (null !== $roleId) {
+            $sql->select()->where('role_id = ?');
+            $params['role_id'] = $roleId;
+        }
+
+        if (count($params) > 0) {
+            return (Table\Users::execute((string)$sql, $params)->count() > $limit);
+        } else {
+            return (Table\Users::findAll()->count() > $limit);
+        }
     }
 
     /**
      * Get count of users
      *
+     * @param  int    $roleId
+     * @param  string $username
      * @return int
      */
-    public function getCount()
+    public function getCount($roleId = null, $username = null)
     {
-        return Table\Users::findAll()->count();
+        $params = [];
+        $sql    = Table\Users::sql();
+        $sql->select();
+
+        if (null !== $username) {
+            $sql->select()->where('username LIKE ?');
+            $params['username'] = $username . '%';
+        }
+
+        if (null !== $roleId) {
+            $sql->select()->where('role_id = ?');
+            $params['role_id'] = $roleId;
+        }
+
+        if (count($params) > 0) {
+            return Table\Users::execute((string)$sql, $params)->count();
+        } else {
+            return Table\Users::findAll()->count();
+        }
     }
 
     /**

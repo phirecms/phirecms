@@ -2,6 +2,7 @@
 
 return [
     'navigation_vertical'  => true,
-    'registration_captcha' => true,
-    'registration_csrf'    => true,
+    'registration_captcha' => false,
+    'registration_csrf'    => false
+    ,
 ];

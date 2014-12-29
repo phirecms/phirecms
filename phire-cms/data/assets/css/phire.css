@@ -277,9 +277,13 @@ select {
     padding: 15px 0 0 0;
 }
 
-#forgot-form > dl > dd, #unsubscribe-form > dl > , #profile-form > dl > dd,
-#unsubscribe-user-form > dl > dd {
+#forgot-form > dl > dd, #unsubscribe-form > dl > dd {
     padding: 0 0 18px 0;
+    width: 100%;
+}
+
+#profile-form > dl > dd, #unsubscribe-user-form > dl > dd {
+    padding: 0 2px 18px 2px;
     width: 100%;
 }
 
@@ -606,6 +610,51 @@ select {
     box-shadow: 0 0 10px 3px #a6b5bc;
 }
 
+#user-search-form {
+    margin: 32px 0 0 0;
+    padding: 0;
+    float: right;
+}
+
+#user-search-form > div {
+    margin: 0 0 0 5px;
+    padding: 0;
+    float: right;
+    display: block;
+}
+
+#user-search-form > div > input[type=text] {
+    margin: 0;
+    padding: 2px 4px 2px 4px;
+    height: 16px;
+    color: #666;
+    font-size: 0.825em;
+    background-color: #fff;
+    border: solid 1px #aaa;
+    border-radius: 4px;
+    float: right;
+    display: block;
+}
+
+#user-search-form > div > select {
+    margin: 0;
+    padding: 0 2px 0 2px;
+    color: #666;
+    font-size: 0.9em;
+    height: 22px;
+    background-color: #fff;
+    border: solid 1px #aaa;
+    border-radius: 4px;
+    float: right;
+    display: block;
+}
+
+#user-search-form > div > select > option {
+    margin: 0;
+    padding: 1px;
+    font-size: 0.9em;
+}
+
 /* Class Definitions */
 
 .logo {
@@ -766,8 +815,12 @@ select {
     padding: 1px;
     width: 20px;
     height: 17px;
+    color: #666;
     text-align: center;
     font-size: 0.9em;
+    background-color: #fff;
+    border: solid 1px #aaa;
+    border-radius: 4px;
 }
 
 .page-links > a {

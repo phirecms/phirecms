@@ -83,6 +83,36 @@ abstract class AbstractController extends Controller
     }
 
     /**
+     * Get request object
+     *
+     * @return \Pop\Http\Request
+     */
+    public function request()
+    {
+        return $this->request;
+    }
+
+    /**
+     * Get response object
+     *
+     * @return \Pop\Http\Response
+     */
+    public function response()
+    {
+        return $this->response;
+    }
+
+    /**
+     * Get view object
+     *
+     * @return \Pop\View\View
+     */
+    public function view()
+    {
+        return $this->view;
+    }
+
+    /**
      * Default error action method
      *
      * @return void
@@ -91,20 +121,27 @@ abstract class AbstractController extends Controller
     {
         $this->prepareView('error.phtml');
         $this->view->title = 'Error';
-
-        $this->response->setBody($this->view->render());
         $this->send(404);
     }
 
     /**
      * Send response
      *
-     * @param  int   $code
-     * @param  array $headers
+     * @param  int    $code
+     * @param  array  $headers
+     * @param  string $body
      * @return void
      */
-    public function send($code = null, array $headers = null)
+    public function send($code = null, array $headers = null, $body = null)
     {
+        $this->application->trigger('app.send', ['controller' => $this]);
+
+        if (null !== $body) {
+            $this->response->setBody($body);
+        } else if (null !== $this->view) {
+            $this->response->setBody($this->view->render());
+        }
+
         $this->response->send($code, $headers);
     }
 

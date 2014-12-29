@@ -371,6 +371,8 @@ class Application extends \Pop\Application
         $route     = $application->router()->getRouteMatch()->getRoute();
         $isInstall = (substr($route, 0, strlen(BASE_PATH . APP_URI . '/install')) == BASE_PATH . APP_URI . '/install');
 
+        $base = BASE_PATH . APP_URI;
+
         // Special install check
         if (isset($sess->app_uri) && (strpos($_SERVER['REQUEST_URI'], 'install/config') !== false)) {
             if ((BASE_PATH . APP_URI) == (BASE_PATH . $sess->app_uri) && ($application->config()['db'])) {
@@ -386,7 +388,8 @@ class Application extends \Pop\Application
             exit();
         // Else, if NOT logged in and NOT a system URL, redirect to login
         } else if (!isset($sess->user) && (($action != 'login') && ($action != 'register') && (!$isInstall) &&
-                ($action != 'unsubscribe') && ($action != 'verify') && ($action != 'forgot') && (null !== $action))) {
+                ($action != 'unsubscribe') && ($action != 'verify') && ($action != 'forgot') && (null !== $action)) &&
+                (substr($route, 0, strlen(BASE_PATH . APP_URI)) == BASE_PATH . APP_URI)) {
             Response::redirect(BASE_PATH . APP_URI . '/login');
             exit();
         }

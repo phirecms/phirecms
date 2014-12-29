@@ -28,8 +28,6 @@ class IndexController extends AbstractController
         $this->view->title    = 'Configuration';
         $this->view->overview = $config->overview;
         $this->view->config   = $config->config;
-
-        $this->response->setBody($this->view->render());
         $this->send();
     }
 
@@ -44,8 +42,7 @@ class IndexController extends AbstractController
         $json = [
             'format' => date(str_replace('_', '/', urldecode($format)))
         ];
-        $this->response->setBody(json_encode($json, JSON_PRETTY_PRINT));
-        $this->send(200, ['Content-Type' => 'application/json']);
+        $this->send(200, ['Content-Type' => 'application/json'], json_encode($json, JSON_PRETTY_PRINT));
     }
 
 }

@@ -71,19 +71,19 @@ class Register extends Form
             ]
         ];
 
+        if ($csrf) {
+            $fields[1] = array_merge([
+                'csrf'   => [
+                    'type'  => 'csrf'
+                ]
+            ], $fields[1]);
+        }
+
         if ($captcha) {
             $fields[1] = array_merge([
                 'captcha'   => [
                     'type'  => 'captcha',
                     'label' => 'Please Solve:'
-                ]
-            ], $fields[1]);
-        }
-
-        if ($csrf) {
-            $fields[1] = array_merge([
-                'csrf'   => [
-                    'type'  => 'csrf'
                 ]
             ], $fields[1]);
         }

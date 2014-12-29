@@ -33,7 +33,6 @@ class RolesController extends AbstractController
         $this->view->title = 'Users : Roles';
         $this->view->pages = $pages;
         $this->view->roles = $role->getAll($limit, $this->request->getQuery('page'), $this->request->getQuery('sort'));
-        $this->response->setBody($this->view->render());
         $this->send();
     }
 
@@ -66,7 +65,6 @@ class RolesController extends AbstractController
         }
 
         $this->view->form = $form;
-        $this->response->setBody($this->view->render());
         $this->send();
     }
 
@@ -105,7 +103,6 @@ class RolesController extends AbstractController
         }
 
         $this->view->form = $form;
-        $this->response->setBody($this->view->render());
         $this->send();
     }
 

@@ -49,7 +49,10 @@ return [
     ],
     APP_URI . '/unsubscribe[/]' => [
         'controller' => 'Phire\Controller\IndexController',
-        'action'     => 'unsubscribe'
+        'action'     => 'unsubscribe',
+        'acl'        => [
+            'resource'   => 'unsubscribe'
+        ]
     ],
     APP_URI . '/logout[/]' => [
         'controller' => 'Phire\Controller\IndexController',
@@ -90,7 +93,7 @@ return [
             'permission' => 'process'
         ]
     ],
-    APP_URI . '/users[/]' => [
+    APP_URI . '/users[/:id]' => [
         'controller' => 'Phire\Controller\Users\IndexController',
         'action'     => 'index',
         'acl'        => [
