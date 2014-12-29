@@ -56,6 +56,7 @@
     color: #fff;
     text-align: left;
     text-decoration: none;
+    border-bottom: solid 1px #4f4b4a;
 }
 
 #phire-nav > nav:hover {
