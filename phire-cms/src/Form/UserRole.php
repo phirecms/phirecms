@@ -101,7 +101,15 @@ class UserRole extends Form
         $resourceValues = ['----' => '----'];
 
         foreach ($resources as $resource => $perms) {
-            $resourceValues[$resource] = $resource ;
+            $resourceName = $resource;
+            if (strpos($resource, 'role-') !== false) {
+                $role = Table\UserRoles::findById((int)substr($resource, (strrpos($resource, '-') + 1)));
+                if (isset($role->id)) {
+                    $roleName = str_replace(' ', '-', strtolower($role->name));
+                    $resourceName = substr($resource, 0, (strrpos($resource, '-') + 1)) . str_replace(' ', '-', strtolower($role->name));
+                }
+            }
+            $resourceValues[$resource] = $resourceName;
         }
 
         $fields[] = [

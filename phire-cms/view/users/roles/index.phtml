@@ -24,8 +24,8 @@
             <tr>
                 <td><?=$role->id; ?></td>
                 <td><?=$role->name; ?></td>
-                <td class="text-center"><?php if ($acl->isAllowed($user->role, 'roles', 'edit')): ?><a class="edit-link" href="<?=$phireUri . '/users/roles/edit/' . $role->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
-                <td class="text-center"><?php if (($user->role_id != $role->id) && ($acl->isAllowed($user->role, 'roles', 'remove'))): ?><input type="checkbox" name="rm_roles[]" id="rm_roles<?=$i++; ?>" value="<?=$role->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
+                <td class="text-center"><?php if (($acl->isAllowed($user->role, 'roles', 'edit')) && ($acl->isAllowed($user->role, 'role-' . $role->id, 'edit'))): ?><a class="edit-link" href="<?=$phireUri . '/users/roles/edit/' . $role->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
+                <td class="text-center"><?php if (($user->role_id != $role->id) && ($acl->isAllowed($user->role, 'roles', 'remove')) && ($acl->isAllowed($user->role, 'role-' . $role->id, 'remove'))): ?><input type="checkbox" name="rm_roles[]" id="rm_roles<?=$i++; ?>" value="<?=$role->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
             </tr>
 <?php endforeach; ?>
         </table>

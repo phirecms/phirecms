@@ -22,7 +22,7 @@ PRIMARY KEY ("setting")
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES
 ('installed_on', '0000-00-00 00:00:00'),
 ('updated_on', '0000-00-00 00:00:00'),
-('datetime_format', 'M j Y g:i A'),
+('datetime_format', 'M j Y'),
 ('pagination', '25'),
 ('force_ssl', '0');
 
@@ -73,8 +73,6 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "password" varchar(255) NOT NULL,
   "email" varchar(255) NOT NULL,
   "verified" integer,
-  "created" timestamp,
-  "updated" timestamp,
   PRIMARY KEY ("id"),
   CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]user_roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 ) ;

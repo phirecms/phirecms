@@ -163,12 +163,15 @@ abstract class AbstractController extends Controller
         $viewTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/' . $template)) ?
             __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
 
-        $this->view               = new View($viewTemplate);
-        $this->view->assets       = $this->application->getAssets();
-        $this->view->phireHeader  = $headerTemplate;
-        $this->view->phireFooter  = $footerTemplate;
-        $this->view->phireUri     = BASE_PATH . APP_URI;
-        $this->view->phireContent = BASE_PATH . CONTENT_PATH;
+        $this->view                  = new View($viewTemplate);
+        $this->view->assets          = $this->application->getAssets();
+        $this->view->phireHeader     = $headerTemplate;
+        $this->view->phireFooter     = $footerTemplate;
+        $this->view->phireUri        = BASE_PATH . APP_URI;
+        $this->view->basePath        = BASE_PATH;
+        $this->view->base_path       = BASE_PATH;
+        $this->view->contentPath     = BASE_PATH . CONTENT_PATH;
+        $this->view->content_path    = BASE_PATH . CONTENT_PATH;
 
         if (isset($this->sess->user)) {
             $this->services['nav.phire']->setRole($this->services['acl']->getRole($this->sess->user->role));

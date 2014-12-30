@@ -2,8 +2,8 @@
 
 namespace Phire;
 
-use Pop\Acl\Resource;
-use Pop\Acl\Role;
+use Pop\Acl\Resource\Resource;
+use Pop\Acl\Role\Role;
 use Pop\Db\Record;
 use Pop\File\Dir;
 use Pop\Http\Request;
@@ -73,7 +73,7 @@ class Application extends \Pop\Application
         // Set up triggers to check the application session
         $this->on('app.route.pre', 'Phire\Application::sslCheck', 1000)
              ->on('app.route.post', 'Phire\Application::dbCheck', 1000)
-             ->on('app.dispatch.pre', 'Phire\Application::sessionCheck', 1001)
+            ->on('app.dispatch.pre', 'Phire\Application::sessionCheck', 1001)
              ->on('app.dispatch.pre', 'Phire\Application::aclCheck', 1000);
 
         // Load modules
@@ -92,9 +92,14 @@ class Application extends \Pop\Application
     public function error(\Exception $exception)
     {
         $view = new \Pop\View\View(__DIR__ . '/../view/exception.phtml');
-        $view->title   = 'Application Error';
-        $view->assets  = $this->assets;
-        $view->message = $exception->getMessage();
+        $view->title        = 'Application Error';
+        $view->assets       = $this->assets;
+        $view->phireUri     = BASE_PATH . APP_URI;
+        $view->basePath     = BASE_PATH;
+        $view->base_path    = BASE_PATH;
+        $view->contentPath  = BASE_PATH . CONTENT_PATH;
+        $view->content_path = BASE_PATH . CONTENT_PATH;
+        $view->message      = $exception->getMessage();
 
         $response = new Response();
         $response->setBody((string)$view);
@@ -265,11 +270,23 @@ class Application extends \Pop\Application
      */
     public function initAcl()
     {
+
+        $roles = Table\UserRoles::findAll()->rows();
+        foreach ($roles as $role) {
+            $this->config['resources']['role-' . $role->id] = [
+                'edit', 'remove'
+            ];
+        }
+        foreach ($roles as $role) {
+            $this->config['resources']['user-role-' . $role->id] = [
+                'index', 'add', 'edit', 'remove'
+            ];
+        }
+
         foreach ($this->config['resources'] as $resource => $permissions) {
             $this->services['acl']->addResource(new Resource($resource));
         }
 
-        $roles       = Table\UserRoles::findAll()->rows();
         $parentRoles = [];
         $childRoles  = [];
 

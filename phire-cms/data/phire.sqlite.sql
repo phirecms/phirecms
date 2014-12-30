@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]config" (
 
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('installed_on', '0000-00-00 00:00:00');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updated_on', '0000-00-00 00:00:00');
-INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('datetime_format', 'M j Y g:i A');
+INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('datetime_format', 'M j Y');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('pagination', '25');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('force_ssl', '0');
 
@@ -77,8 +77,6 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "password" varchar NOT NULL,
   "email" varchar NOT NULL,
   "verified" integer,
-  "created" datetime,
-  "updated" datetime,
   UNIQUE ("id"),
   CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]user_roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 ) ;

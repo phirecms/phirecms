@@ -16,12 +16,13 @@ class User extends AbstractModel
      *
      * @param  int    $roleId
      * @param  string $username
+     * @param  array  $deniedRoles
      * @param  int    $limit
      * @param  int    $page
      * @param  string $sort
      * @return array
      */
-    public function getAll($roleId = null, $username = null, $limit = null, $page = null, $sort = null)
+    public function getAll($roleId = null, $username = null, array $deniedRoles = [], $limit = null, $page = null, $sort = null)
     {
         $sql = Table\Users::sql();
         $sql->select([
@@ -29,6 +30,7 @@ class User extends AbstractModel
             'user_role_id' => DB_PREFIX . 'users.role_id',
             'username'     => DB_PREFIX . 'users.username',
             'email'        => DB_PREFIX . 'users.email',
+            'verified'     => DB_PREFIX . 'users.verified',
             'role_id'      => DB_PREFIX . 'user_roles.id',
             'role_name'    => DB_PREFIX . 'user_roles.name'
         ])->join(DB_PREFIX . 'user_roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'user_roles.id']);
@@ -48,6 +50,13 @@ class User extends AbstractModel
         if (null !== $username) {
             $sql->select()->where('username LIKE :username');
             $params['username'] = $username . '%';
+        }
+
+        if (count($deniedRoles) > 0) {
+            foreach ($deniedRoles as $key => $denied) {
+                $sql->select()->where('role_id != :role_id' . ($key + 1));
+                $params['role_id' . ($key + 1)] = $denied;
+            }
         }
 
         if (null !== $roleId) {
@@ -120,8 +129,7 @@ class User extends AbstractModel
             'username' => $fields['username'],
             'password' => (new Bcrypt())->create($fields['password1']),
             'email'    => $fields['email1'],
-            'verified' => $fields['verified'],
-            'created'  => date('Y-m-d H:i:s')
+            'verified' => $fields['verified']
         ]);
         $user->save();
 
@@ -151,7 +159,6 @@ class User extends AbstractModel
                 (new Bcrypt())->create($fields['password1']) : $user->password;
             $user->email    = $fields['email1'];
             $user->verified = $fields['verified'];
-            $user->updated  = date('Y-m-d H:i:s');
 
             $user->save();
 
@@ -242,9 +249,10 @@ class User extends AbstractModel
      * @param  int    $limit
      * @param  int    $roleId
      * @param  string $username
+     * @param  array  $deniedRoles
      * @return boolean
      */
-    public function hasPages($limit, $roleId = null, $username = null)
+    public function hasPages($limit, $roleId = null, $username = null, array $deniedRoles = [])
     {
         $params = [];
         $sql    = Table\Users::sql();
@@ -258,6 +266,13 @@ class User extends AbstractModel
         if (null !== $roleId) {
             $sql->select()->where('role_id = :role_id');
             $params['role_id'] = $roleId;
+        }
+
+        if (count($deniedRoles) > 0) {
+            foreach ($deniedRoles as $key => $denied) {
+                $sql->select()->where('role_id != :role_id' . ($key + 1));
+                $params['role_id' . ($key + 1)] = $denied;
+            }
         }
 
         if (count($params) > 0) {
@@ -272,9 +287,10 @@ class User extends AbstractModel
      *
      * @param  int    $roleId
      * @param  string $username
+     * @param  array  $deniedRoles
      * @return int
      */
-    public function getCount($roleId = null, $username = null)
+    public function getCount($roleId = null, $username = null, array $deniedRoles = [])
     {
         $params = [];
         $sql    = Table\Users::sql();
@@ -288,6 +304,13 @@ class User extends AbstractModel
         if (null !== $roleId) {
             $sql->select()->where('role_id = :role_id');
             $params['role_id'] = $roleId;
+        }
+
+        if (count($deniedRoles) > 0) {
+            foreach ($deniedRoles as $key => $denied) {
+                $sql->select()->where('role_id != :role_id' . ($key + 1));
+                $params['role_id' . ($key + 1)] = $denied;
+            }
         }
 
         if (count($params) > 0) {

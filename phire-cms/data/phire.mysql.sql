@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]config` (
 INSERT INTO `[{prefix}]config` (`setting`, `value`) VALUES
 ('installed_on', '0000-00-00 00:00:00'),
 ('updated_on', '0000-00-00 00:00:00'),
-('datetime_format', 'M j Y g:i A'),
+('datetime_format', 'M j Y'),
 ('pagination', '25'),
 ('force_ssl', '0');
 
@@ -65,8 +65,6 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]users` (
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `email` varchar(255) NOT NULL,
   `verified` int(1),
-  `created` datetime,
-  `updated` datetime,
   PRIMARY KEY (`id`),
   INDEX `user_role_id` (`role_id`),
   INDEX `username` (`username`),

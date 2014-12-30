@@ -15,17 +15,22 @@ class User extends Form
      *
      * Instantiate the form object
      *
-     * @param  array  $fields
-     * @param  string $action
-     * @param  string $method
+     * @param  \Pop\Acl\Acl $acl
+     * @param  \ArrayObject $user
+     * @param  array        $fields
+     * @param  string       $action
+     * @param  string       $method
      * @return User
      */
-    public function __construct(array $fields = null, $action = null, $method = 'post')
+    public function __construct($acl, $user, array $fields = null, $action = null, $method = 'post')
     {
         $roles      = Table\UserRoles::findAll();
         $roleValues = ['----' => '[Blocked]'];
         foreach ($roles->rows() as $role) {
-            $roleValues[$role['id']] = $role['name'];
+            if (($acl->hasResource('user-role-' . $role['id'])) &&
+                ($acl->isAllowed($user->role, 'user-role-' . $role['id'], 'add'))) {
+                $roleValues[$role['id']] = $role['name'];
+            }
         }
 
         $fields = [
