@@ -61,6 +61,7 @@ class IndexController extends AbstractController
                     'email'    => $auth->adapter()->getUser()->email,
                 ], \ArrayObject::ARRAY_AS_PROPS);
 
+                $this->application->trigger('app.send', ['controller' => $this]);
                 Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
                 exit();
             }
