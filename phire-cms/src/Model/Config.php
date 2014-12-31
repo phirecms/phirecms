@@ -40,8 +40,8 @@ class Config extends AbstractModel
         ];
 
         $config['datetime_formats'] = [
-            'F d, Y', 'M j Y', 'm/d/Y', 'Y/m/d',
-            'F d, Y g:i A', 'M j Y g:i A', 'm/d/Y g:i A', 'Y/m/d g:i A'
+            'M j Y', 'F d, Y', 'm/d/Y', 'Y/m/d', 'F d, Y g:i A',
+            'M j Y g:i A', 'm/d/Y g:i A', 'Y/m/d g:i A'
         ];
 
         $this->data['config']  = $config;

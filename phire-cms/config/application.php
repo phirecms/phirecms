@@ -16,7 +16,7 @@ $config = [
                 'tree' => [
                     'modules' => [
                         'name' => 'Modules',
-                        'href' => BASE_PATH . APP_URI . '/modules',
+                        'href' => '/modules',
                         'acl'  => [
                             'resource'   => 'modules',
                             'permission' => 'index'
@@ -27,7 +27,7 @@ $config = [
                     ],
                     'users' => [
                         'name' => 'Users',
-                        'href' => BASE_PATH . APP_URI . '/users',
+                        'href' => '/users',
                         'acl'  => [
                             'resource'   => 'users',
                             'permission' => 'index'
@@ -38,7 +38,7 @@ $config = [
                         'children' => [
                             'roles' => [
                                 'name' => 'Roles',
-                                'href' => BASE_PATH . APP_URI . '/users/roles',
+                                'href' => '/users/roles',
                                 'acl'  => [
                                     'resource'   => 'roles',
                                     'permission' => 'index'
@@ -48,7 +48,7 @@ $config = [
                     ],
                     'config' => [
                         'name' => 'Config',
-                        'href' => BASE_PATH . APP_URI . '/config',
+                        'href' => '/config',
                         'acl'  => [
                             'resource'   => 'config',
                             'permission' => 'index'
@@ -59,7 +59,8 @@ $config = [
                     ]
                 ],
                 'config' => [
-                    'top'    => [
+                    'baseUrl' => BASE_PATH . APP_URI,
+                    'top'     => [
                         'id'   => 'phire-nav',
                         'node' => 'nav'
                     ],
