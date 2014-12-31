@@ -47,6 +47,7 @@ class Module extends AbstractModel
                 $module->nav = new Nav(
                     [$moduleConfigs[$module->folder]['nav.module']], ['top' => ['class' => 'module-nav']]
                 );
+                $module->nav->setBaseUrl(BASE_PATH . APP_URI);
                 $module->nav->setAcl($acl);
                 $module->nav->setRole($acl->getRole($sess->user->role));
                 $module->nav->setIndent('                    ');
