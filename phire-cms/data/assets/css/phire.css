@@ -703,6 +703,7 @@ select {
     margin: 0;
     text-align: left;
     padding: 8px 5px 8px 5px;
+    font-size: 0.9em;
     background-color: #dedede;
 }
 
@@ -736,6 +737,7 @@ select {
     margin: 0;
     text-align: left;
     padding: 8px 5px 8px 5px;
+    font-size: 0.9em;
     border-top: solid 1px #ccc;
     background-color: #ddd;
 }
