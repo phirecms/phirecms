@@ -3,7 +3,6 @@
 namespace Phire\Model;
 
 use Phire\Table;
-use Pop\Acl;
 
 class UserRole extends AbstractModel
 {
@@ -188,13 +187,15 @@ class UserRole extends AbstractModel
                     if ((bool)$allow) {
                         $permissions['allow'][] = [
                             'resource'   => $value,
-                            'permission' => ((!empty($post['permission_new_' . $id]) && ($post['permission_new_' . $id] != '----')) ?
+                            'permission' => ((!empty($post['permission_new_' . $id]) &&
+                                ($post['permission_new_' . $id] != '----')) ?
                                 $post['permission_new_' . $id] : null),
                         ];
                     } else {
                         $permissions['deny'][] = [
                             'resource'   => $value,
-                            'permission' => ((!empty($post['permission_new_' . $id]) && ($post['permission_new_' . $id] != '----')) ?
+                            'permission' => ((!empty($post['permission_new_' . $id]) &&
+                                ($post['permission_new_' . $id] != '----')) ?
                                 $post['permission_new_' . $id] : null),
                         ];
                     }
@@ -221,13 +222,15 @@ class UserRole extends AbstractModel
                     if ((bool)$allow) {
                         $permissions['allow'][] = [
                             'resource'   => $value,
-                            'permission' => ((!empty($post['permission_cur_' . $id]) && ($post['permission_cur_' . $id] != '----')) ?
+                            'permission' => ((!empty($post['permission_cur_' . $id]) &&
+                                ($post['permission_cur_' . $id] != '----')) ?
                                 $post['permission_cur_' . $id] : null),
                         ];
                     } else {
                         $permissions['deny'][] = [
                             'resource'   => $value,
-                            'permission' => ((!empty($post['permission_cur_' . $id]) && ($post['permission_cur_' . $id] != '----')) ?
+                            'permission' => ((!empty($post['permission_cur_' . $id]) &&
+                                ($post['permission_cur_' . $id] != '----')) ?
                                 $post['permission_cur_' . $id] : null),
                         ];
                     }

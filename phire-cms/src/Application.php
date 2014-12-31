@@ -73,7 +73,7 @@ class Application extends \Pop\Application
         // Set up triggers to check the application session
         $this->on('app.route.pre', 'Phire\Application::sslCheck', 1000)
              ->on('app.route.post', 'Phire\Application::dbCheck', 1000)
-            ->on('app.dispatch.pre', 'Phire\Application::sessionCheck', 1001)
+             ->on('app.dispatch.pre', 'Phire\Application::sessionCheck', 1001)
              ->on('app.dispatch.pre', 'Phire\Application::aclCheck', 1000);
 
         // Load modules
@@ -368,7 +368,7 @@ class Application extends \Pop\Application
      */
     public static function dbCheck(Application $application)
     {
-        $route  = $application->router()->getRouteMatch()->getRoute();
+        $route = $application->router()->getRouteMatch()->getRoute();
         if (!$application->config()['db'] &&
             (substr($route, 0, strlen(BASE_PATH . APP_URI . '/install')) != BASE_PATH . APP_URI . '/install')) {
             throw new Exception(
@@ -389,8 +389,6 @@ class Application extends \Pop\Application
         $action    = $application->router()->getRouteMatch()->getAction();
         $route     = $application->router()->getRouteMatch()->getRoute();
         $isInstall = (substr($route, 0, strlen(BASE_PATH . APP_URI . '/install')) == BASE_PATH . APP_URI . '/install');
-
-        $base = BASE_PATH . APP_URI;
 
         // Special install check
         if (isset($sess->app_uri) && (strpos($_SERVER['REQUEST_URI'], 'install/config') !== false)) {

@@ -111,13 +111,13 @@ class IndexController extends AbstractController
 
             if ($this->request->isPost()) {
                 $form->addFilter('strip_tags')
-                    ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
-                    ->setFieldValues($this->request->getPost());
+                     ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                     ->setFieldValues($this->request->getPost());
 
                 if ($form->isValid()) {
                     $form->clearFilters()
-                        ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                        ->filter();
+                         ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                         ->filter();
                     $user = new Model\User();
                     $user->update($form->getFields(), $this->sess);
 

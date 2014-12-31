@@ -22,7 +22,9 @@ class UserRole extends Form
      * @param  string $method
      * @return UserRole
      */
-    public function __construct(array $resources, array $permissions = null, $id = 0, array $fields = null, $action = null, $method = 'post')
+    public function __construct(
+        array $resources, array $permissions = null, $id = 0, array $fields = null, $action = null, $method = 'post'
+    )
     {
         $parentRoles = ['----' => '----'];
 
@@ -105,8 +107,8 @@ class UserRole extends Form
             if (strpos($resource, 'role-') !== false) {
                 $role = Table\UserRoles::findById((int)substr($resource, (strrpos($resource, '-') + 1)));
                 if (isset($role->id)) {
-                    $roleName = str_replace(' ', '-', strtolower($role->name));
-                    $resourceName = substr($resource, 0, (strrpos($resource, '-') + 1)) . str_replace(' ', '-', strtolower($role->name));
+                    $roleName     = str_replace(' ', '-', strtolower($role->name));
+                    $resourceName = substr($resource, 0, (strrpos($resource, '-') + 1)) . $roleName;
                 }
             }
             $resourceValues[$resource] = $resourceName;

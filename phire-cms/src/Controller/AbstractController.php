@@ -83,9 +83,19 @@ abstract class AbstractController extends Controller
     }
 
     /**
+     * Get services object
+     *
+     * @return Locator
+     */
+    public function services()
+    {
+        return $this->services;
+    }
+
+    /**
      * Get request object
      *
-     * @return \Pop\Http\Request
+     * @return Request
      */
     public function request()
     {
@@ -95,7 +105,7 @@ abstract class AbstractController extends Controller
     /**
      * Get response object
      *
-     * @return \Pop\Http\Response
+     * @return Response
      */
     public function response()
     {
@@ -105,11 +115,21 @@ abstract class AbstractController extends Controller
     /**
      * Get view object
      *
-     * @return \Pop\View\View
+     * @return View
      */
     public function view()
     {
         return $this->view;
+    }
+
+    /**
+     * Determine if the view object has been created
+     *
+     * @return boolean
+     */
+    public function hasView()
+    {
+        return (null !== $this->view);
     }
 
     /**
@@ -132,7 +152,7 @@ abstract class AbstractController extends Controller
      * @param  string $body
      * @return void
      */
-    public function send($code = null, array $headers = null, $body = null)
+    public function send($code = 200, array $headers = null, $body = null)
     {
         $this->application->trigger('app.send', ['controller' => $this]);
 
