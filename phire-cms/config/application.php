@@ -94,8 +94,8 @@ if ((DB_INTERFACE != '') && (DB_NAME != '')) {
 }
 
 // Merge any custom/override config values
-if (file_exists(__DIR__ . '/../..' . MODULE_PATH . '/phire/config/phire.php')) {
-    $config = array_merge($config, include __DIR__ . '/../..' . MODULE_PATH . '/phire/config/phire.php');
+if (file_exists(getcwd() . MODULE_PATH . '/phire/config/phire.php')) {
+    $config = array_merge($config, include getcwd() . MODULE_PATH . '/phire/config/phire.php');
 }
 
 return $config;
