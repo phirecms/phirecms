@@ -100,6 +100,11 @@ class IndexController extends AbstractController
         $user = new Model\User();
         $user->getById($id);
 
+        if (!isset($user->id)) {
+            Response::redirect(BASE_PATH . APP_URI . '/users');
+            exit();
+        }
+
         if ($this->services['acl']->isAllowed($this->sess->user->role, 'user-role-' . $user->role_id, 'edit')) {
             $this->prepareView('users/edit.phtml');
             $this->view->title    = 'Edit User';

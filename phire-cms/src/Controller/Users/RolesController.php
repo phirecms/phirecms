@@ -79,6 +79,11 @@ class RolesController extends AbstractController
         $role = new Model\UserRole();
         $role->getById($id);
 
+        if (!isset($role->id)) {
+            Response::redirect(BASE_PATH . APP_URI . '/users/roles');
+            exit();
+        }
+
         $this->prepareView('users/roles/edit.phtml');
         $this->view->title     = 'Users : Edit Role';
         $this->view->role_name = $role->name;
