@@ -1,5 +1,6 @@
 <?php include $phireHeader; ?>
     <h1 class="dashboard-header"><?=$title; ?></h1>
+<?php if ($acl->isAllowed($user->role, 'dashboard')): ?>
     <table class="dashboard-table" cellspacing="0" cellpadding="0" border="0">
         <tr>
             <th colspan="2">
@@ -40,4 +41,5 @@
 <?php endif; ?>
 <?php endforeach; ?>
     </table>
+<?php endif; ?>
 <?php include $phireFooter; ?>

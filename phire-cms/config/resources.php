@@ -5,6 +5,7 @@ return [
     'register'    => [],
     'profile'     => [],
     'unsubscribe' => [],
+    'dashboard'   => [],
     'config'      => [],
     'modules'     => [
         'index',
