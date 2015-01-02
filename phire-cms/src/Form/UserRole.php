@@ -117,7 +117,7 @@ class UserRole extends Form
         $fields[] = [
             'resource_new_1' => [
                 'type'       => 'select',
-                'label'      => '<a href="#" onclick="phire.addResource(); return false">[+]</a> Resources &amp; Permissions',
+                'label'      => '<a href="#" onclick="phire.addResource(\'' . BASE_PATH . APP_URI . '\'); return false">[+]</a> Resources &amp; Permissions',
                 'value'      => $resourceValues,
                 'attributes' => [
                     'style'    => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 200px;',

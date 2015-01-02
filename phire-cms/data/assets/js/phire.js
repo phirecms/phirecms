@@ -6,7 +6,7 @@ var phire = {
     clear         : null,
     resourceCount : 1,
 
-    addResource : function() {
+    addResource : function(path) {
         phire.resourceCount++;
 
         // Add resource select field
@@ -28,8 +28,7 @@ var phire = {
         }).appendTo(jax('#allow_new_1').parent());
 
         jax('#resource_new_' + phire.resourceCount).val(jax('#resource_new_' + (phire.resourceCount - 1) + ' > option:selected').val());
-        jax('#permission_new_' + phire.resourceCount).val(jax('#permission_new_' + (phire.resourceCount - 1) + ' > option:selected').val());
-        jax('#allow_new_' + phire.resourceCount).val(jax('#allow_new_' + (phire.resourceCount - 1) + ' > option:selected').val());
+        phire.changePermissions(jax('#resource_new_' + phire.resourceCount)[0], path);
     },
 
     changePermissions : function(sel, path) {
