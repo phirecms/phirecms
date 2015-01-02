@@ -287,16 +287,11 @@ class Application extends \Pop\Application
             $this->services['acl']->addResource(new Resource($resource));
         }
 
-        $parentRoles = [];
-        $childRoles  = [];
+        $allRoles  = [];
 
         foreach ($roles as $role) {
             $r = new Role($role->name);
-            if (null !== $role->parent_id) {
-                $childRoles[$role->id] = $r;
-            } else {
-                $parentRoles[$role->id] = $r;
-            }
+            $allRoles[$role->id] = $r;
             $this->services['acl']->addRole($r);
 
             if (null !== $role->permissions) {
@@ -321,15 +316,10 @@ class Application extends \Pop\Application
         }
 
         // Set up parent/child roles
-        foreach ($childRoles as $id => $child) {
+        foreach ($allRoles as $id => $child) {
             $r = \Phire\Table\UserRoles::findById($id);
-            while (null !== $r->parent_id) {
-                if (isset($childRoles[$r->parent_id])) {
-                    $child->setParent($childRoles[$r->parent_id]);
-                } else if (isset($parentRoles[$r->parent_id])) {
-                    $child->setParent($parentRoles[$r->parent_id]);
-                }
-                $r = \Phire\Table\UserRoles::findById($r->parent_id);
+            if (isset($r->id) && (null !== $r->parent_id) && isset($allRoles[$r->parent_id])) {
+                $child->setParent($allRoles[$r->parent_id]);
             }
         }
 
