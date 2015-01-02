@@ -898,12 +898,12 @@ th.text-center, td.text-center {
     text-transform: uppercase;
     text-align: center;
     color: #fff;
-    font-weight: bold;
-    font-size: 0.825em;
+    font-weight: normal;
+    font-size: 0.9em;
     background-color: #4aa1ce;
     border-radius: 5px;
     border: none;
-    font-family: Arial, sans-serif;
+    font-family: "Source Sans Pro", Arial, sans-serif;
 }
 
 .save-btn:hover {
@@ -922,12 +922,12 @@ th.text-center, td.text-center {
     text-transform: uppercase;
     text-align: center;
     color: #fff;
-    font-weight: bold;
-    font-size: 0.825em;
+    font-weight: normal;
+    font-size: 0.9em;
     background-color: #7a7a7a;
     border-radius: 5px;
     border: none;
-    font-family: Arial, sans-serif;
+    font-family: "Source Sans Pro", Arial, sans-serif;
 }
 
 .process-btn:hover {
