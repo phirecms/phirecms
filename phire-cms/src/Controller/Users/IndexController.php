@@ -116,7 +116,6 @@ class IndexController extends AbstractController
 
             if ($this->request->isPost()) {
                 $form->addFilter('strip_tags')
-                     ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                      ->setFieldValues($this->request->getPost());
 
                 if ($form->isValid()) {
