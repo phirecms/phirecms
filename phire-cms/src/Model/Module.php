@@ -274,9 +274,9 @@ class Module extends AbstractModel
                 }
 
                 // Remove the module file
-                if (file_exists($modulePath . $module->file) &&
-                    is_writable($modulePath . $module->file)) {
-                    unlink($modulePath . $module->file);
+                if (file_exists($modulePath . '/' . $module->file) &&
+                    is_writable($modulePath . '/' . $module->file)) {
+                    unlink($modulePath . '/' . $module->file);
                 }
 
                 // Remove any assets

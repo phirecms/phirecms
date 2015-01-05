@@ -121,7 +121,7 @@ class UserRole extends Form
                 'value'      => $resourceValues,
                 'attributes' => [
                     'style'    => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 200px;',
-                    'onchange' => 'phire.changePermissions(this, \'' . BASE_PATH . APP_URI . '\');'
+                    'onchange' => 'phire.changePermissions(this, \'' . BASE_PATH . APP_URI . '\', false);'
                 ]
             ],
             'permission_new_1' => [
@@ -160,7 +160,8 @@ class UserRole extends Form
                         'label' => '&nbsp;',
                         'value' => $resourceValues,
                         'attributes' => [
-                            'style'  => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 200px;',
+                            'style'    => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 200px;',
+                            'onchange' => 'phire.changePermissions(this, \'' . BASE_PATH . APP_URI . '\', true);'
                         ],
                         'marked' => $permission['resource']
                     ];
@@ -208,6 +209,7 @@ class UserRole extends Form
                         'value' => $resourceValues,
                         'attributes' => [
                             'style'  => 'display: block; margin-right: 5px; margin-bottom: 5px; width: 200px;',
+                            'onchange' => 'phire.changePermissions(this, \'' . BASE_PATH . APP_URI . '\', true);'
                         ],
                         'marked' => $permission['resource']
                     ];

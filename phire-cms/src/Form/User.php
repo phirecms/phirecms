@@ -33,6 +33,23 @@ class User extends Form
             }
         }
 
+        if ($acl->isAllowed($user->role, 'users', 'change-role')) {
+            $roleId = [
+                'type'       => 'select',
+                'label'      => 'Role',
+                'value'      => $roleValues,
+                'attributes' => [
+                    'class'    => 'wide',
+                    'onchange' => 'phire.changeRole(this.value, \'' . BASE_PATH . APP_URI . '\');'
+                ]
+            ];
+        } else {
+            $roleId = [
+                'type'       => 'hidden',
+                'value'      => 0
+            ];
+        }
+
         $fields = [
             [
                 'submit' => [
@@ -42,15 +59,7 @@ class User extends Form
                         'class'  => 'save-btn wide'
                     ]
                 ],
-                'role_id' => [
-                    'type'       => 'select',
-                    'label'      => 'Role',
-                    'value'      => $roleValues,
-                    'attributes' => [
-                        'class'    => 'wide',
-                        'onchange' => 'phire.changeRole(this.value, \'' . BASE_PATH . APP_URI . '\');'
-                    ]
-                ],
+                'role_id'  => $roleId,
                 'verified' => [
                     'type'      => 'radio',
                     'label'     => 'Verified',

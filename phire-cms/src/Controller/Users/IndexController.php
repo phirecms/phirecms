@@ -105,7 +105,8 @@ class IndexController extends AbstractController
             exit();
         }
 
-        if ($this->services['acl']->isAllowed($this->sess->user->role, 'user-role-' . $user->role_id, 'edit')) {
+        if ((null === $user->role_id) ||
+            ($this->services['acl']->isAllowed($this->sess->user->role, 'user-role-' . $user->role_id, 'edit'))) {
             $this->prepareView('users/edit.phtml');
             $this->view->title    = 'Edit User';
             $this->view->username = $user->username;

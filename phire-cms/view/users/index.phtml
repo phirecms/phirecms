@@ -46,8 +46,13 @@
                 <td><?=$u->email; ?></td>
                 <td><?=(!empty($u->role_name) ? $u->role_name : '[Blocked]'); ?></td>
                 <td><?=(($u->verified) ? 'Yes' : 'No'); ?></td>
+<?php if (null !== $u->role_id): ?>
                 <td><?php if (($acl->isAllowed($user->role, 'users', 'edit') && ($acl->isAllowed($user->role, 'user-role-' . $u->role_id, 'edit')))): ?><a class="edit-link" href="<?=$phireUri . '/users/edit/' . $u->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
                 <td class="text-center"><?php if (($user->id != $u->id) && ($acl->isAllowed($user->role, 'users', 'remove')) && ($acl->isAllowed($user->role, 'user-role-' . $u->role_id, 'remove'))): ?><input type="checkbox" name="rm_users[]" id="rm_users<?=$i++; ?>" value="<?=$u->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
+<?php else: ?>
+                <td><?php if ($acl->isAllowed($user->role, 'users', 'edit')): ?><a class="edit-link" href="<?=$phireUri . '/users/edit/' . $u->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
+                <td class="text-center"><?php if (($user->id != $u->id) && ($acl->isAllowed($user->role, 'users', 'remove'))): ?><input type="checkbox" name="rm_users[]" id="rm_users<?=$i++; ?>" value="<?=$u->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
+<?php endif;?>
             </tr>
 <?php endforeach; ?>
         </table>

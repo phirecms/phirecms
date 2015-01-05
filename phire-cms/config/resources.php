@@ -16,6 +16,7 @@ return [
         'index',
         'add',
         'edit',
+        'change-role',
         'remove'
     ],
     'roles' => [

@@ -28,23 +28,24 @@ var phire = {
         }).appendTo(jax('#allow_new_1').parent());
 
         jax('#resource_new_' + phire.resourceCount).val(jax('#resource_new_' + (phire.resourceCount - 1) + ' > option:selected').val());
-        phire.changePermissions(jax('#resource_new_' + phire.resourceCount)[0], path);
+        phire.changePermissions(jax('#resource_new_' + phire.resourceCount)[0], path, false);
     },
 
-    changePermissions : function(sel, path) {
+    changePermissions : function(sel, path, cur) {
+        var cur   = (cur) ? 'cur' : 'new';
         var id    = sel.id.substring(sel.id.lastIndexOf('_') + 1);
-        var opts  = jax('#permission_new_' + id + ' > option').toArray();
+        var opts  = jax('#permission_' + cur + '_' + id + ' > option').toArray();
         var start = opts.length - 1;
         for (var i = start; i >= 0; i--) {
             jax(opts[i]).remove();
         }
-        jax('#permission_new_' + id).append('option', {"value" : '----'}, '----');
+        jax('#permission_' + cur + '_' + id).append('option', {"value" : '----'}, '----');
 
         if (jax(sel).val() != '----') {
             var json = jax.get(path + '/users/roles/json/' + jax(sel).val());
             if (json.permissions != undefined) {
                 for (var i = 0; i < json.permissions.length; i++) {
-                    jax('#permission_new_' + id).append('option', {"value" : json.permissions[i]}, json.permissions[i]);
+                    jax('#permission_' + cur + '_' + id).append('option', {"value" : json.permissions[i]}, json.permissions[i]);
                 }
             }
         }
