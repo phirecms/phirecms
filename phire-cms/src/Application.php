@@ -159,6 +159,11 @@ class Application extends \Pop\Application
                             $this->config['resources'] = array_merge($this->config['resources'], $config['resources']);
                         }
 
+                        // If the module has form configs
+                        if (isset($config['forms'])) {
+                            $this->config['forms'] = array_merge($this->config['forms'], $config['forms']);
+                        }
+
                         // Add the nav params back to the service
                         $this->services->setParams('nav.phire', $params);
 
@@ -270,7 +275,6 @@ class Application extends \Pop\Application
      */
     public function initAcl()
     {
-
         $roles = Table\UserRoles::findAll()->rows();
         foreach ($roles as $role) {
             $this->config['resources']['role-' . $role->id] = [
