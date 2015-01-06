@@ -20,40 +20,9 @@ class Login extends Form
      * @param  string $method
      * @return Login
      */
-    public function __construct(array $fields = null, $action = null, $method = 'post')
+    public function __construct(array $fields, $action = null, $method = 'post')
     {
-        $fields = [
-            [
-                'username' => [
-                    'type'       => 'text',
-                    'required'   => 'true',
-                    'validators' => new Validator\NotEmpty(),
-                    'attributes' => [
-                        'placeholder' => 'Username'
-                    ]
-                ],
-                'password' => [
-                    'type'       => 'password',
-                    'required'   => 'true',
-                    'validators' => new Validator\NotEmpty(),
-                    'attributes' => [
-                        'placeholder' => 'Password'
-                    ]
-                ]
-            ],
-            [
-                'submit' => [
-                    'type'  => 'submit',
-                    'value' => 'Login',
-                    'attributes' => [
-                        'class'  => 'save-btn'
-                    ]
-                ]
-            ]
-        ];
-
         parent::__construct($fields, $action, $method);
-
         $this->setAttribute('id', 'login-form');
         $this->setIndent('    ');
     }

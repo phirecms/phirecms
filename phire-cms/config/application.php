@@ -3,6 +3,7 @@
 $config = [
     'routes'    => include 'routes.php',
     'resources' => include 'resources.php',
+    'forms'     => include 'forms.php',
     'services' => [
         'session' => [
             'call' => 'Pop\Web\Session::getInstance'

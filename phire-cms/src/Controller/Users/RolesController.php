@@ -48,7 +48,9 @@ class RolesController extends AbstractController
         $role = new Model\UserRole();
 
         $config = $this->application->config();
-        $form   = new Form\UserRole($config['resources']);
+        $form   = new Form\UserRole(
+            $config['resources'], null, 0, $this->application->config()['forms']['Phire\Form\UserRole']
+        );
 
         if ($this->request->isPost()) {
             $form->addFilter('strip_tags')
@@ -89,7 +91,9 @@ class RolesController extends AbstractController
         $this->view->role_name = $role->name;
 
         $config = $this->application->config();
-        $form   = new Form\UserRole($config['resources'], $role->permissions, $id);
+        $form   = new Form\UserRole(
+            $config['resources'], $role->permissions, $id, $this->application->config()['forms']['Phire\Form\UserRole']
+        );
         $form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($role->toArray());
 

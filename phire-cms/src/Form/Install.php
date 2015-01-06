@@ -19,63 +19,11 @@ class Install extends Form
      * @param  string $method
      * @return Install
      */
-    public function __construct(array $fields = null, $action = null, $method = 'post')
+    public function __construct(array $fields, $action = null, $method = 'post')
     {
-        $fields = [
-            [
-                'db_adapter'   => [
-                    'type'     => 'select',
-                    'label'    => 'DB Adapter',
-                    'value'    => $this->getDbAdapters()
-                ],
-                'db_name'   => [
-                    'type'  => 'text',
-                    'label' => 'DB Name'
-                ],
-                'db_username' => [
-                    'type'    => 'text',
-                    'label'   => 'DB Username'
-                ],
-                'db_password' => [
-                    'type'    => 'text',
-                    'label'   => 'DB Password'
-                ],
-                'db_host'   => [
-                    'type'  => 'text',
-                    'label' => 'DB Host',
-                    'value' => 'localhost'
-                ],
-                'db_prefix' => [
-                    'type'  => 'text',
-                    'name'  => 'db_prefix',
-                    'label' => 'DB Table Prefix',
-                    'value' => 'ph_'
-                ],
-                'app_uri'   => [
-                    'type'  => 'text',
-                    'label' => 'Application URI',
-                    'value' => APP_URI
-                ],
-                'content_path' => [
-                    'type'     => 'text',
-                    'label'    => 'Content Path',
-                    'required' => true,
-                    'value'    => CONTENT_PATH
-                ]
-            ],
-            [
-                'submit' => [
-                    'type'  => 'submit',
-                    'value' => 'Continue',
-                    'attributes' => [
-                        'class'  => 'save-btn'
-                    ]
-                ]
-            ]
-        ];
+        $fields[0]['db_adapter']['value'] = $this->getDbAdapters();
 
         parent::__construct($fields, $action, $method);
-
         $this->setAttribute('id', 'install-form');
         $this->setIndent('    ');
     }

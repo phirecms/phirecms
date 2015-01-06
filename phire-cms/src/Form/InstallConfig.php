@@ -19,37 +19,11 @@ class InstallConfig extends Form
      * @param  string $method
      * @return InstallConfig
      */
-    public function __construct($config, array $fields = null, $action = null, $method = 'post')
+    public function __construct($config, array $fields, $action = null, $method = 'post')
     {
-        $fields = [
-            [
-                'config' => [
-                    'type'       => 'textarea',
-                    'label'      => 'Configuration',
-                    'required'   => true,
-                    'value'      => $config,
-                    'attributes' => [
-                        'rows'    => 50,
-                        'cols'    => 120,
-                        'style'   => 'width: 99%; height: 420px; display: block; margin: 0 auto;',
-                        'onfocus' => 'this.select();'
-                    ]
-                ]
-            ],
-            [
-                'submit' => [
-                    'type'  => 'submit',
-                    'value' => 'Continue',
-                    'attributes' => [
-                        'class'  => 'save-btn',
-                        'style'  => 'float: right; margin: 0 3px 0 0;'
-                    ]
-                ]
-            ]
-        ];
+        $fields[0]['config']['value'] = $config;
 
         parent::__construct($fields, $action, $method);
-
         $this->setAttribute('id', 'install-config-form');
         $this->setIndent('    ');
     }

@@ -26,50 +26,14 @@ class Register extends Form
     {
         $role = Table\UserRoles::findById($id);
 
-        $fields = [
-            [
-                'username' => [
-                    'type'     => ($role->email_as_username) ? 'hidden' : 'text',
-                    'label'    => 'Username',
-                    'required' => true
-                ],
-                'email1' => [
-                    'type'       => 'email',
-                    'label'      => 'Email',
-                    'required'   => true,
-                    'validators' => new Validator\Email()
-                ],
-                'email2' => [
-                    'type'      => 'email',
-                    'required'  => true,
-                    'label'     => 'Re-Type Email'
-                ],
-                'password1' => [
-                    'type'       => 'password',
-                    'label'      => 'Password',
-                    'required'   => true,
-                    'validators' => new Validator\LengthGte(6)
-                ],
-                'password2' => [
-                    'type'      => 'password',
-                    'required'  => true,
-                    'label'     => 'Re-Type Password'
-                ]
-            ],
-            [
-                'role_id' => [
-                    'type'  => 'hidden',
-                    'value' => $id
-                ],
-                'submit' => [
-                    'type'  => 'submit',
-                    'value' => 'Register',
-                    'attributes' => [
-                        'class'  => 'save-btn'
-                    ]
-                ]
-            ]
-        ];
+        if ($role->email_as_username) {
+            $fields[0]['username']['type']     = 'hidden';
+            $fields[0]['email1']['attributes'] = [
+                'onblur' => 'phire.changeUsername()'
+            ];
+        }
+
+        $fields[1]['role_id']['value'] = $id;
 
         if ($csrf) {
             $fields[1] = array_merge([
@@ -88,14 +52,7 @@ class Register extends Form
             ], $fields[1]);
         }
 
-        if ($role->email_as_username) {
-            $fields[0]['email1']['attributes'] = [
-                'onblur' => 'phire.changeUsername()'
-            ];
-        }
-
         parent::__construct($fields, $action, $method);
-
         $this->setAttribute('id', 'register-form');
         $this->setIndent('    ');
     }

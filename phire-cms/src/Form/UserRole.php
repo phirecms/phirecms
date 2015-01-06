@@ -37,68 +37,7 @@ class UserRole extends Form
             }
         }
 
-        $fields = [];
-
-        $fields[] = [
-            'submit' => [
-                'type'       => 'submit',
-                'value'      => 'Save',
-                'attributes' => [
-                    'class'  => 'save-btn wide'
-                ]
-            ],
-            'parent_id' => [
-                'type'       => 'select',
-                'label'      => 'Parent',
-                'value'      => $parentRoles,
-                'attributes' => [
-                    'class'    => 'wide'
-                ]
-            ],
-            'verification' => [
-                'type'      => 'radio',
-                'label'     => 'Verification',
-                'value'     => [
-                    '1' => 'Yes',
-                    '0' => 'No'
-                ],
-                'marked' => 0
-            ],
-            'approval' => [
-                'type'      => 'radio',
-                'label'     => 'Approval',
-                'value'     => [
-                    '1' => 'Yes',
-                    '0' => 'No'
-                ],
-                'marked' => 0
-            ],
-            'email_as_username' => [
-                'type'      => 'radio',
-                'label'     => 'Email as Username',
-                'value'     => [
-                    '1' => 'Yes',
-                    '0' => 'No'
-                ],
-                'marked' => 0
-            ],
-            'id' => [
-                'type'  => 'hidden',
-                'value' => '0'
-            ]
-        ];
-
-        $fields[] = [
-            'name' => [
-                'type'       => 'text',
-                'label'      => 'Name',
-                'required'   => 'true',
-                'attributes' => [
-                    'size'    => 55,
-                    'onkeyup' => 'phire.changeTitle(this.value);'
-                ]
-            ],
-        ];
+        $fields[0]['parent_id']['value'] = $parentRoles;
 
         $resourceValues = ['----' => '----'];
 
@@ -245,7 +184,6 @@ class UserRole extends Form
         }
 
         parent::__construct($fields, $action, $method);
-
         $this->setAttribute('id', 'user-role-form');
         $this->setIndent('    ');
     }
@@ -264,7 +202,7 @@ class UserRole extends Form
             $role = Table\UserRoles::findBy(['name' => $this->name]);
             if (isset($role->id) && ($this->id != $role->id)) {
                 $this->getElement('name')
-                    ->addValidator(new Validator\NotEqual($this->name, 'That role already exists.'));
+                     ->addValidator(new Validator\NotEqual($this->name, 'That role already exists.'));
             }
         }
 

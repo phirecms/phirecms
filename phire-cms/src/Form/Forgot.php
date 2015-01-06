@@ -19,33 +19,9 @@ class Forgot extends Form
      * @param  string $method
      * @return Forgot
      */
-    public function __construct(array $fields = null, $action = null, $method = 'post')
+    public function __construct(array $fields, $action = null, $method = 'post')
     {
-        $fields = [
-            [
-                'email' => [
-                    'type'       => 'email',
-                    'label'      => 'Forgot Your Password?',
-                    'required'   => 'true',
-                    'validators' => new Validator\Email(),
-                    'attributes' => [
-                        'placeholder' => 'Please enter your email'
-                    ]
-                ]
-            ],
-            [
-                'submit' => [
-                    'type'  => 'submit',
-                    'value' => 'Submit',
-                    'attributes' => [
-                        'class'  => 'save-btn'
-                    ]
-                ]
-            ]
-        ];
-
         parent::__construct($fields, $action, $method);
-
         $this->setAttribute('id', 'forgot-form');
         $this->setIndent('    ');
     }

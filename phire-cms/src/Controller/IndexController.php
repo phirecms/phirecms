@@ -38,7 +38,7 @@ class IndexController extends AbstractController
         $this->prepareView('login.phtml');
         $this->view->title = 'Login';
 
-        $form = new Form\Login();
+        $form = new Form\Login($this->application->config()['forms']['Phire\Form\Login']);
 
         if ($this->request->isPost()) {
             $auth = new Auth\Auth(
@@ -91,7 +91,7 @@ class IndexController extends AbstractController
             $csrf = (isset($this->application->config()['registration_csrf']) &&
                 ($this->application->config()['registration_csrf']));
 
-            $form = new Form\Register($id, $captcha, $csrf);
+            $form = new Form\Register($id, $captcha, $csrf, $this->application->config()['forms']['Phire\Form\Register']);
 
             if ($this->request->isPost()) {
                 $form->addFilter('strip_tags')
@@ -140,7 +140,7 @@ class IndexController extends AbstractController
         $user = new Model\User();
         $user->getById($this->sess->user->id);
 
-        $form = new Form\Profile($this->sess->user->role_id);
+        $form = new Form\Profile($this->sess->user->role_id, $this->application->config()['forms']['Phire\Form\Profile']);
 
         $form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($user->toArray());
@@ -196,7 +196,7 @@ class IndexController extends AbstractController
         $this->prepareView('forgot.phtml');
         $this->view->title = 'Password Reminder';
 
-        $form = new Form\Forgot();
+        $form = new Form\Forgot($this->application->config()['forms']['Phire\Form\Forgot']);
 
         if ($this->request->isPost()) {
             $form->addFilter('strip_tags')
@@ -231,7 +231,7 @@ class IndexController extends AbstractController
         $this->prepareView('unsubscribe.phtml');
         $this->view->title = 'Unsubscribe';
 
-        $form = new Form\Unsubscribe();
+        $form = new Form\Unsubscribe($this->application->config()['forms']['Phire\Form\Unsubscribe']);
 
         if ($this->request->isPost()) {
             $form->addFilter('strip_tags')

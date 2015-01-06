@@ -66,7 +66,9 @@ class IndexController extends AbstractController
         $this->prepareView('users/add.phtml');
         $this->view->title = 'Add User';
 
-        $form = new Form\User($this->services['acl'], $this->sess->user);
+        $form = new Form\User(
+            $this->services['acl'], $this->sess->user, $this->application->config()['forms']['Phire\Form\User']
+        );
 
         if ($this->request->isPost()) {
             $form->addFilter('strip_tags')
@@ -111,7 +113,9 @@ class IndexController extends AbstractController
             $this->view->title    = 'Edit User';
             $this->view->username = $user->username;
 
-            $form = new Form\User($this->services['acl'], $this->sess->user);
+            $form = new Form\User(
+                $this->services['acl'], $this->sess->user, $this->application->config()['forms']['Phire\Form\User']
+            );
             $form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($user->toArray());
 

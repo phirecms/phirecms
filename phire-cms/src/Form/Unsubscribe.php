@@ -19,37 +19,11 @@ class Unsubscribe extends Form
      * @param  string $method
      * @return Unsubscribe
      */
-    public function __construct(array $fields = null, $action = null, $method = 'post')
+    public function __construct(array $fields, $action = null, $method = 'post')
     {
-        $fields = [
-            [
-                'email' => [
-                    'type'       => 'email',
-                    'label'      => 'Unsubscribe',
-                    'required'   => 'true',
-                    'validators' => new Validator\Email(),
-                    'attributes' => [
-                        'placeholder' => 'Please enter your email'
-                    ]
-                ]
-            ],
-            [
-                'submit' => [
-                    'type'  => 'submit',
-                    'value' => 'Unsubscribe',
-                    'attributes' => [
-                        'class'  => 'save-btn'
-                    ]
-                ]
-            ]
-        ];
-
         parent::__construct($fields, $action, $method);
-
-        $sess = \Pop\Web\Session::getInstance();
-        $id   = (isset($sess->user)) ? 'unsubscribe-user-form' : 'unsubscribe-form';
-
-        $this->setAttribute('id', $id);
+        $this->setAttribute('id', ((isset(\Pop\Web\Session::getInstance()->user)) ?
+            'unsubscribe-user-form' : 'unsubscribe-form'));
         $this->setIndent('    ');
     }
 

@@ -20,64 +20,20 @@ class Profile extends Form
      * @param  string $method
      * @return Profile
      */
-    public function __construct($id, array $fields = null, $action = null, $method = 'post')
+    public function __construct($id, array $fields, $action = null, $method = 'post')
     {
         $role = Table\UserRoles::findById($id);
 
-        $fields = [
-            [
-                'username' => [
-                    'type'     => ($role->email_as_username) ? 'hidden' : 'text',
-                    'label'    => 'Username',
-                    'required' => true
-                ],
-                'email1' => [
-                    'type'       => 'email',
-                    'label'      => 'Email',
-                    'required'   => true,
-                    'validators' => new Validator\Email()
-                ],
-                'email2' => [
-                    'type'      => 'email',
-                    'label'     => 'Re-Type Email'
-                ],
-                'password1' => [
-                    'type'       => 'password',
-                    'label'      => 'Password',
-                    'validators' => new Validator\LengthGte(6)
-                ],
-                'password2' => [
-                    'type'      => 'password',
-                    'label'     => 'Re-Type Password'
-                ]
-            ],
-            [
-                'submit' => [
-                    'type'  => 'submit',
-                    'value' => 'Save',
-                    'attributes' => [
-                        'class'  => 'save-btn'
-                    ]
-                ],
-                'role_id' => [
-                    'type'  => 'hidden',
-                    'value' => $id
-                ],
-                'id' => [
-                    'type'  => 'hidden',
-                    'value' => '0'
-                ]
-            ]
-        ];
-
         if ($role->email_as_username) {
+            $fields[0]['username']['type']     = 'hidden';
             $fields[0]['email1']['attributes'] = [
                 'onblur' => 'phire.changeUsername()'
             ];
         }
 
-        parent::__construct($fields, $action, $method);
+        $fields[1]['role_id']['value'] = $id;
 
+        parent::__construct($fields, $action, $method);
         $this->setAttribute('id', 'profile-form');
         $this->setIndent('    ');
     }

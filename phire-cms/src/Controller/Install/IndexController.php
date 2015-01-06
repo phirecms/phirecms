@@ -26,7 +26,7 @@ class IndexController extends AbstractController
         $this->prepareView('install.phtml');
         $this->view->title = 'Installation';
 
-        $form = new Form\Install();
+        $form = new Form\Install($this->application->config()['forms']['Phire\Form\Install']);
 
         if ($this->request->isPost()) {
             $form->addFilter('strip_tags')
@@ -76,7 +76,7 @@ class IndexController extends AbstractController
         $this->prepareView('install.phtml');
         $this->view->title = 'Install Configuration File';
 
-        $form = new Form\InstallConfig($this->sess->config);
+        $form = new Form\InstallConfig($this->sess->config, $this->application->config()['forms']['Phire\Form\InstallConfig']);
 
         if ($this->request->isPost()) {
             if ($form->isValid()) {
@@ -103,7 +103,7 @@ class IndexController extends AbstractController
         $this->prepareView('install.phtml');
         $this->view->title = 'Install User';
 
-        $form = new Form\Register(2001);
+        $form = new Form\Register(2001, false, false, $this->application->config()['forms']['Phire\Form\Register']);
 
         if ($this->request->isPost()) {
             $form->addFilter('strip_tags')

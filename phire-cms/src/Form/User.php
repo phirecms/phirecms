@@ -22,7 +22,7 @@ class User extends Form
      * @param  string       $method
      * @return User
      */
-    public function __construct($acl, $user, array $fields = null, $action = null, $method = 'post')
+    public function __construct($acl, $user, array $fields, $action = null, $method = 'post')
     {
         $roles      = Table\UserRoles::findAll();
         $roleValues = ['----' => '[Blocked]'];
@@ -45,80 +45,14 @@ class User extends Form
             ];
         } else {
             $roleId = [
-                'type'       => 'hidden',
-                'value'      => 0
+                'type'  => 'hidden',
+                'value' => 0
             ];
         }
 
-        $fields = [
-            [
-                'submit' => [
-                    'type'       => 'submit',
-                    'value'      => 'Save',
-                    'attributes' => [
-                        'class'  => 'save-btn wide'
-                    ]
-                ],
-                'role_id'  => $roleId,
-                'verified' => [
-                    'type'      => 'radio',
-                    'label'     => 'Verified',
-                    'value' => [
-                        '1' => 'Yes',
-                        '0' => 'No'
-                    ],
-                    'marked' => 0
-                ],
-                'id' => [
-                    'type'  => 'hidden',
-                    'value' => '0'
-                ]
-            ],
-            [
-                'username' => [
-                    'type'     => 'text',
-                    'label'    => 'Username',
-                    'required' => true,
-                    'attributes' => [
-                        'size'    => 40
-                    ]
-                ],
-                'email1' => [
-                    'type'       => 'email',
-                    'label'      => 'Email',
-                    'required'   => true,
-                    'validators' => new Validator\Email(),
-                    'attributes' => [
-                        'size'    => 40
-                    ]
-                ],
-                'email2' => [
-                    'type'      => 'email',
-                    'label'     => 'Re-Type Email',
-                    'attributes' => [
-                        'size'    => 40
-                    ]
-                ],
-                'password1' => [
-                    'type'       => 'password',
-                    'label'      => 'Password',
-                    'validators' => new Validator\LengthGte(6),
-                    'attributes' => [
-                        'size'    => 40
-                    ]
-                ],
-                'password2' => [
-                    'type'      => 'password',
-                    'label'     => 'Re-Type Password',
-                    'attributes' => [
-                        'size'    => 40
-                    ]
-                ]
-            ]
-        ];
+        $fields[0]['role_id'] = $roleId;
 
         parent::__construct($fields, $action, $method);
-
         $this->setAttribute('id', 'user-form');
         $this->setIndent('    ');
     }
