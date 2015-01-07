@@ -110,6 +110,7 @@ class IndexController extends AbstractController
                     $user = new Model\User();
                     $user->save($fields);
 
+                    $this->view->id = $user->id;
                     $this->view->success = true;
                 } else {
                     $this->view->form = $form;
@@ -158,6 +159,7 @@ class IndexController extends AbstractController
 
                 $user = new Model\User();
                 $user->update($fields, $this->sess);
+                $this->view->id = $user->id;
                 $this->redirect(BASE_PATH . APP_URI . '/profile?saved=' . time());
             }
         }
@@ -179,6 +181,7 @@ class IndexController extends AbstractController
         $this->prepareView('verify.phtml');
         $this->view->title  = 'Verify Your Email';
         $this->view->result = $user->verify($id, $hash);
+        $this->view->id = $user->id;
         $this->send();
     }
 
@@ -206,6 +209,7 @@ class IndexController extends AbstractController
 
                 $user = new Model\User();
                 $user->forgot($form->getFields());
+                $this->view->id = $user->id;
                 $this->view->success = true;
             } else {
                 $this->view->form = $form;
@@ -242,6 +246,7 @@ class IndexController extends AbstractController
                 $user = new Model\User();
                 $user->unsubscribe($form->getFields());
                 $this->view->success = true;
+                $this->view->id      = $user->id;
                 $this->sess->kill();
                 $this->redirect(BASE_PATH . APP_URI . '/unsubscribe?success=1');
             } else {

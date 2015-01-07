@@ -208,6 +208,7 @@ class User extends AbstractModel
         if (isset($user->id) && ($hash == sha1($user->email))) {
             $user->verified = 1;
             $user->save();
+            $this->data['id'] = $user->id;
             $result = true;
         }
 
@@ -224,6 +225,7 @@ class User extends AbstractModel
     {
         $user = Table\Users::findBy(['email' => $fields['email']]);
         if (isset($user->id)) {
+            $this->data['id'] = $user->id;
             $this->sendReminder($user);
         }
     }
@@ -238,6 +240,7 @@ class User extends AbstractModel
     {
         $user = Table\Users::findBy(['email' => $fields['email']]);
         if (isset($user->id)) {
+            $this->data['id'] = $user->id;
             $user->delete();
             $this->sendUnsubscribe($user);
         }

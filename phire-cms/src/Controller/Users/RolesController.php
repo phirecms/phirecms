@@ -58,6 +58,7 @@ class RolesController extends AbstractController
 
             if ($form->isValid()) {
                 $role->save($this->request->getPost());
+                $this->view->id = $role->id;
                 $this->redirect(BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id . '?saved=' . time());
             }
         }
@@ -99,6 +100,7 @@ class RolesController extends AbstractController
             if ($form->isValid()) {
                 $role = new Model\UserRole();
                 $role->update($this->request->getPost());
+                $this->view->id = $role->id;
                 $this->redirect(BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id . '?saved=' . time());
             }
         }

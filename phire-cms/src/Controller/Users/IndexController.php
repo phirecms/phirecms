@@ -80,6 +80,7 @@ class IndexController extends AbstractController
                 $user = new Model\User();
                 $user->save($form->getFields());
 
+                $this->view->id = $user->id;
                 $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id . '?saved=' . time());
             }
         }
@@ -126,6 +127,7 @@ class IndexController extends AbstractController
                     $user = new Model\User();
                     $user->update($form->getFields(), $this->sess);
 
+                    $this->view->id = $user->id;
                     $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id . '?saved=' . time());
                 }
             }
