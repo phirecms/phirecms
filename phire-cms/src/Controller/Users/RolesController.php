@@ -47,23 +47,22 @@ class RolesController extends AbstractController
         $role = new Model\UserRole();
 
         $config = $this->application->config();
-        $form   = new Form\UserRole(
+        $this->view->form = new Form\UserRole(
             $config['resources'], null, 0, $this->application->config()['forms']['Phire\Form\UserRole']
         );
 
         if ($this->request->isPost()) {
-            $form->addFilter('strip_tags')
+            $this->view->form->addFilter('strip_tags')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($this->request->getPost());
 
-            if ($form->isValid()) {
+            if ($this->view->form->isValid()) {
                 $role->save($this->request->getPost());
                 $this->view->id = $role->id;
                 $this->redirect(BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id . '?saved=' . time());
             }
         }
 
-        $this->view->form = $form;
         $this->send();
     }
 
@@ -87,17 +86,17 @@ class RolesController extends AbstractController
         $this->view->role_name = $role->name;
 
         $config = $this->application->config();
-        $form   = new Form\UserRole(
+        $this->view->form = new Form\UserRole(
             $config['resources'], $role->permissions, $id, $this->application->config()['forms']['Phire\Form\UserRole']
         );
-        $form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+        $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($role->toArray());
 
         if ($this->request->isPost()) {
-            $form->addFilter('strip_tags')
+            $this->view->form->addFilter('strip_tags')
                  ->setFieldValues($this->request->getPost());
 
-            if ($form->isValid()) {
+            if ($this->view->form->isValid()) {
                 $role = new Model\UserRole();
                 $role->update($this->request->getPost());
                 $this->view->id = $role->id;
@@ -105,7 +104,6 @@ class RolesController extends AbstractController
             }
         }
 
-        $this->view->form = $form;
         $this->send();
     }
 

@@ -24,35 +24,36 @@ class IndexController extends AbstractController
         $this->prepareView('install.phtml');
         $this->view->title = 'Installation';
 
-        $form = new Form\Install($this->application->config()['forms']['Phire\Form\Install']);
+        $this->view->form = new Form\Install($this->application->config()['forms']['Phire\Form\Install']);
 
         if ($this->request->isPost()) {
-            $form->addFilter('strip_tags')
+            $this->view->form->addFilter('strip_tags')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($this->request->getPost());
 
-            if ($form->isValid()) {
-                $form->clearFilters()
+            if ($this->view->form->isValid()) {
+                $this->view->form->clearFilters()
                      ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
                      ->filter();
 
                 $install = new Model\Install();
-                $install->installDb($form->getFields());
-                $config  = $install->createConfig($form->getFields());
+                $install->installDb($this->view->form->getFields());
+                $config  = $install->createConfig($this->view->form->getFields());
 
                 if (is_writable(__DIR__ . '/../../../../config.php')) {
                     file_put_contents(__DIR__ . '/../../../../config.php', $config);
-                    $this->sess->app_uri = (!empty($form->app_uri) && ($form->app_uri != '/')) ? $form->app_uri : '';
+                    $this->sess->app_uri = (!empty($this->view->form->app_uri) && ($this->view->form->app_uri != '/')) ?
+                        $this->view->form->app_uri : '';
                     $this->redirect(BASE_PATH . $this->sess->app_uri . '/install/user');
                 } else {
                     $this->sess->config  = htmlentities($config, ENT_QUOTES, 'UTF-8');
-                    $this->sess->app_uri = (!empty($form->app_uri) && ($form->app_uri != '/')) ? $form->app_uri : '';
+                    $this->sess->app_uri = (!empty($this->view->form->app_uri) && ($this->view->form->app_uri != '/')) ?
+                        $this->view->form->app_uri : '';
                     $this->redirect(BASE_PATH . APP_URI . '/install/config');
                 }
             }
         }
 
-        $this->view->form = $form;
         $this->send();
     }
 
@@ -71,20 +72,18 @@ class IndexController extends AbstractController
         $this->prepareView('install.phtml');
         $this->view->title = 'Install Configuration File';
 
-        $form = new Form\InstallConfig($this->sess->config, $this->application->config()['forms']['Phire\Form\InstallConfig']);
+        $this->view->form = new Form\InstallConfig(
+            $this->sess->config, $this->application->config()['forms']['Phire\Form\InstallConfig']
+        );
 
         if ($this->request->isPost()) {
-            if ($form->isValid()) {
+            if ($this->view->form->isValid()) {
                 unset($this->sess->config);
                 $this->redirect(BASE_PATH . $this->sess->app_uri . '/install/user');
-            } else {
-                $this->view->form = $form;
-                $this->send();
             }
-        } else {
-            $this->view->form = $form;
-            $this->send();
         }
+
+        $this->send();
     }
 
     /**
@@ -97,19 +96,21 @@ class IndexController extends AbstractController
         $this->prepareView('install.phtml');
         $this->view->title = 'Install User';
 
-        $form = new Form\Register(2001, false, false, $this->application->config()['forms']['Phire\Form\Register']);
+        $this->view->form = new Form\Register(
+            2001, false, false, $this->application->config()['forms']['Phire\Form\Register']
+        );
 
         if ($this->request->isPost()) {
-            $form->addFilter('strip_tags')
+            $this->view->form->addFilter('strip_tags')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($this->request->getPost());
 
-            if ($form->isValid()) {
-                $form->clearFilters()
+            if ($this->view->form->isValid()) {
+                $this->view->form->clearFilters()
                      ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
                      ->filter();
 
-                $fields = $form->getFields();
+                $fields = $this->view->form->getFields();
                 $fields['verified'] = 1;
 
                 $user = new Model\User();
@@ -120,14 +121,10 @@ class IndexController extends AbstractController
 
                 $this->sess->kill();
                 $this->redirect(BASE_PATH . APP_URI . '/login?installed=' . time());
-            } else {
-                $this->view->form = $form;
-                $this->send();
             }
-        } else {
-            $this->view->form = $form;
-            $this->send();
         }
+
+        $this->send();
     }
 
 }

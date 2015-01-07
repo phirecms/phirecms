@@ -36,8 +36,7 @@ class IndexController extends AbstractController
     {
         $this->prepareView('login.phtml');
         $this->view->title = 'Login';
-
-        $form = new Form\Login($this->application->config()['forms']['Phire\Form\Login']);
+        $this->view->form  = new Form\Login($this->application->config()['forms']['Phire\Form\Login']);;
 
         if ($this->request->isPost()) {
             $auth = new Auth\Auth(
@@ -47,11 +46,11 @@ class IndexController extends AbstractController
                 )
             );
 
-            $form->addFilter('strip_tags')
+            $this->view->form->addFilter('strip_tags')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($this->request->getPost(), $auth);
 
-            if ($form->isValid()) {
+            if ($this->view->form->isValid()) {
                 $this->sess->user = new \ArrayObject([
                     'id'       => $auth->adapter()->getUser()->id,
                     'role_id'  => $auth->adapter()->getUser()->role_id,
@@ -64,7 +63,6 @@ class IndexController extends AbstractController
             }
         }
 
-        $this->view->form = $form;
         $this->send();
     }
 
@@ -88,19 +86,19 @@ class IndexController extends AbstractController
             $csrf = (isset($this->application->config()['registration_csrf']) &&
                 ($this->application->config()['registration_csrf']));
 
-            $form = new Form\Register($id, $captcha, $csrf, $this->application->config()['forms']['Phire\Form\Register']);
+            $this->view->form = new Form\Register($id, $captcha, $csrf, $this->application->config()['forms']['Phire\Form\Register']);
 
             if ($this->request->isPost()) {
-                $form->addFilter('strip_tags')
+                $this->view->form->addFilter('strip_tags')
                      ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                      ->setFieldValues($this->request->getPost());
 
-                if ($form->isValid()) {
-                    $form->clearFilters()
+                if ($this->view->form->isValid()) {
+                    $this->view->form->clearFilters()
                          ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
                          ->filter();
 
-                    $fields = $form->getFields();
+                    $fields = $this->view->form->getFields();
                     $role->getById($id);
                     $fields['verified'] = (int)!($role->verification);
                     if ($role->approval) {
@@ -110,16 +108,11 @@ class IndexController extends AbstractController
                     $user = new Model\User();
                     $user->save($fields);
 
-                    $this->view->id = $user->id;
+                    $this->view->id      = $user->id;
                     $this->view->success = true;
-                } else {
-                    $this->view->form = $form;
                 }
-                $this->send();
-            } else {
-                $this->view->form = $form;
-                $this->send();
             }
+            $this->send();
         } else {
             $this->redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
         }
@@ -138,21 +131,21 @@ class IndexController extends AbstractController
         $user = new Model\User();
         $user->getById($this->sess->user->id);
 
-        $form = new Form\Profile($this->sess->user->role_id, $this->application->config()['forms']['Phire\Form\Profile']);
+        $this->view->form = new Form\Profile($this->sess->user->role_id, $this->application->config()['forms']['Phire\Form\Profile']);
 
-        $form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+        $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($user->toArray());
 
         if ($this->request->isPost()) {
-            $form->addFilter('strip_tags')
+            $this->view->form->addFilter('strip_tags')
                  ->setFieldValues($this->request->getPost());
 
-            if ($form->isValid()) {
-                $form->clearFilters()
+            if ($this->view->form->isValid()) {
+                $this->view->form->clearFilters()
                      ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
                      ->filter();
 
-                $fields = $form->getFields();
+                $fields = $this->view->form->getFields();
                 $role   = new Model\UserRole();
                 $role->getById($this->sess->user->role_id);
                 $fields['verified'] = (int)!($role->verification);
@@ -164,7 +157,6 @@ class IndexController extends AbstractController
             }
         }
 
-        $this->view->form = $form;
         $this->send();
     }
 
@@ -195,30 +187,26 @@ class IndexController extends AbstractController
         $this->prepareView('forgot.phtml');
         $this->view->title = 'Password Reminder';
 
-        $form = new Form\Forgot($this->application->config()['forms']['Phire\Form\Forgot']);
+        $this->view->form = new Form\Forgot($this->application->config()['forms']['Phire\Form\Forgot']);
 
         if ($this->request->isPost()) {
-            $form->addFilter('strip_tags')
+            $this->view->form->addFilter('strip_tags')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($this->request->getPost());
 
-            if ($form->isValid()) {
-                $form->clearFilters()
+            if ($this->view->form->isValid()) {
+                $this->view->form->clearFilters()
                      ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
                      ->filter();
 
                 $user = new Model\User();
-                $user->forgot($form->getFields());
+                $user->forgot($this->view->form->getFields());
                 $this->view->id = $user->id;
                 $this->view->success = true;
-            } else {
-                $this->view->form = $form;
             }
-            $this->send();
-        } else {
-            $this->view->form = $form;
-            $this->send();
         }
+
+        $this->send();
     }
 
     /**
@@ -231,32 +219,28 @@ class IndexController extends AbstractController
         $this->prepareView('unsubscribe.phtml');
         $this->view->title = 'Unsubscribe';
 
-        $form = new Form\Unsubscribe($this->application->config()['forms']['Phire\Form\Unsubscribe']);
+        $this->view->form = new Form\Unsubscribe($this->application->config()['forms']['Phire\Form\Unsubscribe']);
 
         if ($this->request->isPost()) {
-            $form->addFilter('strip_tags')
+            $this->view->form->addFilter('strip_tags')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($this->request->getPost());
 
-            if ($form->isValid()) {
-                $form->clearFilters()
+            if ($this->view->form->isValid()) {
+                $this->view->form->clearFilters()
                      ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
                      ->filter();
 
                 $user = new Model\User();
-                $user->unsubscribe($form->getFields());
+                $user->unsubscribe($this->view->form->getFields());
                 $this->view->success = true;
                 $this->view->id      = $user->id;
                 $this->sess->kill();
                 $this->redirect(BASE_PATH . APP_URI . '/unsubscribe?success=1');
-            } else {
-                $this->view->form = $form;
             }
-            $this->send();
-        } else {
-            $this->view->form = $form;
-            $this->send();
         }
+
+        $this->send();
     }
 
     /**
