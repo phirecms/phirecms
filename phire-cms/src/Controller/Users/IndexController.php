@@ -5,7 +5,6 @@ namespace Phire\Controller\Users;
 use Phire\Controller\AbstractController;
 use Phire\Form;
 use Phire\Model;
-use Pop\Http\Response;
 use Pop\Paginator\Paginator;
 
 class IndexController extends AbstractController
@@ -51,8 +50,7 @@ class IndexController extends AbstractController
             $this->view->roles = $user->getRoles();
             $this->send();
         } else {
-            Response::redirect(BASE_PATH . APP_URI . '/users');
-            exit();
+            $this->redirect(BASE_PATH . APP_URI . '/users');
         }
     }
 
@@ -82,8 +80,7 @@ class IndexController extends AbstractController
                 $user = new Model\User();
                 $user->save($form->getFields());
 
-                Response::redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id . '?saved=' . time());
-                exit();
+                $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id . '?saved=' . time());
             }
         }
 
@@ -103,8 +100,7 @@ class IndexController extends AbstractController
         $user->getById($id);
 
         if (!isset($user->id)) {
-            Response::redirect(BASE_PATH . APP_URI . '/users');
-            exit();
+            $this->redirect(BASE_PATH . APP_URI . '/users');
         }
 
         if ((null === $user->role_id) ||
@@ -130,16 +126,14 @@ class IndexController extends AbstractController
                     $user = new Model\User();
                     $user->update($form->getFields(), $this->sess);
 
-                    Response::redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id . '?saved=' . time());
-                    exit();
+                    $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id . '?saved=' . time());
                 }
             }
 
             $this->view->form = $form;
             $this->send();
         } else {
-            Response::redirect(BASE_PATH . APP_URI . '/users');
-            exit();
+            $this->redirect(BASE_PATH . APP_URI . '/users');
         }
     }
 
@@ -154,7 +148,7 @@ class IndexController extends AbstractController
             $user = new Model\User();
             $user->remove($this->request->getPost());
         }
-        Response::redirect(BASE_PATH . APP_URI . '/users?removed=' . time());
+        $this->redirect(BASE_PATH . APP_URI . '/users?removed=' . time());
     }
 
 }

@@ -5,7 +5,6 @@ namespace Phire\Controller\Users;
 use Phire\Controller\AbstractController;
 use Phire\Form;
 use Phire\Model;
-use Pop\Http\Response;
 use Pop\Paginator\Paginator;
 
 class RolesController extends AbstractController
@@ -58,11 +57,8 @@ class RolesController extends AbstractController
                  ->setFieldValues($this->request->getPost());
 
             if ($form->isValid()) {
-
                 $role->save($this->request->getPost());
-
-                Response::redirect(BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id . '?saved=' . time());
-                exit();
+                $this->redirect(BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id . '?saved=' . time());
             }
         }
 
@@ -82,8 +78,7 @@ class RolesController extends AbstractController
         $role->getById($id);
 
         if (!isset($role->id)) {
-            Response::redirect(BASE_PATH . APP_URI . '/users/roles');
-            exit();
+            $this->redirect(BASE_PATH . APP_URI . '/users/roles');
         }
 
         $this->prepareView('users/roles/edit.phtml');
@@ -104,9 +99,7 @@ class RolesController extends AbstractController
             if ($form->isValid()) {
                 $role = new Model\UserRole();
                 $role->update($this->request->getPost());
-
-                Response::redirect(BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id . '?saved=' . time());
-                exit();
+                $this->redirect(BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id . '?saved=' . time());
             }
         }
 
@@ -156,7 +149,7 @@ class RolesController extends AbstractController
             $role = new Model\UserRole();
             $role->remove($this->request->getPost());
         }
-        Response::redirect(BASE_PATH . APP_URI . '/users/roles?removed=' . time());
+        $this->redirect(BASE_PATH . APP_URI . '/users/roles?removed=' . time());
     }
 
 }

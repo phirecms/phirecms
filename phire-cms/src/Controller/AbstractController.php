@@ -166,6 +166,21 @@ abstract class AbstractController extends Controller
     }
 
     /**
+     * Redirect response
+     *
+     * @param  string $url
+     * @param  string $code
+     * @param  string $version
+     * @return void
+     */
+    public function redirect($url, $code = '302', $version = '1.1')
+    {
+        $this->application->trigger('app.send', ['controller' => $this]);
+        Response::redirect($url, $code, $version);
+        exit();
+    }
+
+    /**
      * Prepare view
      *
      * @param  string $template

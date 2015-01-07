@@ -6,7 +6,6 @@ use Phire\Form;
 use Phire\Model;
 use Phire\Table;
 use Pop\Auth;
-use Pop\Http\Response;
 
 class IndexController extends AbstractController
 {
@@ -61,9 +60,7 @@ class IndexController extends AbstractController
                     'email'    => $auth->adapter()->getUser()->email,
                 ], \ArrayObject::ARRAY_AS_PROPS);
 
-                $this->application->trigger('app.send', ['controller' => $this]);
-                Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
-                exit();
+                $this->redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
             }
         }
 
@@ -123,7 +120,7 @@ class IndexController extends AbstractController
                 $this->send();
             }
         } else {
-            Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
+            $this->redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
         }
     }
 
@@ -161,8 +158,7 @@ class IndexController extends AbstractController
 
                 $user = new Model\User();
                 $user->update($fields, $this->sess);
-                Response::redirect(BASE_PATH . APP_URI . '/profile?saved=' . time());
-                exit();
+                $this->redirect(BASE_PATH . APP_URI . '/profile?saved=' . time());
             }
         }
 
@@ -247,8 +243,7 @@ class IndexController extends AbstractController
                 $user->unsubscribe($form->getFields());
                 $this->view->success = true;
                 $this->sess->kill();
-                Response::redirect(BASE_PATH . APP_URI . '/unsubscribe?success=1');
-                exit();
+                $this->redirect(BASE_PATH . APP_URI . '/unsubscribe?success=1');
             } else {
                 $this->view->form = $form;
             }
@@ -267,7 +262,7 @@ class IndexController extends AbstractController
     public function logout()
     {
         $this->sess->kill();
-        Response::redirect(BASE_PATH . APP_URI . '/login');
+        $this->redirect(BASE_PATH . APP_URI . '/login');
     }
 
 }

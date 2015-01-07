@@ -6,7 +6,6 @@ use Phire\Controller\AbstractController;
 use Phire\Form;
 use Phire\Model;
 use Phire\Table;
-use Pop\Http\Response;
 
 class IndexController extends AbstractController
 {
@@ -19,8 +18,7 @@ class IndexController extends AbstractController
     public function index()
     {
         if (($this->services->isAvailable('database')) && count($this->services['database']->getTables()) > 0) {
-            Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
-            exit();
+            $this->redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
         }
 
         $this->prepareView('install.phtml');
@@ -45,13 +43,11 @@ class IndexController extends AbstractController
                 if (is_writable(__DIR__ . '/../../../../config.php')) {
                     file_put_contents(__DIR__ . '/../../../../config.php', $config);
                     $this->sess->app_uri = (!empty($form->app_uri) && ($form->app_uri != '/')) ? $form->app_uri : '';
-                    Response::redirect(BASE_PATH . $this->sess->app_uri . '/install/user');
-                    exit();
+                    $this->redirect(BASE_PATH . $this->sess->app_uri . '/install/user');
                 } else {
                     $this->sess->config  = htmlentities($config, ENT_QUOTES, 'UTF-8');
                     $this->sess->app_uri = (!empty($form->app_uri) && ($form->app_uri != '/')) ? $form->app_uri : '';
-                    Response::redirect(BASE_PATH . APP_URI . '/install/config');
-                    exit();
+                    $this->redirect(BASE_PATH . APP_URI . '/install/config');
                 }
             }
         }
@@ -69,8 +65,7 @@ class IndexController extends AbstractController
     {
         if (!isset($this->sess->config)) {
             $this->sess->kill();
-            Response::redirect(BASE_PATH . APP_URI . '/install');
-            exit();
+            $this->redirect(BASE_PATH . APP_URI . '/install');
         }
 
         $this->prepareView('install.phtml');
@@ -81,8 +76,7 @@ class IndexController extends AbstractController
         if ($this->request->isPost()) {
             if ($form->isValid()) {
                 unset($this->sess->config);
-                Response::redirect(BASE_PATH . $this->sess->app_uri . '/install/user');
-                exit();
+                $this->redirect(BASE_PATH . $this->sess->app_uri . '/install/user');
             } else {
                 $this->view->form = $form;
                 $this->send();
@@ -125,7 +119,7 @@ class IndexController extends AbstractController
                 $install->sendConfirmation($user);
 
                 $this->sess->kill();
-                Response::redirect(BASE_PATH . APP_URI . '/login?installed=' . time());
+                $this->redirect(BASE_PATH . APP_URI . '/login?installed=' . time());
             } else {
                 $this->view->form = $form;
                 $this->send();

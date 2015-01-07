@@ -4,7 +4,6 @@ namespace Phire\Controller\Modules;
 
 use Phire\Controller\AbstractController;
 use Phire\Model;
-use Pop\Http\Response;
 use Pop\Paginator\Paginator;
 
 class IndexController extends AbstractController
@@ -50,7 +49,7 @@ class IndexController extends AbstractController
         $module = new Model\Module();
         $module->install($this->services);
 
-        Response::redirect(BASE_PATH . APP_URI . '/modules?saved=' . time());
+        $this->redirect(BASE_PATH . APP_URI . '/modules?saved=' . time());
     }
 
     /**
@@ -64,9 +63,9 @@ class IndexController extends AbstractController
         $module->process($this->request->getPost(), $this->services);
 
         if (null !== $this->request->getPost('rm_modules')) {
-            Response::redirect(BASE_PATH . APP_URI . '/modules?removed=' . time());
+            $this->redirect(BASE_PATH . APP_URI . '/modules?removed=' . time());
         } else {
-            Response::redirect(BASE_PATH . APP_URI . '/modules?saved=' . time());
+            $this->redirect(BASE_PATH . APP_URI . '/modules?saved=' . time());
         }
     }
 
