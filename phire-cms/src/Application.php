@@ -217,7 +217,7 @@ class Application extends \Pop\Application
             $assetDirs = array(
                 'css', 'css/fonts', 'styles', 'styles/fonts', 'style', 'style/fonts', // CSS folders
                 'js', 'scripts', 'script', 'scr',                                     // JS folders
-                'image', 'images', 'img', 'imgs'                                      // Image folders
+                'image', 'images', 'img', 'imgs', 'file', 'files'                     // Image & file folders
             );
 
             $cssType     = ($import) ? 'import' : 'link';
