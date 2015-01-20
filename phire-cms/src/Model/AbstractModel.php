@@ -35,6 +35,14 @@ abstract class AbstractModel implements \ArrayAccess
     }
 
     /**
+     * Get model object by ID
+     *
+     * @param  int $id
+     * @return void
+     */
+    abstract public function getById($id);
+
+    /**
      * Get sort order
      *
      * @param  string $sort

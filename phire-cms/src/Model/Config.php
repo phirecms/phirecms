@@ -59,6 +59,17 @@ class Config extends AbstractModel
     }
 
     /**
+     * Get configuration data by id
+     *
+     * @param  string $id
+     * @return mixed
+     */
+    public function getById($id)
+    {
+        return Table\Config::findById($id)->value;
+    }
+
+    /**
      * Save the config data
      *
      * @param  array $post
