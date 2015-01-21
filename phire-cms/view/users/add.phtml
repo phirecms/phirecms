@@ -15,7 +15,9 @@
             <select name="role_id" id="role_id" onchange="phire.selectUserRole(this, '<?=$phireUri; ?>');">
                 <option value="0">----</option>
 <?php foreach ($roles as $role): ?>
+<?php if ($acl->isAllowed($user->role, 'user-role-' . $role->id, 'add')): ?>
                 <option value="<?=$role->id; ?>"><?=$role->name; ?></option>
+<?php endif; ?>
 <?php endforeach; ?>
             </select>
         </div>

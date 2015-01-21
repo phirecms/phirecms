@@ -65,7 +65,7 @@ class IndexController extends AbstractController
         $this->prepareView('users/add.phtml');
         $this->view->title = 'Add User';
 
-        if (null !== $rid) {
+        if ((null !== $rid) && ($this->services['acl']->isAllowed($this->sess->user->role, 'user-role-' . $rid, 'add'))) {
             $role = new Model\UserRole();
             $role->getById($rid);
             $this->view->title .= ' : ' . $role->name;
