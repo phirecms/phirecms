@@ -94,7 +94,7 @@ fieldset {
     border: none;
 }
 
-input[type=text], input[type=email], input[type=password], input[type=file]  {
+input[type=text], input[type=email], input[type=password]  {
     margin: 0;
     padding: 6px;
     font-family: "Source Sans Pro", sans-serif;
