@@ -250,7 +250,15 @@ return [
                     'class'  => 'save-btn wide'
                 ]
             ],
-            'role_id'  => null,
+            'active' => [
+                'type'      => 'radio',
+                'label'     => 'Active',
+                'value' => [
+                    '1' => 'Yes',
+                    '0' => 'No'
+                ],
+                'marked' => 0
+            ],
             'verified' => [
                 'type'      => 'radio',
                 'label'     => 'Verified',
@@ -259,6 +267,10 @@ return [
                     '0' => 'No'
                 ],
                 'marked' => 0
+            ],
+            'role_id'   => [
+                'type'  => 'hidden',
+                'value' => 0
             ],
             'id' => [
                 'type'  => 'hidden',

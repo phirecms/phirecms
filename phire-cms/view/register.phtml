@@ -2,12 +2,12 @@
 <div id="install-container">
     <div id="install">
     <h1><?=$title; ?></h1>
-<?php if (isset($form)): ?>
-<?=$form; ?>
-<?php elseif ($success): ?>
+<?php if (isset($success) && ($success)): ?>
     <div id="register-form" style="margin-top: 25px;">
         <p style="text-align: center;">Thank you. You have successfully registered with this website.</p>
     </div>
+<?php elseif (isset($form)): ?>
+<?=$form; ?>
 <?php endif; ?>
     </div>
     <footer id="login-footer">

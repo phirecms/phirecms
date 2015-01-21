@@ -14,7 +14,7 @@ class Register extends Form
      *
      * Instantiate the form object
      *
-     * @param  int     $id
+     * @param  int     $rid
      * @param  boolean $captcha
      * @param  boolean $csrf
      * @param  array   $fields
@@ -22,18 +22,15 @@ class Register extends Form
      * @param  string  $method
      * @return Register
      */
-    public function __construct($id, $captcha = false, $csrf = false, array $fields = null, $action = null, $method = 'post')
+    public function __construct($rid, $captcha = false, $csrf = false, array $fields = null, $action = null, $method = 'post')
     {
-        $role = Table\UserRoles::findById($id);
+        $role = Table\UserRoles::findById($rid);
 
         if ($role->email_as_username) {
-            $fields[0]['username']['type']     = 'hidden';
-            $fields[0]['email1']['attributes'] = [
-                'onblur' => 'phire.changeUsername()'
-            ];
+            unset($fields[0]['username']);
         }
 
-        $fields[1]['role_id']['value'] = $id;
+        $fields[1]['role_id']['value'] = $rid;
 
         if ($csrf) {
             $fields[1] = array_merge([
@@ -67,19 +64,24 @@ class Register extends Form
     {
         parent::setFieldValues($values);
 
-        if (($_POST) && (null !== $this->username)) {
-            $user = Table\Users::findBy(['username' => $this->username]);
-            if (isset($user->id)) {
-                $this->getElement('username')
-                     ->addValidator(new Validator\NotEqual($this->username, 'That username is not allowed.'));
+        if (($_POST) && (null !== $this->email1)) {
+            // Check for dupe username
+            if (null !== $this->username) {
+                $user = Table\Users::findBy(['username' => $this->username]);
+                if (isset($user->id)) {
+                    $this->getElement('username')
+                         ->addValidator(new Validator\NotEqual($this->username, 'That username is not allowed.'));
+                }
             }
 
+            // Check for dupe email
             $email = Table\Users::findBy(['email' => $this->email1]);
             if (isset($email->id)) {
                 $this->getElement('email1')
                      ->addValidator(new Validator\NotEqual($this->email1, 'That email is not allowed.'));
             }
 
+            // Check email and password matches
             $this->getElement('email2')
                  ->addValidator(new Validator\Equal($this->email1, 'The emails do not match.'));
             $this->getElement('password2')

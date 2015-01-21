@@ -22,7 +22,7 @@
 <?php endif; ?>
 <?php if ($acl->isAllowed($user->role, 'users', 'add')): ?>
     <nav id="sub-nav">
-        <nav><a href="<?=$phireUri . '/users/add'; ?>">+ Add</a></nav>
+        <nav><a href="<?=$phireUri; ?>/users/add<?php if (null !== $roleId): ?><?='/' . $roleId; ?><?php endif; ?>">+ Add</a></nav>
     </nav>
 <?php endif; ?>
 <?php if ($acl->isAllowed($user->role, 'users', 'remove')): ?>
@@ -63,7 +63,7 @@
 <?php else: ?>
 <?php if ($acl->isAllowed($user->role, 'users', 'add')): ?>
     <nav id="sub-nav">
-        <nav><a href="<?=$phireUri . '/users/add'; ?>">+ Add</a></nav>
+        <nav><a href="<?=$phireUri; ?>/users/add<?php if (null !== $roleId): ?><?='/' . $roleId; ?><?php endif; ?>">+ Add</a></nav>
     </nav>
 <?php endif; ?>
     <p>There are currently no users.</p>

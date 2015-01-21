@@ -51,31 +51,10 @@ var phire = {
         }
     },
 
-    changeUsername : function(){
-        if ((jax('#username')[0] != undefined) && (jax('#email1')[0] != undefined)) {
-            jax('#username').val(jax('#email1').val());
-        }
-    },
-
-    changeRole : function(id, path) {
-        var json = jax.get(path + '/users/roles/json/' + id);
-        if (json.email_as_username != undefined) {
-            if ((json.email_as_username == 1) && (jax('#username').attrib('type') == 'text')) {
-                jax(jax('label[for=username]').parent()).hide();
-                jax('#username').attrib('type', 'hidden');
-                jax(jax('#username').parent()).hide();
-                jax('#username')[0].removeAttribute('required');
-                jax('#username').val(jax('#email1').val());
-                jax('#email1').on('blur', phire.changeUsername);
-            } else if ((json.email_as_username == 0) && (jax('#username').attrib('type') == 'hidden')) {
-                console.log(456);
-                jax(jax('label[for=username]').parent()).show();
-                jax('#username').attrib('type', 'text');
-                jax('#username').attrib('size', 40);
-                jax(jax('#username').parent()).show();
-                jax('#username').attrib('required', 'required');
-                jax('#email1').off('blur', phire.changeUsername);
-            }
+    selectUserRole : function(sel, path) {
+        var id = jax(sel).val();
+        if (id != '0') {
+            window.location.href = path + '/users/add/' + id;
         }
     },
 

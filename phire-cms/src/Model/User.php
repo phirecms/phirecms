@@ -111,6 +111,7 @@ class User extends AbstractModel
             $this->data['role_id']  = $user->role_id;
             $this->data['username'] = $user->username;
             $this->data['email1']   = $user->email;
+            $this->data['active']   = $user->active;
             $this->data['verified'] = $user->verified;
             $this->data['id']       = $user->id;
         }
@@ -124,11 +125,13 @@ class User extends AbstractModel
      */
     public function save(array $fields)
     {
+
         $user = new Table\Users([
-            'role_id'  => ($fields['role_id'] != '----') ? $fields['role_id'] : null,
-            'username' => $fields['username'],
+            'role_id'  => $fields['role_id'],
+            'username' => (isset($fields['username']))   ? $fields['username'] : $fields['email1'],
             'password' => (new Bcrypt())->create($fields['password1']),
             'email'    => $fields['email1'],
+            'active'   => $fields['active'],
             'verified' => $fields['verified']
         ]);
         $user->save();
@@ -153,11 +156,12 @@ class User extends AbstractModel
         if (isset($user->id)) {
             $oldRoleId = $user->role_id;
 
-            $user->role_id  = ($fields['role_id'] != '----') ? $fields['role_id'] : null;
-            $user->username = $fields['username'];
+            $user->role_id  = $fields['role_id'];
+            $user->username = (isset($fields['username']))   ? $fields['username'] : $fields['email1'];
             $user->password = (!empty($fields['password1'])) ?
                 (new Bcrypt())->create($fields['password1']) : $user->password;
             $user->email    = $fields['email1'];
+            $user->active   = $fields['active'];
             $user->verified = $fields['verified'];
 
             $user->save();

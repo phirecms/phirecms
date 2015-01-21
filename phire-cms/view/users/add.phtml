@@ -6,5 +6,19 @@
 <?php endif; ?>
         <nav><a href="<?=$phireUri . '/users'; ?>">Back</a></nav>
     </nav>
+<?php if (isset($form)): ?>
 <?=$form; ?>
+<?php else: ?>
+    <form id="user-role-select-form" action="<?=$phireUri; ?>/users/add" method="get">
+        <div><h3>Select Role</h3></div>
+        <div>
+            <select name="role_id" id="role_id" onchange="phire.selectUserRole(this, '<?=$phireUri; ?>');">
+                <option value="0">----</option>
+<?php foreach ($roles as $role): ?>
+                <option value="<?=$role->id; ?>"><?=$role->name; ?></option>
+<?php endforeach; ?>
+            </select>
+        </div>
+    </form>
+<?php endif; ?>
 <?php include $phireFooter; ?>

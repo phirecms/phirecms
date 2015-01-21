@@ -15,42 +15,21 @@ class User extends Form
      *
      * Instantiate the form object
      *
-     * @param  \Pop\Acl\Acl $acl
-     * @param  \ArrayObject $user
-     * @param  array        $fields
-     * @param  string       $action
-     * @param  string       $method
+     * @param  int    $rid
+     * @param  array  $fields
+     * @param  string $action
+     * @param  string $method
      * @return User
      */
-    public function __construct($acl, $user, array $fields, $action = null, $method = 'post')
+    public function __construct($rid, array $fields, $action = null, $method = 'post')
     {
-        $roles      = Table\UserRoles::findAll();
-        $roleValues = ['----' => '[Blocked]'];
-        foreach ($roles->rows() as $role) {
-            if (($acl->hasResource('user-role-' . $role->id)) &&
-                ($acl->isAllowed($user->role, 'user-role-' . $role->id, 'add'))) {
-                $roleValues[$role->id] = $role->name;
-            }
+        $role = Table\UserRoles::findById($rid);
+
+        if ($role->email_as_username) {
+            unset($fields[1]['username']);
         }
 
-        if ($acl->isAllowed($user->role, 'users', 'change-role')) {
-            $roleId = [
-                'type'       => 'select',
-                'label'      => 'Role',
-                'value'      => $roleValues,
-                'attributes' => [
-                    'class'    => 'wide',
-                    'onchange' => 'phire.changeRole(this.value, \'' . BASE_PATH . APP_URI . '\');'
-                ]
-            ];
-        } else {
-            $roleId = [
-                'type'  => 'hidden',
-                'value' => 0
-            ];
-        }
-
-        $fields[0]['role_id'] = $roleId;
+        $fields[0]['role_id']['value'] = $rid;
 
         parent::__construct($fields, $action, $method);
         $this->setAttribute('id', 'user-form');
@@ -67,31 +46,18 @@ class User extends Form
     {
         parent::setFieldValues($values);
 
-        // Change username to hidden if email used instead
-        if (null !== $this->role_id) {
-            $index = $this->getElementIndex('username');
-            $role  = Table\UserRoles::findById((int)$this->role_id);
-            if (isset($role->id)) {
-                if (($role->email_as_username) && ($this->childNodes[$index] instanceof Element\Input\Text)) {
-                    $hidden = new Element\Input\Hidden('username', $this->childNodes[$index]->getValue());
-                    $hidden->setLabel('Username');
-                    $hidden->setRequired(true);
-                    $this->childNodes[$index] = $hidden;
-                    $this->getElement('email1')->setAttribute('onblur', 'phire.changeUsername();')
-                                               ->setAttribute('onkeyup', 'phire.changeTitle(this.value);');
-                } else {
-                    $this->getElement('username')->setAttribute('onkeyup', 'phire.changeTitle(this.value);');
+        if (($_POST) && (null !== $this->email1)) {
+            // Check for dupe username
+            $user = null;
+            if (null !== $this->username) {
+                $user = Table\Users::findBy(['username' => $this->username]);
+                if (isset($user->id) && ($this->id != $user->id)) {
+                    $this->getElement('username')
+                         ->addValidator(new Validator\NotEqual($this->username, 'That username already exists.'));
                 }
             }
-        }
 
-        if (($_POST) && (null !== $this->username)) {
-            $user = Table\Users::findBy(['username' => $this->username]);
-            if (isset($user->id) && ($this->id != $user->id)) {
-                $this->getElement('username')
-                     ->addValidator(new Validator\NotEqual($this->username, 'That username already exists.'));
-            }
-
+            // Check for dupe email
             $email = Table\Users::findBy(['email' => $this->email1]);
             if (isset($email->id) && ($this->id != $email->id)) {
                 $this->getElement('email1')
@@ -100,7 +66,7 @@ class User extends Form
 
             // If existing user
             if ((int)$_POST['id'] > 0) {
-                if (($user->email !== $this->email1) && ($email->email !== $this->email1)) {
+                if (((null !== $user) && ($user->email !== $this->email1)) && ($email->email !== $this->email1)) {
                     $this->getElement('email2')
                          ->setRequired(true)
                          ->addValidator(new Validator\Equal($this->email1, 'The emails do not match.'));
@@ -110,7 +76,7 @@ class User extends Form
                          ->setRequired(true)
                          ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
                 }
-            // Else, if new user
+            // Else, if new user, check email and password matches
             } else {
                 $this->getElement('email2')
                      ->setRequired(true)

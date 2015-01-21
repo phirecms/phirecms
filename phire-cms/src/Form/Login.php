@@ -50,7 +50,7 @@ class Login extends Form
             } else if (!$auth->adapter()->getUser()->verified) {
                 $this->getElement('password')
                      ->addValidator(new Validator\NotEqual($this->password, 'That user is not verified.'));
-            } else if (null === $auth->adapter()->getUser()->role_id) {
+            } else if (!$auth->adapter()->getUser()->active) {
                 $this->getElement('password')
                      ->addValidator(new Validator\NotEqual($this->password, 'That user is blocked.'));
             } else  {

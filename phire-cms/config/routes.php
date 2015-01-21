@@ -102,7 +102,7 @@ return [
                 'permission' => 'index'
             ]
         ],
-        '/users/add[/]' => [
+        '/users/add[/:rid]' => [
             'controller' => 'Phire\Controller\Users\IndexController',
             'action'     => 'add',
             'acl'        => [

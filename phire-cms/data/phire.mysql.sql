@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]users` (
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `email` varchar(255) NOT NULL,
+  `active` int(1),
   `verified` int(1),
   PRIMARY KEY (`id`),
   INDEX `user_role_id` (`role_id`),

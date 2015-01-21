@@ -57,32 +57,39 @@ class IndexController extends AbstractController
     /**
      * Add action method
      *
+     * @param  int $rid
      * @return void
      */
-    public function add()
+    public function add($rid = null)
     {
         $this->prepareView('users/add.phtml');
         $this->view->title = 'Add User';
 
-        $this->view->form = new Form\User(
-            $this->services['acl'], $this->sess->user, $this->application->config()['forms']['Phire\Form\User']
-        );
+        if (null !== $rid) {
+            $role = new Model\UserRole();
+            $role->getById($rid);
+            $this->view->title .= ' : ' . $role->name;
 
-        if ($this->request->isPost()) {
-            $this->view->form->addFilter('strip_tags')
-                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
-                 ->setFieldValues($this->request->getPost());
+            $this->view->form = new Form\User($rid, $this->application->config()['forms']['Phire\Form\User']);
 
-            if ($this->view->form->isValid()) {
-                $this->view->form->clearFilters()
-                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                     ->filter();
-                $user = new Model\User();
-                $user->save($this->view->form->getFields());
+            if ($this->request->isPost()) {
+                $this->view->form->addFilter('strip_tags')
+                    ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                    ->setFieldValues($this->request->getPost());
 
-                $this->view->id = $user->id;
-                $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id . '?saved=' . time());
+                if ($this->view->form->isValid()) {
+                    $this->view->form->clearFilters()
+                        ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                        ->filter();
+                    $user = new Model\User();
+                    $user->save($this->view->form->getFields());
+
+                    $this->view->id = $user->id;
+                    $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id . '?saved=' . time());
+                }
             }
+        } else {
+            $this->view->roles = (new Model\UserRole())->getAll();
         }
 
         $this->send();
@@ -103,15 +110,12 @@ class IndexController extends AbstractController
             $this->redirect(BASE_PATH . APP_URI . '/users');
         }
 
-        if ((null === $user->role_id) ||
-            ($this->services['acl']->isAllowed($this->sess->user->role, 'user-role-' . $user->role_id, 'edit'))) {
+        if ($this->services['acl']->isAllowed($this->sess->user->role, 'user-role-' . $user->role_id, 'edit')) {
             $this->prepareView('users/edit.phtml');
             $this->view->title    = 'Edit User';
             $this->view->username = $user->username;
 
-            $this->view->form = new Form\User(
-                $this->services['acl'], $this->sess->user, $this->application->config()['forms']['Phire\Form\User']
-            );
+            $this->view->form = new Form\User($user->role_id, $this->application->config()['forms']['Phire\Form\User']);
             $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($user->toArray());
 

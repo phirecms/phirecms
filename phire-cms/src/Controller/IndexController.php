@@ -100,10 +100,8 @@ class IndexController extends AbstractController
 
                     $fields = $this->view->form->getFields();
                     $role->getById($id);
+                    $fields['active']   = (int)!($role->approval);
                     $fields['verified'] = (int)!($role->verification);
-                    if ($role->approval) {
-                        $fields['role_id'] = null;
-                    }
 
                     $user = new Model\User();
                     $user->save($fields);

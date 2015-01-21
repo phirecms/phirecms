@@ -111,6 +111,7 @@ class IndexController extends AbstractController
                      ->filter();
 
                 $fields = $this->view->form->getFields();
+                $fields['active']   = 1;
                 $fields['verified'] = 1;
 
                 $user = new Model\User();

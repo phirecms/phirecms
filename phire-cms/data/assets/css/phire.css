@@ -490,7 +490,7 @@ select {
     font-weight: normal;
 }
 
-#user-form, #user-role-form {
+#user-form, #user-role-form, #user-role-select-form {
     margin: 10px auto 10px auto;
     padding: 15px 0 15px 0;
     width: 100%;
