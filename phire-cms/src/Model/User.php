@@ -30,6 +30,7 @@ class User extends AbstractModel
             'user_role_id' => DB_PREFIX . 'users.role_id',
             'username'     => DB_PREFIX . 'users.username',
             'email'        => DB_PREFIX . 'users.email',
+            'active'       => DB_PREFIX . 'users.active',
             'verified'     => DB_PREFIX . 'users.verified',
             'role_id'      => DB_PREFIX . 'user_roles.id',
             'role_name'    => DB_PREFIX . 'user_roles.name'

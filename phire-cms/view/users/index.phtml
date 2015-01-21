@@ -34,6 +34,7 @@
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=username';?>">Username</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=email';?>">Email</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=role_name';?>">Role</a></th>
+                <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=active';?>">Active</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=verified';?>">Verified</a></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'edit')): ?>Edit<?php else: ?>&nbsp;<?php endif; ?></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'remove')): ?><input type="checkbox" name="checkall" id="checkall" value="rm_users" /><?php else: ?>&nbsp;<?php endif; ?></th>
@@ -45,6 +46,7 @@
                 <td><?=$u->username; ?></td>
                 <td><?=$u->email; ?></td>
                 <td><?=(!empty($u->role_name) ? $u->role_name : '[Blocked]'); ?></td>
+                <td><?=(($u->active) ? 'Yes' : 'No'); ?></td>
                 <td><?=(($u->verified) ? 'Yes' : 'No'); ?></td>
 <?php if (null !== $u->role_id): ?>
                 <td><?php if (($acl->isAllowed($user->role, 'users', 'edit') && ($acl->isAllowed($user->role, 'user-role-' . $u->role_id, 'edit')))): ?><a class="edit-link" href="<?=$phireUri . '/users/edit/' . $u->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
