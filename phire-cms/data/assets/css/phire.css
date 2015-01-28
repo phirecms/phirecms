@@ -147,12 +147,7 @@ input[type=submit]:focus, button:focus {
     outline: none;
 }
 
-select {
-    min-width: 100px;
-}
-
 /* ID Definitions */
-
 
 #install {
     margin: 0 auto;
