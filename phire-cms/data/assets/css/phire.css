@@ -880,7 +880,7 @@ th.text-center, td.text-center {
 }
 
 .checkbox {
-    margin: 2px;
+    margin: 7px 2px 2px 2px;
     padding: 2px;
     clear: left;
     float: left;

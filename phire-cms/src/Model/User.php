@@ -22,7 +22,7 @@ class User extends AbstractModel
      * @param  string $sort
      * @return array
      */
-    public function getAll($roleId = null, $username = null, array $deniedRoles = [], $limit = null, $page = null, $sort = null)
+    public function getAll($roleId = null, $username = null, array $deniedRoles = null, $limit = null, $page = null, $sort = null)
     {
         $sql = Table\Users::sql();
         $sql->select([
@@ -53,7 +53,7 @@ class User extends AbstractModel
             $params['username'] = $username . '%';
         }
 
-        if (count($deniedRoles) > 0) {
+        if (is_array($deniedRoles) && (count($deniedRoles) > 0)) {
             foreach ($deniedRoles as $key => $denied) {
                 $sql->select()->where('role_id != :role_id' . ($key + 1));
                 $params['role_id' . ($key + 1)] = $denied;
