@@ -95,8 +95,10 @@ if ((DB_INTERFACE != '') && (DB_NAME != '')) {
 }
 
 // Merge any custom/override config values
-if (file_exists(getcwd() . MODULE_PATH . '/phire/config/phire.php')) {
-    $config = array_merge($config, include getcwd() . MODULE_PATH . '/phire/config/phire.php');
+$dir = ((stripos(php_sapi_name(), 'cli') !== false) && (stripos(php_sapi_name(), 'server') === false)) ?
+    getcwd() : $_SERVER['DOCUMENT_ROOT'];
+if (file_exists($dir . MODULE_PATH . '/phire/config/phire.php')) {
+    $config = array_merge($config, include $dir . MODULE_PATH . '/phire/config/phire.php');
 }
 
 return $config;
