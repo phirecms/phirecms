@@ -364,7 +364,7 @@ class Application extends \Pop\Application
     {
         $route = $application->router()->getRouteMatch()->getRoute();
         if (!$application->config()['db'] &&
-            (substr($route, 0, strlen(BASE_PATH . APP_URI . '/install')) != BASE_PATH . APP_URI . '/install')) {
+            (substr($route, 0, strlen(APP_URI . '/install')) != APP_URI . '/install')) {
             throw new Exception(
                 'Error: The database has not been installed. Please check the config file or install the system.'
             );
