@@ -400,7 +400,7 @@ class Application extends \Pop\Application
         // Else, if NOT logged in and NOT a system URL, redirect to login
         } else if (!isset($sess->user) && (($action != 'login') && ($action != 'register') && (!$isInstall) &&
                 ($action != 'unsubscribe') && ($action != 'verify') && ($action != 'forgot') && (null !== $action)) &&
-                (substr($route, 0, strlen(BASE_PATH . APP_URI)) == BASE_PATH . APP_URI)) {
+                (substr($route, 0, strlen(APP_URI)) == APP_URI)) {
             Response::redirect(BASE_PATH . APP_URI . '/login');
             exit();
         }
