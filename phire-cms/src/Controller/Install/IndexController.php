@@ -120,6 +120,11 @@ class IndexController extends AbstractController
                 $install = new Model\Install();
                 $install->sendConfirmation($user);
 
+                $module = new Model\Module();
+                if ($module->detectNew()) {
+                    $module->install($this->services);
+                }
+
                 $this->sess->kill();
                 $this->redirect(BASE_PATH . APP_URI . '/login?installed=' . time());
             }
