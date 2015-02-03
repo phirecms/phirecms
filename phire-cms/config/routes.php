@@ -2,10 +2,13 @@
 
 return [
     APP_URI => [
+        '*' => [
+            'controller' => 'Phire\Controller\IndexController',
+            'action'     => 'error'
+        ],
         '[/]' => [
             'controller' => 'Phire\Controller\IndexController',
-            'action'     => 'index',
-            'default'    => true
+            'action'     => 'index'
         ],
         '/install[/]' => [
             'controller' => 'Phire\Controller\Install\IndexController',
