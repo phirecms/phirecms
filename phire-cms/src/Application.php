@@ -148,10 +148,11 @@ class Application extends \Pop\Application
                             foreach ($config['nav.phire'] as $key => $value) {
                                 if (($key !== 'modules') && ($key !== 'users') && ($key !== 'config')) {
                                     $newNav[$key] = $value;
-                                    unset($config['nav.phire'][$key]);
                                 }
                             }
-                            $params['tree'] = array_merge_recursive($newNav, $params['tree'], $config['nav.phire']);
+                            if (count($newNav) > 0) {
+                                $params['tree'] = array_merge($newNav, $params['tree'], $config['nav.phire']);
+                            }
                         }
 
                         // If the module has ACL resources
