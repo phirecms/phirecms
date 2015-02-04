@@ -148,6 +148,8 @@ class Application extends \Pop\Application
                             foreach ($config['nav.phire'] as $key => $value) {
                                 if (($key !== 'modules') && ($key !== 'users') && ($key !== 'config')) {
                                     $newNav[$key] = $value;
+                                } else {
+                                    $params['tree'][$key] = array_merge_recursive($params['tree'][$key], $value);
                                 }
                             }
                             if (count($newNav) > 0) {
