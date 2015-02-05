@@ -189,14 +189,14 @@ abstract class AbstractController extends Controller
     protected function prepareView($template)
     {
         // Check for any override templates
-        $headerTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/header.phtml')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/header.phtml' : __DIR__ . '/../../view/header.phtml';
+        $headerTemplate = (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/header.phtml')) ?
+            $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/header.phtml' : __DIR__ . '/../../view/header.phtml';
 
-        $footerTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/footer.phtml')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/footer.phtml' : __DIR__ . '/../../view/footer.phtml';
+        $footerTemplate = (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/footer.phtml')) ?
+            $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/footer.phtml' : __DIR__ . '/../../view/footer.phtml';
 
-        $viewTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/' . $template)) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
+        $viewTemplate = (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/' . $template)) ?
+            $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
 
         $this->view                  = new View($viewTemplate);
         $this->view->assets          = $this->application->getAssets();
