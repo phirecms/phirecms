@@ -23,6 +23,7 @@
         "popphp/pop-acl": "2.*@dev",
         "popphp/pop-archive": "2.*@dev",
         "popphp/pop-auth": "2.*@dev",
+        "popphp/pop-data": "2.*@dev",
         "popphp/pop-db": "2.*@dev",
         "popphp/pop-file": "2.*@dev",
         "popphp/pop-filter": "2.*@dev",
