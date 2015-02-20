@@ -6,6 +6,10 @@ var phire = {
     clear         : null,
     resourceCount : 1,
 
+    getPaths : function(path) {
+        return jax.get(path + '/json');
+    },
+
     addResource : function(path) {
         phire.resourceCount++;
 

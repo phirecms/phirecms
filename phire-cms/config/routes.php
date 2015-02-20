@@ -62,6 +62,10 @@ return [
             'controller' => 'Phire\Controller\IndexController',
             'action'     => 'logout'
         ],
+        '/json' => [
+            'controller' => 'Phire\Controller\IndexController',
+            'action'     => 'json'
+        ],
         '/config[/]' => [
             'controller' => 'Phire\Controller\Config\IndexController',
             'action'     => 'index',

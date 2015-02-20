@@ -252,4 +252,19 @@ class IndexController extends AbstractController
         $this->redirect(BASE_PATH . APP_URI . '/login');
     }
 
+    /**
+     * JSON action method
+     *
+     * @return void
+     */
+    public function json()
+    {
+        $json = [
+            'base_path'    => BASE_PATH,
+            'app_uri'      => APP_URI,
+            'content_path' => CONTENT_PATH
+        ];
+        $this->send(200, ['Content-Type' => 'application/json'], json_encode($json, JSON_PRETTY_PRINT));
+    }
+
 }
