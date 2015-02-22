@@ -6,6 +6,7 @@ use Phire\Form;
 use Phire\Model;
 use Phire\Table;
 use Pop\Auth;
+use Pop\Web\Cookie;
 
 class IndexController extends AbstractController
 {
@@ -58,6 +59,22 @@ class IndexController extends AbstractController
                     'username' => $auth->adapter()->getUser()->username,
                     'email'    => $auth->adapter()->getUser()->email,
                 ], \ArrayObject::ARRAY_AS_PROPS);
+
+                if (php_sapi_name() != 'cli') {
+                    $path = BASE_PATH . APP_URI;
+                    if ($path == '') {
+                        $path = '/';
+                    }
+
+                    $cookie = Cookie::getInstance(['path' => $path]);
+                    $cookie->set('phire', [
+                        'base_path'    => BASE_PATH,
+                        'app_path'     => APP_PATH,
+                        'content_path' => CONTENT_PATH,
+                        'module_path'  => MODULE_PATH,
+                        'app_uri'      => APP_URI
+                    ]);
+                }
 
                 $this->redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
             }
@@ -249,22 +266,16 @@ class IndexController extends AbstractController
     public function logout()
     {
         $this->sess->kill();
-        $this->redirect(BASE_PATH . APP_URI . '/login');
-    }
 
-    /**
-     * JSON action method
-     *
-     * @return void
-     */
-    public function json()
-    {
-        $json = [
-            'base_path'    => BASE_PATH,
-            'app_uri'      => APP_URI,
-            'content_path' => CONTENT_PATH
-        ];
-        $this->send(200, ['Content-Type' => 'application/json'], json_encode($json, JSON_PRETTY_PRINT));
+        $path = BASE_PATH . APP_URI;
+        if ($path == '') {
+            $path = '/';
+        }
+
+        $cookie = Cookie::getInstance(['path' => $path]);
+        $cookie->delete('phire');
+
+        $this->redirect(BASE_PATH . APP_URI . '/login');
     }
 
 }
