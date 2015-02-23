@@ -5,6 +5,8 @@
 var phire = {
     clear         : null,
     resourceCount : 1,
+    currentForm   : null,
+    submitted     : false,
 
     addResource : function(path) {
         phire.resourceCount++;
@@ -80,6 +82,25 @@ var phire = {
     clearStatus : function(id) {
         jax(id).fade(0, {tween : 10, speed: 200});
         clearTimeout(phire.clear);
+    },
+
+    checkFormChange : function() {
+        if (!phire.submitted) {
+            var change = false;
+            var form   = jax(phire.currentForm)[0];
+            for (var i = 0; i < form.elements.length; i++) {
+                if ((form.elements[i].type == 'text') || (form.elements[i].type == 'textarea')) {
+                    if (form.elements[i].value != form.elements[i].defaultValue) {
+                        change = true;
+                    }
+                }
+            }
+            if (change) {
+                return 'You are about to leave this page and have unsaved changes. Are you sure?';
+            } else {
+                return;
+            }
+        }
     }
 
 };
