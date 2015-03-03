@@ -247,7 +247,7 @@ class Application extends \Pop\Application
                             if (($aDir == 'css') || ($aDir == 'styles') || ($aDir == 'style')) {
                                 if (file_exists($dir . '/' . $aDir . '/' . $file)) {
                                     $css = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $aDir . '/' . $file;
-                                    if (!in_array($css, $this->assets['css'][$cssType])) {
+                                    if (!in_array($css, $this->assets['css'][$cssType]) && (stripos($css, 'public') === false)) {
                                         if ((($file != 'phire.nav.horz.css') && ($file != 'phire.nav.vert.css')) ||
                                             (($file == 'phire.nav.horz.css') && (!$navVertical)) ||
                                             (($file == 'phire.nav.vert.css') && ($navVertical))) {
