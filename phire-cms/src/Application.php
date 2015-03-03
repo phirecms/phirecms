@@ -258,7 +258,7 @@ class Application extends \Pop\Application
                             }
                             if (($aDir == 'js') || ($aDir == 'scripts') || ($aDir == 'script') || ($aDir == 'scr')) {
                                 $js = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $aDir . '/' . $file;
-                                if (!in_array($js, $this->assets['js'])) {
+                                if (!in_array($js, $this->assets['js']) && (stripos($js, 'public') === false)) {
                                     $this->assets['js'][] = $js;
                                 }
                             }
