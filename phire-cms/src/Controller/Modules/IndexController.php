@@ -62,11 +62,12 @@ class IndexController extends AbstractController
         $module = new Model\Module();
         $module->process($this->request->getPost(), $this->services);
 
-        if (null !== $this->request->getPost('rm_modules')) {
-            $this->redirect(BASE_PATH . APP_URI . '/modules?removed=' . time());
-        } else {
-            $this->redirect(BASE_PATH . APP_URI . '/modules?saved=' . time());
-        }
+        $uri = (null !== $this->request->getPost('rm_modules')) ?
+            BASE_PATH . APP_URI . '/modules?removed=' . time() :
+            BASE_PATH . APP_URI . '/modules?saved=' . time();
+
+        \Pop\Http\Response::redirect($uri);
+        exit();
     }
 
 }
