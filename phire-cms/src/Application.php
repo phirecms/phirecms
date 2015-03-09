@@ -208,59 +208,46 @@ class Application extends \Pop\Application
     {
         if (file_exists($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets') &&
             is_writable($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets')) {
-            $dir = $_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets/' . $to;
-            if (!file_exists($dir)) {
-                mkdir($dir);
-                chmod($dir, 0777);
 
-                copy($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets/index.html', $dir . '/index.html');
-                chmod($dir . '/index.html', 0777);
+            $toDir = $_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets/' . $to;
+            if (!file_exists($toDir)) {
+                mkdir($toDir);
+                $dir = new Dir($from, true, true);
+                $dir->copyDir($toDir, false);
             }
 
-            $assetDirs = array(
-                'css', 'css/fonts', 'styles', 'styles/fonts', 'style', 'style/fonts', // CSS folders
-                'js', 'scripts', 'script', 'scr',                                     // JS folders
-                'image', 'images', 'img', 'imgs', 'file', 'files'                     // Image & file folders
-            );
-
-            $cssType     = ($import) ? 'import' : 'link';
+            $cssDirs     = ['css', 'styles', 'style'];
+            $jsDirs      = ['js', 'scripts', 'script', 'scr'];
             $navVertical = (isset($this->config['navigation_vertical']) && ($this->config['navigation_vertical']));
+            $cssType     = ($import) ? 'import' : 'link';
 
-            foreach ($assetDirs as $aDir) {
-                if (file_exists($from . '/' . $aDir)) {
-                    if (!file_exists($dir . '/' . $aDir)) {
-                        mkdir($dir . '/' . $aDir);
-                        chmod($dir . '/' . $aDir, 0777);
-                        copy($dir . '/index.html', $dir . '/' . $aDir . '/index.html');
-                        chmod($dir . '/' . $aDir . '/index.html', 0777);
+            foreach ($cssDirs as $cssDir) {
+                if (file_exists($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets/' . $to .'/' . $cssDir)) {
+                    $dir = new Dir($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets/' . $to .'/' . $cssDir);
+                    foreach ($dir->getFiles() as $cssFile) {
+                        if ($cssFile != 'index.html') {
+                            $css = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $cssDir . '/' . $cssFile;
+                            if (!in_array($css, $this->assets['css'][$cssType]) && (stripos($css, 'public') === false)) {
+                                if ((($cssFile != 'phire.nav.horz.css') && ($cssFile != 'phire.nav.vert.css')) ||
+                                    (($cssFile == 'phire.nav.horz.css') && (!$navVertical)) ||
+                                    (($cssFile == 'phire.nav.vert.css') && ($navVertical))
+                                ) {
+                                    $this->assets['css'][$cssType][] = $css;
+                                }
+                            }
+                        }
                     }
-                    $d = new Dir($from . '/' . $aDir, false, false, false);
-                    foreach ($d->getFiles() as $file) {
-                        if ($file !== 'index.html') {
-                            if (!file_exists($dir . '/' . $aDir . '/' . $file) ||
-                                (file_exists($dir . '/' . $aDir . '/' . $file) &&
-                                    (filemtime($from . '/' . $aDir . '/' . $file) >
-                                        filemtime($dir . '/' . $aDir . '/' . $file)))) {
-                                copy($from . '/' . $aDir . '/' . $file, $dir . '/' . $aDir . '/' . $file);
-                                chmod($dir . '/' . $aDir . '/' . $file, 0777);
-                            }
-                            if (($aDir == 'css') || ($aDir == 'styles') || ($aDir == 'style')) {
-                                if (file_exists($dir . '/' . $aDir . '/' . $file)) {
-                                    $css = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $aDir . '/' . $file;
-                                    if (!in_array($css, $this->assets['css'][$cssType]) && (stripos($css, 'public') === false)) {
-                                        if ((($file != 'phire.nav.horz.css') && ($file != 'phire.nav.vert.css')) ||
-                                            (($file == 'phire.nav.horz.css') && (!$navVertical)) ||
-                                            (($file == 'phire.nav.vert.css') && ($navVertical))) {
-                                            $this->assets['css'][$cssType][] = $css;
-                                        }
-                                    }
-                                }
-                            }
-                            if (($aDir == 'js') || ($aDir == 'scripts') || ($aDir == 'script') || ($aDir == 'scr')) {
-                                $js = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $aDir . '/' . $file;
-                                if (!in_array($js, $this->assets['js']) && (stripos($js, 'public') === false)) {
-                                    $this->assets['js'][] = $js;
-                                }
+                }
+            }
+
+            foreach ($jsDirs as $jsDir) {
+                if (file_exists($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets/' . $to .'/' . $jsDir)) {
+                    $dir = new Dir($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets/' . $to .'/' . $jsDir);
+                    foreach ($dir->getFiles() as $jsFile) {
+                        if ($jsFile != 'index.html') {
+                            $js = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $jsDir . '/' . $jsFile;
+                            if (!in_array($js, $this->assets['js']) && (stripos($js, 'public') === false)) {
+                                $this->assets['js'][] = $js;
                             }
                         }
                     }
