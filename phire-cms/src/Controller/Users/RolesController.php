@@ -46,10 +46,26 @@ class RolesController extends AbstractController
         $this->view->title = 'Users : Add Role';
         $role = new Model\UserRole();
 
+        $fields = $this->application->config()['forms']['Phire\Form\UserRole'];
         $config = $this->application->config();
-        $this->view->form = new Form\UserRole(
-            $config['resources'], null, 0, $this->application->config()['forms']['Phire\Form\UserRole']
-        );
+
+        $resources = ['----' => '----'];
+        $parents   = ['----' => '----'];
+        $roles     = (new Model\UserRole())->getAll();
+        if (count($roles) > 0) {
+            foreach ($roles as $role) {
+                $parents[$role['id']] = $role['name'];
+            }
+        }
+
+        foreach ($config['resources'] as $resource => $perms) {
+            $resources[$resource] = $resource;
+        }
+
+        $fields[0]['parent_id']['value']  = $parents;
+        $fields[2]['resource_1']['value'] = $resources;
+
+        $this->view->form = new Form\UserRole($fields);
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
@@ -85,10 +101,28 @@ class RolesController extends AbstractController
         $this->view->title     = 'Users : Edit Role';
         $this->view->role_name = $role->name;
 
+        $fields = $this->application->config()['forms']['Phire\Form\UserRole'];
         $config = $this->application->config();
-        $this->view->form = new Form\UserRole(
-            $config['resources'], $role->permissions, $id, $this->application->config()['forms']['Phire\Form\UserRole']
-        );
+
+        $resources = ['----' => '----'];
+        $parents   = ['----' => '----'];
+        $roles     = (new Model\UserRole())->getAll();
+        if (count($roles) > 0) {
+            foreach ($roles as $r) {
+                if ($r['id'] != $id) {
+                    $parents[$r['id']] = $r['name'];
+                }
+            }
+        }
+
+        foreach ($config['resources'] as $resource => $perms) {
+            $resources[$resource] = $resource;
+        }
+
+        $fields[0]['parent_id']['value']  = $parents;
+        $fields[2]['resource_1']['value'] = $resources;
+
+        $this->view->form = new Form\UserRole($fields);
         $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($role->toArray());
 

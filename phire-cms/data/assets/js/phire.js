@@ -13,33 +13,33 @@ var phire = {
         jax(field).val(text.slug());
     },
 
-    addResource : function(path) {
+    addResource : function() {
         phire.resourceCount++;
 
         // Add resource select field
-        jax('#resource_new_1').clone({
-            "name" : 'resource_new_' + phire.resourceCount,
-            "id"   : 'resource_new_' + phire.resourceCount
-        }).appendTo(jax('#resource_new_1').parent());
+        jax('#resource_1').clone({
+            "name" : 'resource_' + phire.resourceCount,
+            "id"   : 'resource_' + phire.resourceCount
+        }).appendTo(jax('#resource_1').parent());
+
+        // Add action select field
+        jax('#action_1').clone({
+            "name" : 'action_' + phire.resourceCount,
+            "id"   : 'action_' + phire.resourceCount
+        }).appendTo(jax('#action_1').parent());
 
         // Add permission select field
-        jax('#permission_new_1').clone({
-            "name" : 'permission_new_' + phire.resourceCount,
-            "id"   : 'permission_new_' + phire.resourceCount
-        }).appendTo(jax('#permission_new_1').parent());
+        jax('#permission_1').clone({
+            "name" : 'permission_' + phire.resourceCount,
+            "id"   : 'permission_' + phire.resourceCount
+        }).appendTo(jax('#permission_1').parent());
 
-        // Add allow select field
-        jax('#allow_new_1').clone({
-            "name" : 'allow_new_' + phire.resourceCount,
-            "id"   : 'allow_new_' + phire.resourceCount
-        }).appendTo(jax('#allow_new_1').parent());
-
-        jax('#resource_new_' + phire.resourceCount).val(jax('#resource_new_' + (phire.resourceCount - 1) + ' > option:selected').val());
-        phire.changePermissions(jax('#resource_new_' + phire.resourceCount)[0], path, false);
+        jax('#resource_' + phire.resourceCount).val(jax('#resource_' + (phire.resourceCount - 1) + ' > option:selected').val());
+        //phire.changePermissions(jax('#resource_new_' + phire.resourceCount)[0], false);
+        return false;
     },
 
-    changePermissions : function(sel, path, cur) {
-        var cur   = (cur) ? 'cur' : 'new';
+    changePermissions : function(sel) {
         var id    = sel.id.substring(sel.id.lastIndexOf('_') + 1);
         var opts  = jax('#permission_' + cur + '_' + id + ' > option').toArray();
         var start = opts.length - 1;
@@ -56,6 +56,7 @@ var phire = {
                 }
             }
         }
+        return false;
     },
 
     selectUserRole : function(sel, path) {

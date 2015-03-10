@@ -520,6 +520,21 @@ input[type=submit]:focus, button:focus {
     padding: 0 2px 18px 2px;
 }
 
+#user-role-form-field-group-2 {
+    width: calc(100% - 200px);
+}
+
+#user-role-form-field-group-2 > dt, #user-role-form-field-group-2 > dd {
+    width: 99.5%;
+}
+
+#user-role-form-field-group-3 > dd > select {
+    margin: 0 5px 5px 0;
+    width: 180px;
+    display: block;
+    font-size: 0.9em;
+}
+
 #config-form {
     margin: 5px auto 10px auto;
     padding: 0 0 10px 0;

@@ -374,8 +374,31 @@ return [
                 'label'      => 'Name',
                 'required'   => 'true',
                 'attributes' => [
-                    'size'    => 55,
+                    'size'    => 60,
+                    'style'   => 'width: 99.5%',
                     'onkeyup' => 'phire.changeTitle(this.value);'
+                ]
+            ]
+        ],
+        [
+            'resource_1' => [
+                'type'       => 'select',
+                'label'      => '<a href="#" onclick="return phire.addResource();">[+]</a> Resources, Actions &amp; Permissions',
+                'value'      => null,
+                'attributes' => [
+                    'onchange' => 'phire.changePermissions(this, false);'
+                ]
+            ],
+            'action_1' => [
+                'type'       => 'select',
+                'value'      => ['----' => '----']
+            ],
+            'permission_1' => [
+                'type'     => 'select',
+                'value'    => [
+                    '----' => '----',
+                    '0'    => 'deny',
+                    '1'    => 'allow'
                 ]
             ]
         ]
