@@ -8,6 +8,11 @@ var phire = {
     currentForm   : null,
     submitted     : false,
 
+    createSlug : function(text, field) {
+        var text = new jax.String(text);
+        jax(field).val(text.slug());
+    },
+
     addResource : function(path) {
         phire.resourceCount++;
 
