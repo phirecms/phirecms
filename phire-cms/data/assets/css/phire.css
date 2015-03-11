@@ -521,7 +521,7 @@ input[type=submit]:focus, button:focus {
 }
 
 #role-form-field-group-2 {
-    width: calc(100% - 200px);
+    width: calc(100% - 220px);
 }
 
 #role-form-field-group-2 > dt, #role-form-field-group-2 > dd {
