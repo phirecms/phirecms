@@ -45,9 +45,7 @@ class UserRole extends AbstractModel
     {
         $role = Table\UserRoles::findById((int)$id);
         if (isset($role->id)) {
-            $role = $role->getColumns();
-            $role['permissions'] = (null !== $role['permissions']) ? unserialize($role['permissions']) : [];
-            $this->data = array_merge($this->data, $role);
+            $this->data = array_merge($this->data, $role->getColumns());
         }
     }
 
@@ -180,58 +178,23 @@ class UserRole extends AbstractModel
 
         // Get new ones
         foreach ($post as $key => $value) {
-            if (strpos($key, 'resource_new_') !== false) {
-                $id    = substr($key, 13);
-                $allow = $post['allow_new_' . $id];
-                if (($value != '----') && ($allow != '----')) {
-                    if ((bool)$allow) {
+            if (strpos($key, 'resource_') !== false) {
+                $id         = substr($key, 9);
+                $permission = $post['permission_' . $id];
+                if (($value != '----') && ($permission != '----')) {
+                    if ((bool)$permission) {
                         $permissions['allow'][] = [
                             'resource'   => $value,
-                            'permission' => ((!empty($post['permission_new_' . $id]) &&
-                                ($post['permission_new_' . $id] != '----')) ?
-                                $post['permission_new_' . $id] : null),
+                            'permission' => ((!empty($post['action_' . $id]) &&
+                                ($post['action_' . $id] != '----')) ?
+                                $post['action_' . $id] : null),
                         ];
                     } else {
                         $permissions['deny'][] = [
                             'resource'   => $value,
-                            'permission' => ((!empty($post['permission_new_' . $id]) &&
-                                ($post['permission_new_' . $id] != '----')) ?
-                                $post['permission_new_' . $id] : null),
-                        ];
-                    }
-                }
-            }
-        }
-
-        // Remove old ones
-        foreach ($post as $key => $value) {
-            if ((strpos($key, 'rm_resources') !== false) && isset($value[0])) {
-                $id = $value[0];
-                unset($post['resource_cur_' . $id]);
-                unset($post['permission_cur_' . $id]);
-                unset($post['allow_cur_' . $id]);
-            }
-        }
-
-        // Save any remaining old ones
-        foreach ($post as $key => $value) {
-            if (strpos($key, 'resource_cur_') !== false) {
-                $id    = substr($key, 13);
-                $allow = $post['allow_cur_' . $id];
-                if (($value != '----') && ($allow != '----')) {
-                    if ((bool)$allow) {
-                        $permissions['allow'][] = [
-                            'resource'   => $value,
-                            'permission' => ((!empty($post['permission_cur_' . $id]) &&
-                                ($post['permission_cur_' . $id] != '----')) ?
-                                $post['permission_cur_' . $id] : null),
-                        ];
-                    } else {
-                        $permissions['deny'][] = [
-                            'resource'   => $value,
-                            'permission' => ((!empty($post['permission_cur_' . $id]) &&
-                                ($post['permission_cur_' . $id] != '----')) ?
-                                $post['permission_cur_' . $id] : null),
+                            'permission' => ((!empty($post['action_' . $id]) &&
+                                ($post['action_' . $id] != '----')) ?
+                                $post['action_' . $id] : null),
                         ];
                     }
                 }

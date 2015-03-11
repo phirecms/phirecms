@@ -53,8 +53,8 @@ class RolesController extends AbstractController
         $parents   = ['----' => '----'];
         $roles     = (new Model\UserRole())->getAll();
         if (count($roles) > 0) {
-            foreach ($roles as $role) {
-                $parents[$role['id']] = $role['name'];
+            foreach ($roles as $r) {
+                $parents[$r['id']] = $r['name'];
             }
         }
 
@@ -155,11 +155,26 @@ class RolesController extends AbstractController
             $role = new Model\UserRole();
             $role->getById($id);
 
-            if (isset($role->id)) {
-                $json['id'] = $role->id;
-                $json['verification'] = $role->verification;
-                $json['approval'] = $role->approval;
-                $json['email_as_username'] = $role->email_as_username;
+            if ((isset($role->id)) && (null !== $role->permissions)) {
+                $permissions = unserialize($role->permissions);
+                if (is_array($permissions['allow']) && (count($permissions['allow']) > 0)) {
+                    foreach ($permissions['allow'] as $allow) {
+                        $json[] = [
+                            'resource'   => $allow['resource'],
+                            'action'     => $allow['permission'],
+                            'permission' => 'allow'
+                        ];
+                    }
+                }
+                if (is_array($permissions['deny']) && (count($permissions['deny']) > 0)) {
+                    foreach ($permissions['deny'] as $deny) {
+                        $json[] = [
+                            'resource'   => $deny['resource'],
+                            'action'     => $deny['permission'],
+                            'permission' => 'deny'
+                        ];
+                    }
+                }
             }
         } else {
             $config = $this->application->config();

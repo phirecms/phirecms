@@ -386,7 +386,7 @@ return [
                 'label'      => '<a href="#" onclick="return phire.addResource();">[+]</a> Resources, Actions &amp; Permissions',
                 'value'      => null,
                 'attributes' => [
-                    'onchange' => 'phire.changePermissions(this, false);'
+                    'onchange' => 'phire.changeActions(this);'
                 ]
             ],
             'action_1' => [

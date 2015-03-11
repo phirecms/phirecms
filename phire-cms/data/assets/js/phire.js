@@ -13,49 +13,72 @@ var phire = {
         jax(field).val(text.slug());
     },
 
-    addResource : function() {
-        phire.resourceCount++;
+    addResource : function(vals) {
+        if (vals == null) {
+            vals = [{
+                "resource"   : '',
+                "action"     : '',
+                "permission" : ''
+            }];
+        }
+        for (var i = 0; i < vals.length; i++) {
+            phire.resourceCount++;
 
-        // Add resource select field
-        jax('#resource_1').clone({
-            "name" : 'resource_' + phire.resourceCount,
-            "id"   : 'resource_' + phire.resourceCount
-        }).appendTo(jax('#resource_1').parent());
+            // Add resource select field
+            jax('#resource_1').clone({
+                "name": 'resource_' + phire.resourceCount,
+                "id": 'resource_' + phire.resourceCount
+            }).appendTo(jax('#resource_1').parent());
 
-        // Add action select field
-        jax('#action_1').clone({
-            "name" : 'action_' + phire.resourceCount,
-            "id"   : 'action_' + phire.resourceCount
-        }).appendTo(jax('#action_1').parent());
+            if (vals[i].resource != '') {
+                jax('#resource_' + phire.resourceCount).val(vals[i].resource);
+            }
 
-        // Add permission select field
-        jax('#permission_1').clone({
-            "name" : 'permission_' + phire.resourceCount,
-            "id"   : 'permission_' + phire.resourceCount
-        }).appendTo(jax('#permission_1').parent());
+            // Add action select field
+            jax('#action_1').clone({
+                "name": 'action_' + phire.resourceCount,
+                "id": 'action_' + phire.resourceCount
+            }).appendTo(jax('#action_1').parent());
 
-        jax('#resource_' + phire.resourceCount).val(jax('#resource_' + (phire.resourceCount - 1) + ' > option:selected').val());
-        //phire.changePermissions(jax('#resource_new_' + phire.resourceCount)[0], false);
+            // Add permission select field
+            jax('#permission_1').clone({
+                "name": 'permission_' + phire.resourceCount,
+                "id": 'permission_' + phire.resourceCount
+            }).appendTo(jax('#permission_1').parent());
+
+            if (vals[i].permission != '') {
+                jax('#permission_' + phire.resourceCount).val(((vals[i].permission == 'allow') ? 1 : 0));
+            }
+
+            jax('#resource_' + phire.resourceCount).val(jax('#resource_' + (phire.resourceCount - 1) + ' > option:selected').val());
+            phire.changeActions(jax('#resource_' + phire.resourceCount)[0]);
+
+            if ((vals[i].action != '') && (vals[i].action != null)) {
+                jax('#action_' + phire.resourceCount).val(vals[i].action);
+            }
+        }
         return false;
     },
 
-    changePermissions : function(sel) {
+    changeActions : function(sel) {
         var id    = sel.id.substring(sel.id.lastIndexOf('_') + 1);
-        var opts  = jax('#permission_' + cur + '_' + id + ' > option').toArray();
+        var opts  = jax('#action_' + id + ' > option').toArray();
         var start = opts.length - 1;
         for (var i = start; i >= 0; i--) {
             jax(opts[i]).remove();
         }
-        jax('#permission_' + cur + '_' + id).append('option', {"value" : '----'}, '----');
+        jax('#action_' + id).append('option', {"value" : '----'}, '----');
 
-        if (jax(sel).val() != '----') {
-            var json = jax.get(path + '/users/roles/json/' + jax(sel).val());
+        if ((jax.cookie.load('phire') != '') && (jax(sel).val() != '----')) {
+            var phireCookie = jax.cookie.load('phire');
+            var json = jax.get(phireCookie.base_path + phireCookie.app_uri + '/users/roles/json/' + jax(sel).val());
             if (json.permissions != undefined) {
                 for (var i = 0; i < json.permissions.length; i++) {
-                    jax('#permission_' + cur + '_' + id).append('option', {"value" : json.permissions[i]}, json.permissions[i]);
+                    jax('#action_' + id).append('option', {"value" : json.permissions[i]}, json.permissions[i]);
                 }
             }
         }
+
         return false;
     },
 
@@ -196,6 +219,22 @@ jax(document).ready(function(){
             window.location.href = url;
             return false;
         });
+    }
+    if ((jax('#user-role-form')[0] != undefined) && (jax('#id').val() != 0)) {
+        if (jax.cookie.load('phire') != '') {
+            var phireCookie = jax.cookie.load('phire');
+            var json = jax.get(phireCookie.base_path + phireCookie.app_uri + '/users/roles/json/' + jax('#id').val());
+            if (json.length > 0) {
+                jax('#resource_1').val(json[0].resource);
+                phire.changeActions(jax('#resource_1')[0]);
+                if (json[0].action != null) {
+                    jax('#action_1').val(json[0].action);
+                }
+                jax('#permission_1').val(((json[0].permission == 'allow') ? 1 : 0));
+                json.shift();
+                phire.addResource(json);
+            }
+        }
     }
 });
 
