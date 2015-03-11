@@ -37,11 +37,11 @@ INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('force_ssl', '0');
 -- --------------------------------------------------------
 
 --
--- Table structure for table "user_roles"
+-- Table structure for table "roles"
 --
 
-DROP TABLE IF EXISTS "[{prefix}]user_roles";
-CREATE TABLE IF NOT EXISTS "[{prefix}]user_roles" (
+DROP TABLE IF EXISTS "[{prefix}]roles";
+CREATE TABLE IF NOT EXISTS "[{prefix}]roles" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
   "parent_id" integer,
   "name" varchar NOT NULL,
@@ -50,17 +50,17 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]user_roles" (
   "approval" integer,
   "permissions" text,
   UNIQUE ("id"),
-  CONSTRAINT "fk_role_parent_id" FOREIGN KEY ("parent_id") REFERENCES "[{prefix}]user_roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT "fk_role_parent_id" FOREIGN KEY ("parent_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 ) ;
 
-INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]user_roles', 2000);
-CREATE INDEX "user_role_name" ON "[{prefix}]user_roles" ("name");
+INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]roles', 2000);
+CREATE INDEX "user_role_name" ON "[{prefix}]roles" ("name");
 
 --
--- Dumping data for table "user_roles"
+-- Dumping data for table "roles"
 --
 
-INSERT INTO "[{prefix}]user_roles" ("id", "parent_id", "name", "verification", "approval", "email_as_username", "permissions") VALUES
+INSERT INTO "[{prefix}]roles" ("id", "parent_id", "name", "verification", "approval", "email_as_username", "permissions") VALUES
 (2001, NULL, 'Phire', 0, 0, 0, NULL);
 
 -- --------------------------------------------------------
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "active" integer,
   "verified" integer,
   UNIQUE ("id"),
-  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]user_roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 ) ;
 
 INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]users', 1000);

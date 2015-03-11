@@ -265,14 +265,14 @@ class Application extends \Pop\Application
      */
     public function initAcl()
     {
-        $roles = Table\UserRoles::findAll()->rows();
+        $roles = Table\Roles::findAll()->rows();
         foreach ($roles as $role) {
             $this->config['resources']['role-' . $role->id] = [
                 'edit', 'remove'
             ];
         }
         foreach ($roles as $role) {
-            $this->config['resources']['user-role-' . $role->id] = [
+            $this->config['resources']['users-of-role-' . $role->id] = [
                 'index', 'add', 'edit', 'remove'
             ];
         }
@@ -311,7 +311,7 @@ class Application extends \Pop\Application
 
         // Set up parent/child roles
         foreach ($allRoles as $id => $child) {
-            $r = \Phire\Table\UserRoles::findById($id);
+            $r = \Phire\Table\Roles::findById($id);
             if (isset($r->id) && (null !== $r->parent_id) && isset($allRoles[$r->parent_id])) {
                 $child->setParent($allRoles[$r->parent_id]);
             }

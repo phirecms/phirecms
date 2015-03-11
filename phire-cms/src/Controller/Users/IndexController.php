@@ -18,7 +18,7 @@ class IndexController extends AbstractController
      */
     public function index($id = null)
     {
-        if ((null === $id) || ($this->services['acl']->isAllowed($this->sess->user->role, 'user-role-' . $id, 'index'))) {
+        if ((null === $id) || ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $id, 'index'))) {
             $deniedRoles = [];
             $resources   = $this->services['acl']->getResources();
             foreach ($resources as $name => $resource) {
@@ -65,8 +65,8 @@ class IndexController extends AbstractController
         $this->prepareView('users/add.phtml');
         $this->view->title = 'Add User';
 
-        if ((null !== $rid) && ($this->services['acl']->isAllowed($this->sess->user->role, 'user-role-' . $rid, 'add'))) {
-            $role = new Model\UserRole();
+        if ((null !== $rid) && ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $rid, 'add'))) {
+            $role = new Model\Role();
             $role->getById($rid);
             $this->view->title .= ' : ' . $role->name;
 
@@ -89,7 +89,7 @@ class IndexController extends AbstractController
                 }
             }
         } else {
-            $this->view->roles = (new Model\UserRole())->getAll();
+            $this->view->roles = (new Model\Role())->getAll();
         }
 
         $this->send();
@@ -110,7 +110,7 @@ class IndexController extends AbstractController
             $this->redirect(BASE_PATH . APP_URI . '/users');
         }
 
-        if ($this->services['acl']->isAllowed($this->sess->user->role, 'user-role-' . $user->role_id, 'edit')) {
+        if ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $user->role_id, 'edit')) {
             $this->prepareView('users/edit.phtml');
             $this->view->title    = 'Edit User';
             $this->view->username = $user->username;

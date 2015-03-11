@@ -24,7 +24,7 @@ class Register extends Form
      */
     public function __construct($rid, $captcha = false, $csrf = false, array $fields = null, $action = null, $method = 'post')
     {
-        $role = Table\UserRoles::findById($rid);
+        $role = Table\Roles::findById($rid);
 
         if ($role->email_as_username) {
             unset($fields[0]['username']);

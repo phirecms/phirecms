@@ -319,7 +319,7 @@ return [
             ]
         ]
     ],
-    'Phire\Form\UserRole' => [
+    'Phire\Form\Role' => [
         [
             'submit' => [
                 'type'       => 'submit',

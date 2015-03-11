@@ -45,7 +45,7 @@ class Unsubscribe extends Form
             } else if (null !== $user->role_id) {
                 $sess         = \Pop\Web\Session::getInstance();
                 $requireLogin = true;
-                $role         = Table\UserRoles::findById($user->role_id);
+                $role         = Table\Roles::findById($user->role_id);
                 if (isset($role->id) && (null !== $role->permissions)) {
                     $permissions = unserialize($role->permissions);
                     if (isset($permissions['deny'])) {

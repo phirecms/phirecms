@@ -32,9 +32,9 @@ class User extends AbstractModel
             'email'        => DB_PREFIX . 'users.email',
             'active'       => DB_PREFIX . 'users.active',
             'verified'     => DB_PREFIX . 'users.verified',
-            'role_id'      => DB_PREFIX . 'user_roles.id',
-            'role_name'    => DB_PREFIX . 'user_roles.name'
-        ])->join(DB_PREFIX . 'user_roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'user_roles.id']);
+            'role_id'      => DB_PREFIX . 'roles.id',
+            'role_name'    => DB_PREFIX . 'roles.name'
+        ])->join(DB_PREFIX . 'roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'roles.id']);
 
         if (null !== $limit) {
             $page = ((null !== $page) && ((int)$page > 1)) ?
@@ -88,7 +88,7 @@ class User extends AbstractModel
      */
     public function getRoles()
     {
-        $roles    = Table\UserRoles::findAll()->rows();
+        $roles    = Table\Roles::findAll()->rows();
         $rolesAry = [];
 
         foreach ($roles as $role) {

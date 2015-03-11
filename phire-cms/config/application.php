@@ -35,16 +35,17 @@ $config = [
                         ],
                         'attributes' => [
                             'class' => 'users-nav-icon'
+                        ]
+                    ],
+                    'roles' => [
+                        'name' => 'Roles',
+                        'href' => '/roles',
+                        'acl'  => [
+                            'resource'   => 'roles',
+                            'permission' => 'index'
                         ],
-                        'children' => [
-                            'roles' => [
-                                'name' => 'Roles',
-                                'href' => '/users/roles',
-                                'acl'  => [
-                                    'resource'   => 'roles',
-                                    'permission' => 'index'
-                                ]
-                            ]
+                        'attributes' => [
+                            'class' => 'roles-nav-icon'
                         ]
                     ],
                     'config' => [
@@ -74,6 +75,13 @@ $config = [
                     'indent' => '    '
                 ]
             ]
+        ]
+    ],
+    'events' => [
+        [
+            'name'     => 'app.route.pre',
+            'action'   => 'Phire\Model\Role::addRoles',
+            'priority' => 1001
         ]
     ]
 ];

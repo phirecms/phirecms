@@ -6,7 +6,7 @@
             <select tabindex="2" id="role_id" name="role_id">
                 <option value="----">----</option>
 <?php foreach ($roles as $id => $role): ?>
-<?php if (($acl->hasResource('user-role-' . $id)) && ($acl->isAllowed($user->role, 'user-role-' . $id, 'index'))): ?>
+<?php if (($acl->hasResource('users-of-role-' . $id)) && ($acl->isAllowed($user->role, 'users-of-role-' . $id, 'index'))): ?>
                 <option value="<?=$id; ?>"<?=(((null !== $roleId) && ($roleId == $id)) ? ' selected="selected"' : null); ?>><?=$role; ?></option>
 <?php endif; ?>
 <?php endforeach; ?>
@@ -49,8 +49,8 @@
                 <td><?=(($u->active) ? 'Yes' : 'No'); ?></td>
                 <td><?=(($u->verified) ? 'Yes' : 'No'); ?></td>
 <?php if (null !== $u->role_id): ?>
-                <td><?php if (($acl->isAllowed($user->role, 'users', 'edit') && ($acl->isAllowed($user->role, 'user-role-' . $u->role_id, 'edit')))): ?><a class="edit-link" href="<?=$phireUri . '/users/edit/' . $u->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
-                <td class="text-center"><?php if (($user->id != $u->id) && ($acl->isAllowed($user->role, 'users', 'remove')) && ($acl->isAllowed($user->role, 'user-role-' . $u->role_id, 'remove'))): ?><input type="checkbox" name="rm_users[]" id="rm_users<?=$i++; ?>" value="<?=$u->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
+                <td><?php if (($acl->isAllowed($user->role, 'users', 'edit') && ($acl->isAllowed($user->role, 'users-of-role-' . $u->role_id, 'edit')))): ?><a class="edit-link" href="<?=$phireUri . '/users/edit/' . $u->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
+                <td class="text-center"><?php if (($user->id != $u->id) && ($acl->isAllowed($user->role, 'users', 'remove')) && ($acl->isAllowed($user->role, 'users-of-role-' . $u->role_id, 'remove'))): ?><input type="checkbox" name="rm_users[]" id="rm_users<?=$i++; ?>" value="<?=$u->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
 <?php else: ?>
                 <td><?php if ($acl->isAllowed($user->role, 'users', 'edit')): ?><a class="edit-link" href="<?=$phireUri . '/users/edit/' . $u->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
                 <td class="text-center"><?php if (($user->id != $u->id) && ($acl->isAllowed($user->role, 'users', 'remove'))): ?><input type="checkbox" name="rm_users[]" id="rm_users<?=$i++; ?>" value="<?=$u->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>

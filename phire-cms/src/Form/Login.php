@@ -54,7 +54,7 @@ class Login extends Form
                 $this->getElement('password')
                      ->addValidator(new Validator\NotEqual($this->password, 'That user is blocked.'));
             } else  {
-                $role = Table\UserRoles::findById($auth->adapter()->getUser()->role_id);
+                $role = Table\Roles::findById($auth->adapter()->getUser()->role_id);
                 if (isset($role->id) && (null !== $role->permissions)) {
                     $permissions = unserialize($role->permissions);
                     if (isset($permissions['deny'])) {

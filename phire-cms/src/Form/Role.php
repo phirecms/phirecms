@@ -6,7 +6,7 @@ use Phire\Table;
 use Pop\Form\Form;
 use Pop\Validator;
 
-class UserRole extends Form
+class Role extends Form
 {
 
     /**
@@ -17,12 +17,12 @@ class UserRole extends Form
      * @param  array  $fields
      * @param  string $action
      * @param  string $method
-     * @return UserRole
+     * @return Role
      */
     public function __construct(array $fields = null, $action = null, $method = 'post')
     {
         parent::__construct($fields, $action, $method);
-        $this->setAttribute('id', 'user-role-form');
+        $this->setAttribute('id', 'role-form');
         $this->setIndent('    ');
     }
 
@@ -37,7 +37,7 @@ class UserRole extends Form
         parent::setFieldValues($values);
 
         if (($_POST) && (null !== $this->name)) {
-            $role = Table\UserRoles::findBy(['name' => $this->name]);
+            $role = Table\Roles::findBy(['name' => $this->name]);
             if (isset($role->id) && ($this->id != $role->id)) {
                 $this->getElement('name')
                      ->addValidator(new Validator\NotEqual($this->name, 'That role already exists.'));

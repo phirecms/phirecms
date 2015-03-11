@@ -29,13 +29,13 @@ INSERT INTO "[{prefix}]config" ("setting", "value") VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table "user_roles"
+-- Table structure for table "roles"
 --
 
 CREATE SEQUENCE role_id_seq START 2001;
 
-DROP TABLE IF EXISTS "[{prefix}]user_roles" CASCADE;
-CREATE TABLE IF NOT EXISTS "[{prefix}]user_roles" (
+DROP TABLE IF EXISTS "[{prefix}]roles" CASCADE;
+CREATE TABLE IF NOT EXISTS "[{prefix}]roles" (
   "id" integer NOT NULL DEFAULT nextval('role_id_seq'),
   "parent_id" integer,
   "name" varchar(255) NOT NULL,
@@ -44,17 +44,17 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]user_roles" (
   "email_as_username" integer,
   "permissions" text,
   PRIMARY KEY ("id"),
-  CONSTRAINT "fk_role_parent_id" FOREIGN KEY ("parent_id") REFERENCES "[{prefix}]user_roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT "fk_role_parent_id" FOREIGN KEY ("parent_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 ) ;
 
-ALTER SEQUENCE role_id_seq OWNED BY "[{prefix}]user_roles"."id";
-CREATE INDEX "user_role_name" ON "[{prefix}]user_roles" ("name");
+ALTER SEQUENCE role_id_seq OWNED BY "[{prefix}]roles"."id";
+CREATE INDEX "user_role_name" ON "[{prefix}]roles" ("name");
 
 --
--- Dumping data for table "user_roles"
+-- Dumping data for table "roles"
 --
 
-INSERT INTO "[{prefix}]user_roles" ("parent_id", "name", "verification", "approval", "email_as_username", "permissions") VALUES
+INSERT INTO "[{prefix}]roles" ("parent_id", "name", "verification", "approval", "email_as_username", "permissions") VALUES
 (NULL, 'Phire', 0, 0, 0, NULL);
 
 -- --------------------------------------------------------
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "active" integer,
   "verified" integer,
   PRIMARY KEY ("id"),
-  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]user_roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 ) ;
 
 ALTER SEQUENCE user_id_seq OWNED BY "[{prefix}]users"."id";

@@ -4,7 +4,7 @@ namespace Phire\Table;
 
 use Pop\Db\Record;
 
-class UserRoles extends Record
+class Roles extends Record
 {
 
     /**

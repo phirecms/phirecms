@@ -55,7 +55,7 @@ class IndexController extends AbstractController
                 $this->sess->user = new \ArrayObject([
                     'id'       => $auth->adapter()->getUser()->id,
                     'role_id'  => $auth->adapter()->getUser()->role_id,
-                    'role'     => Table\UserRoles::findById($auth->adapter()->getUser()->role_id)->name,
+                    'role'     => Table\Roles::findById($auth->adapter()->getUser()->role_id)->name,
                     'username' => $auth->adapter()->getUser()->username,
                     'email'    => $auth->adapter()->getUser()->email,
                 ], \ArrayObject::ARRAY_AS_PROPS);
@@ -91,7 +91,7 @@ class IndexController extends AbstractController
      */
     public function register($id)
     {
-        $role = new Model\UserRole();
+        $role = new Model\Role();
 
         if ($role->canRegister($id)) {
             $this->prepareView('register.phtml');
@@ -161,7 +161,7 @@ class IndexController extends AbstractController
                      ->filter();
 
                 $fields = $this->view->form->getFields();
-                $role   = new Model\UserRole();
+                $role   = new Model\Role();
                 $role->getById($this->sess->user->role_id);
                 $fields['verified'] = (int)!($role->verification);
 

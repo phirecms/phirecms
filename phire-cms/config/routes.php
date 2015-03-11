@@ -129,36 +129,36 @@ return [
                 'permission' => 'remove'
             ]
         ],
-        '/users/roles[/]' => [
-            'controller' => 'Phire\Controller\Users\RolesController',
+        '/roles[/]' => [
+            'controller' => 'Phire\Controller\Roles\IndexController',
             'action'     => 'index',
             'acl'        => [
                 'resource'   => 'roles',
                 'permission' => 'index'
             ]
         ],
-        '/users/roles/add[/]' => [
-            'controller' => 'Phire\Controller\Users\RolesController',
+        '/roles/add[/]' => [
+            'controller' => 'Phire\Controller\Roles\IndexController',
             'action'     => 'add',
             'acl'        => [
                 'resource'   => 'roles',
                 'permission' => 'add'
             ]
         ],
-        '/users/roles/edit/:id' => [
-            'controller' => 'Phire\Controller\Users\RolesController',
+        '/roles/edit/:id' => [
+            'controller' => 'Phire\Controller\Roles\IndexController',
             'action'     => 'edit',
             'acl'        => [
                 'resource'   => 'roles',
                 'permission' => 'edit'
             ]
         ],
-        '/users/roles/json/:id' => [
-            'controller' => 'Phire\Controller\Users\RolesController',
+        '/roles/json/:id' => [
+            'controller' => 'Phire\Controller\Roles\IndexController',
             'action'     => 'json'
         ],
-        '/users/roles/remove' => [
-            'controller' => 'Phire\Controller\Users\RolesController',
+        '/roles/remove' => [
+            'controller' => 'Phire\Controller\Roles\IndexController',
             'action'     => 'remove',
             'acl'        => [
                 'resource'   => 'roles',

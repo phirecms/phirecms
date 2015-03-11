@@ -4,7 +4,7 @@ namespace Phire\Model;
 
 use Phire\Table;
 
-class UserRole extends AbstractModel
+class Role extends AbstractModel
 {
 
     /**
@@ -23,13 +23,13 @@ class UserRole extends AbstractModel
             $page = ((null !== $page) && ((int)$page > 1)) ?
                 ($page * $limit) - $limit : null;
 
-            return Table\UserRoles::findAll(null, [
+            return Table\Roles::findAll(null, [
                 'offset' => $page,
                 'limit'  => $limit,
                 'order'  => $order
             ])->rows();
         } else {
-            return Table\UserRoles::findAll(null, [
+            return Table\Roles::findAll(null, [
                 'order'  => $order
             ])->rows();
         }
@@ -43,7 +43,7 @@ class UserRole extends AbstractModel
      */
     public function getById($id)
     {
-        $role = Table\UserRoles::findById((int)$id);
+        $role = Table\Roles::findById((int)$id);
         if (isset($role->id)) {
             $this->data = array_merge($this->data, $role->getColumns());
         }
@@ -57,7 +57,7 @@ class UserRole extends AbstractModel
      */
     public function save(array $post)
     {
-        $role = new Table\UserRoles([
+        $role = new Table\Roles([
             'parent_id'         => ($post['parent_id'] != '----') ? (int)$post['parent_id'] : null,
             'name'              => html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8'),
             'verification'      => (int)$post['verification'],
@@ -78,7 +78,7 @@ class UserRole extends AbstractModel
      */
     public function update(array $post)
     {
-        $role = Table\UserRoles::findById((int)$post['id']);
+        $role = Table\Roles::findById((int)$post['id']);
         if (isset($role->id)) {
             $role->parent_id         = ($post['parent_id'] != '----') ? (int)$post['parent_id'] : null;
             $role->name              = html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8');
@@ -107,7 +107,7 @@ class UserRole extends AbstractModel
     {
         if (isset($post['rm_roles'])) {
             foreach ($post['rm_roles'] as $id) {
-                $role = Table\UserRoles::findById((int)$id);
+                $role = Table\Roles::findById((int)$id);
                 if (isset($role->id)) {
                     $role->delete();
                 }
@@ -123,7 +123,7 @@ class UserRole extends AbstractModel
      */
     public function hasPages($limit)
     {
-        return (Table\UserRoles::findAll()->count() > $limit);
+        return (Table\Roles::findAll()->count() > $limit);
     }
 
     /**
@@ -133,7 +133,7 @@ class UserRole extends AbstractModel
      */
     public function getCount()
     {
-        return Table\UserRoles::findAll()->count();
+        return Table\Roles::findAll()->count();
     }
 
     /**
@@ -145,7 +145,7 @@ class UserRole extends AbstractModel
     public function canRegister($id)
     {
         $result = true;
-        $role   = Table\UserRoles::findById((int)$id);
+        $role   = Table\Roles::findById((int)$id);
 
         if (isset($role->id) && (null !== $role->permissions)) {
             $permissions = unserialize($role->permissions);
@@ -202,6 +202,34 @@ class UserRole extends AbstractModel
         }
 
         return $permissions;
+    }
+
+    /**
+     * Add user roles to navigation
+     *
+     * @param  \Phire\Application $application
+     * @return void
+     */
+    public static function addRoles(\Phire\Application $application)
+    {
+        $params   = $application->services()->getParams('nav.phire');
+        $roles    = \Phire\Table\Roles::findAll();
+
+        foreach ($roles->rows() as $role) {
+            if (!isset($params['tree']['users']['children'])) {
+                $params['tree']['users']['children'] = [];
+            }
+            $params['tree']['users']['children']['users-of-role-' . $role->id] = [
+                'name' => $role->name,
+                'href' => '/users/' . $role->id,
+                'acl'  => [
+                    'resource'   => 'users-of-role-' . $role->id,
+                    'permission' => 'index'
+                ]
+            ];
+        }
+
+        $application->services()->setParams('nav.phire', $params);
     }
 
 }

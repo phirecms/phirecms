@@ -71,7 +71,7 @@ var phire = {
 
         if ((jax.cookie.load('phire') != '') && (jax(sel).val() != '----')) {
             var phireCookie = jax.cookie.load('phire');
-            var json = jax.get(phireCookie.base_path + phireCookie.app_uri + '/users/roles/json/' + jax(sel).val());
+            var json = jax.get(phireCookie.base_path + phireCookie.app_uri + '/roles/json/' + jax(sel).val());
             if (json.permissions != undefined) {
                 for (var i = 0; i < json.permissions.length; i++) {
                     jax('#action_' + id).append('option', {"value" : json.permissions[i]}, json.permissions[i]);
@@ -183,16 +183,16 @@ jax(document).ready(function(){
             return jax('#users-form').checkValidate('checkbox', true);
         });
     }
-    if (jax('#user-roles-form')[0] != undefined) {
+    if (jax('#roles-form')[0] != undefined) {
         jax('#checkall').click(function(){
             if (this.checked) {
-                jax('#user-roles-form').checkAll(this.value);
+                jax('#roles-form').checkAll(this.value);
             } else {
-                jax('#user-roles-form').uncheckAll(this.value);
+                jax('#roles-form').uncheckAll(this.value);
             }
         });
-        jax('#user-roles-form').submit(function(){
-            return jax('#user-roles-form').checkValidate('checkbox', true);
+        jax('#roles-form').submit(function(){
+            return jax('#roles-form').checkValidate('checkbox', true);
         });
     }
     if (jax('#user-form')[0] != undefined) {
@@ -220,10 +220,10 @@ jax(document).ready(function(){
             return false;
         });
     }
-    if ((jax('#user-role-form')[0] != undefined) && (jax('#id').val() != 0)) {
+    if ((jax('#role-form')[0] != undefined) && (jax('#id').val() != 0)) {
         if (jax.cookie.load('phire') != '') {
             var phireCookie = jax.cookie.load('phire');
-            var json = jax.get(phireCookie.base_path + phireCookie.app_uri + '/users/roles/json/' + jax('#id').val());
+            var json = jax.get(phireCookie.base_path + phireCookie.app_uri + '/roles/json/' + jax('#id').val());
             if (json.length > 0) {
                 jax('#resource_1').val(json[0].resource);
                 phire.changeActions(jax('#resource_1')[0]);

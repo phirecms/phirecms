@@ -1,13 +1,13 @@
 <?php
 
-namespace Phire\Controller\Users;
+namespace Phire\Controller\Roles;
 
 use Phire\Controller\AbstractController;
 use Phire\Form;
 use Phire\Model;
 use Pop\Paginator\Paginator;
 
-class RolesController extends AbstractController
+class IndexController extends AbstractController
 {
 
     /**
@@ -17,7 +17,7 @@ class RolesController extends AbstractController
      */
     public function index()
     {
-        $role = new Model\UserRole();
+        $role = new Model\Role();
 
         if ($role->hasPages($this->config->pagination)) {
             $limit = $this->config->pagination;
@@ -28,8 +28,8 @@ class RolesController extends AbstractController
             $pages = null;
         }
 
-        $this->prepareView('users/roles/index.phtml');
-        $this->view->title = 'Users : Roles';
+        $this->prepareView('roles/index.phtml');
+        $this->view->title = 'Roles';
         $this->view->pages = $pages;
         $this->view->roles = $role->getAll($limit, $this->request->getQuery('page'), $this->request->getQuery('sort'));
         $this->send();
@@ -42,16 +42,16 @@ class RolesController extends AbstractController
      */
     public function add()
     {
-        $this->prepareView('users/roles/add.phtml');
-        $this->view->title = 'Users : Add Role';
-        $role = new Model\UserRole();
+        $this->prepareView('roles/add.phtml');
+        $this->view->title = 'Roles : Add';
+        $role = new Model\Role();
 
-        $fields = $this->application->config()['forms']['Phire\Form\UserRole'];
+        $fields = $this->application->config()['forms']['Phire\Form\Role'];
         $config = $this->application->config();
 
         $resources = ['----' => '----'];
         $parents   = ['----' => '----'];
-        $roles     = (new Model\UserRole())->getAll();
+        $roles     = (new Model\Role())->getAll();
         if (count($roles) > 0) {
             foreach ($roles as $r) {
                 $parents[$r['id']] = $r['name'];
@@ -65,7 +65,7 @@ class RolesController extends AbstractController
         $fields[0]['parent_id']['value']  = $parents;
         $fields[2]['resource_1']['value'] = $resources;
 
-        $this->view->form = new Form\UserRole($fields);
+        $this->view->form = new Form\Role($fields);
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
@@ -75,7 +75,7 @@ class RolesController extends AbstractController
             if ($this->view->form->isValid()) {
                 $role->save($this->request->getPost());
                 $this->view->id = $role->id;
-                $this->redirect(BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id . '?saved=' . time());
+                $this->redirect(BASE_PATH . APP_URI . '/roles/edit/' . $role->id . '?saved=' . time());
             }
         }
 
@@ -90,23 +90,23 @@ class RolesController extends AbstractController
      */
     public function edit($id)
     {
-        $role = new Model\UserRole();
+        $role = new Model\Role();
         $role->getById($id);
 
         if (!isset($role->id)) {
-            $this->redirect(BASE_PATH . APP_URI . '/users/roles');
+            $this->redirect(BASE_PATH . APP_URI . '/roles');
         }
 
-        $this->prepareView('users/roles/edit.phtml');
-        $this->view->title     = 'Users : Edit Role';
+        $this->prepareView('roles/edit.phtml');
+        $this->view->title     = 'Roles';
         $this->view->role_name = $role->name;
 
-        $fields = $this->application->config()['forms']['Phire\Form\UserRole'];
+        $fields = $this->application->config()['forms']['Phire\Form\Role'];
         $config = $this->application->config();
 
         $resources = ['----' => '----'];
         $parents   = ['----' => '----'];
-        $roles     = (new Model\UserRole())->getAll();
+        $roles     = (new Model\Role())->getAll();
         if (count($roles) > 0) {
             foreach ($roles as $r) {
                 if ($r['id'] != $id) {
@@ -122,7 +122,7 @@ class RolesController extends AbstractController
         $fields[0]['parent_id']['value']  = $parents;
         $fields[2]['resource_1']['value'] = $resources;
 
-        $this->view->form = new Form\UserRole($fields);
+        $this->view->form = new Form\Role($fields);
         $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($role->toArray());
 
@@ -131,10 +131,10 @@ class RolesController extends AbstractController
                  ->setFieldValues($this->request->getPost());
 
             if ($this->view->form->isValid()) {
-                $role = new Model\UserRole();
+                $role = new Model\Role();
                 $role->update($this->request->getPost());
                 $this->view->id = $role->id;
-                $this->redirect(BASE_PATH . APP_URI . '/users/roles/edit/' . $role->id . '?saved=' . time());
+                $this->redirect(BASE_PATH . APP_URI . '/roles/edit/' . $role->id . '?saved=' . time());
             }
         }
 
@@ -152,7 +152,7 @@ class RolesController extends AbstractController
         $json = [];
 
         if (is_numeric($id)) {
-            $role = new Model\UserRole();
+            $role = new Model\Role();
             $role->getById($id);
 
             if ((isset($role->id)) && (null !== $role->permissions)) {
@@ -195,10 +195,10 @@ class RolesController extends AbstractController
     public function remove()
     {
         if ($this->request->isPost()) {
-            $role = new Model\UserRole();
+            $role = new Model\Role();
             $role->remove($this->request->getPost());
         }
-        $this->redirect(BASE_PATH . APP_URI . '/users/roles?removed=' . time());
+        $this->redirect(BASE_PATH . APP_URI . '/roles?removed=' . time());
     }
 
 }

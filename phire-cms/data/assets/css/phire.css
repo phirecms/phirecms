@@ -485,14 +485,14 @@ input[type=submit]:focus, button:focus {
     font-weight: normal;
 }
 
-#user-form, #user-role-form, #user-role-select-form {
+#user-form, #role-form, #role-select-form {
     margin: 10px auto 10px auto;
     padding: 15px 0 15px 0;
     width: 100%;
     border-top: solid 1px #ccc;
 }
 
-#user-form > dl:first-child, #user-role-form > dl:first-child {
+#user-form > dl:first-child, #role-form > dl:first-child {
     margin: 0 0 0 20px;
     padding: 0 0 0 20px;
     width: 160px;
@@ -503,32 +503,32 @@ input[type=submit]:focus, button:focus {
 }
 
 #user-form > dl:first-child > dd, #user-form > dl:first-child > dt,
-#user-role-form > dl:first-child > dd, #user-role-form > dl:first-child > dt {
+#role-form > dl:first-child > dd, #role-form > dl:first-child > dt {
     width: 100%;
 }
 
-#user-form > dl:first-child > dt, #user-role-form > dl:first-child > dt {
+#user-form > dl:first-child > dt, #role-form > dl:first-child > dt {
     margin: 0 0 5px 0;
     border-bottom: dotted 1px #aaa;
 }
 
-#user-form > dl:first-child > dd, #user-role-form > dl:first-child > dd {
+#user-form > dl:first-child > dd, #role-form > dl:first-child > dd {
     margin: 0 0 10px 0;
 }
 
-#user-form > dl:nth-child(2) > dd, #user-role-form > dl:nth-child(2) > dd, #user-role-form > dl:nth-child(3) > dd {
+#user-form > dl:nth-child(2) > dd, #role-form > dl:nth-child(2) > dd, #role-form > dl:nth-child(3) > dd {
     padding: 0 2px 18px 2px;
 }
 
-#user-role-form-field-group-2 {
+#role-form-field-group-2 {
     width: calc(100% - 200px);
 }
 
-#user-role-form-field-group-2 > dt, #user-role-form-field-group-2 > dd {
+#role-form-field-group-2 > dt, #role-form-field-group-2 > dd {
     width: 99.5%;
 }
 
-#user-role-form-field-group-3 > dd > select {
+#role-form-field-group-3 > dd > select {
     margin: 0 5px 5px 0;
     width: 180px;
     display: block;
@@ -546,7 +546,7 @@ input[type=submit]:focus, button:focus {
     padding: 4px 6px 4px 6px;
 }
 
-#user-role-form-field-group-3 > dd > fieldset {
+#role-form-field-group-3 > dd > fieldset {
     padding: 7px 0 0 0;
 }
 
@@ -626,7 +626,7 @@ input[type=submit]:focus, button:focus {
 
 #user-search-form > div > select {
     margin: 0;
-    padding: 0 2px 0 2px;
+    padding: 0 4px 0 2px;
     color: #666;
     font-size: 0.9em;
     height: 22px;
@@ -967,6 +967,12 @@ th.text-center, td.text-center {
     background-repeat: no-repeat;
 }
 
+.roles-nav-icon {
+    background-image: url(../img/roles-icon-sm.png);
+    background-position: 8px center;
+    background-repeat: no-repeat;
+}
+
 .config-nav-icon {
     background-image: url(../img/sliders-icon-sm.png);
     background-position: 8px center;
@@ -993,6 +999,14 @@ th.text-center, td.text-center {
     margin: 10px 0 10px 0;
     padding: 10px 0 10px 45px;
     background-image: url(../img/users-icon-lg.png);
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+.roles-header {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 45px;
+    background-image: url(../img/roles-icon-lg.png);
     background-position: left center;
     background-repeat: no-repeat;
 }
