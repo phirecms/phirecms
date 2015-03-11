@@ -72,10 +72,12 @@ class Application extends \Pop\Application
 
         // Set up triggers to check the application session
         $this->on('app.route.pre', 'Phire\Application::sslCheck', 1000)
-             ->on('app.route.pre', 'Phire\Application::addRoles', 1000)
              ->on('app.route.post', 'Phire\Application::dbCheck', 1000)
              ->on('app.dispatch.pre', 'Phire\Application::sessionCheck', 1001)
              ->on('app.dispatch.pre', 'Phire\Application::aclCheck', 1000);
+
+        // Add roles to user nav
+        $this->addRoles();
 
         // Load modules
         $this->loadModules();
@@ -105,6 +107,35 @@ class Application extends \Pop\Application
         $response = new Response();
         $response->setBody((string)$view);
         $response->send();
+    }
+
+    /**
+     * Add user roles to navigation
+     *
+     * @return void
+     */
+    public function addRoles()
+    {
+        if ($this->config()['db']) {
+            $params = $this->services()->getParams('nav.phire');
+            $roles = \Phire\Table\Roles::findAll();
+
+            foreach ($roles->rows() as $role) {
+                if (!isset($params['tree']['users']['children'])) {
+                    $params['tree']['users']['children'] = [];
+                }
+                $params['tree']['users']['children']['users-of-role-' . $role->id] = [
+                    'name' => $role->name,
+                    'href' => '/users/' . $role->id,
+                    'acl' => [
+                        'resource' => 'users-of-role-' . $role->id,
+                        'permission' => 'index'
+                    ]
+                ];
+            }
+
+            $this->services()->setParams('nav.phire', $params);
+        }
     }
 
     /**
@@ -329,7 +360,7 @@ class Application extends \Pop\Application
     /**
      * Check if the application requires an SSL connection
      *
-     * @param  Application $application
+     * @param  Application $this
      * @return void
      */
     public static function sslCheck(Application $application)
@@ -427,37 +458,6 @@ class Application extends \Pop\Application
                     }
                 }
             }
-        }
-    }
-
-
-    /**
-     * Add user roles to navigation
-     *
-     * @param  \Phire\Application $application
-     * @return void
-     */
-    public static function addRoles(\Phire\Application $application)
-    {
-        if ($application->config()['db']) {
-            $params = $application->services()->getParams('nav.phire');
-            $roles = \Phire\Table\Roles::findAll();
-
-            foreach ($roles->rows() as $role) {
-                if (!isset($params['tree']['users']['children'])) {
-                    $params['tree']['users']['children'] = [];
-                }
-                $params['tree']['users']['children']['users-of-role-' . $role->id] = [
-                    'name' => $role->name,
-                    'href' => '/users/' . $role->id,
-                    'acl' => [
-                        'resource' => 'users-of-role-' . $role->id,
-                        'permission' => 'index'
-                    ]
-                ];
-            }
-
-            $application->services()->setParams('nav.phire', $params);
         }
     }
 
