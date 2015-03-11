@@ -76,13 +76,6 @@ $config = [
                 ]
             ]
         ]
-    ],
-    'events' => [
-        [
-            'name'     => 'app.route.pre',
-            'action'   => 'Phire\Model\Role::addRoles',
-            'priority' => 1001
-        ]
     ]
 ];
 

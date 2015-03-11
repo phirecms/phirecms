@@ -204,32 +204,4 @@ class Role extends AbstractModel
         return $permissions;
     }
 
-    /**
-     * Add user roles to navigation
-     *
-     * @param  \Phire\Application $application
-     * @return void
-     */
-    public static function addRoles(\Phire\Application $application)
-    {
-        $params   = $application->services()->getParams('nav.phire');
-        $roles    = \Phire\Table\Roles::findAll();
-
-        foreach ($roles->rows() as $role) {
-            if (!isset($params['tree']['users']['children'])) {
-                $params['tree']['users']['children'] = [];
-            }
-            $params['tree']['users']['children']['users-of-role-' . $role->id] = [
-                'name' => $role->name,
-                'href' => '/users/' . $role->id,
-                'acl'  => [
-                    'resource'   => 'users-of-role-' . $role->id,
-                    'permission' => 'index'
-                ]
-            ];
-        }
-
-        $application->services()->setParams('nav.phire', $params);
-    }
-
 }

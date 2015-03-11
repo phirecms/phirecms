@@ -59,7 +59,12 @@ class IndexController extends AbstractController
         }
 
         foreach ($config['resources'] as $resource => $perms) {
-            $resources[$resource] = $resource;
+            if (strpos($resource, '|') !== false) {
+                $resource = explode('|', $resource);
+                $resources[$resource[0]] = $resource[1];
+            } else {
+                $resources[$resource] = $resource;
+            }
         }
 
         $fields[0]['parent_id']['value']  = $parents;
@@ -116,7 +121,12 @@ class IndexController extends AbstractController
         }
 
         foreach ($config['resources'] as $resource => $perms) {
-            $resources[$resource] = $resource;
+            if (strpos($resource, '|') !== false) {
+                $resource = explode('|', $resource);
+                $resources[$resource[0]] = $resource[1];
+            } else {
+                $resources[$resource] = $resource;
+            }
         }
 
         $fields[0]['parent_id']['value']  = $parents;

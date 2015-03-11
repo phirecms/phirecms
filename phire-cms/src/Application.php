@@ -72,6 +72,7 @@ class Application extends \Pop\Application
 
         // Set up triggers to check the application session
         $this->on('app.route.pre', 'Phire\Application::sslCheck', 1000)
+             ->on('app.route.pre', 'Phire\Application::addRoles', 1000)
              ->on('app.route.post', 'Phire\Application::dbCheck', 1000)
              ->on('app.dispatch.pre', 'Phire\Application::sessionCheck', 1001)
              ->on('app.dispatch.pre', 'Phire\Application::aclCheck', 1000);
@@ -267,17 +268,19 @@ class Application extends \Pop\Application
     {
         $roles = Table\Roles::findAll()->rows();
         foreach ($roles as $role) {
-            $this->config['resources']['role-' . $role->id] = [
+            $roleName = str_replace(' ', '-', strtolower($role->name));
+            $this->config['resources']['role-' . $role->id . '|role-' . $roleName] = [
                 'edit', 'remove'
             ];
-        }
-        foreach ($roles as $role) {
-            $this->config['resources']['users-of-role-' . $role->id] = [
+            $this->config['resources']['users-of-role-' . $role->id . '|users-of-role-' . $roleName] = [
                 'index', 'add', 'edit', 'remove'
             ];
         }
 
         foreach ($this->config['resources'] as $resource => $permissions) {
+            if (strpos($resource, '|') !== false) {
+                $resource = substr($resource, 0, strpos($resource, '|'));
+            }
             $this->services['acl']->addResource(new Resource($resource));
         }
 
@@ -424,6 +427,37 @@ class Application extends \Pop\Application
                     }
                 }
             }
+        }
+    }
+
+
+    /**
+     * Add user roles to navigation
+     *
+     * @param  \Phire\Application $application
+     * @return void
+     */
+    public static function addRoles(\Phire\Application $application)
+    {
+        if ($application->config()['db']) {
+            $params = $application->services()->getParams('nav.phire');
+            $roles = \Phire\Table\Roles::findAll();
+
+            foreach ($roles->rows() as $role) {
+                if (!isset($params['tree']['users']['children'])) {
+                    $params['tree']['users']['children'] = [];
+                }
+                $params['tree']['users']['children']['users-of-role-' . $role->id] = [
+                    'name' => $role->name,
+                    'href' => '/users/' . $role->id,
+                    'acl' => [
+                        'resource' => 'users-of-role-' . $role->id,
+                        'permission' => 'index'
+                    ]
+                ];
+            }
+
+            $application->services()->setParams('nav.phire', $params);
         }
     }
 
