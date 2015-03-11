@@ -32,6 +32,8 @@ var phire = {
 
             if (vals[i].resource != '') {
                 jax('#resource_' + phire.resourceCount).val(vals[i].resource);
+            } else {
+                jax('#resource_' + phire.resourceCount).val(jax('#resource_' + (phire.resourceCount - 1) + ' > option:selected').val());
             }
 
             // Add action select field
@@ -50,7 +52,6 @@ var phire = {
                 jax('#permission_' + phire.resourceCount).val(((vals[i].permission == 'allow') ? 1 : 0));
             }
 
-            jax('#resource_' + phire.resourceCount).val(jax('#resource_' + (phire.resourceCount - 1) + ' > option:selected').val());
             phire.changeActions(jax('#resource_' + phire.resourceCount)[0]);
 
             if ((vals[i].action != '') && (vals[i].action != null)) {
