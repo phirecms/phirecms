@@ -190,6 +190,12 @@ class IndexController extends AbstractController
             $config = $this->application->config();
             if (isset($config['resources'][$id])) {
                 $json['permissions'] = $config['resources'][$id];
+            } else {
+                foreach ($config['resources'] as $resource => $perms) {
+                    if ((strpos($resource, '|') !== false) && (substr($resource, 0, (strlen($id) + 1)) == $id . '|')) {
+                        $json['permissions'] = $perms;
+                    }
+                }
             }
         }
 
