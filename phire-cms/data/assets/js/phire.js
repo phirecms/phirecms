@@ -30,7 +30,7 @@ var phire = {
                 "id": 'resource_' + phire.resourceCount
             }).appendTo(jax('#resource_1').parent());
 
-            if (vals[i].resource != '') {
+            if ((vals[i].resource != '') && (vals[i].resource != null)) {
                 jax('#resource_' + phire.resourceCount).val(vals[i].resource);
             } else {
                 jax('#resource_' + phire.resourceCount).val(jax('#resource_' + (phire.resourceCount - 1) + ' > option:selected').val());
@@ -48,7 +48,7 @@ var phire = {
                 "id": 'permission_' + phire.resourceCount
             }).appendTo(jax('#permission_1').parent());
 
-            if (vals[i].permission != '') {
+            if ((vals[i].permission != '') &&(vals[i].permission != null)) {
                 jax('#permission_' + phire.resourceCount).val(((vals[i].permission == 'allow') ? 1 : 0));
             }
 
@@ -233,7 +233,9 @@ jax(document).ready(function(){
                 }
                 jax('#permission_1').val(((json[0].permission == 'allow') ? 1 : 0));
                 json.shift();
-                phire.addResource(json);
+                if (json.length > 0) {
+                    phire.addResource(json);
+                }
             }
         }
     }
