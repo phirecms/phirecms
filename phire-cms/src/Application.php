@@ -71,16 +71,16 @@ class Application extends \Pop\Application
         }
 
         // Set up triggers to check the application session
-        $this->on('app.route.pre', 'Phire\Application::sslCheck', 1000)
-             ->on('app.route.post', 'Phire\Application::dbCheck', 1000)
-             ->on('app.dispatch.pre', 'Phire\Application::sessionCheck', 1001)
-             ->on('app.dispatch.pre', 'Phire\Application::aclCheck', 1000);
+        $this->on('app.route.pre', 'Phire\Event\Ssl::check', 1000)
+             ->on('app.route.post', 'Phire\Event\Db::check', 1000)
+             ->on('app.dispatch.pre', 'Phire\Event\Session::check', 1001)
+             ->on('app.dispatch.pre', 'Phire\Event\Acl::check', 1000);
 
         // Add roles to user nav
         $this->addRoles();
 
-        // Load modules
-        $this->loadModules();
+        // Register modules
+        $this->registerModules();
 
         // Init the app
         return parent::init();
@@ -143,7 +143,7 @@ class Application extends \Pop\Application
      *
      * @return Application
      */
-    public function loadModules()
+    public function registerModules()
     {
         if ($this->config['db']) {
             $modulePath = $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH;
@@ -355,110 +355,6 @@ class Application extends \Pop\Application
         $this->services['nav.phire']->setAcl($this->services['acl']);
 
         return $this;
-    }
-
-    /**
-     * Check if the application requires an SSL connection
-     *
-     * @param  Application $this
-     * @return void
-     */
-    public static function sslCheck(Application $application)
-    {
-        if ($application->config()['db']) {
-            $forceSsl = \Phire\Table\Config::findById('force_ssl')->value;
-            // If force_ssl is checked, and request is not secure, redirect to secure request
-            if (($forceSsl) && ($_SERVER['SERVER_PORT'] != '443')) {
-                $secureUrl = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .
-                    ((!empty($_SERVER['QUERY_STRING'])) ? '?' . $_SERVER['QUERY_STRING'] : '');
-                Response::redirect($secureUrl);
-                exit();
-            }
-        }
-    }
-
-    /**
-     * Check if the database has been installed and a database connection is available
-     *
-     * @param  Application $application
-     * @throws Exception
-     * @return void
-     */
-    public static function dbCheck(Application $application)
-    {
-        $route = $application->router()->getRouteMatch()->getRoute();
-        if (!$application->config()['db'] &&
-            (substr($route, 0, strlen(APP_URI . '/install')) != APP_URI . '/install')) {
-            throw new Exception(
-                'Error: The database has not been installed. Please check the config file or install the system.'
-            );
-        }
-    }
-
-    /**
-     * Check if the user session
-     *
-     * @param  Application $application
-     * @return void
-     */
-    public static function sessionCheck(Application $application)
-    {
-        $sess      = $application->getService('session');
-        $action    = $application->router()->getRouteMatch()->getAction();
-        $route     = $application->router()->getRouteMatch()->getRoute();
-        $isInstall = (substr($route, 0, strlen(APP_URI . '/install')) == APP_URI . '/install');
-
-        // Special install check
-        if (isset($sess->app_uri) && (strpos($_SERVER['REQUEST_URI'], 'install/config') !== false)) {
-            if ((BASE_PATH . APP_URI) == (BASE_PATH . $sess->app_uri) && ($application->config()['db'])) {
-                Response::redirect(BASE_PATH . APP_URI . '/install/user');
-                exit();
-            }
-        }
-
-        // If logged in, and a system URL, redirect to dashboard
-        if (isset($sess->user) && (($action == 'login') || ($action == 'register') ||
-                ($action == 'verify') || ($action == 'forgot') || ($isInstall))) {
-            Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
-            exit();
-        // Else, if NOT logged in and NOT a system URL, redirect to login
-        } else if (!isset($sess->user) && (($action != 'login') && ($action != 'register') && (!$isInstall) &&
-                ($action != 'unsubscribe') && ($action != 'verify') && ($action != 'forgot') && (null !== $action)) &&
-                (substr($route, 0, strlen(APP_URI)) == APP_URI)) {
-            Response::redirect(BASE_PATH . APP_URI . '/login');
-            exit();
-        }
-    }
-
-    /**
-     * Check if the user session with the ACL service
-     *
-     * @param  Application $application
-     * @return void
-     */
-    public static function aclCheck(Application $application)
-    {
-        if ($application->config()['db']) {
-            $application->initAcl();
-            $sess = $application->getService('session');
-            $acl  = $application->getService('acl');
-
-            if (isset($sess->user) && isset($sess->user->role) && ($acl->hasRole($sess->user->role))) {
-                // Get routes with slash options
-                $route  = $application->router()->getRouteMatch()->getRoute();
-                $routes = $application->router()->getRouteMatch()->getRoutes();
-                if (isset($routes[$route]) && isset($routes[$route]['acl']) &&
-                    isset($routes[$route]['acl']['resource'])) {
-                    $resource   = $routes[$route]['acl']['resource'];
-                    $permission = (isset($routes[$route]['acl']['permission'])) ?
-                        $routes[$route]['acl']['permission'] : null;
-                    if (!$acl->isAllowed($sess->user->role, $resource, $permission)) {
-                        Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
-                        exit();
-                    }
-                }
-            }
-        }
     }
 
 }

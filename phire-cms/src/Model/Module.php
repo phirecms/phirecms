@@ -15,14 +15,14 @@ class Module extends AbstractModel
     /**
      * Get all modules
      *
-     * @param  array        $moduleConfigs
-     * @param  \Pop\Acl\Acl $acl
-     * @param  int          $limit
-     * @param  int          $page
-     * @param  string       $sort
+     * @param  \Pop\Module\Manager $moduleManager
+     * @param  \Pop\Acl\Acl        $acl
+     * @param  int                 $limit
+     * @param  int                 $page
+     * @param  string              $sort
      * @return array
      */
-    public function getAll(array $moduleConfigs, \Pop\Acl\Acl $acl, $limit = null, $page = null, $sort = null)
+    public function getAll(\Pop\Module\Manager $moduleManager, \Pop\Acl\Acl $acl, $limit = null, $page = null, $sort = null)
     {
         $order = $this->getSortOrder($sort, $page);
 
@@ -43,9 +43,9 @@ class Module extends AbstractModel
 
         $sess = Session::getInstance();
         foreach ($modules as $module) {
-            if (isset($moduleConfigs[$module->folder]) && isset($moduleConfigs[$module->folder]['nav.module'])) {
+            if (isset($moduleManager[$module->folder]) && isset($moduleManager[$module->folder]->config()['nav.module'])) {
                 $module->nav = new Nav(
-                    [$moduleConfigs[$module->folder]['nav.module']], ['top' => ['class' => 'module-nav']]
+                    [$moduleManager[$module->folder]->config()['nav.module']], ['top' => ['class' => 'module-nav']]
                 );
                 $module->nav->setBaseUrl(BASE_PATH . APP_URI);
                 $module->nav->setAcl($acl);
