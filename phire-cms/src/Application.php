@@ -266,7 +266,8 @@ class Application extends \Pop\Application
                     foreach ($dir->getFiles() as $cssFile) {
                         if ($cssFile != 'index.html') {
                             $css = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $cssDir . '/' . $cssFile;
-                            if (!in_array($css, $this->assets['css'][$cssType]) && (substr($css, -4) == '.css') && (stripos($css, 'public') === false)) {
+                            if (!in_array($css, $this->assets['css'][$cssType]) && (substr($css, -4) == '.css') &&
+                                (stripos($css, 'public') === false)) {
                                 if ((($cssFile != 'phire.nav.horz.css') && ($cssFile != 'phire.nav.vert.css')) ||
                                     (($cssFile == 'phire.nav.horz.css') && (!$navVertical)) ||
                                     (($cssFile == 'phire.nav.vert.css') && ($navVertical))
@@ -285,7 +286,8 @@ class Application extends \Pop\Application
                     foreach ($dir->getFiles() as $jsFile) {
                         if ($jsFile != 'index.html') {
                             $js = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $jsDir . '/' . $jsFile;
-                            if (!in_array($js, $this->assets['js']) && (substr($js, -3) == '.js')  && (stripos($js, 'public') === false)) {
+                            if (!in_array($js, $this->assets['js']) && (substr($js, -3) == '.js') &&
+                                (stripos($js, 'public') === false)) {
                                 $this->assets['js'][] = $js;
                             }
                         }
