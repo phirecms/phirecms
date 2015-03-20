@@ -82,6 +82,16 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
     }
 
     /**
+     * Get application object
+     *
+     * @return Application
+     */
+    public function application()
+    {
+        return $this->application;
+    }
+
+    /**
      * Get services object
      *
      * @return Locator
