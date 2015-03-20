@@ -152,7 +152,7 @@ class Module extends Module\Module
         if ($this->application->config()['db']) {
             $modulePath = $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH;
 
-            $modules = \Phire\Table\Modules::findBy(['active' => 1]);
+            $modules = Table\Modules::findBy(['active' => 1]);
             foreach ($modules->rows() as $module) {
                 if (file_exists($modulePath . '/' . $module->folder . '/src/Module.php')) {
                     include $modulePath . '/' . $module->folder . '/src/Module.php';
@@ -169,7 +169,8 @@ class Module extends Module\Module
                                 $config, include $modulePath . '/phire/config/' . strtolower($name) . '.php'
                             );
                         }
-                        $this->application->register($name, $config);
+
+                        $this->application->register($name, new Module\Module($config));
                     }
                 }
 
