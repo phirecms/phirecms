@@ -150,7 +150,11 @@ class Application extends \Pop\Application
 
             $modules = \Phire\Table\Modules::findBy(['active' => 1]);
             foreach ($modules->rows() as $module) {
-                if (file_exists($modulePath . '/' . $module->folder . '/config/module.php')) {
+                if (file_exists($modulePath . '/' . $module->folder . '/src/Module.php')) {
+                    include $modulePath . '/' . $module->folder . '/src/Module.php';
+                    $moduleClass = $module->folder . '\Module';
+                    $this->register($module->folder, new $moduleClass($this));
+                } else if (file_exists($modulePath . '/' . $module->folder . '/config/module.php')) {
                     $moduleConfig = include $modulePath . '/' . $module->folder . '/config/module.php';
 
                     // Load and register each module
@@ -162,53 +166,56 @@ class Application extends \Pop\Application
                             );
                         }
                         $this->register($name, $config);
+                    }
+                }
 
-                        // If the module has navigation
-                        $params = $this->services->getParams('nav.phire');
+                // Check module configs for Phire-specific configs
+                foreach ($this->modules as $module => $config) {
+                    // If the module has navigation
+                    $params = $this->services->getParams('nav.phire');
 
-                        // If the module has module-level navigation
-                        if (isset($config['nav.module'])) {
-                            if (!isset($params['tree']['modules']['children'])) {
-                                $params['tree']['modules']['children'] = [];
+                    // If the module has module-level navigation
+                    if (isset($config['nav.module'])) {
+                        if (!isset($params['tree']['modules']['children'])) {
+                            $params['tree']['modules']['children'] = [];
+                        }
+                        $params['tree']['modules']['children'][] = $config['nav.module'];
+                    }
+
+                    // If the module has system-level navigation
+                    if (isset($config['nav.phire'])) {
+                        $newNav = [];
+                        foreach ($config['nav.phire'] as $key => $value) {
+                            if (($key !== 'modules') && ($key !== 'users') && ($key !== 'config')) {
+                                $newNav[$key] = $value;
+                            } else {
+                                $params['tree'][$key] = array_merge_recursive($params['tree'][$key], $value);
                             }
-                            $params['tree']['modules']['children'][] = $config['nav.module'];
                         }
-
-                        // If the module has system-level navigation
-                        if (isset($config['nav.phire'])) {
-                            $newNav = [];
-                            foreach ($config['nav.phire'] as $key => $value) {
-                                if (($key !== 'modules') && ($key !== 'users') && ($key !== 'config')) {
-                                    $newNav[$key] = $value;
-                                } else {
-                                    $params['tree'][$key] = array_merge_recursive($params['tree'][$key], $value);
-                                }
-                            }
-                            if (count($newNav) > 0) {
-                                $params['tree'] = array_merge($newNav, $params['tree'], $config['nav.phire']);
-                            }
+                        if (count($newNav) > 0) {
+                            $params['tree'] = array_merge($newNav, $params['tree'], $config['nav.phire']);
                         }
+                    }
 
-                        // If the module has ACL resources
-                        if (isset($config['resources'])) {
-                            $this->config['resources'] = array_merge($this->config['resources'], $config['resources']);
-                        }
+                    // If the module has ACL resources
+                    if (isset($config['resources'])) {
+                        $this->config['resources'] = array_merge($this->config['resources'], $config['resources']);
+                    }
 
-                        // If the module has form configs
-                        if (isset($config['forms'])) {
-                            $this->config['forms'] = array_merge($this->config['forms'], $config['forms']);
-                        }
+                    // If the module has form configs
+                    if (isset($config['forms'])) {
+                        $this->config['forms'] = array_merge($this->config['forms'], $config['forms']);
+                    }
 
-                        // Add the nav params back to the service
-                        $this->services->setParams('nav.phire', $params);
+                    // Add the nav params back to the service
+                    $this->services->setParams('nav.phire', $params);
 
-                        // Load module assets
-                        if (file_exists($modulePath . '/' . $module->folder . '/data/assets')) {
-                            $this->loadAssets(
-                                $modulePath . '/' . $module->folder . '/data/assets',
-                                strtolower($name)
-                            );
-                        }
+                    // Load module assets
+                    if (file_exists($modulePath . '/' . $module . '/data/assets')) {
+                        $this->loadAssets(
+                            $modulePath . '/' . $module . '/data/assets',
+                            strtolower($module)
+                        );
                     }
                 }
             }

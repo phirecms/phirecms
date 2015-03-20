@@ -3,13 +3,12 @@
 namespace Phire\Controller;
 
 use Phire\Application;
-use Pop\Controller\Controller;
 use Pop\Http\Request;
 use Pop\Http\Response;
 use Pop\Service\Locator;
 use Pop\View\View;
 
-abstract class AbstractController extends Controller
+abstract class AbstractController extends \Pop\Controller\AbstractController
 {
 
     /**
