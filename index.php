@@ -15,11 +15,14 @@ try {
     $autoloader = require __DIR__  . APP_PATH . '/vendor/autoload.php';
 
     // Create and run the app
-    $app = new Phire\Application(
+    $app = new Pop\Application(
         $autoloader,
         include __DIR__ . APP_PATH . '/config/application.php'
     );
-    $app->run();
+
+    $app->register('Phire', new Phire\Module($app))
+        ->run();
 } catch (Exception $exception) {
-    $app->error($exception);
+    $phire = new Phire\Module();
+    $phire->error($exception);
 }

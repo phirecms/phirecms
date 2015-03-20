@@ -22,7 +22,7 @@ class Config extends AbstractModel
         $config = Table\Config::getConfig();
 
         $this->data['overview'] = [
-            'version'          => \Phire\Application::VERSION,
+            'version'          => \Phire\Module::VERSION,
             'domain'           => $_SERVER['HTTP_HOST'],
             'document_root'    => $_SERVER['DOCUMENT_ROOT'],
             'base_path'        => (BASE_PATH == '') ? '&nbsp;' : BASE_PATH,

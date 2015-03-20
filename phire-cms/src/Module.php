@@ -2,14 +2,17 @@
 
 namespace Phire;
 
+use Phire\Table;
 use Pop\Acl\Resource\Resource;
 use Pop\Acl\Role\Role;
+use Pop\Application;
 use Pop\Db\Record;
 use Pop\File\Dir;
 use Pop\Http\Request;
 use Pop\Http\Response;
+use Pop\View\View;
 
-class Application extends \Pop\Application
+class Module extends Module\Module
 {
 
     /**
@@ -18,7 +21,7 @@ class Application extends \Pop\Application
     const VERSION = '2.0.0b';
 
     /**
-     * Application JS and CSS assets
+     * JS and CSS assets
      * @var array
      */
     protected $assets = [
@@ -32,11 +35,14 @@ class Application extends \Pop\Application
     /**
      * Initialize the application
      *
+     * @param  Application $application
      * @throws Exception
-     * @return Application
+     * @return Module
      */
-    public function init()
+    public function register(Application $application)
     {
+        parent::register($application);
+
         // Load assets, if they haven't been loaded already
         $this->loadAssets(__DIR__ . '/../data/assets', 'phire');
         sort($this->assets['js']);
@@ -47,12 +53,13 @@ class Application extends \Pop\Application
         $this->loadAssets(__DIR__ . '/../..' . MODULE_PATH . '/phire/assets', 'phire-custom', true);
 
         // Set the database
-        if ($this->services->isAvailable('database')) {
-            Record::setDb($this->getService('database'));
-            $this->config['db'] = (count($this->getService('database')->getTables()) > 0);
+        if ($this->application->services()->isAvailable('database')) {
+            Record::setDb($this->application->getService('database'));
+            $db = (count($this->application->getService('database')->getTables()) > 0);
         } else {
-            $this->config['db'] = false;
+            $db = false;
         }
+        $this->application->mergeConfig(['db' => $db]);
 
         // Check PHP version
         if (version_compare(PHP_VERSION, '5.4.0') < 0) {
@@ -60,10 +67,10 @@ class Application extends \Pop\Application
         }
 
         // Add route params for the controllers
-        if (null !== $this->router) {
-            $this->router->addRouteParams(
+        if (null !== $this->application->router()) {
+            $this->application->router()->addRouteParams(
                 '*', [
-                    'application' => $this,
+                    'application' => $this->application,
                     'request'     => new Request(),
                     'response'    => new Response()
                 ]
@@ -71,7 +78,7 @@ class Application extends \Pop\Application
         }
 
         // Set up triggers to check the application session
-        $this->on('app.route.pre', 'Phire\Event\Ssl::check', 1000)
+        $this->application->on('app.route.pre', 'Phire\Event\Ssl::check', 1000)
              ->on('app.route.post', 'Phire\Event\Db::check', 1000)
              ->on('app.dispatch.pre', 'Phire\Event\Session::check', 1001)
              ->on('app.dispatch.pre', 'Phire\Event\Acl::check', 1000);
@@ -81,20 +88,17 @@ class Application extends \Pop\Application
 
         // Register modules
         $this->registerModules();
-
-        // Init the app
-        return parent::init();
     }
 
     /**
-     * Application error handler
+     * Error handler
      *
      * @param  \Exception $exception
      * @return void
      */
     public function error(\Exception $exception)
     {
-        $view = new \Pop\View\View(__DIR__ . '/../view/exception.phtml');
+        $view = new View(__DIR__ . '/../view/exception.phtml');
         $view->title        = 'Application Error';
         $view->assets       = $this->assets;
         $view->phireUri     = BASE_PATH . APP_URI;
@@ -116,9 +120,9 @@ class Application extends \Pop\Application
      */
     public function addRoles()
     {
-        if ($this->config()['db']) {
-            $params = $this->services()->getParams('nav.phire');
-            $roles = \Phire\Table\Roles::findAll();
+        if ($this->application->config()['db']) {
+            $params = $this->application->services()->getParams('nav.phire');
+            $roles  = Table\Roles::findAll();
 
             foreach ($roles->rows() as $role) {
                 if (!isset($params['tree']['users']['children'])) {
@@ -134,18 +138,18 @@ class Application extends \Pop\Application
                 ];
             }
 
-            $this->services()->setParams('nav.phire', $params);
+            $this->application->services()->setParams('nav.phire', $params);
         }
     }
 
     /**
      * Load application modules
      *
-     * @return Application
+     * @return Module
      */
     public function registerModules()
     {
-        if ($this->config['db']) {
+        if ($this->application->config()['db']) {
             $modulePath = $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH;
 
             $modules = \Phire\Table\Modules::findBy(['active' => 1]);
@@ -153,7 +157,7 @@ class Application extends \Pop\Application
                 if (file_exists($modulePath . '/' . $module->folder . '/src/Module.php')) {
                     include $modulePath . '/' . $module->folder . '/src/Module.php';
                     $moduleClass = $module->folder . '\Module';
-                    $this->register($module->folder, new $moduleClass($this));
+                    $this->application->register($module->folder, new $moduleClass($this));
                 } else if (file_exists($modulePath . '/' . $module->folder . '/config/module.php')) {
                     $moduleConfig = include $modulePath . '/' . $module->folder . '/config/module.php';
 
@@ -165,51 +169,12 @@ class Application extends \Pop\Application
                                 $config, include $modulePath . '/phire/config/' . strtolower($name) . '.php'
                             );
                         }
-                        $this->register($name, $config);
+                        $this->application->register($name, $config);
                     }
                 }
 
                 // Check module configs for Phire-specific configs
-                foreach ($this->modules as $module => $config) {
-                    // If the module has navigation
-                    $params = $this->services->getParams('nav.phire');
-
-                    // If the module has module-level navigation
-                    if (isset($config['nav.module'])) {
-                        if (!isset($params['tree']['modules']['children'])) {
-                            $params['tree']['modules']['children'] = [];
-                        }
-                        $params['tree']['modules']['children'][] = $config['nav.module'];
-                    }
-
-                    // If the module has system-level navigation
-                    if (isset($config['nav.phire'])) {
-                        $newNav = [];
-                        foreach ($config['nav.phire'] as $key => $value) {
-                            if (($key !== 'modules') && ($key !== 'users') && ($key !== 'config')) {
-                                $newNav[$key] = $value;
-                            } else {
-                                $params['tree'][$key] = array_merge_recursive($params['tree'][$key], $value);
-                            }
-                        }
-                        if (count($newNav) > 0) {
-                            $params['tree'] = array_merge($newNav, $params['tree'], $config['nav.phire']);
-                        }
-                    }
-
-                    // If the module has ACL resources
-                    if (isset($config['resources'])) {
-                        $this->config['resources'] = array_merge($this->config['resources'], $config['resources']);
-                    }
-
-                    // If the module has form configs
-                    if (isset($config['forms'])) {
-                        $this->config['forms'] = array_merge($this->config['forms'], $config['forms']);
-                    }
-
-                    // Add the nav params back to the service
-                    $this->services->setParams('nav.phire', $params);
-
+                foreach ($this->application->modules() as $module => $config) {
                     // Load module assets
                     if (file_exists($modulePath . '/' . $module . '/data/assets')) {
                         $this->loadAssets(
@@ -241,7 +206,7 @@ class Application extends \Pop\Application
      * @param  string  $from
      * @param  string  $to
      * @param  boolean $import
-     * @return Application
+     * @return Module
      */
     public function loadAssets($from, $to, $import = false)
     {
@@ -257,7 +222,8 @@ class Application extends \Pop\Application
 
             $cssDirs     = ['css', 'styles', 'style'];
             $jsDirs      = ['js', 'scripts', 'script', 'scr'];
-            $navVertical = (isset($this->config['navigation_vertical']) && ($this->config['navigation_vertical']));
+            $navVertical = (isset($this->application->config()['navigation_vertical']) &&
+                ($this->application->config()['navigation_vertical']));
             $cssType     = ($import) ? 'import' : 'link';
 
             foreach ($cssDirs as $cssDir) {
@@ -302,26 +268,29 @@ class Application extends \Pop\Application
     /**
      * Initialize the ACL service
      *
-     * @return Application
+     * @return Module
      */
     public function initAcl()
     {
         $roles = Table\Roles::findAll()->rows();
+        $resources = $this->application->config()['resources'];
         foreach ($roles as $role) {
             $roleName = str_replace(' ', '-', strtolower($role->name));
-            $this->config['resources']['role-' . $role->id . '|role-' . $roleName] = [
+            $resources['role-' . $role->id . '|role-' . $roleName] = [
                 'edit', 'remove'
             ];
-            $this->config['resources']['users-of-role-' . $role->id . '|users-of-role-' . $roleName] = [
+            $resources['users-of-role-' . $role->id . '|users-of-role-' . $roleName] = [
                 'index', 'add', 'edit', 'remove'
             ];
         }
 
-        foreach ($this->config['resources'] as $resource => $permissions) {
+        $this->application->mergeConfig(['resources' => $resources]);
+
+        foreach ($this->application->config()['resources'] as $resource => $permissions) {
             if (strpos($resource, '|') !== false) {
                 $resource = substr($resource, 0, strpos($resource, '|'));
             }
-            $this->services['acl']->addResource(new Resource($resource));
+            $this->application->getService('acl')->addResource(new Resource($resource));
         }
 
         $allRoles  = [];
@@ -329,24 +298,24 @@ class Application extends \Pop\Application
         foreach ($roles as $role) {
             $r = new Role($role->name);
             $allRoles[$role->id] = $r;
-            $this->services['acl']->addRole($r);
+            $this->application->getService('acl')->addRole($r);
 
             if (null !== $role->permissions) {
                 $role->permissions = unserialize($role->permissions);
             }
             if ((null === $role->permissions) || (is_array($role->permissions) && (count($role->permissions) == 0))) {
-                $this->services['acl']->allow($role->name);
+                $this->application->getService('acl')->allow($role->name);
             } else {
                 if (count($role->permissions['allow']) > 0) {
                     foreach ($role->permissions['allow'] as $allow) {
-                        $this->services['acl']->allow($role->name, $allow['resource'], $allow['permission']);
+                        $this->application->getService('acl')->allow($role->name, $allow['resource'], $allow['permission']);
                     }
                 } else {
-                    $this->services['acl']->allow($role->name);
+                    $this->application->getService('acl')->allow($role->name);
                 }
                 if (count($role->permissions['deny']) > 0) {
                     foreach ($role->permissions['deny'] as $deny) {
-                        $this->services['acl']->deny($role->name, $deny['resource'], $deny['permission']);
+                        $this->application->getService('acl')->deny($role->name, $deny['resource'], $deny['permission']);
                     }
                 }
             }
@@ -361,7 +330,7 @@ class Application extends \Pop\Application
         }
 
         // Set the acl in the main nav object
-        $this->services['nav.phire']->setAcl($this->services['acl']);
+        $this->application->getService('nav.phire')->setAcl($this->application->getService('acl'));
 
         return $this;
     }

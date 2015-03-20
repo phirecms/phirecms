@@ -2,7 +2,7 @@
 
 namespace Phire\Controller;
 
-use Phire\Application;
+use Pop\Application;
 use Pop\Http\Request;
 use Pop\Http\Response;
 use Pop\Service\Locator;
@@ -208,7 +208,7 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
             $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
 
         $this->view                  = new View($viewTemplate);
-        $this->view->assets          = $this->application->getAssets();
+        $this->view->assets          = $this->application->module('Phire')->getAssets();
         $this->view->phireHeader     = $headerTemplate;
         $this->view->phireFooter     = $footerTemplate;
         $this->view->phireUri        = BASE_PATH . APP_URI;
