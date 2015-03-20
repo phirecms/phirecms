@@ -162,15 +162,15 @@ class Module extends AbstractModel
                         }
 
                         // Get module info from config file
-                        $info = $this->getInfo(file_get_contents($modulePath . '/' . $name . '/config/module.php'));
-
-                        // Get any tables required and created by this module
+                        $info   = $this->getInfo(file_get_contents($modulePath . '/' . $name . '/config/module.php'));
                         $tables = (null !== $sqlFile) ? $this->getTables(file_get_contents($sqlFile)) : [];
+                        $config = include $modulePath . '/' . $name . '/config/module.php';
 
                         // Save module in the database
                         $mod = new Table\Modules([
                             'file'   => $module,
                             'folder' => $name,
+                            'prefix' => $config[$name]['prefix'],
                             'active' => 1,
                             'assets' => serialize([
                                 'tables' => $tables,
@@ -192,7 +192,6 @@ class Module extends AbstractModel
                         }
 
                         // Run any install functions
-                        $config = include $modulePath . '/' . $name . '/config/module.php';
                         if (!empty($config[$name]['install'])) {
                             call_user_func_array($config[$name]['install'], [$services]);
                         }
