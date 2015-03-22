@@ -44,12 +44,12 @@ class Module extends \Pop\Module\Module
 
             // If the module has ACL resources
             if (isset($this->config['resources'])) {
-                $this->application->mergeConfig($this->config['resources']);
+                $this->application->mergeConfig(['resources' => $this->config['resources']]);
             }
 
             // If the module has form configs
             if (isset($this->config['forms'])) {
-                $this->application->mergeConfig($this->config['forms']);
+                $this->application->mergeConfig(['forms' => $this->config['forms']]);
             }
 
             // Add the nav params back to the service

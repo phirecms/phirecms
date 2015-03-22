@@ -157,7 +157,7 @@ class Module extends Module\Module
                 if (file_exists($modulePath . '/' . $module->folder . '/src/Module.php')) {
                     include $modulePath . '/' . $module->folder . '/src/Module.php';
                     $moduleClass = $module->namespace . 'Module';
-                    $this->application->register($module->folder, new $moduleClass($this));
+                    $this->application->register($module->folder, new $moduleClass($this->application));
                 } else if (file_exists($modulePath . '/' . $module->folder . '/config/module.php')) {
                     $moduleConfig = include $modulePath . '/' . $module->folder . '/config/module.php';
 
@@ -170,7 +170,7 @@ class Module extends Module\Module
                             );
                         }
 
-                        $this->application->register($name, new Module\Module($config));
+                        $this->application->register($name, new Module\Module($config, $this->application));
                     }
                 }
 
