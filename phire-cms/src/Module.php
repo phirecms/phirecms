@@ -98,6 +98,15 @@ class Module extends Module\Module
      */
     public function error(\Exception $exception)
     {
+        // Load assets, if they haven't been loaded already
+        $this->loadAssets(__DIR__ . '/../data/assets', 'phire');
+        sort($this->assets['js']);
+        sort($this->assets['css']['link']);
+        sort($this->assets['css']['import']);
+
+        // Load any custom/override assets
+        $this->loadAssets(__DIR__ . '/../..' . MODULE_PATH . '/phire/assets', 'phire-custom', true);
+
         $view = new View(__DIR__ . '/../view/exception.phtml');
         $view->title        = 'Application Error';
         $view->assets       = $this->assets;
@@ -223,9 +232,9 @@ class Module extends Module\Module
 
             $cssDirs     = ['css', 'styles', 'style'];
             $jsDirs      = ['js', 'scripts', 'script', 'scr'];
-            $navVertical = (isset($this->application->config()['navigation_vertical']) &&
-                ($this->application->config()['navigation_vertical']));
             $cssType     = ($import) ? 'import' : 'link';
+            $navVertical = ((null !== $this->application) && isset($this->application->config()['navigation_vertical']) &&
+                ($this->application->config()['navigation_vertical']));
 
             foreach ($cssDirs as $cssDir) {
                 if (file_exists($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets/' . $to .'/' . $cssDir)) {

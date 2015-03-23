@@ -11,6 +11,7 @@ var phire = {
     createSlug : function(text, field) {
         var text = new jax.String(text);
         jax(field).val(text.slug());
+        return false;
     },
 
     addResource : function(vals) {

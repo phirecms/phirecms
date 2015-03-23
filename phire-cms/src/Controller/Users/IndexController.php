@@ -70,7 +70,15 @@ class IndexController extends AbstractController
             $role->getById($rid);
             $this->view->title .= ' : ' . $role->name;
 
-            $this->view->form = new Form\User($rid, $this->application->config()['forms']['Phire\Form\User']);
+            $fields = $this->application->config()['forms']['Phire\Form\User'];
+
+            if ($role->email_as_username) {
+                unset($fields[1]['username']);
+            }
+
+            $fields[0]['role_id']['value'] = $rid;
+
+            $this->view->form = new Form\User($fields);
 
             if ($this->request->isPost()) {
                 $this->view->form->addFilter('strip_tags')
@@ -115,7 +123,22 @@ class IndexController extends AbstractController
             $this->view->title    = 'Edit User';
             $this->view->username = $user->username;
 
-            $this->view->form = new Form\User($user->role_id, $this->application->config()['forms']['Phire\Form\User']);
+            $fields = $this->application->config()['forms']['Phire\Form\User'];
+            $role   = new Model\Role();
+            $role->getById($user->role_id);
+
+
+
+            if ($role->email_as_username) {
+                unset($fields[1]['username']);
+                $fields[1]['email1']['attributes']['onkeyup'] = 'phire.changeTitle(this.value);';
+            } else {
+                $fields[1]['username']['attributes']['onkeyup'] = 'phire.changeTitle(this.value);';
+            }
+
+            $fields[0]['role_id']['value'] = $user->role_id;
+
+            $this->view->form = new Form\User($fields);
             $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($user->toArray());
 

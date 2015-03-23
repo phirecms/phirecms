@@ -45,7 +45,9 @@ class Role extends AbstractModel
     {
         $role = Table\Roles::findById((int)$id);
         if (isset($role->id)) {
-            $this->data = array_merge($this->data, $role->getColumns());
+            $data = $role->getColumns();
+            $data['role_parent_id'] = $data['parent_id'];
+            $this->data = array_merge($this->data, $data);
         }
     }
 
@@ -58,7 +60,7 @@ class Role extends AbstractModel
     public function save(array $post)
     {
         $role = new Table\Roles([
-            'parent_id'         => ($post['parent_id'] != '----') ? (int)$post['parent_id'] : null,
+            'parent_id'         => ($post['role_parent_id'] != '----') ? (int)$post['role_parent_id'] : null,
             'name'              => html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8'),
             'verification'      => (int)$post['verification'],
             'approval'          => (int)$post['approval'],
@@ -80,7 +82,7 @@ class Role extends AbstractModel
     {
         $role = Table\Roles::findById((int)$post['id']);
         if (isset($role->id)) {
-            $role->parent_id         = ($post['parent_id'] != '----') ? (int)$post['parent_id'] : null;
+            $role->parent_id         = ($post['role_parent_id'] != '----') ? (int)$post['role_parent_id'] : null;
             $role->name              = html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8');
             $role->verification      = (int)$post['verification'];
             $role->approval          = (int)$post['approval'];
@@ -167,7 +169,7 @@ class Role extends AbstractModel
      * Get permissions from $_POST data
      *
      * @param  array $post
-     * @return array
+     * @return mixed
      */
     protected function getPermissions(array $post)
     {

@@ -328,7 +328,7 @@ return [
                     'class'  => 'save-btn wide'
                 ]
             ],
-            'parent_id' => [
+            'role_parent_id' => [
                 'type'       => 'select',
                 'label'      => 'Parent',
                 'value'      => null,

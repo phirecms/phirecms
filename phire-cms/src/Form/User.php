@@ -15,22 +15,13 @@ class User extends Form
      *
      * Instantiate the form object
      *
-     * @param  int    $rid
      * @param  array  $fields
      * @param  string $action
      * @param  string $method
      * @return User
      */
-    public function __construct($rid, array $fields, $action = null, $method = 'post')
+    public function __construct(array $fields, $action = null, $method = 'post')
     {
-        $role = Table\Roles::findById($rid);
-
-        if ($role->email_as_username) {
-            unset($fields[1]['username']);
-        }
-
-        $fields[0]['role_id']['value'] = $rid;
-
         parent::__construct($fields, $action, $method);
         $this->setAttribute('id', 'user-form');
         $this->setIndent('    ');

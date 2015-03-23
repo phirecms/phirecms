@@ -67,7 +67,7 @@ class IndexController extends AbstractController
             }
         }
 
-        $fields[0]['parent_id']['value']  = $parents;
+        $fields[0]['role_parent_id']['value']  = $parents;
         $fields[2]['resource_1']['value'] = $resources;
 
         $this->view->form = new Form\Role($fields);
@@ -129,7 +129,7 @@ class IndexController extends AbstractController
             }
         }
 
-        $fields[0]['parent_id']['value']  = $parents;
+        $fields[0]['role_parent_id']['value']  = $parents;
         $fields[2]['resource_1']['value'] = $resources;
 
         $this->view->form = new Form\Role($fields);
