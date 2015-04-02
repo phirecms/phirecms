@@ -100,6 +100,34 @@ class User extends AbstractModel
     }
 
     /**
+     * Get users by role ID
+     *
+     * @param  int $rid
+     * @return array
+     */
+    public function getByRoleId($rid)
+    {
+        return Table\Users::findBy(['role_id' => (int)$rid])->rows();
+    }
+
+    /**
+     * Get users by role name
+     *
+     * @param  string $name
+     * @return array
+     */
+    public function getByRole($name)
+    {
+        $role  = Table\Roles::findBy(['name' => $name]);
+        $users = [];
+        if (isset($role->id)) {
+            $users = Table\Users::findBy(['role_id' => $role->id])->rows();
+        }
+
+        return $users;
+    }
+
+    /**
      * Get user by ID
      *
      * @param  int $id
