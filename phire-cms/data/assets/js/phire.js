@@ -50,7 +50,11 @@ var phire = {
             }).appendTo(jax('#permission_1').parent());
 
             if ((vals[i].permission != '') &&(vals[i].permission != null)) {
-                jax('#permission_' + phire.resourceCount).val(((vals[i].permission == 'allow') ? 1 : 0));
+                if (vals[i].permission == 'allow') {
+                    jax('#permission_' + phire.resourceCount).val(1);
+                } else if (vals[i].permission == 'deny') {
+                    jax('#permission_' + phire.resourceCount).val(0);
+                }
             }
 
             phire.changeActions(jax('#resource_' + phire.resourceCount)[0]);
@@ -232,7 +236,13 @@ jax(document).ready(function(){
                 if (json[0].action != null) {
                     jax('#action_1').val(json[0].action);
                 }
-                jax('#permission_1').val(((json[0].permission == 'allow') ? 1 : 0));
+
+                if (json[0].permission == 'allow') {
+                    jax('#permission_1').val(1);
+                } else if (json[0].permission == 'deny') {
+                    jax('#permission_1').val(0);
+                }
+
                 json.shift();
                 if (json.length > 0) {
                     phire.addResource(json);
