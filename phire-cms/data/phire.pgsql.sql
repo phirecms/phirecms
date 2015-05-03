@@ -102,6 +102,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
   "folder" varchar(255) NOT NULL,
   "prefix" varchar(255) NOT NULL,
   "active" integer NOT NULL,
+  "order" integer NOT NULL,
   "assets" text,
   PRIMARY KEY ("id")
 ) ;

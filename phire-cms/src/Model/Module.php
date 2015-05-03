@@ -216,6 +216,7 @@ class Module extends AbstractModel
                 $module = Table\Modules::findById((int)$id);
                 if (isset($module->id)) {
                     $module->active = (int)$value;
+                    $module->order  = (int)$post['order_' . $id];
                     $module->save();
                 }
             }

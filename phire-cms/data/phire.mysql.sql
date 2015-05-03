@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]modules` (
   `folder` varchar(255) NOT NULL,
   `prefix` varchar(255) NOT NULL,
   `active` int(1) NOT NULL,
+  `order` int(16) NOT NULL,
   `assets` text,
   PRIMARY KEY (`id`),
   INDEX `module_folder` (`folder`)

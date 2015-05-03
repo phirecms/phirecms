@@ -161,7 +161,7 @@ class Module extends Module\Module
         if ($this->application->config()['db']) {
             $modulePath = $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH;
 
-            $modules = Table\Modules::findBy(['active' => 1]);
+            $modules = Table\Modules::findBy(['active' => 1], null, ['order' => 'order DESC']);
             foreach ($modules->rows() as $module) {
                 if (file_exists($modulePath . '/' . $module->folder . '/src/Module.php')) {
                     include $modulePath . '/' . $module->folder . '/src/Module.php';

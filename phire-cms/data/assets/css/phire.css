@@ -1045,3 +1045,8 @@ th.text-center, td.text-center {
     font-size: 0.9em;
 }
 
+input.module-order {
+    padding: 2px;
+    text-align: center;
+    font-size: 0.9em;
+}
