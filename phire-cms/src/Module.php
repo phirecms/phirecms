@@ -50,7 +50,7 @@ class Module extends Module\Module
         sort($this->assets['css']['import']);
 
         // Load any custom/override assets
-        $this->loadAssets(__DIR__ . '/../..' . MODULE_PATH . '/phire/assets', 'phire-custom', true);
+        $this->loadAssets($_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/assets', 'phire-custom', true);
 
         // Set the database
         if ($this->application->services()->isAvailable('database')) {
