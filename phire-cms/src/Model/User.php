@@ -376,8 +376,8 @@ class User extends AbstractModel
         ];
 
         // Check for an override template
-        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/verify.txt')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/verify.txt' : __DIR__ . '/../../view/mail/verify.txt';
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/verify.txt')) ?
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/verify.txt' : __DIR__ . '/../../view/phire/mail/verify.txt';
 
         // Send email verification
         $mail = new Mail($domain . ' - Email Verification', $rcpt);
@@ -404,8 +404,8 @@ class User extends AbstractModel
         ];
 
         // Check for an override template
-        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/approval.txt')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/approval.txt' : __DIR__ . '/../../view/mail/approval.txt';
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/approval.txt')) ?
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/approval.txt' : __DIR__ . '/../../view/phire/mail/approval.txt';
 
         // Send email verification
         $mail = new Mail($domain . ' - Approval', $rcpt);
@@ -437,8 +437,8 @@ class User extends AbstractModel
         ];
 
         // Check for an override template
-        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/forgot.txt')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/forgot.txt' : __DIR__ . '/../../view/mail/forgot.txt';
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/forgot.txt')) ?
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/forgot.txt' : __DIR__ . '/../../view/phire/mail/forgot.txt';
 
         // Send email verification
         $mail = new Mail($domain . ' - Forgot Password', $rcpt);
@@ -465,8 +465,8 @@ class User extends AbstractModel
         ];
 
         // Check for an override template
-        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/unsubscribe.txt')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/mail/unsubscribe.txt' : __DIR__ . '/../../view/mail/unsubscribe.txt';
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/unsubscribe.txt')) ?
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/unsubscribe.txt' : __DIR__ . '/../../view/phire/mail/unsubscribe.txt';
 
         // Send email verification
         $mail = new Mail($domain . ' - Unsubscribed', $rcpt);

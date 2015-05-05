@@ -22,7 +22,7 @@ class IndexController extends AbstractController
             $this->redirect(BASE_PATH . APP_URI . '/config?saved=' . time());
         }
 
-        $this->prepareView('config/index.phtml');
+        $this->prepareView('phire/config/index.phtml');
         $this->view->title    = 'Configuration';
         $this->view->overview = $config->overview;
         $this->view->config   = $config->config;

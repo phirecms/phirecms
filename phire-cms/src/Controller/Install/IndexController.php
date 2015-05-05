@@ -21,7 +21,7 @@ class IndexController extends AbstractController
             $this->redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
         }
 
-        $this->prepareView('install.phtml');
+        $this->prepareView('phire/install.phtml');
         $this->view->title = 'Installation';
 
         $this->view->form = new Form\Install($this->application->config()['forms']['Phire\Form\Install']);
@@ -69,7 +69,7 @@ class IndexController extends AbstractController
             $this->redirect(BASE_PATH . APP_URI . '/install');
         }
 
-        $this->prepareView('install.phtml');
+        $this->prepareView('phire/install.phtml');
         $this->view->title = 'Install Configuration File';
 
         $this->view->form = new Form\InstallConfig(
@@ -93,7 +93,7 @@ class IndexController extends AbstractController
      */
     public function user()
     {
-        $this->prepareView('install.phtml');
+        $this->prepareView('phire/install.phtml');
         $this->view->title = 'Install User';
 
         $this->view->form = new Form\Register(

@@ -20,7 +20,7 @@ class IndexController extends AbstractController
     {
         $config = new Model\Config();
 
-        $this->prepareView('index.phtml');
+        $this->prepareView('phire/index.phtml');
         $this->view->title    = 'Dashboard';
         $this->view->overview = $config->overview;
         $this->view->config   = $config->config;
@@ -35,7 +35,7 @@ class IndexController extends AbstractController
      */
     public function login()
     {
-        $this->prepareView('login.phtml');
+        $this->prepareView('phire/login.phtml');
         $this->view->title = 'Login';
         $this->view->form  = new Form\Login($this->application->config()['forms']['Phire\Form\Login']);;
 
@@ -94,7 +94,7 @@ class IndexController extends AbstractController
         $role = new Model\Role();
 
         if ($role->canRegister($id)) {
-            $this->prepareView('register.phtml');
+            $this->prepareView('phire/register.phtml');
             $this->view->title = 'Register';
 
             $captcha = (isset($this->application->config()['registration_captcha']) &&
@@ -140,7 +140,7 @@ class IndexController extends AbstractController
      */
     public function profile()
     {
-        $this->prepareView('profile.phtml');
+        $this->prepareView('phire/profile.phtml');
         $this->view->title = 'Profile';
 
         $user = new Model\User();
@@ -185,7 +185,7 @@ class IndexController extends AbstractController
     public function verify($id, $hash)
     {
         $user = new Model\User();
-        $this->prepareView('verify.phtml');
+        $this->prepareView('phire/verify.phtml');
         $this->view->title  = 'Verify Your Email';
         $this->view->result = $user->verify($id, $hash);
         $this->view->id = $user->id;
@@ -199,7 +199,7 @@ class IndexController extends AbstractController
      */
     public function forgot()
     {
-        $this->prepareView('forgot.phtml');
+        $this->prepareView('phire/forgot.phtml');
         $this->view->title = 'Password Reminder';
 
         $this->view->form = new Form\Forgot($this->application->config()['forms']['Phire\Form\Forgot']);
@@ -231,7 +231,7 @@ class IndexController extends AbstractController
      */
     public function unsubscribe()
     {
-        $this->prepareView('unsubscribe.phtml');
+        $this->prepareView('phire/unsubscribe.phtml');
         $this->view->title = 'Unsubscribe';
 
         $this->view->form = new Form\Unsubscribe($this->application->config()['forms']['Phire\Form\Unsubscribe']);

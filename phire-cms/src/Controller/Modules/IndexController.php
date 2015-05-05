@@ -27,7 +27,7 @@ class IndexController extends AbstractController
             $pages = null;
         }
 
-        $this->prepareView('modules/index.phtml');
+        $this->prepareView('phire/modules/index.phtml');
         $this->view->title      = 'Modules';
         $this->view->pages      = $pages;
         $this->view->newModules = $module->detectNew();

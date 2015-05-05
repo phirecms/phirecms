@@ -28,7 +28,7 @@ class IndexController extends AbstractController
             $pages = null;
         }
 
-        $this->prepareView('roles/index.phtml');
+        $this->prepareView('phire/roles/index.phtml');
         $this->view->title = 'Roles';
         $this->view->pages = $pages;
         $this->view->roles = $role->getAll($limit, $this->request->getQuery('page'), $this->request->getQuery('sort'));
@@ -42,7 +42,7 @@ class IndexController extends AbstractController
      */
     public function add()
     {
-        $this->prepareView('roles/add.phtml');
+        $this->prepareView('phire/roles/add.phtml');
         $this->view->title = 'Roles : Add';
         $role = new Model\Role();
 
@@ -102,7 +102,7 @@ class IndexController extends AbstractController
             $this->redirect(BASE_PATH . APP_URI . '/roles');
         }
 
-        $this->prepareView('roles/edit.phtml');
+        $this->prepareView('phire/roles/edit.phtml');
         $this->view->title     = 'Roles';
         $this->view->role_name = $role->name;
 

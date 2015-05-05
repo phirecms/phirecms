@@ -38,7 +38,7 @@ class IndexController extends AbstractController
                 $pages = null;
             }
 
-            $this->prepareView('users/index.phtml');
+            $this->prepareView('phire/users/index.phtml');
             $this->view->title    = 'Users';
             $this->view->pages    = $pages;
             $this->view->roleId   = $id;
@@ -62,7 +62,7 @@ class IndexController extends AbstractController
      */
     public function add($rid = null)
     {
-        $this->prepareView('users/add.phtml');
+        $this->prepareView('phire/users/add.phtml');
         $this->view->title = 'Add User';
 
         if ((null !== $rid) && ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $rid, 'add'))) {
@@ -119,7 +119,7 @@ class IndexController extends AbstractController
         }
 
         if ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $user->role_id, 'edit')) {
-            $this->prepareView('users/edit.phtml');
+            $this->prepareView('phire/users/edit.phtml');
             $this->view->title    = 'Edit User';
             $this->view->username = $user->username;
 
