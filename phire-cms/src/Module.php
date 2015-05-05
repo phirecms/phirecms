@@ -107,7 +107,7 @@ class Module extends Module\Module
         // Load any custom/override assets
         $this->loadAssets(__DIR__ . '/../..' . MODULE_PATH . '/phire/assets', 'phire-custom', true);
 
-        $view = new View(__DIR__ . '/../view/exception.phtml');
+        $view = new View(__DIR__ . '/../view/phire/exception.phtml');
         $view->title        = 'Application Error';
         $view->assets       = $this->assets;
         $view->phireUri     = BASE_PATH . APP_URI;
