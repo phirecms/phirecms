@@ -172,6 +172,7 @@ class Module extends AbstractModel
                             'folder' => $name,
                             'prefix' => $config[$name]['prefix'],
                             'active' => 1,
+                            'order'  => 0,
                             'assets' => serialize([
                                 'tables' => $tables,
                                 'info'   => $info
