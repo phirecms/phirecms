@@ -17,7 +17,7 @@ class Ssl
     public static function check(Application $application)
     {
         if ($application->config()['db']) {
-            $forceSsl = \Phire\Table\Config::findById('force_ssl')->value;
+            $forceSsl = $application->config()['force_ssl'];
             // If force_ssl is checked, and request is not secure, redirect to secure request
             if (($forceSsl) && ($_SERVER['SERVER_PORT'] != '443')) {
                 $secureUrl = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .

@@ -84,10 +84,6 @@ class Config extends AbstractModel
         $config = Table\Config::findById('pagination');
         $config->value = (int)$post['pagination'];
         $config->save();
-
-        $config = Table\Config::findById('force_ssl');
-        $config->value = (int)$post['force_ssl'];
-        $config->save();
     }
 
 }
