@@ -24,20 +24,20 @@ class RegisterEmail extends Form
     public function __construct($captcha = false, $csrf = false, array $fields = null, $action = null, $method = 'post')
     {
         if ($csrf) {
-            $fields[1] = array_merge([
+            $fields[2] = array_merge([
                 'csrf'   => [
                     'type'  => 'csrf'
                 ]
-            ], $fields[1]);
+            ], $fields[2]);
         }
 
         if ($captcha) {
-            $fields[1] = array_merge([
+            $fields[2] = array_merge([
                 'captcha'   => [
                     'type'  => 'captcha',
                     'label' => 'Please Solve:'
                 ]
-            ], $fields[1]);
+            ], $fields[2]);
         }
 
         parent::__construct($fields, $action, $method);

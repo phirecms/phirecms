@@ -114,8 +114,12 @@ var phire = {
         }
     },
 
-    clearStatus : function(id) {
-        jax(id).fade(0, {tween : 10, speed: 200});
+    clearStatus : function(id, complete) {
+        var opts = {tween : 10, speed: 200};
+        if (complete != undefined) {
+            opts.complete = complete;
+        }
+        jax(id).fade(0, opts);
         clearTimeout(phire.clear);
     },
 

@@ -209,6 +209,7 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
 
         $this->view                  = new View($viewTemplate);
         $this->view->assets          = $this->application->module('Phire')->getAssets();
+        $this->view->systemTitle     = $this->application->config()['system_title'];
         $this->view->phireHeader     = $headerTemplate;
         $this->view->phireFooter     = $footerTemplate;
         $this->view->phireUri        = BASE_PATH . APP_URI;
