@@ -275,7 +275,13 @@ input[type=submit]:focus, button:focus {
     padding: 10px 0 0 0;
 }
 
-#profile-form-field-group-2, #unsubscribe-user-form-field-group-2 {
+#profile-form-field-group-2 {
+    clear: both;
+    margin: 0;
+    padding: 15px 0 0 0;
+}
+
+#unsubscribe-user-form-field-group-2 {
     clear: both;
     margin: 0;
     padding: 15px 0 0 0;
@@ -492,7 +498,17 @@ input[type=submit]:focus, button:focus {
     border-top: solid 1px #ccc;
 }
 
-#user-form > dl:first-child, #role-form > dl:first-child {
+#user-form > dl:first-child {
+    margin: 0 0 20px 20px;
+    padding: 0 0 0 20px;
+    width: 160px;
+    border-left: solid 1px #ccc;
+    float: right;
+    min-height: 200px;
+    height: 100%;
+}
+
+#role-form > dl:first-child {
     margin: 0 0 0 20px;
     padding: 0 0 0 20px;
     width: 160px;
@@ -518,6 +534,13 @@ input[type=submit]:focus, button:focus {
 
 #user-form > dl:nth-child(2) > dd, #role-form > dl:nth-child(2) > dd, #role-form > dl:nth-child(3) > dd {
     padding: 0 2px 18px 2px;
+}
+
+#user-form > dl:nth-child(3) {
+    clear: both;
+    margin: 20px 0 0 0;
+    padding: 20px 0 0 0;
+    border-top: solid 1px #ccc;
 }
 
 #role-form-field-group-2 {
@@ -627,8 +650,8 @@ input[type=submit]:focus, button:focus {
 #user-search-form > div > select {
     margin: 0;
     padding: 0 4px 0 2px;
-    color: #666;
-    font-size: 0.9em;
+    color: #615357;
+    font-size: 0.825em;
     height: 22px;
     background-color: #fff;
     border: solid 1px #aaa;
@@ -640,7 +663,7 @@ input[type=submit]:focus, button:focus {
 #user-search-form > div > select > option {
     margin: 0;
     padding: 1px;
-    font-size: 0.9em;
+    color: #615357;
 }
 
 #user-search-form > div > input[type=submit] {

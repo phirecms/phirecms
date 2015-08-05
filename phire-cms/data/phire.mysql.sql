@@ -63,14 +63,20 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]users` (
   `role_id` int(16),
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `first_name` varchar(255),
+  `last_name` varchar(255),
+  `company` varchar(255),
+  `email` varchar(255),
+  `phone` varchar(255),
   `active` int(1),
   `verified` int(1),
   PRIMARY KEY (`id`),
   INDEX `user_role_id` (`role_id`),
   INDEX `username` (`username`),
   INDEX `user_email` (`email`),
-  CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `[{prefix}]roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  INDEX `user_first_name` (`first_name`),
+  INDEX `user_last_name` (`last_name`),
+  CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `[{prefix}]roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1001 ;
 
 --

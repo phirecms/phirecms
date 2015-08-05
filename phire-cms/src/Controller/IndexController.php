@@ -103,7 +103,17 @@ class IndexController extends AbstractController
             $csrf = (isset($this->application->config()['registration_csrf']) &&
                 ($this->application->config()['registration_csrf']));
 
-            $this->view->form = new Form\Register($id, $captcha, $csrf, $this->application->config()['forms']['Phire\Form\Register']);
+            $role->getById($id);
+
+            if ($role->email_as_username) {
+                $fields = $this->application->config()['forms']['Phire\Form\RegisterEmail'];
+                $fields[2]['role_id']['value'] = $id;
+                $this->view->form = new Form\RegisterEmail($captcha, $csrf, $fields);
+            } else {
+                $fields = $this->application->config()['forms']['Phire\Form\Register'];
+                $fields[2]['role_id']['value'] = $id;
+                $this->view->form = new Form\Register($captcha, $csrf, $fields);
+            }
 
             if ($this->request->isPost()) {
                 $this->view->form->addFilter('strip_tags')
@@ -146,7 +156,18 @@ class IndexController extends AbstractController
         $user = new Model\User();
         $user->getById($this->sess->user->id);
 
-        $this->view->form = new Form\Profile($this->sess->user->role_id, $this->application->config()['forms']['Phire\Form\Profile']);
+        $role = new Model\Role();
+        $role->getById($this->sess->user->role_id);
+
+        if ($role->email_as_username) {
+            $fields = $this->application->config()['forms']['Phire\Form\ProfileEmail'];
+            $fields[2]['role_id']['value'] = $this->sess->user->role_id;
+            $this->view->form = new Form\ProfileEmail($fields);
+        } else {
+            $fields = $this->application->config()['forms']['Phire\Form\Profile'];
+            $fields[2]['role_id']['value'] = $this->sess->user->role_id;
+            $this->view->form = new Form\Profile($fields);
+        }
 
         $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($user->toArray());
@@ -216,7 +237,8 @@ class IndexController extends AbstractController
 
                 $user = new Model\User();
                 $user->forgot($this->view->form->getFields());
-                $this->view->id = $user->id;
+                unset($this->view->form);
+                $this->view->id      = $user->id;
                 $this->view->success = true;
             }
         }

@@ -96,9 +96,16 @@ class IndexController extends AbstractController
         $this->prepareView('phire/install.phtml');
         $this->view->title = 'Install User';
 
-        $this->view->form = new Form\Register(
-            2001, false, false, $this->application->config()['forms']['Phire\Form\Register']
-        );
+        $fields = $this->application->config()['forms']['Phire\Form\Register'];
+        $fields[1]['email']['required'] = true;
+        $fields[2]['role_id']['value']  = 2001;
+
+        unset($fields[1]['first_name']);
+        unset($fields[1]['last_name']);
+        unset($fields[1]['company']);
+        unset($fields[1]['phone']);
+
+        $this->view->form = new Form\Register(false, false, $fields);
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')

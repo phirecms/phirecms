@@ -15,20 +15,23 @@ class User extends AbstractModel
      * Get all users
      *
      * @param  int    $roleId
-     * @param  string $username
+     * @param  array  $search
      * @param  array  $deniedRoles
      * @param  int    $limit
      * @param  int    $page
      * @param  string $sort
      * @return array
      */
-    public function getAll($roleId = null, $username = null, array $deniedRoles = null, $limit = null, $page = null, $sort = null)
+    public function getAll($roleId = null, array $search = null, array $deniedRoles = null, $limit = null, $page = null, $sort = null)
     {
         $sql = Table\Users::sql();
         $sql->select([
             'id'           => DB_PREFIX . 'users.id',
             'user_role_id' => DB_PREFIX . 'users.role_id',
             'username'     => DB_PREFIX . 'users.username',
+            'first_name'   => DB_PREFIX . 'users.first_name',
+            'last_name'    => DB_PREFIX . 'users.last_name',
+            'company'      => DB_PREFIX . 'users.company',
             'email'        => DB_PREFIX . 'users.email',
             'active'       => DB_PREFIX . 'users.active',
             'verified'     => DB_PREFIX . 'users.verified',
@@ -48,9 +51,9 @@ class User extends AbstractModel
         $by     = explode(' ', $order);
         $sql->select()->orderBy($by[0], $by[1]);
 
-        if (null !== $username) {
-            $sql->select()->where('username LIKE :username');
-            $params['username'] = $username . '%';
+        if (null !== $search) {
+            $sql->select()->where($search['by'] . ' LIKE :' . $search['by']);
+            $params[$search['by']] = $search['for'] . '%';
         }
 
         if (is_array($deniedRoles) && (count($deniedRoles) > 0)) {
@@ -137,12 +140,16 @@ class User extends AbstractModel
     {
         $user = Table\Users::findById((int)$id);
         if (isset($user->id)) {
-            $this->data['role_id']  = $user->role_id;
-            $this->data['username'] = $user->username;
-            $this->data['email1']   = $user->email;
-            $this->data['active']   = $user->active;
-            $this->data['verified'] = $user->verified;
-            $this->data['id']       = $user->id;
+            $this->data['role_id']    = $user->role_id;
+            $this->data['username']   = $user->username;
+            $this->data['first_name'] = $user->first_name;
+            $this->data['last_name']  = $user->last_name;
+            $this->data['company']    = $user->company;
+            $this->data['email']      = $user->email;
+            $this->data['phone']      = $user->phone;
+            $this->data['active']     = $user->active;
+            $this->data['verified']   = $user->verified;
+            $this->data['id']         = $user->id;
         }
     }
 
@@ -156,18 +163,22 @@ class User extends AbstractModel
     {
 
         $user = new Table\Users([
-            'role_id'  => $fields['role_id'],
-            'username' => (isset($fields['username']))   ? $fields['username'] : $fields['email1'],
-            'password' => (new Bcrypt())->create($fields['password1']),
-            'email'    => $fields['email1'],
-            'active'   => $fields['active'],
-            'verified' => $fields['verified']
+            'role_id'    => $fields['role_id'],
+            'username'   => (isset($fields['username'])) ? $fields['username'] : $fields['email'],
+            'password'   => (new Bcrypt())->create($fields['password1']),
+            'first_name' => (isset($fields['first_name']) ? $fields['first_name'] : null),
+            'last_name'  => (isset($fields['last_name']) ? $fields['last_name'] : null),
+            'company'    => (isset($fields['company']) ? $fields['company'] : null),
+            'email'      => (isset($fields['email']) ? $fields['email'] : null),
+            'phone'      => (isset($fields['phone']) ? $fields['phone'] : null),
+            'active'     => $fields['active'],
+            'verified'   => $fields['verified']
         ]);
         $user->save();
 
         $this->data = array_merge($this->data, $user->getColumns());
 
-        if (!$user->verified) {
+        if ((!$user->verified) && !empty($user->email)) {
             $this->sendVerification($user);
         }
     }
@@ -185,13 +196,17 @@ class User extends AbstractModel
         if (isset($user->id)) {
             $oldRoleId = $user->role_id;
 
-            $user->role_id  = $fields['role_id'];
-            $user->username = (isset($fields['username']))   ? $fields['username'] : $fields['email1'];
-            $user->password = (!empty($fields['password1'])) ?
+            $user->role_id    = $fields['role_id'];
+            $user->username   = (isset($fields['username']))   ? $fields['username'] : $fields['email'];
+            $user->password   = (!empty($fields['password1'])) ?
                 (new Bcrypt())->create($fields['password1']) : $user->password;
-            $user->email    = $fields['email1'];
-            $user->active   = $fields['active'];
-            $user->verified = $fields['verified'];
+            $user->first_name = (isset($fields['first_name']) ? $fields['first_name'] : null);
+            $user->last_name  = (isset($fields['last_name']) ? $fields['last_name'] : null);
+            $user->company    = (isset($fields['company']) ? $fields['company'] : null);
+            $user->email      = (isset($fields['email']) ? $fields['email'] : null);
+            $user->phone      = (isset($fields['phone']) ? $fields['phone'] : null);
+            $user->active     = $fields['active'];
+            $user->verified   = $fields['verified'];
 
             $user->save();
 
@@ -202,7 +217,7 @@ class User extends AbstractModel
 
             $this->data = array_merge($this->data, $user->getColumns());
 
-            if ((null === $oldRoleId) && (null !== $user->role_id)) {
+            if ((null === $oldRoleId) && (null !== $user->role_id) && !empty($user->email)) {
                 $this->sendApproval($user);
             }
         }
@@ -284,19 +299,19 @@ class User extends AbstractModel
      *
      * @param  int    $limit
      * @param  int    $roleId
-     * @param  string $username
+     * @param  array  $search
      * @param  array  $deniedRoles
      * @return boolean
      */
-    public function hasPages($limit, $roleId = null, $username = null, array $deniedRoles = [])
+    public function hasPages($limit, $roleId = null, array $search = null, array $deniedRoles = [])
     {
         $params = [];
         $sql    = Table\Users::sql();
         $sql->select();
 
-        if (null !== $username) {
-            $sql->select()->where('username LIKE :username');
-            $params['username'] = $username . '%';
+        if (null !== $search) {
+            $sql->select()->where($search['by'] . ' LIKE :' . $search['by']);
+            $params[$search['by']] = $search['for'] . '%';
         }
 
         if (null !== $roleId) {
@@ -322,19 +337,19 @@ class User extends AbstractModel
      * Get count of users
      *
      * @param  int    $roleId
-     * @param  string $username
+     * @param  array  $search
      * @param  array  $deniedRoles
      * @return int
      */
-    public function getCount($roleId = null, $username = null, array $deniedRoles = [])
+    public function getCount($roleId = null, array $search = null, array $deniedRoles = [])
     {
         $params = [];
         $sql    = Table\Users::sql();
         $sql->select();
 
-        if (null !== $username) {
-            $sql->select()->where('username LIKE :username');
-            $params['username'] = $username . '%';
+        if (null !== $search) {
+            $sql->select()->where($search['by'] . ' LIKE :' . $search['by']);
+            $params[$search['by']] = $search['for'] . '%';
         }
 
         if (null !== $roleId) {
@@ -377,7 +392,8 @@ class User extends AbstractModel
 
         // Check for an override template
         $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/verify.txt')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/verify.txt' : __DIR__ . '/../../view/phire/mail/verify.txt';
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/verify.txt' :
+            __DIR__ . '/../../view/phire/mail/verify.txt';
 
         // Send email verification
         $mail = new Mail($domain . ' - Email Verification', $rcpt);
@@ -405,7 +421,8 @@ class User extends AbstractModel
 
         // Check for an override template
         $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/approval.txt')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/approval.txt' : __DIR__ . '/../../view/phire/mail/approval.txt';
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/approval.txt' :
+            __DIR__ . '/../../view/phire/mail/approval.txt';
 
         // Send email verification
         $mail = new Mail($domain . ' - Approval', $rcpt);
@@ -438,7 +455,8 @@ class User extends AbstractModel
 
         // Check for an override template
         $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/forgot.txt')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/forgot.txt' : __DIR__ . '/../../view/phire/mail/forgot.txt';
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/forgot.txt' :
+            __DIR__ . '/../../view/phire/mail/forgot.txt';
 
         // Send email verification
         $mail = new Mail($domain . ' - Forgot Password', $rcpt);
@@ -466,7 +484,8 @@ class User extends AbstractModel
 
         // Check for an override template
         $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/unsubscribe.txt')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/unsubscribe.txt' : __DIR__ . '/../../view/phire/mail/unsubscribe.txt';
+            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/unsubscribe.txt' :
+            __DIR__ . '/../../view/phire/mail/unsubscribe.txt';
 
         // Send email verification
         $mail = new Mail($domain . ' - Unsubscribed', $rcpt);

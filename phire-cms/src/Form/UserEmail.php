@@ -7,7 +7,7 @@ use Pop\Form\Form;
 use Pop\Form\Element;
 use Pop\Validator;
 
-class User extends Form
+class UserEmail extends Form
 {
 
     /**
@@ -18,7 +18,7 @@ class User extends Form
      * @param  array  $fields
      * @param  string $action
      * @param  string $method
-     * @return User
+     * @return UserEmail
      */
     public function __construct(array $fields, $action = null, $method = 'post')
     {
@@ -31,29 +31,27 @@ class User extends Form
      * Set the field values
      *
      * @param  array $values
-     * @return User
+     * @return UserEmail
      */
     public function setFieldValues(array $values = null)
     {
         parent::setFieldValues($values);
 
-        if (($_POST) && (null !== $this->username)) {
-            // Check for dupe username and email
+        if (($_POST) && (null !== $this->email)) {
+            // Check for dupe email
             $user  = null;
             $email = null;
-            if (null !== $this->username) {
-                $user = Table\Users::findBy(['username' => $this->username]);
-                if (isset($user->id) && ($this->id != $user->id)) {
-                    $this->getElement('username')
-                         ->addValidator(new Validator\NotEqual($this->username, 'That username already exists.'));
-                }
-            }
-
             if (null !== $this->email) {
-                $email = Table\Users::findBy(['email' => $this->email]);
-                if (isset($email->id) && ($this->id != $email->id)) {
+                $user = Table\Users::findBy(['username' => $this->email]);
+                if (isset($user->id) && ($this->id != $user->id)) {
                     $this->getElement('email')
                          ->addValidator(new Validator\NotEqual($this->email, 'That email already exists.'));
+                } else {
+                    $email = Table\Users::findBy(['email' => $this->email]);
+                    if (isset($email->id) && ($this->id != $email->id)) {
+                        $this->getElement('email')
+                             ->addValidator(new Validator\NotEqual($this->email1, 'That email already exists.'));
+                    }
                 }
             }
 

@@ -6,7 +6,7 @@ use Phire\Table;
 use Pop\Form\Form;
 use Pop\Validator;
 
-class Profile extends Form
+class ProfileEmail extends Form
 {
 
     /**
@@ -17,7 +17,7 @@ class Profile extends Form
      * @param  array  $fields
      * @param  string $action
      * @param  string $method
-     * @return Profile
+     * @return ProfileEmail
      */
     public function __construct(array $fields, $action = null, $method = 'post')
     {
@@ -30,28 +30,27 @@ class Profile extends Form
      * Set the field values
      *
      * @param  array $values
-     * @return Profile
+     * @return ProfileEmail
      */
     public function setFieldValues(array $values = null)
     {
         parent::setFieldValues($values);
 
-        if (($_POST) && (null !== $this->username)) {
+        if (($_POST) && (null !== $this->email)) {
             // Check for dupe username
             $user = null;
-            if (null !== $this->username) {
-                $user = Table\Users::findBy(['username' => $this->username]);
+            if (null !== $this->email) {
+                $user = Table\Users::findBy(['username' => $this->email]);
                 if (isset($user->id) && ($this->id != $user->id)) {
-                    $this->getElement('username')
-                         ->addValidator(new Validator\NotEqual($this->username, 'That username is not allowed.'));
+                    $this->getElement('email')
+                         ->addValidator(new Validator\NotEqual($this->email, 'That username is not allowed.'));
+                } else {
+                    $email = Table\Users::findBy(['email' => $this->email]);
+                    if (isset($email->id) && ($this->id != $email->id)) {
+                        $this->getElement('email')
+                             ->addValidator(new Validator\NotEqual($this->email, 'That email is not allowed.'));
+                    }
                 }
-            }
-
-            // Check for dupe email
-            $email = Table\Users::findBy(['email' => $this->email]);
-            if (isset($email->id) && ($this->id != $email->id)) {
-                $this->getElement('email')
-                     ->addValidator(new Validator\NotEqual($this->email, 'That email is not allowed.'));
             }
 
             // Check password matches

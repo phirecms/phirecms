@@ -29,9 +29,17 @@ class IndexController extends AbstractController
 
             $user = new Model\User();
 
-            if ($user->hasPages($this->config->pagination, $id, $this->request->getQuery('username'), $deniedRoles)) {
+            $searchAry = null;
+            if ((null !== $this->request->getQuery('search_for')) && (null !== $this->request->getQuery('search_by'))) {
+                $searchAry = [
+                    'for' => $this->request->getQuery('search_for'),
+                    'by'  => $this->request->getQuery('search_by')
+                ];
+            }
+
+            if ($user->hasPages($this->config->pagination, $id, $searchAry, $deniedRoles)) {
                 $limit = $this->config->pagination;
-                $pages = new Paginator($user->getCount($id, $this->request->getQuery('username'), $deniedRoles), $limit);
+                $pages = new Paginator($user->getCount($id, $searchAry, $deniedRoles), $limit);
                 $pages->useInput(true);
             } else {
                 $limit = null;
@@ -39,12 +47,13 @@ class IndexController extends AbstractController
             }
 
             $this->prepareView('phire/users/index.phtml');
-            $this->view->title    = 'Users';
-            $this->view->pages    = $pages;
-            $this->view->roleId   = $id;
-            $this->view->username = $this->request->getQuery('username');
-            $this->view->users    = $user->getAll(
-                $id, $this->request->getQuery('username'), $deniedRoles, $limit,
+            $this->view->title     = 'Users';
+            $this->view->pages     = $pages;
+            $this->view->roleId    = $id;
+            $this->view->searchFor = $this->request->getQuery('search_for');
+            $this->view->searchBy  = $this->request->getQuery('search_by');
+            $this->view->users     = $user->getAll(
+                $id, $searchAry, $deniedRoles, $limit,
                 $this->request->getQuery('page'), $this->request->getQuery('sort')
             );
             $this->view->roles = $user->getRoles();
@@ -70,25 +79,25 @@ class IndexController extends AbstractController
             $role->getById($rid);
             $this->view->title .= ' : ' . $role->name;
 
-            $fields = $this->application->config()['forms']['Phire\Form\User'];
+            $fields = ($role->email_as_username) ?
+                $this->application->config()['forms']['Phire\Form\UserEmail'] :
+                $this->application->config()['forms']['Phire\Form\User'];
 
-            if ($role->email_as_username) {
-                unset($fields[1]['username']);
-            }
+            $fields[1]['password1']['required'] = true;
+            $fields[1]['password2']['required'] = true;
+            $fields[0]['role_id']['value']      = $rid;
 
-            $fields[0]['role_id']['value'] = $rid;
-
-            $this->view->form = new Form\User($fields);
+            $this->view->form = ($role->email_as_username) ? new Form\UserEmail($fields) : new Form\User($fields);
 
             if ($this->request->isPost()) {
                 $this->view->form->addFilter('strip_tags')
-                    ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
-                    ->setFieldValues($this->request->getPost());
+                     ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                     ->setFieldValues($this->request->getPost());
 
                 if ($this->view->form->isValid()) {
                     $this->view->form->clearFilters()
-                        ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                        ->filter();
+                         ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                         ->filter();
                     $user = new Model\User();
                     $user->save($this->view->form->getFields());
 
@@ -123,22 +132,22 @@ class IndexController extends AbstractController
             $this->view->title    = 'Edit User';
             $this->view->username = $user->username;
 
-            $fields = $this->application->config()['forms']['Phire\Form\User'];
             $role   = new Model\Role();
             $role->getById($user->role_id);
 
-
-
             if ($role->email_as_username) {
-                unset($fields[1]['username']);
-                $fields[1]['email1']['attributes']['onkeyup'] = 'phire.changeTitle(this.value);';
+                $fields = $this->application->config()['forms']['Phire\Form\UserEmail'];
+                $fields[1]['email']['attributes']['onkeyup'] = 'phire.changeTitle(this.value);';
             } else {
+                $fields = $this->application->config()['forms']['Phire\Form\User'];
                 $fields[1]['username']['attributes']['onkeyup'] = 'phire.changeTitle(this.value);';
             }
 
-            $fields[0]['role_id']['value'] = $user->role_id;
+            $fields[1]['password1']['required'] = false;
+            $fields[1]['password2']['required'] = false;
+            $fields[0]['role_id']['value']      = $user->role_id;
 
-            $this->view->form = new Form\User($fields);
+            $this->view->form = ($role->email_as_username) ? new Form\UserEmail($fields) : new Form\User($fields);
             $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($user->toArray());
 

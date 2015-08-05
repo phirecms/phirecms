@@ -75,17 +75,23 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "role_id" integer,
   "username" varchar NOT NULL,
   "password" varchar NOT NULL,
-  "email" varchar NOT NULL,
+  "first_name" varchar,
+  "last_name" varchar,
+  "company" varchar,
+  "email" varchar,
+  "phone" varchar,
   "active" integer,
   "verified" integer,
   UNIQUE ("id"),
-  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
 INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]users', 1000);
 CREATE INDEX "user_role_id" ON "[{prefix}]users" ("role_id");
 CREATE INDEX "username" ON "[{prefix}]users" ("username");
 CREATE INDEX "user_email" ON "[{prefix}]users" ("email");
+CREATE INDEX "user_first_name" ON "[{prefix}]users" ("first_name");
+CREATE INDEX "user_last_name" ON "[{prefix}]users" ("last_name");
 
 --
 -- Dumping data for table "users"

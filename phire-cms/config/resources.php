@@ -3,6 +3,7 @@
 return [
     'login'       => [],
     'register'    => [],
+    'forgot'      => [],
     'profile'     => [],
     'unsubscribe' => [],
     'dashboard'   => [],

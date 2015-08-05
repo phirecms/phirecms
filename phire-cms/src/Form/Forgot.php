@@ -2,6 +2,7 @@
 
 namespace Phire\Form;
 
+use Phire\Model;
 use Phire\Table;
 use Pop\Form\Form;
 use Pop\Validator;
@@ -41,6 +42,12 @@ class Forgot extends Form
             if (!isset($user->id)) {
                 $this->getElement('email')
                      ->addValidator(new Validator\NotEqual($this->email, 'That email does not exist.'));
+            } else {
+                $role = new Model\Role();
+                if (!$role->canSendReminder($user->role_id)) {
+                    $this->getElement('email')
+                         ->addValidator(new Validator\NotEqual($this->email, 'That request cannot be processed.'));
+                }
             }
         }
 

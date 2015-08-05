@@ -219,8 +219,9 @@ jax(document).ready(function(){
             if (jax(this.role_id).val() != '----') {
                 url = url +  '/' + jax(this.role_id).val();
             }
-            if (jax(this.username).val() != '') {
-                url = url + '?username=' + encodeURIComponent(jax(this.username).val());
+            if ((jax(this.search_for).val() != '') && (jax(this.search_by).val() != '----')) {
+                url = url + '?search_for=' + encodeURIComponent(jax(this.search_for).val()) +
+                    '&search_by=' + encodeURIComponent(jax(this.search_by).val());
             }
             window.location.href = url;
             return false;

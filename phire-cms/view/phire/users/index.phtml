@@ -1,9 +1,9 @@
 <?php include $phireHeader; ?>
 <?php if (count($roles) > 0): ?>
     <form id="user-search-form" action="<?=$phireUri . '/users'; ?>" method="get">
-        <div><input tabindex="3" type="submit" id="submit" value="Search" /></div>
+        <div><input tabindex="4" type="submit" id="submit" value="Search" /></div>
         <div>
-            <select tabindex="2" id="role_id" name="role_id">
+            <select tabindex="3" id="role_id" name="role_id">
                 <option value="----">----</option>
 <?php foreach ($roles as $id => $role): ?>
 <?php if (($acl->hasResource('users-of-role-' . $id)) && ($acl->isAllowed($user->role, 'users-of-role-' . $id, 'index'))): ?>
@@ -12,7 +12,17 @@
 <?php endforeach; ?>
             </select>
         </div>
-        <div><input tabindex="1" type="text" name="username" id="username" value="<?=((null !== $username) ? $username : null); ?>" placeholder="Username" size="15" /></div>
+        <div>
+            <select tabindex="2" id="search_by" name="search_by">
+                <option value="----">Search by</option>
+                <option value="username"<?=(('username' == $searchBy) ? ' selected="selected"' : null); ?>>Username</option>
+                <option value="first_name"<?=(('first_name' == $searchBy) ? ' selected="selected"' : null); ?>>First Name</option>
+                <option value="last_name"<?=(('last_name' == $searchBy) ? ' selected="selected"' : null); ?>>Last Name</option>
+                <option value="company"<?=(('company' == $searchBy) ? ' selected="selected"' : null); ?>>Company</option>
+                <option value="email"<?=(('email' == $searchBy) ? ' selected="selected"' : null); ?>>Email</option>
+            </select>
+        </div>
+        <div><input tabindex="1" type="text" name="search_for" id="search_for" value="<?=((null !== $searchFor) ? $searchFor : null); ?>" placeholder="Search for" size="15" /></div>
     </form>
 <?php endif; ?>
     <h1 class="users-header"><?=$title; ?><?php if (isset($roleId) && isset($roles) && isset($roles[$roleId])): ?> : <?=$roles[$roleId]; ?><?php endif; ?></h1>
@@ -32,6 +42,9 @@
             <tr>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=id';?>">#</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=username';?>">Username</a></th>
+                <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=first_name';?>">First Name</a></th>
+                <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=last_name';?>">Last Name</a></th>
+                <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=company';?>">Company</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=email';?>">Email</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=role_name';?>">Role</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=active';?>">Active</a></th>
@@ -44,6 +57,9 @@
             <tr>
                 <td><?=$u->id; ?></td>
                 <td><?=$u->username; ?></td>
+                <td><?=$u->first_name; ?></td>
+                <td><?=$u->last_name; ?></td>
+                <td><?=$u->company; ?></td>
                 <td><?=$u->email; ?></td>
                 <td><?=(!empty($u->role_name) ? $u->role_name : '[Blocked]'); ?></td>
                 <td><?=(($u->active) ? 'Yes' : 'No'); ?></td>

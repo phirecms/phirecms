@@ -71,17 +71,23 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "role_id" integer,
   "username" varchar(255) NOT NULL,
   "password" varchar(255) NOT NULL,
-  "email" varchar(255) NOT NULL,
+  "first_name" varchar(255),
+  "last_name" varchar(255),
+  "company" varchar(255),
+  "email" varchar(255),
+  "phone" varchar(255),
   "active" integer,
   "verified" integer,
   PRIMARY KEY ("id"),
-  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
 ALTER SEQUENCE user_id_seq OWNED BY "[{prefix}]users"."id";
 CREATE INDEX "user_role_id" ON "[{prefix}]users" ("role_id");
 CREATE INDEX "username" ON "[{prefix}]users" ("username");
 CREATE INDEX "user_email" ON "[{prefix}]users" ("email");
+CREATE INDEX "user_first_name" ON "[{prefix}]users" ("first_name");
+CREATE INDEX "user_last_name" ON "[{prefix}]users" ("last_name");
 
 --
 -- Dumping data for table "users"

@@ -166,6 +166,34 @@ class Role extends AbstractModel
     }
 
     /**
+     * Determine if user role has permission to send a password reminder
+     * and reset the password
+     *
+     * @param  int $id
+     * @return boolean
+     */
+    public function canSendReminder($id)
+    {
+        $result = true;
+        $role   = Table\Roles::findById((int)$id);
+
+        if (isset($role->id) && (null !== $role->permissions)) {
+            $permissions = unserialize($role->permissions);
+            if (isset($permissions['deny'])) {
+                foreach ($permissions['deny'] as $deny) {
+                    if ($deny['resource'] == 'forgot') {
+                        $result = false;
+                    }
+                }
+            }
+        } else if (!isset($role->id)) {
+            $result = false;
+        }
+
+        return $result;
+    }
+
+    /**
      * Get permissions from $_POST data
      *
      * @param  array $post

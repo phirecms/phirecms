@@ -2,7 +2,7 @@
 <div id="login">
 <?php if (isset($form)): ?>
 <?=$form; ?>
-<?php elseif ($success): ?>
+<?php elseif (isset($success)): ?>
     <div id="forgot-form">
         <h2><?=$title; ?></h2>
         <p>An email has been sent to you with a password reminder.</p>
