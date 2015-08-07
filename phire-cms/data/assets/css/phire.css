@@ -1063,6 +1063,10 @@ th.text-center, td.text-center {
     font-weight: normal;
 }
 
+.normal-link, .normal-link:hover {
+    font-weight: normal;
+}
+
 .small-link, .small-link:hover {
     font-weight: normal;
     font-size: 0.9em;
