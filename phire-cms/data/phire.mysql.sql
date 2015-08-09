@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]roles` (
   `verification` int(1),
   `approval` int(1),
   `email_as_username` int(1),
+  `email_required` int(1),
   `permissions` text,
   PRIMARY KEY (`id`),
   INDEX `user_role_name` (`name`),

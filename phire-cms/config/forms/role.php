@@ -44,6 +44,15 @@ return [
             ],
             'marked' => 0
         ],
+        'email_required' => [
+            'type'      => 'radio',
+            'label'     => 'Email Required',
+            'value'     => [
+                '1' => 'Yes',
+                '0' => 'No'
+            ],
+            'marked' => 0
+        ],
         'id' => [
             'type'  => 'hidden',
             'value' => '0'

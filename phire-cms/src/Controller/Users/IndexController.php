@@ -79,9 +79,14 @@ class IndexController extends AbstractController
             $role->getById($rid);
             $this->view->title .= ' : ' . $role->name;
 
-            $fields = ($role->email_as_username) ?
-                $this->application->config()['forms']['Phire\Form\UserEmail'] :
-                $this->application->config()['forms']['Phire\Form\User'];
+            if ($role->email_as_username) {
+                $fields = $this->application->config()['forms']['Phire\Form\UserEmail'];
+            } else {
+                $fields = $this->application->config()['forms']['Phire\Form\User'];
+                if ($role->email_required) {
+                    $fields[2]['email']['required'] = true;
+                }
+            }
 
             $fields[1]['password1']['required'] = true;
             $fields[1]['password2']['required'] = true;
@@ -141,6 +146,9 @@ class IndexController extends AbstractController
             } else {
                 $fields = $this->application->config()['forms']['Phire\Form\User'];
                 $fields[1]['username']['attributes']['onkeyup'] = 'phire.changeTitle(this.value);';
+                if ($role->email_required) {
+                    $fields[2]['email']['required'] = true;
+                }
             }
 
             $fields[1]['password1']['required'] = false;

@@ -65,6 +65,7 @@ class Role extends AbstractModel
             'verification'      => (int)$post['verification'],
             'approval'          => (int)$post['approval'],
             'email_as_username' => (int)$post['email_as_username'],
+            'email_required'    => (int)$post['email_required'],
             'permissions'       => serialize($this->getPermissions($post))
         ]);
         $role->save();
@@ -87,6 +88,7 @@ class Role extends AbstractModel
             $role->verification      = (int)$post['verification'];
             $role->approval          = (int)$post['approval'];
             $role->email_as_username = (int)$post['email_as_username'];
+            $role->email_required    = (int)$post['email_required'];
             $role->permissions       = serialize($this->getPermissions($post));
             $role->save();
 

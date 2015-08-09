@@ -112,6 +112,9 @@ class IndexController extends AbstractController
             } else {
                 $fields = $this->application->config()['forms']['Phire\Form\Register'];
                 $fields[2]['role_id']['value'] = $id;
+                if ($role->email_required) {
+                    $fields[1]['email']['required'] = true;
+                }
                 $this->view->form = new Form\Register($captcha, $csrf, $fields);
             }
 
@@ -166,6 +169,9 @@ class IndexController extends AbstractController
         } else {
             $fields = $this->application->config()['forms']['Phire\Form\Profile'];
             $fields[2]['role_id']['value'] = $this->sess->user->role_id;
+            if ($role->email_required) {
+                $fields[1]['email']['required'] = true;
+            }
             $this->view->form = new Form\Profile($fields);
         }
 

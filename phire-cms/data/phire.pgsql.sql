@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]roles" (
   "verification" integer,
   "approval" integer,
   "email_as_username" integer,
+  "email_required" integer,
   "permissions" text,
   PRIMARY KEY ("id"),
   CONSTRAINT "fk_role_parent_id" FOREIGN KEY ("parent_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
