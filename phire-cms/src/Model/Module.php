@@ -138,10 +138,10 @@ class Module extends AbstractModel
                     $ext  = 'zip';
                     $name = substr($module, 0, -4);
                 } else if (substr($module, -4) == '.tgz') {
-                    $ext = 'tgz';
+                    $ext  = 'tgz';
                     $name = substr($module, 0, -4);
                 } else if (substr($module, -7) == '.tar.gz') {
-                    $ext = 'tar.gz';
+                    $ext  = 'tar.gz';
                     $name = substr($module, 0, -7);
                 }
 
@@ -307,8 +307,8 @@ class Module extends AbstractModel
                 if (strpos($line, ':')) {
                     $ary = explode(':', $line);
                     if (isset($ary[0]) && isset($ary[1])) {
-                        $key = trim(str_replace('*', '', $ary[0]));
-                        $value = trim(str_replace('*', '', $ary[1]));
+                        $key        = trim(str_replace('*', '', $ary[0]));
+                        $value      = trim(str_replace('*', '', $ary[1]));
                         $info[$key] = $value;
                     }
                 }
