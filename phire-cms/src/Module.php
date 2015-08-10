@@ -18,7 +18,7 @@ class Module extends Module\Module
     /**
      * Phire version
      */
-    const VERSION = '2.0.0b';
+    const VERSION = '2.0.0rc1';
 
     /**
      * JS and CSS assets
