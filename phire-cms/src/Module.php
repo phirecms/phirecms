@@ -68,7 +68,7 @@ class Module extends Module\Module
 
         // Add route params for the controllers
         if (null !== $this->application->router()) {
-            $this->application->router()->addRouteParams(
+            $this->application->router()->addControllerParams(
                 '*', [
                     'application' => $this->application,
                     'request'     => new Request(),
