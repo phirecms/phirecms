@@ -156,7 +156,7 @@ class Module extends AbstractModel
                         file_exists($modulePath . '/' . $name . '/config/module.php')) {
                         // Get SQL, if exists
                         $sqlType = strtolower(((DB_INTERFACE == 'pdo') ? DB_TYPE : DB_INTERFACE));
-                        $sqlFile = $modulePath . '/' . $name . '/data/' . strtolower($name) . '.' . $sqlType . '.sql';
+                        $sqlFile = $modulePath . '/' . $name . '/data/' . $name . '.' . $sqlType . '.sql';
                         if (!file_exists($sqlFile)) {
                             $sqlFile = null;
                         }
