@@ -20,7 +20,7 @@ try {
         include __DIR__ . APP_PATH . '/config/application.php'
     );
 
-    $app->register('Phire', new Phire\Module($app))
+    $app->register('phire', new Phire\Module($app))
         ->run();
 } catch (Exception $exception) {
     $phire = new Phire\Module();

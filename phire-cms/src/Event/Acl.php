@@ -17,7 +17,7 @@ class Acl
     public static function check(Application $application)
     {
         if ($application->config()['db']) {
-            $application->module('Phire')->initAcl();
+            $application->module('phire')->initAcl();
             $sess = $application->getService('session');
             $acl  = $application->getService('acl');
 

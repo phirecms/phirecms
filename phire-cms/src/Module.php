@@ -173,9 +173,9 @@ class Module extends Module\Module
                     // Load and register each module
                     foreach ($moduleConfig as $name => $config) {
                         // Check for module config override
-                        if (file_exists($modulePath . '/phire/config/' . strtolower($name) . '.php')) {
+                        if (file_exists($modulePath . '/phire/config/' . $name . '.php')) {
                             $config = array_merge(
-                                $config, include $modulePath . '/phire/config/' . strtolower($name) . '.php'
+                                $config, include $modulePath . '/phire/config/' . $name . '.php'
                             );
                         }
 
