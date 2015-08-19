@@ -132,6 +132,16 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
     }
 
     /**
+     * Get config object
+     *
+     * @return \ArrayObject
+     */
+    public function config()
+    {
+        return $this->config;
+    }
+
+    /**
      * Determine if the view object has been created
      *
      * @return boolean
@@ -208,6 +218,7 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
             $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
 
         $this->view                  = new View($viewTemplate);
+        $this->view->phire           = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
         $this->view->assets          = $this->application->module('phire')->getAssets();
         $this->view->systemTitle     = $this->application->config()['system_title'];
         $this->view->phireHeader     = $headerTemplate;
