@@ -1,45 +1,49 @@
 <?php include $phireHeader; ?>
     <h1 class="dashboard-header"><?=$title; ?></h1>
 <?php if ($acl->isAllowed($user->role, 'dashboard')): ?>
-    <table class="dashboard-table" cellspacing="0" cellpadding="0" border="0">
-        <tr>
-            <th colspan="2">
-                Modules
-            </th>
-        </tr>
+    <div class="dashboard-left-column">
+        <table class="dashboard-table" cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <th colspan="2">
+                    Modules
+                </th>
+            </tr>
 <?php if (count($modules) > 0): ?>
 <?php foreach ($modules as $module): ?>
 <?php
     $assets = unserialize($module->assets);
     $moduleName = (isset($assets['info']['Module Name'])) ? $assets['info']['Module Name'] : $module->folder;
 ?>
-        <tr>
-            <td><strong><?=$moduleName; ?></strong></td>
-            <td><?=(($module->active) ? 'Active' : 'Not Active'); ?></td>
-        </tr>
+            <tr>
+                <td><strong><?=$moduleName; ?></strong></td>
+                <td><?=(($module->active) ? 'Active' : 'Not Active'); ?></td>
+            </tr>
 <?php endforeach; ?>
 <?php else: ?>
-        <tr>
-            <td colspan="2">
-                There are currently no modules installed.
-            </td>
-        </tr>
+            <tr>
+                <td colspan="2">
+                    There are currently no modules installed.
+                </td>
+            </tr>
 <?php endif; ?>
-    </table>
-    <table class="system-overview" cellspacing="0" cellpadding="0" border="0">
-        <tr>
-            <th colspan="2">
-                System Overview
-            </th>
-        </tr>
+        </table>
+    </div>
+    <div class="dashboard-right-column">
+        <table class="dashboard-table" cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <th colspan="2">
+                    System Overview
+                </th>
+            </tr>
 <?php foreach ($overview as $key => $value): ?>
 <?php if ((stripos($key, 'path') === false) && (stripos($key, 'root') === false)): ?>
-        <tr>
-            <td><strong><?=(ucwords(str_replace(array('_', 'php'), array(' ', 'PHP'), $key))); ?>:</strong></td>
-            <td><?=$value; ?></td>
-        </tr>
+            <tr>
+                <td><strong><?=(ucwords(str_replace(array('_', 'php'), array(' ', 'PHP'), $key))); ?>:</strong></td>
+                <td><?=$value; ?></td>
+            </tr>
 <?php endif; ?>
 <?php endforeach; ?>
-    </table>
+        </table>
+    </div>
 <?php endif; ?>
 <?php include $phireFooter; ?>

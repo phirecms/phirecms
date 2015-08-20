@@ -34,7 +34,7 @@
     position: relative;
     z-index: 10;
     margin: 0;
-    padding: 0;
+    padding: 0 0 35px 0;
     width: 150px;
     min-height: 100%;
     float: left;
@@ -120,7 +120,7 @@
 
 #content {
     margin: 0;
-    padding: 0 2% 50px 0;
+    padding: 0 2% 35px 0;
     width: calc(100% - 215px);
     float: right;
     height: 100%;

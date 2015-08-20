@@ -698,51 +698,54 @@ input[type=submit]:focus, button:focus {
 
 @media screen and (min-width: 1140px)
 {
-    .system-overview {
-        margin: 0;
-        padding: 0;
-        float: right;
-        width: 25%;
-        border: solid 1px #ccc;
-    }
-
-    .dashboard-table {
+    .dashboard-left-column {
         margin: 0 10px 20px 0;
         padding: 0;
         clear: left;
         float: left;
         width: 72%;
-        border: solid 1px #ccc;
+    }
+
+    .dashboard-right-column {
+        margin: 0;
+        padding: 0;
+        float: right;
+        width: 25%;
     }
 }
 
 @media screen and (max-width: 1139px)
 {
-    .system-overview {
-        margin: 0 auto 20px auto;
+    .dashboard-left-column {
+        margin: 0 auto;
         padding: 0;
         width: 99.5%;
-        border: solid 1px #ccc;
     }
 
-    .dashboard-table {
-        margin: 0 auto 20px auto;
+    .dashboard-right-column {
+        margin: 0 auto;
         padding: 0;
         width: 99.5%;
-        border: solid 1px #ccc;
     }
 }
 
-.system-overview tr, .dashboard-table tr {
+.dashboard-table {
+    margin: 0 auto 20px auto;
+    padding: 0;
+    width: 100%;
+    border: solid 1px #ccc;
+}
+
+.dashboard-table tr {
     margin: 0;
     padding: 0;
 }
 
-.system-overview tr:hover, .dashboard-table tr:hover {
+.dashboard-table tr:hover {
     background-color: #e8f4f7;
 }
 
-.system-overview th, .dashboard-table th {
+.dashboard-table th {
     margin: 0;
     text-align: left;
     padding: 8px 5px 8px 5px;
@@ -750,7 +753,7 @@ input[type=submit]:focus, button:focus {
     background-color: #dedede;
 }
 
-.system-overview td, .dashboard-table td {
+.dashboard-table td {
     margin: 0;
     padding: 8px 5px 8px 5px;
     border-top: solid 1px #ccc;
