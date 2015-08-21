@@ -24,7 +24,7 @@ class Module extends AbstractModel
      */
     public function getAll(\Pop\Module\Manager $moduleManager, \Pop\Acl\Acl $acl, $limit = null, $page = null, $sort = null)
     {
-        $order = $this->getSortOrder($sort, $page);
+        $order = (null !== $sort) ? $this->getSortOrder($sort, $page) : 'order, id ASC';
 
         if (null !== $limit) {
             $page = ((null !== $page) && ((int)$page > 1)) ?
