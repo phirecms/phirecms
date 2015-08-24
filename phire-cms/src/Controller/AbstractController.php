@@ -173,13 +173,15 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
      */
     public function send($code = 200, array $headers = null, $body = null)
     {
-        $this->application->trigger('app.send', ['controller' => $this]);
+        $this->application->trigger('app.send.pre', ['controller' => $this]);
 
         if (null !== $body) {
             $this->response->setBody($body);
         } else if (null !== $this->view) {
             $this->response->setBody($this->view->render());
         }
+
+        $this->application->trigger('app.send.post', ['controller' => $this]);
 
         $this->response->send($code, $headers);
     }
@@ -194,7 +196,8 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
      */
     public function redirect($url, $code = '302', $version = '1.1')
     {
-        $this->application->trigger('app.send', ['controller' => $this]);
+        $this->application->trigger('app.send.pre', ['controller' => $this]);
+        $this->application->trigger('app.send.post', ['controller' => $this]);
         Response::redirect($url, $code, $version);
         exit();
     }
