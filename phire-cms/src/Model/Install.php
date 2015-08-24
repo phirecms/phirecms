@@ -112,8 +112,8 @@ class Install extends AbstractModel
         ];
 
         // Check for an override template
-        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/install.txt')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/install.txt' : __DIR__ . '/../../view/phire/mail/install.txt';
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULES_PATH . '/phire/view/phire/mail/install.txt')) ?
+            __DIR__ . '/../../..' . MODULES_PATH . '/phire/view/phire/mail/install.txt' : __DIR__ . '/../../view/phire/mail/install.txt';
 
         // Send email verification
         $mail = new Mail($domain . ' - Phire CMS Installation', $rcpt);

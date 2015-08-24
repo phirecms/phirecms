@@ -67,18 +67,18 @@ class Module extends AbstractModel
      */
     public function detectNew($count = true)
     {
-        $modulePath = $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH;
+        $modulesPath = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
         $installed  = [];
         $newModules = [];
 
-        if (file_exists($modulePath)) {
+        if (file_exists($modulesPath)) {
             $modules = Table\Modules::findAll();
 
             foreach ($modules->rows() as $module) {
                 $installed[] = $module->file;
             }
 
-            $dir = new Dir($modulePath, false, false, false);
+            $dir = new Dir($modulesPath, false, false, false);
             foreach ($dir->getFiles() as $file) {
                 if (((substr($file, -4) == '.zip') || (substr($file, -4) == '.tgz') ||
                         (substr($file, -7) == '.tar.gz')) && (!in_array($file, $installed))
@@ -121,17 +121,17 @@ class Module extends AbstractModel
      */
     public function install(\Pop\Service\Locator $services)
     {
-        $modulePath = $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH;
+        $modulesPath = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
         $modules    = $this->detectNew(false);
 
-        if (!is_writable($modulePath)) {
+        if (!is_writable($modulesPath)) {
             throw new \Phire\Exception('Error: The module folder is not writable.');
         }
 
         $formats = Archive::getFormats();
 
         foreach ($modules as $module) {
-            if (file_exists($modulePath . '/' . $module)) {
+            if (file_exists($modulesPath . '/' . $module)) {
                 $ext  = null;
                 $name = null;
                 if (substr($module, -4) == '.zip') {
@@ -146,25 +146,25 @@ class Module extends AbstractModel
                 }
 
                 if ((null !== $ext) && (null !== $name) && array_key_exists($ext, $formats)) {
-                    $archive = new Archive($modulePath . '/' . $module);
-                    $archive->extract($modulePath);
-                    if ((stripos($module, 'gz') !== false) && (file_exists($modulePath . '/' . $name . '.tar'))) {
-                        unlink($modulePath . '/' . $name . '.tar');
+                    $archive = new Archive($modulesPath . '/' . $module);
+                    $archive->extract($modulesPath);
+                    if ((stripos($module, 'gz') !== false) && (file_exists($modulesPath . '/' . $name . '.tar'))) {
+                        unlink($modulesPath . '/' . $name . '.tar');
                     }
 
-                    if (file_exists($modulePath . '/' . $name) &&
-                        file_exists($modulePath . '/' . $name . '/config/module.php')) {
+                    if (file_exists($modulesPath . '/' . $name) &&
+                        file_exists($modulesPath . '/' . $name . '/config/module.php')) {
                         // Get SQL, if exists
                         $sqlType = strtolower(((DB_INTERFACE == 'pdo') ? DB_TYPE : DB_INTERFACE));
-                        $sqlFile = $modulePath . '/' . $name . '/data/' . $name . '.' . $sqlType . '.sql';
+                        $sqlFile = $modulesPath . '/' . $name . '/data/' . $name . '.' . $sqlType . '.sql';
                         if (!file_exists($sqlFile)) {
                             $sqlFile = null;
                         }
 
                         // Get module info from config file
-                        $info   = $this->getInfo(file_get_contents($modulePath . '/' . $name . '/config/module.php'));
+                        $info   = $this->getInfo(file_get_contents($modulesPath . '/' . $name . '/config/module.php'));
                         $tables = (null !== $sqlFile) ? $this->getTables(file_get_contents($sqlFile)) : [];
-                        $config = include $modulePath . '/' . $name . '/config/module.php';
+                        $config = include $modulesPath . '/' . $name . '/config/module.php';
 
                         // Save module in the database
                         $mod = new Table\Modules([
@@ -237,7 +237,7 @@ class Module extends AbstractModel
      */
     public function uninstall($ids, $services)
     {
-        $modulePath = $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH;
+        $modulesPath = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
 
         foreach ($ids as $id) {
             $module = Table\Modules::findById((int)$id);
@@ -263,21 +263,21 @@ class Module extends AbstractModel
                 }
 
                 // Run any uninstall functions
-                $config = include $modulePath . '/' . $module->folder . '/config/module.php';
+                $config = include $modulesPath . '/' . $module->folder . '/config/module.php';
                 if (!empty($config[$module->folder]['uninstall'])) {
                     call_user_func_array($config[$module->folder]['uninstall'], [$services]);
                 }
 
                 // Remove the module folder and files
-                if (file_exists($modulePath . '/' . $module->folder)) {
-                    $dir = new Dir($modulePath . '/' . $module->folder);
+                if (file_exists($modulesPath . '/' . $module->folder)) {
+                    $dir = new Dir($modulesPath . '/' . $module->folder);
                     $dir->emptyDir(true);
                 }
 
                 // Remove the module file
-                if (file_exists($modulePath . '/' . $module->file) &&
-                    is_writable($modulePath . '/' . $module->file)) {
-                    unlink($modulePath . '/' . $module->file);
+                if (file_exists($modulesPath . '/' . $module->file) &&
+                    is_writable($modulesPath . '/' . $module->file)) {
+                    unlink($modulesPath . '/' . $module->file);
                 }
 
                 // Remove any assets

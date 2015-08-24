@@ -24,7 +24,7 @@ class Module extends \Pop\Module\Module
                 if (!isset($params['tree']['modules']['children'])) {
                     $params['tree']['modules']['children'] = [];
                 }
-                $params['tree']['modules']['children'][] = $this->config['nav.module'];
+                $params['tree']['modules']['children'] = array_merge([$this->config['nav.module']], $params['tree']['modules']['children']);
             }
 
             // If the module has system-level navigation

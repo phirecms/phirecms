@@ -391,8 +391,8 @@ class User extends AbstractModel
         ];
 
         // Check for an override template
-        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/verify.txt')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/verify.txt' :
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULES_PATH . '/phire/view/phire/mail/verify.txt')) ?
+            __DIR__ . '/../../..' . MODULES_PATH . '/phire/view/phire/mail/verify.txt' :
             __DIR__ . '/../../view/phire/mail/verify.txt';
 
         // Send email verification
@@ -420,8 +420,8 @@ class User extends AbstractModel
         ];
 
         // Check for an override template
-        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/approval.txt')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/approval.txt' :
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULES_PATH . '/phire/view/phire/mail/approval.txt')) ?
+            __DIR__ . '/../../..' . MODULES_PATH . '/phire/view/phire/mail/approval.txt' :
             __DIR__ . '/../../view/phire/mail/approval.txt';
 
         // Send email verification
@@ -454,8 +454,8 @@ class User extends AbstractModel
         ];
 
         // Check for an override template
-        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/forgot.txt')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/forgot.txt' :
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULES_PATH . '/phire/view/phire/mail/forgot.txt')) ?
+            __DIR__ . '/../../..' . MODULES_PATH . '/phire/view/phire/mail/forgot.txt' :
             __DIR__ . '/../../view/phire/mail/forgot.txt';
 
         // Send email verification
@@ -483,8 +483,8 @@ class User extends AbstractModel
         ];
 
         // Check for an override template
-        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/unsubscribe.txt')) ?
-            __DIR__ . '/../../..' . MODULE_PATH . '/phire/view/phire/mail/unsubscribe.txt' :
+        $mailTemplate = (file_exists(__DIR__ . '/../../..' . MODULES_PATH . '/phire/view/phire/mail/unsubscribe.txt')) ?
+            __DIR__ . '/../../..' . MODULES_PATH . '/phire/view/phire/mail/unsubscribe.txt' :
             __DIR__ . '/../../view/phire/mail/unsubscribe.txt';
 
         // Send email verification

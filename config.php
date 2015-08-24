@@ -16,8 +16,8 @@ define('APP_PATH', '/phire-cms');
 // Define the content path
 define('CONTENT_PATH', '/phire-content');
 
-// Define the module path
-define('MODULE_PATH', BASE_PATH . CONTENT_PATH . '/modules');
+// Define the modules path
+define('MODULES_PATH', BASE_PATH . CONTENT_PATH . '/modules');
 
 // Define the application URI
 define('APP_URI', '/phire');

@@ -211,14 +211,14 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
     protected function prepareView($template)
     {
         // Check for any override templates
-        $headerTemplate = (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/phire/header.phtml')) ?
-            $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/phire/header.phtml' : __DIR__ . '/../../view/phire/header.phtml';
+        $headerTemplate = (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/view/phire/header.phtml')) ?
+            $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/view/phire/header.phtml' : __DIR__ . '/../../view/phire/header.phtml';
 
-        $footerTemplate = (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/phire/footer.phtml')) ?
-            $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/phire/footer.phtml' : __DIR__ . '/../../view/phire/footer.phtml';
+        $footerTemplate = (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/view/phire/footer.phtml')) ?
+            $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/view/phire/footer.phtml' : __DIR__ . '/../../view/phire/footer.phtml';
 
-        $viewTemplate = (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/' . $template)) ?
-            $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
+        $viewTemplate = (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/view/' . $template)) ?
+            $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
 
         $this->view                  = new View($viewTemplate);
         $this->view->phire           = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);

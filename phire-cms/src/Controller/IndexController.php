@@ -71,7 +71,7 @@ class IndexController extends AbstractController
                         'base_path'    => BASE_PATH,
                         'app_path'     => APP_PATH,
                         'content_path' => CONTENT_PATH,
-                        'module_path'  => MODULE_PATH,
+                        'modules_path' => MODULES_PATH,
                         'app_uri'      => APP_URI
                     ]);
                 }

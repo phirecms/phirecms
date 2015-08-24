@@ -50,7 +50,7 @@ class Module extends Module\Module
         sort($this->assets['css']['import']);
 
         // Load any custom/override assets
-        $this->loadAssets($_SERVER['DOCUMENT_ROOT'] . MODULE_PATH . '/phire/assets', 'phire-custom', true);
+        $this->loadAssets($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/assets', 'phire-custom', true);
 
         // Set the database
         if ($this->application->services()->isAvailable('database')) {
@@ -105,7 +105,7 @@ class Module extends Module\Module
         sort($this->assets['css']['import']);
 
         // Load any custom/override assets
-        $this->loadAssets(__DIR__ . '/../..' . MODULE_PATH . '/phire/assets', 'phire-custom', true);
+        $this->loadAssets(__DIR__ . '/../..' . MODULES_PATH . '/phire/assets', 'phire-custom', true);
 
         $view = new View(__DIR__ . '/../view/phire/exception.phtml');
         $view->title        = 'Application Error';
@@ -159,23 +159,23 @@ class Module extends Module\Module
     public function registerModules()
     {
         if ($this->application->config()['db']) {
-            $modulePath = $_SERVER['DOCUMENT_ROOT'] . MODULE_PATH;
+            $modulesPath = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
 
             $modules = Table\Modules::findBy(['active' => 1], null, ['order' => 'order DESC']);
             foreach ($modules->rows() as $module) {
-                if (file_exists($modulePath . '/' . $module->folder . '/src/Module.php')) {
-                    include $modulePath . '/' . $module->folder . '/src/Module.php';
+                if (file_exists($modulesPath . '/' . $module->folder . '/src/Module.php')) {
+                    include $modulesPath . '/' . $module->folder . '/src/Module.php';
                     $moduleClass = $module->namespace . 'Module';
                     $this->application->register($module->folder, new $moduleClass($this->application));
-                } else if (file_exists($modulePath . '/' . $module->folder . '/config/module.php')) {
-                    $moduleConfig = include $modulePath . '/' . $module->folder . '/config/module.php';
+                } else if (file_exists($modulesPath . '/' . $module->folder . '/config/module.php')) {
+                    $moduleConfig = include $modulesPath . '/' . $module->folder . '/config/module.php';
 
                     // Load and register each module
                     foreach ($moduleConfig as $name => $config) {
                         // Check for module config override
-                        if (file_exists($modulePath . '/phire/config/' . $name . '.php')) {
+                        if (file_exists($modulesPath . '/phire/config/' . $name . '.php')) {
                             $config = array_merge(
-                                $config, include $modulePath . '/phire/config/' . $name . '.php'
+                                $config, include $modulesPath . '/phire/config/' . $name . '.php'
                             );
                         }
 
@@ -186,9 +186,9 @@ class Module extends Module\Module
                 // Check module configs for Phire-specific configs
                 foreach ($this->application->modules() as $module => $config) {
                     // Load module assets
-                    if (file_exists($modulePath . '/' . $module . '/data/assets')) {
+                    if (file_exists($modulesPath . '/' . $module . '/data/assets')) {
                         $this->loadAssets(
-                            $modulePath . '/' . $module . '/data/assets',
+                            $modulesPath . '/' . $module . '/data/assets',
                             strtolower($module)
                         );
                     }
