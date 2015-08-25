@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Phire CMS : <?=$title; ?></title>
+    <title><?=$systemTitle; ?> : <?=$title; ?></title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -36,7 +36,7 @@
     <p><?=$message; ?></p>
 </div>
 <footer id="login-footer">
-    Phire CMS. &copy; 2009-<?=date('Y'); ?> <a href="http://www.nolainteractive.com/" target="_blank">NOLA Interactive, LLC</a>. All Rights Reserved.
+    <?=$systemTitle; ?>. &copy; 2009-<?=date('Y'); ?> <a href="http://www.nolainteractive.com/" target="_blank">NOLA Interactive, LLC</a>. All Rights Reserved.
 </footer>
 </body>
 
