@@ -1,3 +1,16 @@
+--
+-- Installation profile for a PostgreSQL installation of Phire CMS 2
+--
+-- Requires the following modules:
+--
+-- phire-categories
+-- phire-content
+-- phire-fields
+-- phire-media
+-- phire-navigation
+-- phire-templates
+--
+
 INSERT INTO "[{prefix}]content_types" ("name", "content_type", "strict_publishing", "open_authoring", "force_ssl", "order") VALUES
 ('Pages', 'text/html', 1, 1, 0, 1);
 
