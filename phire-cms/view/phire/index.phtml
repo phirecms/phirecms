@@ -1,14 +1,14 @@
 <?php include $phireHeader; ?>
     <h1 class="dashboard-header"><?=$title; ?></h1>
-<?php if ($acl->isAllowed($user->role, 'dashboard')): ?>
     <div class="dashboard-left-column">
+<?php if ($acl->isAllowed($user->role, 'dashboard')): ?>
         <table class="dashboard-table" cellspacing="0" cellpadding="0" border="0">
             <tr>
                 <th colspan="2">
                     Modules
                 </th>
             </tr>
-<?php if (count($modules) > 0): ?>
+<?php if ((count($modules) > 0) && ($acl->isAllowed($user->role, 'modules'))): ?>
 <?php foreach ($modules as $module): ?>
 <?php
     $assets = unserialize($module->assets);
@@ -22,13 +22,15 @@
 <?php else: ?>
             <tr>
                 <td colspan="2">
-                    There are currently no modules installed.
+                    There are currently no modules available.
                 </td>
             </tr>
 <?php endif; ?>
         </table>
+<?php endif; ?>
     </div>
     <div class="dashboard-right-column">
+<?php if ($acl->isAllowed($user->role, 'dashboard')): ?>
         <table class="dashboard-table" cellspacing="0" cellpadding="0" border="0">
             <tr>
                 <th colspan="2">
@@ -44,6 +46,6 @@
 <?php endif; ?>
 <?php endforeach; ?>
         </table>
-    </div>
 <?php endif; ?>
+    </div>
 <?php include $phireFooter; ?>
