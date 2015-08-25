@@ -94,6 +94,24 @@ class Install extends AbstractModel
     }
 
     /**
+     * Install Profile
+     *
+     * @param  string $sql
+     * @return void
+     */
+    public function installProfile($sql)
+    {
+        Db::install($sql, [
+            'database' => DB_NAME,
+            'username' => DB_USER,
+            'password' => DB_PASS,
+            'host'     => DB_HOST,
+            'prefix'   => DB_PREFIX,
+            'type'     => DB_TYPE
+        ], ucfirst(strtolower(DB_INTERFACE)));
+    }
+
+    /**
      * Send installation confirmation
      *
      * @param  Table\Users

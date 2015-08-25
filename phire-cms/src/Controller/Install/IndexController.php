@@ -132,6 +132,11 @@ class IndexController extends AbstractController
                     $module->install($this->services);
                 }
 
+                $dbType = (DB_INTERFACE == 'pdo') ? DB_TYPE : DB_INTERFACE;
+                if (file_exists(__DIR__ . '/../../../data/install.' . strtolower($dbType) . '.sql')) {
+                    $install->installProfile(__DIR__ . '/../../../data/install.' . strtolower($dbType) . '.sql');
+                }
+
                 $this->sess->kill();
                 $this->redirect(BASE_PATH . APP_URI . '/login?installed=' . time());
             }
