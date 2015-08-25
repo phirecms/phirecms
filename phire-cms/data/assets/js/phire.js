@@ -134,6 +134,21 @@ var phire = {
                     }
                 }
             }
+            if (typeof CKEDITOR !== 'undefined') {
+                for (ed in CKEDITOR.instances) {
+                    if (CKEDITOR.instances[ed].getData() != form.elements[ed].defaultValue) {
+                        change = true;
+                    }
+                }
+            } else if (typeof tinymce !== 'undefined') {
+                for (ed in tinymce.editors) {
+                    if (ed.indexOf('field_') != -1) {
+                        if (tinymce.editors[ed].getContent() != form.elements[ed].defaultValue) {
+                            change = true;
+                        }
+                    }
+                }
+            }
             if (change) {
                 return 'You are about to leave this page and have unsaved changes. Are you sure?';
             } else {

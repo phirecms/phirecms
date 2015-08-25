@@ -1080,3 +1080,10 @@ input.module-order {
     text-align: center;
     font-size: 0.9em;
 }
+
+input[type=text].order-field {
+    margin: 0;
+    padding: 3px;
+    font-size: 0.825em;
+    text-align: center;
+}

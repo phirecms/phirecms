@@ -17,12 +17,10 @@ class Ssl
     public static function check(Application $application)
     {
         if ($application->config()['db']) {
-            $forceSsl = $application->config()['force_ssl'];
             // If force_ssl is checked, and request is not secure, redirect to secure request
-            if (($forceSsl) && ($_SERVER['SERVER_PORT'] != '443')) {
-                $secureUrl = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] .
-                    ((!empty($_SERVER['QUERY_STRING'])) ? '?' . $_SERVER['QUERY_STRING'] : '');
-                Response::redirect($secureUrl);
+            if (($application->config()['force_ssl']) && ($_SERVER['SERVER_PORT'] != '443') &&
+                (substr($_SERVER['REQUEST_URI'], 0, strlen(BASE_PATH . APP_URI)) == (BASE_PATH . APP_URI))) {
+                Response::redirect('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
                 exit();
             }
         }
