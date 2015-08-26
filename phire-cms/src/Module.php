@@ -109,6 +109,7 @@ class Module extends Module\Module
 
         $view = new View(__DIR__ . '/../view/phire/exception.phtml');
         $view->title        = 'Application Error';
+        $view->systemTitle  = 'Phire CMS';
         $view->assets       = $this->assets;
         $view->phireUri     = BASE_PATH . APP_URI;
         $view->basePath     = BASE_PATH;
