@@ -172,7 +172,7 @@ class Module extends AbstractModel
                             'folder' => $name,
                             'prefix' => $config[$name]['prefix'],
                             'active' => 1,
-                            'order'  => 0,
+                            'order'  => (int)Table\Modules::findAll()->count() + 1,
                             'assets' => serialize([
                                 'tables' => $tables,
                                 'info'   => $info

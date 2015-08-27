@@ -86,7 +86,7 @@
 #phire-nav > nav > nav > nav > nav {
     position: absolute;
     display: none;
-    top: 0px;
+    top: 0;
     left: 150px;
     width: 150px;
 }
@@ -96,13 +96,16 @@
     margin: 0;
     padding: 8px 10px 8px 10px;
     display: block;
-    color: #fff;
+    font-weight: normal;
+    color: #111;
     text-align: left;
     text-decoration: none;
     background-color: #aaa;
 }
 
 #phire-nav > nav > nav > nav > nav > nav > a:hover {
+    font-weight: normal;
+    color: #fff;
     text-decoration: underline;
     background-color: #666;
 }
