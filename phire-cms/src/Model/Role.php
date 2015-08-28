@@ -143,10 +143,11 @@ class Role extends AbstractModel
     /**
      * Determine if user role has permission to register
      *
-     * @param  int $id
+     * @param  int    $id
+     * @param  string $register
      * @return boolean
      */
-    public function canRegister($id)
+    public function canRegister($id, $register = 'register')
     {
         $result = true;
         $role   = Table\Roles::findById((int)$id);
@@ -155,7 +156,7 @@ class Role extends AbstractModel
             $permissions = unserialize($role->permissions);
             if (isset($permissions['deny'])) {
                 foreach ($permissions['deny'] as $deny) {
-                    if ($deny['resource'] == 'register') {
+                    if ($deny['resource'] == $register) {
                         $result = false;
                     }
                 }
