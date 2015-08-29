@@ -30,13 +30,13 @@ class Module extends AbstractModel
             $page = ((null !== $page) && ((int)$page > 1)) ?
                 ($page * $limit) - $limit : null;
 
-            $modules = Table\Modules::findAll(null, [
+            $modules = Table\Modules::findAll([
                 'offset' => $page,
                 'limit'  => $limit,
                 'order'  => $order
             ])->rows();
         } else {
-            $modules = Table\Modules::findAll(null, [
+            $modules = Table\Modules::findAll([
                 'order'  => $order
             ])->rows();
         }

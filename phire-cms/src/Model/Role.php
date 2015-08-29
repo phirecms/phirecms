@@ -23,13 +23,13 @@ class Role extends AbstractModel
             $page = ((null !== $page) && ((int)$page > 1)) ?
                 ($page * $limit) - $limit : null;
 
-            return Table\Roles::findAll(null, [
+            return Table\Roles::findAll([
                 'offset' => $page,
                 'limit'  => $limit,
                 'order'  => $order
             ])->rows();
         } else {
-            return Table\Roles::findAll(null, [
+            return Table\Roles::findAll([
                 'order'  => $order
             ])->rows();
         }

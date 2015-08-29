@@ -162,7 +162,7 @@ class Module extends Module\Module
         if ($this->application->config()['db']) {
             $modulesPath = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
 
-            $modules = Table\Modules::findBy(['active' => 1], null, ['order' => 'order DESC']);
+            $modules = Table\Modules::findBy(['active' => 1], ['order' => 'order DESC']);
             foreach ($modules->rows() as $module) {
                 if (file_exists($modulesPath . '/' . $module->folder . '/src/Module.php')) {
                     include $modulesPath . '/' . $module->folder . '/src/Module.php';
