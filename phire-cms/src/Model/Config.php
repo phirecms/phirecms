@@ -31,7 +31,7 @@ class Config extends AbstractModel
             'modules_path'     => MODULES_PATH,
             'operating_system' => $server->getOs() . ' (' . $server->getDistro() . ')',
             'software'         => $server->getServer() . ' ' . $server->getServerVersion(),
-            'database_version' => Table\Config::getDb()->version(),
+            'database_version' => Table\Config::db()->version(),
             'php_version'      => $server->getPhp(),
             'installed_on'     => (($config['installed_on'] != '0000-00-00 00:00:00') ?
                 date($config['datetime_format'], strtotime($config['installed_on'])) : ''),
