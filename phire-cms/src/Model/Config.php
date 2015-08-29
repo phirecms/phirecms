@@ -45,7 +45,7 @@ class Config extends AbstractModel
         ];
 
         $this->data['config']  = $config;
-        $this->data['modules'] = Table\Modules::findAll(['order' => 'order, id ASC'])->rows();
+        $this->data['modules'] = Table\Modules::findAll(['order' => 'id DESC', 'limit' => 5])->rows();
     }
 
     /**
