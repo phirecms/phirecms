@@ -32,10 +32,9 @@ class Login extends Form
      *
      * @param  array  $values
      * @param  Auth   $auth
-     * @param  string $login
      * @return Login
      */
-    public function setFieldValues(array $values = null, Auth $auth = null, $login = 'login')
+    public function setFieldValues(array $values = null, Auth $auth = null)
     {
         parent::setFieldValues($values);
 
@@ -60,7 +59,7 @@ class Login extends Form
                     $permissions = unserialize($role->permissions);
                     if (isset($permissions['deny'])) {
                         foreach ($permissions['deny'] as $deny) {
-                            if ($deny['resource'] == $login) {
+                            if ($deny['resource'] == 'login') {
                                 $this->getElement('password')
                                      ->addValidator(new Validator\NotEqual(
                                          $this->password, 'That user is not allowed to login.'
