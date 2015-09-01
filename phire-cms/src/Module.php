@@ -98,6 +98,11 @@ class Module extends Module\Module
      */
     public function error(\Exception $exception)
     {
+        if (($exception instanceof \Phire\Exception) && ($exception->isInstallError())) {
+            Response::redirect(BASE_PATH . APP_URI . '/install');
+            exit();
+        }
+
         // Load assets, if they haven't been loaded already
         $this->loadAssets(__DIR__ . '/../data/assets', 'phire');
         sort($this->assets['js']);

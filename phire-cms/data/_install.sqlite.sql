@@ -29,7 +29,7 @@ INSERT INTO "[{prefix}]field_values" ("field_id", "model_id", "value", "timestam
 
 INSERT INTO "[{prefix}]media_libraries" ("id", "name", "folder", "allowed_types", "disallowed_types", "max_filesize", "actions", "adapter", "order") VALUES (30001, 'Uploads', 'uploads', 'ai,aif,aiff,avi,bmp,bz2,csv,doc,docx,eps,fla,flv,gif,gz,jpe,jpg,jpeg,log,md,mov,mp2,mp3,mp4,mpg,mpeg,otf,pdf,png,ppt,pptx,psd,rar,svg,swf,tar,tbz,tbz2,tgz,tif,tiff,tsv,ttf,txt,wav,wma,wmv,xls,xlsx,xml,zip', 'css,htm,html,js,json,pgsql,php,php3,php4,php5,sql,sqlite,yaml,yml', 25000000, 'a:4:{s:5:"large";a:3:{s:6:"method";s:6:"resize";s:6:"params";s:3:"800";s:7:"quality";i:80;}s:6:"medium";a:3:{s:6:"method";s:6:"resize";s:6:"params";s:3:"480";s:7:"quality";i:80;}s:5:"small";a:3:{s:6:"method";s:9:"cropThumb";s:6:"params";s:3:"160";s:7:"quality";i:70;}s:5:"thumb";a:3:{s:6:"method";s:9:"cropThumb";s:6:"params";s:2:"80";s:7:"quality";i:70;}}', 'Gd', 1);
 
-INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history") VALUES (9001, NULL, 'Main Template', 'desktop', '<!DOCTYPE html>
+INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9001, NULL, 'Main Template', 'desktop', '<!DOCTYPE html>
 <!-- Header //-->
 <html>
 
@@ -58,8 +58,8 @@ INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "templat
 </body>
 
 </html>
-', NULL);
-INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history") VALUES (9002, NULL, 'Error', 'desktop', '<!DOCTYPE html>
+', NULL, 1);
+INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9002, NULL, 'Error', 'desktop', '<!DOCTYPE html>
 <!-- Header //-->
 <html>
 
@@ -84,7 +84,7 @@ INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "templat
 </body>
 
 </html>
-', NULL);
+', NULL, 0);
 
 UPDATE "[{prefix}]modules" SET "order" = 1 WHERE "folder" = 'phire-content';
 UPDATE "[{prefix}]modules" SET "order" = 2 WHERE "folder" = 'phire-media';

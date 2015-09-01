@@ -19,9 +19,12 @@ class Db
         $route = $application->router()->getRouteMatch()->getRoute();
         if (!$application->config()['db'] &&
             (substr($route, 0, strlen(APP_URI . '/install')) != APP_URI . '/install')) {
-            throw new \Phire\Exception(
-                'Error: The database has not been installed. Please check the config file or install the system.'
+            $exception = new \Phire\Exception(
+                'Error: The database has not been installed. ' .
+                'Please check the config file or <a href="' . BASE_PATH . APP_URI . '/install">install</a> the system.'
             );
+            $exception->setInstallErrorFlag(true);
+            throw $exception;
         }
     }
 
