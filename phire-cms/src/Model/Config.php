@@ -23,8 +23,8 @@ class Config extends AbstractModel
 
         $this->data['overview'] = [
             'version'          => \Phire\Module::VERSION,
-            'domain'           => $_SERVER['HTTP_HOST'],
-            'document_root'    => $_SERVER['DOCUMENT_ROOT'],
+            'domain'           => (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null),
+            'document_root'    => (isset($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : null),
             'base_path'        => (BASE_PATH == '') ? '&nbsp;' : BASE_PATH,
             'application_path' => (APP_PATH == '') ? '&nbsp;' : APP_PATH,
             'content_path'     => CONTENT_PATH,

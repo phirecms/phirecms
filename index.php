@@ -12,7 +12,7 @@ try {
     }
 
     // Get the autoloader
-    $autoloader = require __DIR__  . APP_PATH . '/vendor/autoload.php';
+    $autoloader = require __DIR__ . APP_PATH . '/vendor/autoload.php';
 
     // Create and run the app
     $app = new Pop\Application(

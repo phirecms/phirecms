@@ -88,6 +88,8 @@ class Module extends Module\Module
 
         // Register modules
         $this->registerModules();
+
+        return $this;
     }
 
     /**
@@ -171,7 +173,7 @@ class Module extends Module\Module
             foreach ($modules->rows() as $module) {
                 if (file_exists($modulesPath . '/' . $module->folder . '/src/Module.php')) {
                     include $modulesPath . '/' . $module->folder . '/src/Module.php';
-                    $moduleClass = $module->namespace . 'Module';
+                    $moduleClass = $module->prefix . 'Module';
                     $this->application->register($module->folder, new $moduleClass($this->application));
                 } else if (file_exists($modulesPath . '/' . $module->folder . '/config/module.php')) {
                     $moduleConfig = include $modulesPath . '/' . $module->folder . '/config/module.php';
