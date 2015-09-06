@@ -20,6 +20,7 @@ class Config extends AbstractModel
 
         $server = new Server();
         $config = Table\Config::getConfig();
+        $distro = $server->getDistro();
 
         $this->data['overview'] = [
             'version'          => \Phire\Module::VERSION,
@@ -29,7 +30,7 @@ class Config extends AbstractModel
             'application_path' => (APP_PATH == '') ? '&nbsp;' : APP_PATH,
             'content_path'     => CONTENT_PATH,
             'modules_path'     => MODULES_PATH,
-            'operating_system' => $server->getOs() . ' (' . $server->getDistro() . ')',
+            'operating_system' => $server->getOs() . (!empty($distro) ? ' (' . $distro . ')' : null),
             'software'         => $server->getServer() . ' ' . $server->getServerVersion(),
             'database_version' => Table\Config::db()->version(),
             'php_version'      => $server->getPhp(),

@@ -44,12 +44,16 @@ abstract class AbstractModel implements \ArrayAccess
      */
     public function getSortOrder($sort = null, $page = null, $ord = 'ASC')
     {
-        $sess  = \Pop\Web\Session::getInstance();
         $field = 'id';
         $order = $ord;
+        $sess  = null;
+
+        if ((stripos(php_sapi_name(), 'cli') === false) || (stripos(php_sapi_name(), 'server') !== false)) {
+            $sess = \Pop\Web\Session::getInstance();
+        }
 
         if (null !== $sort) {
-            if ($page != $sess->lastPage) {
+            if ((null !== $sess) && ($page != $sess->lastPage)) {
                 if ($sort != $sess->lastSortField) {
                     $field = $sort;
                     $order = $ord;
@@ -59,7 +63,7 @@ abstract class AbstractModel implements \ArrayAccess
                 }
             } else {
                 $field = $sort;
-                if (isset($sess->lastSortOrder)) {
+                if ((null !== $sess) && isset($sess->lastSortOrder)) {
                     $order = ($sess->lastSortOrder == 'ASC') ? 'DESC' : 'ASC';
                 } else {
                     $order = $ord;
@@ -67,9 +71,11 @@ abstract class AbstractModel implements \ArrayAccess
             }
         }
 
-        $sess->lastSortField = $field;
-        $sess->lastSortOrder = $order;
-        $sess->lastPage      = $page;
+        if (null !== $sess) {
+            $sess->lastSortField = $field;
+            $sess->lastSortOrder = $order;
+            $sess->lastPage      = $page;
+        }
 
         return $field . ' ' . $order;
     }

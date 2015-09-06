@@ -161,7 +161,6 @@ class User extends AbstractModel
      */
     public function save(array $fields)
     {
-
         $user = new Table\Users([
             'role_id'    => $fields['role_id'],
             'username'   => (isset($fields['username'])) ? $fields['username'] : $fields['email'],
@@ -171,8 +170,8 @@ class User extends AbstractModel
             'company'    => (isset($fields['company']) ? $fields['company'] : null),
             'email'      => (isset($fields['email']) ? $fields['email'] : null),
             'phone'      => (isset($fields['phone']) ? $fields['phone'] : null),
-            'active'     => $fields['active'],
-            'verified'   => $fields['verified']
+            'active'     => (int)$fields['active'],
+            'verified'   => (int)$fields['verified']
         ]);
         $user->save();
 
@@ -195,18 +194,25 @@ class User extends AbstractModel
         $user = Table\Users::findById((int)$fields['id']);
         if (isset($user->id)) {
             $oldRoleId = $user->role_id;
+            $username  = $user->username;
+            $role      = Table\Roles::findById($fields['role_id']);
+            if (($role->email_as_username) && isset($fields['email']) && !empty($fields['email'])) {
+                $username = $fields['email'];
+            } else if (isset($fields['username']) && !empty($fields['username'])) {
+                $username = $fields['username'];
+            }
 
             $user->role_id    = $fields['role_id'];
-            $user->username   = (isset($fields['username']))   ? $fields['username'] : $fields['email'];
+            $user->username   = $username;
             $user->password   = (!empty($fields['password1'])) ?
                 (new Bcrypt())->create($fields['password1']) : $user->password;
-            $user->first_name = (isset($fields['first_name']) ? $fields['first_name'] : null);
-            $user->last_name  = (isset($fields['last_name']) ? $fields['last_name'] : null);
-            $user->company    = (isset($fields['company']) ? $fields['company'] : null);
-            $user->email      = (isset($fields['email']) ? $fields['email'] : null);
-            $user->phone      = (isset($fields['phone']) ? $fields['phone'] : null);
-            $user->active     = $fields['active'];
-            $user->verified   = $fields['verified'];
+            $user->first_name = (isset($fields['first_name']) ? $fields['first_name'] : $user->first_name);
+            $user->last_name  = (isset($fields['last_name']) ? $fields['last_name'] : $user->last_name);
+            $user->company    = (isset($fields['company']) ? $fields['company'] : $user->company);
+            $user->email      = (isset($fields['email']) ? $fields['email'] : $user->email);
+            $user->phone      = (isset($fields['phone']) ? $fields['phone'] : $user->phone);
+            $user->active     = (isset($fields['active']) ? (int)$fields['active'] : $user->active);
+            $user->verified   = (isset($fields['verified']) ? (int)$fields['verified'] : $user->verified);
 
             $user->save();
 
