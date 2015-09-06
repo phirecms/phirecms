@@ -122,7 +122,7 @@ class Module extends AbstractModel
     public function install(\Pop\Service\Locator $services)
     {
         $modulesPath = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
-        $modules    = $this->detectNew(false);
+        $modules     = $this->detectNew(false);
 
         if (!is_writable($modulesPath)) {
             throw new \Phire\Exception('Error: The module folder is not writable.');
