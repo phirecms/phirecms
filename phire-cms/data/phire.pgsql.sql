@@ -20,6 +20,8 @@ PRIMARY KEY ("setting")
 --
 
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES
+('domain', ''),
+('document_root', ''),
 ('installed_on', '0000-00-00 00:00:00'),
 ('updated_on', '0000-00-00 00:00:00'),
 ('datetime_format', 'M j Y'),

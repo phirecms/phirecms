@@ -385,13 +385,18 @@ class User extends AbstractModel
      */
     protected function sendVerification(Table\Users $user)
     {
-        $domain  = str_replace('www.', '', $_SERVER['HTTP_HOST']);
+        $docRoot = Table\Config::findById('document_root')->value;
+        $host    = Table\Config::findById('domain')->value;
+        $domain  = str_replace('www.', '', $host);
+
+        $basePath = str_replace([realpath($docRoot), '\\'], ['', '/'], realpath(__DIR__ . '/../../../'));
+        $basePath = (!empty($basePath) ? $basePath : '');
 
         // Set the recipient
         $rcpt = [
             'name'   => $user->username,
             'email'  => $user->email,
-            'url'    => 'http://' . $_SERVER['HTTP_HOST'] . BASE_PATH . APP_URI . '/verify/' .
+            'url'    => 'http://' . $host . $basePath . APP_URI . '/verify/' .
                 $user->id . '/' . sha1($user->email),
             'domain' => $domain
         ];
@@ -416,7 +421,8 @@ class User extends AbstractModel
      */
     protected function sendApproval(Table\Users $user)
     {
-        $domain  = str_replace('www.', '', $_SERVER['HTTP_HOST']);
+        $host   = Table\Config::findById('domain')->value;
+        $domain = str_replace('www.', '', $host);
 
         // Set the recipient
         $rcpt = [
@@ -445,7 +451,8 @@ class User extends AbstractModel
      */
     protected function sendReminder(Table\Users $user)
     {
-        $domain         = str_replace('www.', '', $_SERVER['HTTP_HOST']);
+        $host           = Table\Config::findById('domain')->value;
+        $domain         = str_replace('www.', '', $host);
         $newPassword    = Random::create(8, Random::ALPHANUM|Random::LOWERCASE);
         $user->password = (new Bcrypt())->create($newPassword);
         $user->save();
@@ -479,7 +486,8 @@ class User extends AbstractModel
      */
     protected function sendUnsubscribe(Table\Users $user)
     {
-        $domain = str_replace('www.', '', $_SERVER['HTTP_HOST']);
+        $host   = Table\Config::findById('domain')->value;
+        $domain = str_replace('www.', '', $host);
 
         // Set the recipient
         $rcpt = [

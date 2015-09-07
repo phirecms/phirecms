@@ -24,8 +24,8 @@ class Config extends AbstractModel
 
         $this->data['overview'] = [
             'version'          => \Phire\Module::VERSION,
-            'domain'           => (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null),
-            'document_root'    => (isset($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : null),
+            'domain'           => $config['domain'],
+            'document_root'    => $config['document_root'],
             'base_path'        => (BASE_PATH == '') ? '&nbsp;' : BASE_PATH,
             'application_path' => (APP_PATH == '') ? '&nbsp;' : APP_PATH,
             'content_path'     => CONTENT_PATH,
@@ -78,6 +78,18 @@ class Config extends AbstractModel
      */
     public function save(array $post)
     {
+        $config = Table\Config::findById('domain');
+        if (isset($_SERVER['HTTP_HOST']) && ($config->value != $_SERVER['HTTP_HOST'])) {
+            $config->value = $_SERVER['HTTP_HOST'];
+            $config->save();
+        }
+
+        $config = Table\Config::findById('document_root');
+        if (isset($_SERVER['DOCUMENT_ROOT']) && ($config->value != $_SERVER['DOCUMENT_ROOT'])) {
+            $config->value = $_SERVER['DOCUMENT_ROOT'];
+            $config->save();
+        }
+
         $config = Table\Config::findById('datetime_format');
         $config->value = (!empty($post['datetime_format'])) ? $post['datetime_format'] : $post['datetime_format_custom'];
         $config->save();

@@ -139,6 +139,16 @@ class Install extends AbstractModel
         $mail->setText(file_get_contents($mailTemplate));
         $mail->send();
 
+        // Save domain
+        $config = Table\Config::findById('domain');
+        $config->value = $_SERVER['HTTP_HOST'];
+        $config->save();
+
+        // Save document root
+        $config = Table\Config::findById('document_root');
+        $config->value = $_SERVER['DOCUMENT_ROOT'];
+        $config->save();
+
         // Save install timestamp
         $config = Table\Config::findById('installed_on');
         $config->value = (string)date('Y-m-d H:i:s');

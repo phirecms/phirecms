@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]config" (
 -- Dumping data for table "config"
 --
 
+INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('domain', '');
+INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('document_root', '');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('installed_on', '0000-00-00 00:00:00');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updated_on', '0000-00-00 00:00:00');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('datetime_format', 'M j Y');
