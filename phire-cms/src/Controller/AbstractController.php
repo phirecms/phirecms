@@ -173,6 +173,7 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
      */
     public function send($code = 200, array $headers = null, $body = null)
     {
+        $this->response->setCode($code);
         $this->application->trigger('app.send.pre', ['controller' => $this]);
 
         if (null !== $body) {
