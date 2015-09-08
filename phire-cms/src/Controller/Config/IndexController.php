@@ -19,7 +19,8 @@ class IndexController extends AbstractController
 
         if ($this->request->isPost()) {
             $config->save($this->request->getPost());
-            $this->redirect(BASE_PATH . APP_URI . '/config?saved=' . time());
+            $this->sess->setRequestValue('saved', true, 1);
+            $this->redirect(BASE_PATH . APP_URI . '/config');
         }
 
         $this->prepareView('phire/config/index.phtml');

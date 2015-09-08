@@ -137,8 +137,10 @@ class IndexController extends AbstractController
                     $install->installProfile(__DIR__ . '/../../../data/install.' . strtolower($dbType) . '.sql');
                 }
 
-                $this->sess->kill();
-                $this->redirect(BASE_PATH . APP_URI . '/login?installed=' . time());
+                unset($this->sess->config);
+                unset($this->sess->app_uri);
+                $this->sess->setRequestValue('installed', true, 1);
+                $this->redirect(BASE_PATH . APP_URI . '/login');
             }
         }
 

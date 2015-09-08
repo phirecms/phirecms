@@ -107,7 +107,8 @@ class IndexController extends AbstractController
                     $user->save($this->view->form->getFields());
 
                     $this->view->id = $user->id;
-                    $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id . '?saved=' . time());
+                    $this->sess->setRequestValue('saved', true, 1);
+                    $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id);
                 }
             }
         } else {
@@ -171,7 +172,8 @@ class IndexController extends AbstractController
                     $user->update($this->view->form->getFields(), $this->sess);
 
                     $this->view->id = $user->id;
-                    $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id . '?saved=' . time());
+                    $this->sess->setRequestValue('saved', true, 1);
+                    $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id);
                 }
             }
 
@@ -192,7 +194,8 @@ class IndexController extends AbstractController
             $user = new Model\User();
             $user->remove($this->request->getPost());
         }
-        $this->redirect(BASE_PATH . APP_URI . '/users?removed=' . time());
+        $this->sess->setRequestValue('removed', true, 1);
+        $this->redirect(BASE_PATH . APP_URI . '/users');
     }
 
 }

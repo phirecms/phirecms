@@ -195,7 +195,8 @@ class IndexController extends AbstractController
                 $user = new Model\User();
                 $user->update($fields, $this->sess);
                 $this->view->id = $user->id;
-                $this->redirect(BASE_PATH . APP_URI . '/profile?saved=' . time());
+                $this->sess->setRequestValue('saved', true, 1);
+                $this->redirect(BASE_PATH . APP_URI . '/profile');
             }
         }
 

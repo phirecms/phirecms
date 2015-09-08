@@ -4,8 +4,8 @@
         <?=$systemTitle; ?>. <span id="copyright">&copy; 2009-<?=date('Y'); ?> <a class="normal-link" href="http://www.nolainteractive.com/" target="_blank">NOLA Interactive, LLC</a>. All Rights Reserved.</span>
     </footer>
 </div>
-<div id="saved">Saved</div>
-<div id="removed">Removed</div>
+<div id="saved"<?=(isset($saved) ? ' data-saved="1"' : null); ?>>Saved</div>
+<div id="removed"<?=(isset($removed) ? ' data-removed="1"' : null); ?>>Removed</div>
 <div id="loading"></div>
 <?php endif; ?>
 </body>

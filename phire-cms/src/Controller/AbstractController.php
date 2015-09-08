@@ -233,6 +233,16 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
         $this->view->contentPath     = BASE_PATH . CONTENT_PATH;
         $this->view->content_path    = BASE_PATH . CONTENT_PATH;
 
+        if (isset($this->sess->installed)) {
+            $this->view->installed = true;
+        }
+        if (isset($this->sess->saved)) {
+            $this->view->saved = true;
+        }
+        if (isset($this->sess->removed)) {
+            $this->view->removed = true;
+        }
+
         if (isset($this->sess->user)) {
             $this->services['nav.phire']->setRole($this->services['acl']->getRole($this->sess->user->role));
             $this->services['nav.phire']->returnFalse(true);

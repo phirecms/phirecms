@@ -160,32 +160,26 @@ var phire = {
 };
 
 jax(document).ready(function(){
-    if (jax.query('installed') != undefined) {
-        if (jax('#installed')[0] != undefined) {
-            jax('#installed').css({"opacity" : 0});
-            jax('#installed').fade(100, {tween : 10, speed: 200});
-            phire.clear = setTimeout(function(){
-                phire.clearStatus('#installed');
-            }, 3000);
-        }
+    if (jax('#installed')[0] != undefined) {
+        jax('#installed').css({"opacity" : 0});
+        jax('#installed').fade(100, {tween : 10, speed: 200});
+        phire.clear = setTimeout(function(){
+            phire.clearStatus('#installed');
+        }, 3000);
     }
-    if (jax.query('saved') != undefined) {
-        if (jax('#saved')[0] != undefined) {
-            jax('#saved').css({"opacity" : 0});
-            jax('#saved').fade(100, {tween : 10, speed: 200});
-            phire.clear = setTimeout(function(){
-                phire.clearStatus('#saved');
-            }, 2500);
-        }
+    if ((jax('#saved')[0] != undefined) && (parseInt(jax('#saved').data('saved')) == 1)) {
+        jax('#saved').css({"opacity" : 0});
+        jax('#saved').fade(100, {tween : 10, speed: 200});
+        phire.clear = setTimeout(function(){
+            phire.clearStatus('#saved');
+        }, 2500);
     }
-    if (jax.query('removed') != undefined) {
-        if (jax('#removed')[0] != undefined) {
-            jax('#removed').css({"opacity" : 0});
-            jax('#removed').fade(100, {tween : 10, speed: 200});
-            phire.clear = setTimeout(function(){
-                phire.clearStatus('#removed');
-            }, 2500);
-        }
+    if ((jax('#removed')[0] != undefined) && (parseInt(jax('#removed').data('removed')) == 1)) {
+        jax('#removed').css({"opacity" : 0});
+        jax('#removed').fade(100, {tween : 10, speed: 200});
+        phire.clear = setTimeout(function(){
+            phire.clearStatus('#removed');
+        }, 2500);
     }
     if (jax('#modules-form')[0] != undefined) {
         jax('#checkall').click(function(){
