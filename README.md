@@ -53,6 +53,20 @@ which will take you through 3 easy steps:
 2. Copy and save the configuration to the `config.php` file (The step may be skipped if the `config.php` file is writable)
 3. Set up the initial user
 
+### Standalone Release Candidate
+
+You can download a standalone version of the release candidate that comes
+packaged with 6 basic modules to give you some common CMS features right
+out of the gate. Head over to the [main Phire website](http://www.phirecms.org/) to download a copy of it.
+The 6 modules included in the standalone version are:
+
+* phire-content
+* phire-media
+* phire-templates
+* phire-navigation
+* phire-categories
+* phire-fields
+
 THAT'S IT!
 ----------
 You can then login it at:
