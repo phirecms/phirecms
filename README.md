@@ -3,7 +3,7 @@ Welcome to Phire CMS
 
 RELEASE INFORMATION
 -------------------
-Phire CMS 2.0.0rc1 is FINALLY here!
+Phire CMS 2.0.0rc1 is FINALLY here!  
 September 10, 2015
 
 OVERVIEW
