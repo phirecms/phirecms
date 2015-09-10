@@ -35,6 +35,14 @@ or install it via composer. Once it's one your system, make sure the
 hit the domain:
 
 ```
+http://www.yourdomain.com/phirecms/
+```
+
+Of course, you can move all of the files and folders in `/phirecms/` to
+whatever folder you need to, or just move them up to the document root, so you
+can just go to:
+
+```
 http://www.yourdomain.com/
 ```
 
