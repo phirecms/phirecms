@@ -61,8 +61,7 @@ You can then login it at:
 http://www.yourdomain.com/phire
 ```
 
-Or whatever you set the application URI to. With the content module, you'll
-be able to view and manage pages of content under the main domain.
+Or whatever you set the application URI to.
 
 MODULES
 -------
