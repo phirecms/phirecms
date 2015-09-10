@@ -29,8 +29,14 @@ The basic requirements for Phire CMS 2.0.0rc1 are as follows:
 
 INSTALL
 -------
-To install Phire from this repo, you can simply clone it, download it
-or install it via composer. Once it's one your system, make sure the
+To install Phire from this repo, you can simply clone it or install
+it via composer:
+
+```console
+$ composer -sdev create-project phirecms/phirecms
+```
+
+Once it's one your system, make sure the
 `/phire-content` folder and everything below it is writable, and then
 hit the domain:
 
