@@ -2,10 +2,13 @@
 
 return [
     [
-        'db_adapter'   => [
-            'type'     => 'select',
-            'label'    => 'DB Adapter',
-            'value'    => null
+        'db_adapter'     => [
+            'type'       => 'select',
+            'label'      => 'DB Adapter',
+            'value'      => null,
+            'attributes' => [
+                'onchange' => 'phire.changeDbAdapter(this);'
+            ]
         ],
         'db_name'   => [
             'type'  => 'text',

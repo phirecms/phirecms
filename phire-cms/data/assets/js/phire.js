@@ -8,6 +8,29 @@ var phire = {
     currentForm   : null,
     submitted     : false,
 
+    changeDbAdapter : function(sel) {
+        var val = jax(sel).val();
+        if (val.indexOf('sqlite') != -1) {
+            jax(jax('label[for=db_name]').parent()).hide();
+            jax(jax('#db_name').parent()).hide();
+            jax(jax('label[for=db_username]').parent()).hide();
+            jax(jax('#db_username').parent()).hide();
+            jax(jax('label[for=db_password]').parent()).hide();
+            jax(jax('#db_password').parent()).hide();
+            jax(jax('label[for=db_host]').parent()).hide();
+            jax(jax('#db_host').parent()).hide();
+        } else {
+            jax(jax('label[for=db_name]').parent()).show();
+            jax(jax('#db_name').parent()).show();
+            jax(jax('label[for=db_username]').parent()).show();
+            jax(jax('#db_username').parent()).show();
+            jax(jax('label[for=db_password]').parent()).show();
+            jax(jax('#db_password').parent()).show();
+            jax(jax('label[for=db_host]').parent()).show();
+            jax(jax('#db_host').parent()).show();
+        }
+    },
+
     createSlug : function(text, field) {
         var text = new jax.String(text);
         jax(field).val(text.slug());
