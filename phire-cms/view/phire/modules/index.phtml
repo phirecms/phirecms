@@ -33,7 +33,7 @@
             <tr>
                 <td><?=$module->id; ?></td>
                 <td><?=($assets['info']['Module Name']) ? $assets['info']['Module Name'] : '&nbsp;'; ?></td>
-                <td><?=($assets['info']['Version']) ? $assets['info']['Version'] : '&nbsp;'; ?></td>
+                <td><?=$module->version; ?></td>
                 <td><?=($assets['info']['Description']) ? $assets['info']['Description'] : '&nbsp;'; ?></td>
                 <td><?=($assets['info']['Author']) ? $assets['info']['Author'] : '&nbsp;'; ?></td>
                 <td class="text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><input type="radio" name="active_<?=$module->id; ?>" value="1" <?=$yesChecked; ?>/> Yes &nbsp;&nbsp;&nbsp; <input type="radio" name="active_<?=$module->id; ?>" value="0" <?=$noChecked; ?>/> No<?php else: ?>&nbsp;<?php endif; ?></td>

@@ -111,6 +111,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
   "file" varchar NOT NULL,
   "folder" varchar NOT NULL,
   "prefix" varchar NOT NULL,
+  "version" varchar NOT NULL,
   "active" integer NOT NULL,
   "order" integer NOT NULL,
   "assets" text,

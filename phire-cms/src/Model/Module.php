@@ -166,14 +166,25 @@ class Module extends AbstractModel
                         $tables = (null !== $sqlFile) ? $this->getTables(file_get_contents($sqlFile)) : [];
                         $config = include $modulesPath . '/' . $name . '/config/module.php';
 
+                        if (isset($info['version'])) {
+                            $version = $info['version'];
+                        } else if (isset($info['Version'])) {
+                            $version = $info['Version'];
+                        } else if (isset($info['VERSION'])) {
+                            $version = $info['VERSION'];
+                        } else {
+                            $version = 'N/A';
+                        }
+
                         // Save module in the database
                         $mod = new Table\Modules([
-                            'file'   => $module,
-                            'folder' => $name,
-                            'prefix' => $config[$name]['prefix'],
-                            'active' => 1,
-                            'order'  => (int)Table\Modules::findAll()->count() + 1,
-                            'assets' => serialize([
+                            'file'    => $module,
+                            'folder'  => $name,
+                            'prefix'  => $config[$name]['prefix'],
+                            'version' => $version,
+                            'active'  => 1,
+                            'order'   => (int)Table\Modules::findAll()->count() + 1,
+                            'assets'  => serialize([
                                 'tables' => $tables,
                                 'info'   => $info
                             ])
