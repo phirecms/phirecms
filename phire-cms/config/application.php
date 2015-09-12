@@ -76,8 +76,12 @@ $config = [
                 ]
             ]
         ]
-    ]
-    'system_title' => 'Phire CMS'
+    ],
+    'system_title'         => 'Phire CMS',
+    'force_ssl'            => false,
+    'navigation_vertical'  => true,
+    'registration_captcha' => false,
+    'registration_csrf'    => false
 ];
 
 if ((DB_INTERFACE != '') && (DB_NAME != '')) {
