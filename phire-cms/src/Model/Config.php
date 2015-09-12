@@ -113,31 +113,39 @@ class Config extends AbstractModel
                 'phire'   => null,
                 'modules' => []
             ];
-            $curl    = new Curl('https://api.github.com/repos/phirecms/phirecms/releases/latest', [
-                CURLOPT_HTTPHEADER => [
-                    'User-Agent: ' . $_SERVER['HTTP_USER_AGENT']
-                ]
+
+            $headers = [
+                'Authorization: ' . base64_encode('phire-updater-' . time()),
+                'User-Agent: ' . $_SERVER['HTTP_USER_AGENT']
+            ];
+
+            $curl = new Curl('http://updates.phirecms.org', [
+                CURLOPT_HTTPHEADER => $headers
             ]);
-            $curl->send();
+
+            $curl->setPost()
+                 ->setField('phire', 1)
+                 ->send();
 
             if ($curl->getCode() == 200) {
                 $json = json_decode($curl->getBody(), true);
-                $updates['phire'] = $json['tag_name'];
+                $updates['phire'] = $json['version'];
             }
 
             $modules = Table\Modules::findAll();
             if ($modules->hasRows()) {
                 foreach ($modules->rows() as $module) {
-                    $curl    = new Curl('https://api.github.com/repos/phirecms/' . $module->folder . '/releases/latest', [
-                        CURLOPT_HTTPHEADER => [
-                            'User-Agent: ' . $_SERVER['HTTP_USER_AGENT']
-                        ]
+
+                    $curl = new Curl('http://updates.phirecms.org', [
+                        CURLOPT_HTTPHEADER => $headers
                     ]);
-                    $curl->send();
+                    $curl->setPost()
+                        ->setField('module', $module->folder)
+                        ->send();
 
                     if ($curl->getCode() == 200) {
                         $json = json_decode($curl->getBody(), true);
-                        $updates['modules'][$module->folder] = $json['tag_name'];
+                        $updates['modules'][$module->folder] = $json['version'];
                     }
                 }
             }
