@@ -19,12 +19,15 @@ class IndexController extends AbstractController
     public function index()
     {
         $config = new Model\Config();
+        $config->getUpdates($this->sess);
 
         $this->prepareView('phire/index.phtml');
-        $this->view->title    = 'Dashboard';
-        $this->view->overview = $config->overview;
-        $this->view->config   = $config->config;
-        $this->view->modules  = $config->modules;
+        $this->view->title                = 'Dashboard';
+        $this->view->overview             = $config->overview;
+        $this->view->config               = $config->config;
+        $this->view->modules              = $config->modules;
+        $this->view->phire_update_version = $this->sess->updates->phire;
+
         $this->send();
     }
 

@@ -3,6 +3,7 @@
 namespace Phire\Model;
 
 use Phire\Table;
+use Pop\Http\Client\Curl;
 use Pop\Web\Server;
 
 class Config extends AbstractModel
@@ -97,6 +98,52 @@ class Config extends AbstractModel
         $config = Table\Config::findById('pagination');
         $config->value = (int)$post['pagination'];
         $config->save();
+    }
+
+    /**
+     * Get update info
+     *
+     * @param  \Pop\Web\Session $sess
+     * @return string
+     */
+    public function getUpdates($sess)
+    {
+        if (!isset($sess->updates)) {
+            $updates = [
+                'phire'   => null,
+                'modules' => []
+            ];
+            $curl    = new Curl('https://api.github.com/repos/phirecms/phirecms/releases/latest', [
+                CURLOPT_HTTPHEADER => [
+                    'User-Agent: ' . $_SERVER['HTTP_USER_AGENT']
+                ]
+            ]);
+            $curl->send();
+
+            if ($curl->getCode() == 200) {
+                $json = json_decode($curl->getBody(), true);
+                $updates['phire'] = $json['tag_name'];
+            }
+
+            $modules = Table\Modules::findAll();
+            if ($modules->hasRows()) {
+                foreach ($modules->rows() as $module) {
+                    $curl    = new Curl('https://api.github.com/repos/phirecms/' . $module->folder . '/releases/latest', [
+                        CURLOPT_HTTPHEADER => [
+                            'User-Agent: ' . $_SERVER['HTTP_USER_AGENT']
+                        ]
+                    ]);
+                    $curl->send();
+
+                    if ($curl->getCode() == 200) {
+                        $json = json_decode($curl->getBody(), true);
+                        $updates['modules'][$module->folder] = $json['tag_name'];
+                    }
+                }
+            }
+
+            $sess->updates = new \ArrayObject($updates, \ArrayObject::ARRAY_AS_PROPS);
+        }
     }
 
 }
