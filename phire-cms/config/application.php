@@ -77,6 +77,7 @@ $config = [
             ]
         ]
     ]
+    'system_title' => 'Phire CMS'
 ];
 
 if ((DB_INTERFACE != '') && (DB_NAME != '')) {
