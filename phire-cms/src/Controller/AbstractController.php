@@ -246,10 +246,12 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
         if (isset($this->sess->user)) {
             $this->services['nav.phire']->setRole($this->services['acl']->getRole($this->sess->user->role));
             $this->services['nav.phire']->returnFalse(true);
-            $this->view->phireNav = $this->services['nav.phire'];
-            $this->view->user     = $this->sess->user;
-            $this->view->acl      = $this->services['acl'];
-            $this->view->config   = $this->config;
+            $this->view->phireNav  = $this->services['nav.phire'];
+            $this->view->phirePath = BASE_PATH . APP_PATH;
+            $this->view->docRoot   = $_SERVER['DOCUMENT_ROOT'];
+            $this->view->user      = $this->sess->user;
+            $this->view->acl       = $this->services['acl'];
+            $this->view->config    = $this->config;
         } else {
             $this->view->phireNav = null;
         }
