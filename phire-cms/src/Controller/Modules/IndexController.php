@@ -36,6 +36,8 @@ class IndexController extends AbstractController
             $limit, $this->request->getQuery('page'), $this->request->getQuery('sort')
         );
 
+        $this->view->moduleUpdates = $this->sess->updates->modules;
+
         $this->send();
     }
 
@@ -48,6 +50,21 @@ class IndexController extends AbstractController
     {
         $module = new Model\Module();
         $module->install($this->services);
+
+        $this->sess->setRequestValue('saved', true, 1);
+        $this->redirect(BASE_PATH . APP_URI . '/modules');
+    }
+
+    /**
+     * Update action method
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function update($id)
+    {
+        $module = new Model\Module();
+        $module->update($id);
 
         $this->sess->setRequestValue('saved', true, 1);
         $this->redirect(BASE_PATH . APP_URI . '/modules');

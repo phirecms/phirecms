@@ -10,7 +10,7 @@
 <?php if ((stripos($key, 'path') === false) && (stripos($key, 'root') === false)): ?>
                 <tr>
                     <td><strong><?=(ucwords(str_replace(array('_', 'php'), array(' ', 'PHP'), $key))); ?>:</strong></td>
-                    <td><?=$value; ?><?php if (($key == 'version') && (version_compare($value, $phire_update_version) < 0)):
+                    <td><?=$value; ?><?php if (($key == 'version') && ($acl->isAllowed($user->role, 'update')) && (version_compare($value, $phire_update_version) < 0)):
 echo ' (<a class="normal-link" href="' . $phireUri . '/update">Update to ' . $phire_update_version . '</a>)';
 endif; ?></td>
                 </tr>

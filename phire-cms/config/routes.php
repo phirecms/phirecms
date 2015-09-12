@@ -73,6 +73,13 @@ return [
             'controller' => 'Phire\Controller\Config\IndexController',
             'action'     => 'json'
         ],
+        '/update[/]' => [
+            'controller' => 'Phire\Controller\Update\IndexController',
+            'action'     => 'index',
+            'acl'        => [
+                'resource'   => 'update'
+            ]
+        ],
         '/modules[/]' => [
             'controller' => 'Phire\Controller\Modules\IndexController',
             'action'     => 'index',
@@ -87,6 +94,14 @@ return [
             'acl'        => [
                 'resource'   => 'modules',
                 'permission' => 'install'
+            ]
+        ],
+        '/modules/update/:id' => [
+            'controller' => 'Phire\Controller\Modules\IndexController',
+            'action'     => 'update',
+            'acl'        => [
+                'resource'   => 'modules',
+                'permission' => 'update'
             ]
         ],
         '/modules/process[/]' => [

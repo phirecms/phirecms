@@ -214,6 +214,17 @@ class Module extends AbstractModel
     }
 
     /**
+     * Update module
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function update($id)
+    {
+        // Update the module
+    }
+
+    /**
      * Process modules
      *
      * @param  array                $post

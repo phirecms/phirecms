@@ -826,6 +826,12 @@ input[type=submit]:focus, button:focus {
     font-weight: bold;
 }
 
+.warning {
+    color: #f00;
+    font-weight: normal;
+    font-style: italic;
+}
+
 .page-links {
     float: right;
     margin: 0 0 5px 0;
@@ -958,6 +964,30 @@ th.text-center, td.text-center {
 
 .save-btn:hover {
     cursor: pointer;
+    background-color: #30b6f9;
+}
+
+.update-btn {
+    margin: 0;
+    padding: 6px 12px 6px 12px;
+    display: block;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    font-weight: normal;
+    font-size: 0.9em;
+    width: 200px;
+    background-color: #4aa1ce;
+    border-radius: 5px;
+    border: none;
+    font-family: "Source Sans Pro", Arial, sans-serif;
+}
+
+.update-btn:hover {
+    cursor: pointer;
+    color: #fff;
+    font-weight: normal;
+    text-decoration: none;
     background-color: #30b6f9;
 }
 

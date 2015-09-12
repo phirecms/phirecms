@@ -33,7 +33,9 @@
             <tr>
                 <td><?=$module->id; ?></td>
                 <td><?=($assets['info']['Module Name']) ? $assets['info']['Module Name'] : '&nbsp;'; ?></td>
-                <td><?=$module->version; ?></td>
+                <td><?=$module->version; ?><?php if ($acl->isAllowed($user->role, 'modules', 'update') && isset($moduleUpdates) && isset($moduleUpdates[$module->folder]) && (version_compare($module->version, $moduleUpdates[$module->folder]) == 0)):
+    echo ' (<a class="normal-link" href="' . $phireUri . '/modules/update/' . $module->id .  '">Update to ' . $moduleUpdates[$module->folder] . '</a>)';
+endif; ?></td>
                 <td><?=($assets['info']['Description']) ? $assets['info']['Description'] : '&nbsp;'; ?></td>
                 <td><?=($assets['info']['Author']) ? $assets['info']['Author'] : '&nbsp;'; ?></td>
                 <td class="text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><input type="radio" name="active_<?=$module->id; ?>" value="1" <?=$yesChecked; ?>/> Yes &nbsp;&nbsp;&nbsp; <input type="radio" name="active_<?=$module->id; ?>" value="0" <?=$noChecked; ?>/> No<?php else: ?>&nbsp;<?php endif; ?></td>
