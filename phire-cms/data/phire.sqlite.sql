@@ -34,6 +34,7 @@ INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('installed_on', '000
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updated_on', '0000-00-00 00:00:00');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('datetime_format', 'M j Y');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('pagination', '25');
+INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updates', '');
 
 -- --------------------------------------------------------
 
@@ -115,6 +116,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
   "active" integer NOT NULL,
   "order" integer NOT NULL,
   "assets" text,
+  "updates" text,
   UNIQUE ("id")
 ) ;
 

@@ -25,7 +25,8 @@ INSERT INTO `[{prefix}]config` (`setting`, `value`) VALUES
 ('installed_on', '0000-00-00 00:00:00'),
 ('updated_on', '0000-00-00 00:00:00'),
 ('datetime_format', 'M j Y'),
-('pagination', '25');
+('pagination', '25'),
+('updates', '');
 
 -- --------------------------------------------------------
 
@@ -101,6 +102,7 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]modules` (
   `active` int(1) NOT NULL,
   `order` int(16) NOT NULL,
   `assets` text,
+  `updates` text,
   PRIMARY KEY (`id`),
   INDEX `module_folder` (`folder`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3001 ;
