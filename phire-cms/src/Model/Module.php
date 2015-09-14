@@ -60,6 +60,22 @@ class Module extends AbstractModel
     }
 
     /**
+     * Get module by ID
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function getById($id)
+    {
+        $module = Table\Modules::findById($id);
+        if (isset($module->id)) {
+            $data = $module->getColumns();
+            $data['assets'] = unserialize($data['assets']);
+            $this->data = array_merge($this->data, $data);
+        }
+    }
+
+    /**
      * Detect new modules
      *
      * @param  boolean $count

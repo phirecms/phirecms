@@ -33,7 +33,7 @@
             <tr>
                 <td><?=$module->id; ?></td>
                 <td><?=($assets['info']['Module Name']) ? $assets['info']['Module Name'] : '&nbsp;'; ?></td>
-                <td><?=$module->version; ?><?php if ($acl->isAllowed($user->role, 'modules', 'update') && isset($moduleUpdates) && isset($moduleUpdates[$module->folder]) && (version_compare($module->version, $moduleUpdates[$module->folder]) < 0)):
+                <td><?=$module->version; ?><?php if ($acl->isAllowed($user->role, 'modules', 'update') && isset($moduleUpdates) && isset($moduleUpdates[$module->folder]) && (version_compare($module->version, $moduleUpdates[$module->folder]) == 0)):
     echo ' (<a class="normal-link" href="' . $phireUri . '/modules/update/' . $module->id .  '">Update to ' . $moduleUpdates[$module->folder] . '</a>)';
 endif; ?></td>
                 <td><?=($assets['info']['Description']) ? $assets['info']['Description'] : '&nbsp;'; ?></td>

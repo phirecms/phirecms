@@ -110,8 +110,8 @@ class Config extends AbstractModel
     {
         if (!isset($sess->updates)) {
             $updates = [
-                'phire'   => null,
-                'modules' => []
+                'phirecms' => null,
+                'modules'  => []
             ];
 
             $headers = [
@@ -119,29 +119,24 @@ class Config extends AbstractModel
                 'User-Agent: ' . $_SERVER['HTTP_USER_AGENT']
             ];
 
-            $curl = new Curl('http://updates.phirecms.org', [
+            $curl = new Curl('http://updates.phirecms.org/latest/phirecms', [
                 CURLOPT_HTTPHEADER => $headers
             ]);
 
-            $curl->setPost()
-                 ->setField('phire', 1)
-                 ->send();
+            $curl->send();
 
             if ($curl->getCode() == 200) {
                 $json = json_decode($curl->getBody(), true);
-                $updates['phire'] = $json['version'];
+                $updates['phirecms'] = $json['version'];
             }
 
             $modules = Table\Modules::findAll();
             if ($modules->hasRows()) {
                 foreach ($modules->rows() as $module) {
-
-                    $curl = new Curl('http://updates.phirecms.org', [
+                    $curl = new Curl('http://updates.phirecms.org/latest/' . $module->folder, [
                         CURLOPT_HTTPHEADER => $headers
                     ]);
-                    $curl->setPost()
-                        ->setField('module', $module->folder)
-                        ->send();
+                    $curl->send();
 
                     if ($curl->getCode() == 200) {
                         $json = json_decode($curl->getBody(), true);

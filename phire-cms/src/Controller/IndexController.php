@@ -26,7 +26,7 @@ class IndexController extends AbstractController
         $this->view->overview             = $config->overview;
         $this->view->config               = $config->config;
         $this->view->modules              = $config->modules;
-        $this->view->phire_update_version = $this->sess->updates->phire;
+        $this->view->phire_update_version = $this->sess->updates->phirecms;
 
         $this->send();
     }

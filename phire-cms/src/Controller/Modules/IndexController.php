@@ -63,11 +63,32 @@ class IndexController extends AbstractController
      */
     public function update($id)
     {
-        $module = new Model\Module();
-        $module->update($id);
+        // Switch this to < for validation when live
+        //if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) < 0) {
+        if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) >= 0) {
+            if ($this->request->getQuery('update') == 1) {
+                echo 'Its go time';
+            } else {
+                $module = new Model\Module();
+                $module->getById($id);
 
-        $this->sess->setRequestValue('saved', true, 1);
-        $this->redirect(BASE_PATH . APP_URI . '/modules');
+                $this->prepareView('phire/modules/update.phtml');
+                $this->view->title = 'Update ' . $module->folder;
+
+                $this->view->module_id             = $module->id;
+                $this->view->module_name           = $module->folder;
+                $this->view->module_update_version = $this->sess->updates->modules[$module->folder];
+                $this->send();
+            }
+        } else {
+            $this->redirect(BASE_PATH . APP_URI . '/modules');
+        }
+        //$this->prepareView('phire/modules/update.phtml');
+        //$module = new Model\Module();
+        //$module->update($id);
+        //
+        //$this->sess->setRequestValue('saved', true, 1);
+        //$this->redirect(BASE_PATH . APP_URI . '/modules');
     }
 
     /**

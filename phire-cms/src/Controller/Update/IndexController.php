@@ -14,13 +14,15 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phire) >= 0) {
+        // Switch this to < for validation when live
+        //if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) < 0) {
+        if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) >= 0) {
             if ($this->request->getQuery('update') == 1) {
                 echo 'Its go time';
             } else {
                 $this->prepareView('phire/update.phtml');
                 $this->view->title = 'Update Phire';
-                $this->view->phire_update_version = $this->sess->updates->phire;
+                $this->view->phire_update_version = $this->sess->updates->phirecms;
                 $this->send();
             }
         } else {
