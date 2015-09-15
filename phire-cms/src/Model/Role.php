@@ -76,10 +76,11 @@ class Role extends AbstractModel
     /**
      * Update an existing user role
      *
-     * @param  array $post
+     * @param  array            $post
+     * @param  \Pop\Web\Session $sess
      * @return void
      */
-    public function update(array $post)
+    public function update(array $post, $sess = null)
     {
         $role = Table\Roles::findById((int)$post['id']);
         if (isset($role->id)) {
@@ -94,8 +95,7 @@ class Role extends AbstractModel
 
             $this->data = array_merge($this->data, $role->getColumns());
 
-            $sess = \Pop\Web\Session::getInstance();
-            if ($sess->user->role_id == $role->id) {
+            if ((null !== $sess) && isset($sess->user) && ($sess->user->role_id == $role->id)) {
                 $sess->user->role = $role->name;
             }
         }
