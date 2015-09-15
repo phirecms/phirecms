@@ -353,4 +353,43 @@ class Module extends Module\Module
         return $this;
     }
 
+    /**
+     * Compares the local version to the latest version available
+     *
+     * @param  string $version
+     * @return mixed
+     */
+    public static function compareVersion($version)
+    {
+        return version_compare(self::VERSION, $version);
+    }
+
+    /**
+     * Returns the latest version available.
+     *
+     * @return mixed
+     */
+    public static function getLatest()
+    {
+        $latest = null;
+
+        $handle = fopen('http://www.phirecms.org/version', 'r');
+        if ($handle !== false) {
+            $latest = stream_get_contents($handle);
+            fclose($handle);
+        }
+
+        return trim($latest);
+    }
+
+    /**
+     * Returns whether or not this is the latest version.
+     *
+     * @return mixed
+     */
+    public static function isLatest()
+    {
+        return (self::compareVersion(self::getLatest()) >= 0);
+    }
+
 }
