@@ -87,7 +87,7 @@ class IndexController extends AbstractController
         //$module = new Model\Module();
         //$module->update($id);
         //
-        //$this->sess->setRequestValue('saved', true, 1);
+        //$this->sess->setRequestValue('saved', true);
         //$this->redirect(BASE_PATH . APP_URI . '/modules');
     }
 
@@ -102,9 +102,9 @@ class IndexController extends AbstractController
         $module->process($this->request->getPost(), $this->services);
 
         if (null !== $this->request->getPost('rm_modules')) {
-            $this->sess->setRequestValue('removed', true, 1);
+            $this->sess->setRequestValue('removed', true);
         } else {
-            $this->sess->setRequestValue('saved', true, 1);
+            $this->sess->setRequestValue('saved', true);
         }
 
         \Pop\Http\Response::redirect(BASE_PATH . APP_URI . '/modules');

@@ -80,7 +80,7 @@ class IndexController extends AbstractController
             if ($this->view->form->isValid()) {
                 $role->save($this->request->getPost());
                 $this->view->id = $role->id;
-                $this->sess->setRequestValue('saved', true, 1);
+                $this->sess->setRequestValue('saved', true);
                 $this->redirect(BASE_PATH . APP_URI . '/roles/edit/' . $role->id);
             }
         }
@@ -145,7 +145,7 @@ class IndexController extends AbstractController
                 $role = new Model\Role();
                 $role->update($this->request->getPost(), $this->sess);
                 $this->view->id = $role->id;
-                $this->sess->setRequestValue('saved', true, 1);
+                $this->sess->setRequestValue('saved', true);
                 $this->redirect(BASE_PATH . APP_URI . '/roles/edit/' . $role->id);
             }
         }
@@ -216,7 +216,7 @@ class IndexController extends AbstractController
             $role = new Model\Role();
             $role->remove($this->request->getPost());
         }
-        $this->sess->setRequestValue('removed', true, 1);
+        $this->sess->setRequestValue('removed', true);
         $this->redirect(BASE_PATH . APP_URI . '/roles');
     }
 

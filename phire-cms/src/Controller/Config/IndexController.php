@@ -19,7 +19,7 @@ class IndexController extends AbstractController
 
         if ($this->request->isPost()) {
             $config->save($this->request->getPost());
-            $this->sess->setRequestValue('saved', true, 1);
+            $this->sess->setRequestValue('saved', true);
             $this->redirect(BASE_PATH . APP_URI . '/config');
         }
 

@@ -139,7 +139,7 @@ class IndexController extends AbstractController
 
                 unset($this->sess->config);
                 unset($this->sess->app_uri);
-                $this->sess->setRequestValue('installed', true, 1);
+                $this->sess->setRequestValue('installed', true);
                 $this->redirect(BASE_PATH . APP_URI . '/login');
             }
         }
