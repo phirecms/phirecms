@@ -51,7 +51,7 @@ class IndexController extends AbstractController
         $module = new Model\Module();
         $module->install($this->services);
 
-        $this->sess->setRequestValue('saved', true, 1);
+        $this->sess->setRequestValue('saved', true);
         $this->redirect(BASE_PATH . APP_URI . '/modules');
     }
 
