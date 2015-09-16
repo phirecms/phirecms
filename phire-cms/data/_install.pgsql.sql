@@ -15,8 +15,8 @@ INSERT INTO "[{prefix}]content_types" ("name", "content_type", "strict_publishin
 ('Pages', 'text/html', 1, 1, 0, 1);
 
 INSERT INTO "[{prefix}]content" ("type_id", "parent_id", "title", "uri", "slug", "status", "template", "roles", "order", "force_ssl", "hierarchy", "publish", "expire", "created", "updated", "created_by", "updated_by") VALUES
-(5001, NULL, 'Home Page', '/', '', 1, '9001', 'a:0:{}', 0, 0, '', '2015-08-25 09:11:00', NULL, '2015-08-25 09:12:31', NULL, 1001, NULL),
-(5001, NULL, 'About Us', '/about-us', 'about-us', 1, '9001', 'a:0:{}', 0, 0, '', '2015-08-25 09:12:00', NULL, '2015-08-25 09:13:01', NULL, 1001, NULL);
+(5001, NULL, 'Home Page', '/', '', 1, '9001', 'a:0:{}', 0, 0, '', NOW(), NULL, NOW(), NULL, 1001, NULL),
+(5001, NULL, 'About Us', '/about-us', 'about-us', 1, '9001', 'a:0:{}', 0, 0, '', NOW(), NULL, NOW(), NULL, 1001, NULL);
 
 INSERT INTO "[{prefix}]fields" ("group_id", "type", "name", "label", "values", "default_values", "attributes", "validators", "encrypt", "order", "required", "prepend", "dynamic", "editor", "models") VALUES
 (NULL, 'text', 'description', 'Description', NULL, NULL, 'size="80" style="width: 99.5%;"', 'a:0:{}', 0, 1, 0, 0, 0, NULL, 'a:1:{i:0;a:3:{s:5:"model";s:27:"Phire\Content\Model\Content";s:10:"type_field";N;s:10:"type_value";N;}}'),
