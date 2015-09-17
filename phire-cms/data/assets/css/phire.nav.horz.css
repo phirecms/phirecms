@@ -55,7 +55,7 @@
 }
 
 #phire-nav > nav:hover {
-    background-color: #000;
+    background-color: #18252c;
 }
 
 #phire-nav > nav > nav {
@@ -72,11 +72,14 @@
     color: #fff;
     text-align: left;
     text-decoration: none;
-    background-color: #000;
+    font-weight: normal;
+    background-color: #036fa6;
 }
 
 #phire-nav > nav > nav > nav > a:hover {
-    background-color: #666;
+    color: #46bcfa;
+    font-weight: normal;
+    text-decoration: none;
 }
 
 #phire-nav > nav:hover > nav {

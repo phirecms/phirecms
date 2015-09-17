@@ -60,7 +60,7 @@
 }
 
 #phire-nav > nav:hover {
-    background-color: #000;
+    background-color: #18252c;
 }
 
 #phire-nav > nav > nav {
@@ -79,11 +79,14 @@
     color: #fff;
     text-align: left;
     text-decoration: none;
-    background-color: #000;
+    font-weight: normal;
+    background-color: #036fa6;
 }
 
 #phire-nav > nav > nav > nav > a:hover {
-    background-color: #666;
+    color: #46bcfa;
+    font-weight: normal;
+    text-decoration: none;
 }
 
 #phire-nav > nav:hover > nav {
@@ -172,4 +175,10 @@
     background-image: url(../img/x-red.png);
     background-position: 10px center;
     background-repeat: no-repeat;
+}
+
+nav.nav-arrow {
+    background-image: url(../img/nav-arrow-left.png);
+    background-repeat: no-repeat;
+    background-position: right center;
 }
