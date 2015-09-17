@@ -177,7 +177,7 @@
     background-repeat: no-repeat;
 }
 
-nav.nav-arrow {
+nav.nav-arrow:hover {
     background-image: url(../img/nav-arrow-left.png);
     background-repeat: no-repeat;
     background-position: right center;

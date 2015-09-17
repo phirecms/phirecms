@@ -31,8 +31,8 @@
     position: relative;
     z-index: 10;
     margin: 0 auto;
-    padding: 0;
-    width: 100%;
+    padding: 0 0 0 2%;
+    width: 98%;
     font-size: 0.9em;
     background-color: #514e4c;
 }
@@ -51,7 +51,11 @@
     color: #fff;
     text-align: center;
     text-decoration: none;
-    border-right: solid 1px #6B6765;
+    border-right: solid 1px #6b6765;
+}
+
+#phire-nav > nav:first-child > a {
+    border-left: solid 1px #6b6765;
 }
 
 #phire-nav > nav:hover {

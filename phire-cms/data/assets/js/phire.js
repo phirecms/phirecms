@@ -287,5 +287,13 @@ jax(document).ready(function(){
             }
         }
     }
+    if (jax('#phire-nav')[0] != undefined) {
+        var navs = jax('#phire-nav > nav');
+        for (var i = 0; i < navs.length; i++) {
+            if ((navs[i].children[1] != undefined) && (navs[i].children[1].nodeName == 'NAV')) {
+                jax(navs[i]).attrib('class', 'nav-arrow');
+            }
+        }
+    }
 });
 
