@@ -536,7 +536,7 @@ input[type=submit]:focus, button:focus {
     margin: 0 0 10px 0;
 }
 
-#user-form > dl:nth-child(2) > dd, #role-form > dl:nth-child(2) > dd, #role-form > dl:nth-child(3) > dd {
+#user-form > dl:nth-child(2) > dd, #user-form > dl:nth-child(3) > dd, #role-form > dl:nth-child(2) > dd, #role-form > dl:nth-child(3) > dd {
     padding: 0 2px 18px 2px;
 }
 
