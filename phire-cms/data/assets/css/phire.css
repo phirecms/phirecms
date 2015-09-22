@@ -568,6 +568,10 @@ input[type=submit]:focus, button:focus {
     width: 100%;
 }
 
+#update-form > dl > dt, #update-form > dl > dd {
+    padding-left: 4px;
+}
+
 #datetime_format_custom, #pagination {
     margin: 0;
     padding: 4px 6px 4px 6px;
@@ -979,7 +983,7 @@ th.text-center, td.text-center {
     color: #fff;
     font-weight: normal;
     font-size: 0.9em;
-    width: 200px;
+    width: 308px;
     background-color: #4aa1ce;
     border-radius: 5px;
     border: none;

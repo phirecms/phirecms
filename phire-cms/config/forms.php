@@ -12,5 +12,6 @@ return [
     'Phire\Form\Unsubscribe'   => include 'forms/unsubscribe.php',
     'Phire\Form\User'          => include 'forms/user.php',
     'Phire\Form\UserEmail'     => include 'forms/user-email.php',
-    'Phire\Form\Role'          => include 'forms/role.php'
+    'Phire\Form\Role'          => include 'forms/role.php',
+    'Phire\Form\Update'        => include 'forms/update.php'
 ];

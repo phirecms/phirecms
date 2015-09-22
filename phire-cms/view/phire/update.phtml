@@ -2,5 +2,11 @@
         <h1 class="update-header"><?=$title; ?></h1>
         <h3>You have chosen to update Phire CMS to version <strong class="required"><?=$phire_update_version; ?></strong></h3>
         <p class="warning">Please back up all of your files and your database before proceeding.</p>
+<?php if ($form !== false): ?>
+        <p>One-click updating was not detected. You must provide the FTP information below in order to begin the update:</p>
+<?=$form; ?>
+<?php else: ?>
+        <p>One-click updating has been detected. Once you click the update button below, the update process will begin.</p>
         <a class="update-btn" href="<?=$phireUri; ?>/update?update=1">Update</a>
+<?php endif; ?>
 <?php include $phireFooter; ?>
