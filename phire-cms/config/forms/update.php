@@ -31,7 +31,7 @@ return [
             'label'      => 'FTP Root',
             'attributes' => [
                 'size'        => '40',
-                'placeholder' => 'Directory to change to, i.e. /httpdocs'
+                'placeholder' => 'Directory to change to, i.e. httpdocs'
             ]
         ],
         'use_pasv' => [

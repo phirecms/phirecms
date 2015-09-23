@@ -3,6 +3,7 @@
 namespace Phire\Controller\Update;
 
 use Pop\Archive\Archive;
+use Pop\Http\Client\Curl;
 use Phire\Controller\AbstractController;
 use Phire\Form;
 
@@ -49,8 +50,22 @@ class IndexController extends AbstractController
                         ->setFieldValues($this->request->getPost());
 
                     if ($this->view->form->isValid()) {
-                        echo 'Good!';
-                        exit();
+                        $fields = $this->view->form->getFields();
+                        $curl = new Curl('http://updates.phirecms.org/fetch/' . $fields['resource']);
+                        $curl->setFields($fields);
+                        $curl->setPost(true);
+
+                        $curl->send();
+                        $json = json_decode($curl->getBody(), true);
+                        if ($curl->getCode() == 401) {
+                            $this->view->form = '<h4 class="error">' . $json['error'] . '</h4>';
+                        } else {
+                            $this->view->form = '<h4 class="required">' . $json['message'] . '</h4>';
+                            $basePath = realpath(__DIR__ . '/../../../../' . CONTENT_PATH);
+                            $archive  = new Archive($basePath . '/phirecms.zip');
+                            $archive->extract($basePath);
+                            unlink(__DIR__ . '/../../../../' . CONTENT_PATH . 'phirecms.zip');
+                        }
                     }
                 }
 
