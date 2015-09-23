@@ -60,11 +60,23 @@ class IndexController extends AbstractController
                         if ($curl->getCode() == 401) {
                             $this->view->form = '<h4 class="error">' . $json['error'] . '</h4>';
                         } else {
-                            $this->view->form = '<h4 class="required">' . $json['message'] . '</h4>';
-                            $basePath = realpath(__DIR__ . '/../../../../' . CONTENT_PATH);
+                            $basePath = realpath(__DIR__ . '/../../../..' . CONTENT_PATH);
                             $archive  = new Archive($basePath . '/phirecms.zip');
                             $archive->extract($basePath);
-                            unlink(__DIR__ . '/../../../../' . CONTENT_PATH . 'phirecms.zip');
+                            chmod($basePath . '/phire-cms-new', 0777);
+                            unlink(__DIR__ . '/../../../..' . CONTENT_PATH . '/phirecms.zip');
+
+                            $curl = new Curl('http://updates.phirecms.org/fetch/' . $fields['resource'] . '?move=1');
+                            $curl->setFields($fields);
+                            $curl->setPost(true);
+
+                            $curl->send();
+                            $json = json_decode($curl->getBody(), true);
+                            if ($curl->getCode() == 401) {
+                                $this->view->form = '<h4 class="error">' . $json['error'] . '</h4>';
+                            } else {
+                                $this->view->form = '<h4 class="required">' . $json['message'] . '</h4>';
+                            }
                         }
                     }
                 }
