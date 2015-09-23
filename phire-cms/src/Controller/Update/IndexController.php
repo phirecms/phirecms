@@ -24,7 +24,7 @@ class IndexController extends AbstractController
     public function index()
     {
         // Switch this to < for validation when live
-        if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) >= 0) {
+        if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) < 0) {
             if ($this->request->getQuery('update') == 1) {
                 file_put_contents(__DIR__ . '/../../../../phirecms.zip', fopen($this->url, 'r'));
                 $basePath = realpath(__DIR__ . '/../../../../');
