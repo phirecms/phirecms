@@ -61,6 +61,18 @@ return [
             'attributes' => [
                 'class'  => 'update-btn'
             ]
+        ],
+        'base_path' => [
+            'type'  => 'hidden',
+            'value' => BASE_PATH
+        ],
+        'content_path' => [
+            'type'  => 'hidden',
+            'value' => CONTENT_PATH
+        ],
+        'resource' => [
+            'type'  => 'hidden',
+            'value' => ''
         ]
     ]
 ];

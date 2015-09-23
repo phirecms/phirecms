@@ -2,6 +2,7 @@
 
 namespace Phire\Form;
 
+use Pop\Http\Client\Curl;
 use Pop\Form\Form;
 use Pop\Validator;
 
@@ -25,4 +26,30 @@ class Update extends Form
         $this->setIndent('    ');
     }
 
+    /**
+     * Set the field values
+     *
+     * @param  array $values
+     * @return Update
+     */
+    public function setFieldValues(array $values = null)
+    {
+        parent::setFieldValues($values);
+
+        if (($_POST) && (null !== $this->resource)) {
+            $curl = new Curl('http://updates.phirecms.org/test');
+            $curl->setFields($this->getFields());
+            $curl->setPost(true);
+
+            $curl->send();
+
+            if ($curl->getCode() == 401) {
+                $json = json_decode($curl->getBody(), true);
+                $this->getElement('ftp_address')
+                    ->addValidator(new Validator\NotEqual($this->ftp_address, $json['error']));
+            }
+        }
+
+        return $this;
+    }
 }
