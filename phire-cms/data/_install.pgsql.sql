@@ -18,10 +18,10 @@ INSERT INTO "[{prefix}]content" ("type_id", "parent_id", "title", "uri", "slug",
 (5001, NULL, 'Home Page', '/', '', 1, '9001', 'a:0:{}', 0, 0, '', NOW(), NULL, NOW(), NULL, 1001, NULL),
 (5001, NULL, 'About Us', '/about-us', 'about-us', 1, '9001', 'a:0:{}', 0, 0, '', NOW(), NULL, NOW(), NULL, 1001, NULL);
 
-INSERT INTO "[{prefix}]fields" ("group_id", "type", "name", "label", "values", "default_values", "attributes", "validators", "encrypt", "order", "required", "prepend", "dynamic", "editor", "models") VALUES
-(NULL, 'text', 'description', 'Description', NULL, NULL, 'size="80" style="width: 99.5%;"', 'a:0:{}', 0, 1, 0, 0, 0, NULL, 'a:1:{i:0;a:3:{s:5:"model";s:27:"Phire\Content\Model\Content";s:10:"type_field";N;s:10:"type_value";N;}}'),
-(NULL, 'text', 'keywords', 'Keywords', NULL, NULL, 'size="80" style="width: 99.5%;"', 'a:0:{}', 0, 2, 0, 0, 0, NULL, 'a:1:{i:0;a:3:{s:5:"model";s:27:"Phire\Content\Model\Content";s:10:"type_field";N;s:10:"type_value";N;}}'),
-(NULL, 'textarea-history', 'content', 'Content', NULL, NULL, 'rows="20" cols="80" style="display: block; width: 100%;"', 'a:0:{}', 0, 3, 0, 0, 0, 'source', 'a:1:{i:0;a:3:{s:5:"model";s:27:"Phire\Content\Model\Content";s:10:"type_field";N;s:10:"type_value";N;}}');
+INSERT INTO "[{prefix}]fields" ("group_id", "storage", "type", "name", "label", "values", "default_values", "attributes", "validators", "encrypt", "order", "required", "prepend", "dynamic", "editor", "models") VALUES
+(NULL, 'eav', 'text', 'description', 'Description', NULL, NULL, 'size="80" style="width: 99.5%;"', 'a:0:{}', 0, 1, 0, 0, 0, NULL, 'a:1:{i:0;a:3:{s:5:"model";s:27:"Phire\Content\Model\Content";s:10:"type_field";N;s:10:"type_value";N;}}'),
+(NULL, 'eav', 'text', 'keywords', 'Keywords', NULL, NULL, 'size="80" style="width: 99.5%;"', 'a:0:{}', 0, 2, 0, 0, 0, NULL, 'a:1:{i:0;a:3:{s:5:"model";s:27:"Phire\Content\Model\Content";s:10:"type_field";N;s:10:"type_value";N;}}'),
+(NULL, 'eav', 'textarea-history', 'content', 'Content', NULL, NULL, 'rows="20" cols="80" style="display: block; width: 100%;"', 'a:0:{}', 0, 3, 0, 0, 0, 'source', 'a:1:{i:0;a:3:{s:5:"model";s:27:"Phire\Content\Model\Content";s:10:"type_field";N;s:10:"type_value";N;}}');
 
 INSERT INTO "[{prefix}]field_values" ("field_id", "model_id", "model", "value", "timestamp", "history") VALUES
 (11001, 6001, E'Phire\\Content\\Model\\Content', '"This is the home page."', 1440511951, NULL),
