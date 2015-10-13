@@ -2,6 +2,11 @@
         <h1 class="dashboard-header"><?=$title; ?></h1>
         <div class="dashboard-left-column">
 <?php if ($acl->isAllowed($user->role, 'dashboard')): ?>
+<?php if (isset($dashboard) && (count($dashboard) > 0)): ?>
+<?php foreach ($dashboard as $dash): ?>
+<?php include $dash; ?>
+<?php endforeach; ?>
+<?php endif; ?>
             <table class="dashboard-table" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                     <th colspan="2">

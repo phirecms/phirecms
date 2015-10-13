@@ -52,6 +52,12 @@ class Module extends \Pop\Module\Module
                 $this->application->mergeConfig(['forms' => $this->config['forms']]);
             }
 
+            // If the module has a dashboard include
+            if (isset($this->config['dashboard'])) {
+                $dashboard = array_merge([$this->config['dashboard']], $this->application->config()['dashboard']);
+                $this->application->mergeConfig(['dashboard' => $dashboard]);
+            }
+
             // Add the nav params back to the service
             $this->application->services()->setParams('nav.phire', $params);
         }

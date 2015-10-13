@@ -252,6 +252,7 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
             $this->view->user      = $this->sess->user;
             $this->view->acl       = $this->services['acl'];
             $this->view->config    = $this->config;
+            $this->view->dashboard = $this->application->config()['dashboard'];
         } else {
             $this->view->phireNav = null;
         }
