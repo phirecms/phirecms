@@ -3,9 +3,11 @@
 namespace Phire\Controller\Update;
 
 use Pop\Archive\Archive;
+use Pop\Code;
 use Pop\Http\Client\Curl;
 use Phire\Controller\AbstractController;
 use Phire\Form;
+use Pop\Http\Response;
 
 class IndexController extends AbstractController
 {
@@ -25,19 +27,27 @@ class IndexController extends AbstractController
     {
         // Switch this to < for validation when live
         if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) < 0) {
+            // Complete one-click updating
             if ($this->request->getQuery('update') == 1) {
-                file_put_contents(__DIR__ . '/../../../../phirecms.zip', fopen($this->url, 'r'));
-                $basePath = realpath(__DIR__ . '/../../../../');
-                $archive  = new Archive($basePath . '/phirecms.zip');
-                $archive->extract($basePath);
-                unlink(__DIR__ . '/../../../../phirecms.zip');
-                echo 'Done!';
+                $code = new Code\Generator(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php');
+                $code->setBody(file_get_contents(__DIR__ . '/../../../data/.htupdates'));
+                $code->save();
+
+                chmod(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php', 0777);
+                Response::redirect(BASE_PATH . CONTENT_PATH . '/updates/update.php');
+            } else if ($this->request->getQuery('update') == 2) {
+                if (file_exists(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php')) {
+                    unlink(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php');
+                    echo 'Complete!';
+                }
             } else {
                 $this->prepareView('phire/update.phtml');
                 $this->view->title = 'Update Phire';
                 $this->view->url   = $this->url;
                 $this->view->phire_update_version = $this->sess->updates->phirecms;
-                if (is_writable(__DIR__ . '/../../../../')) {
+
+                // Detect one-click updating
+                if (is_writable(__DIR__ . '/../../../../') && is_writable(__DIR__ . '/../../../..' . APP_PATH)) {
                     $this->view->form = false;
                 } else {
                     $fields = $this->application->config()['forms']['Phire\Form\Update'];
@@ -45,9 +55,10 @@ class IndexController extends AbstractController
                     $this->view->form = new Form\Update($fields);
                 }
 
+                // Start update via FTP
                 if (($this->view->form !== false) && ($this->request->isPost())) {
                     $this->view->form->addFilter('strip_tags')
-                        ->setFieldValues($this->request->getPost());
+                         ->setFieldValues($this->request->getPost());
 
                     if ($this->view->form->isValid()) {
                         $fields = $this->view->form->getFields();
@@ -60,6 +71,7 @@ class IndexController extends AbstractController
                         if ($curl->getCode() == 401) {
                             $this->view->form = '<h4 class="error">' . $json['error'] . '</h4>';
                         } else {
+                            // Complete update via FTP
                             $basePath = realpath(__DIR__ . '/../../../..' . CONTENT_PATH);
                             $archive  = new Archive($basePath . '/phirecms.zip');
                             $archive->extract($basePath);

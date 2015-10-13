@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__  . '/config.php';
+require_once __DIR__ . '/config.php';
 
 try {
     // Check the app constants
