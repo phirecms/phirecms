@@ -3,7 +3,6 @@
 namespace Phire\Controller\Update;
 
 use Pop\Archive\Archive;
-use Pop\Code;
 use Pop\Http\Client\Curl;
 use Phire\Controller\AbstractController;
 use Phire\Form;
@@ -25,24 +24,11 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        if ($this->request->getQuery('update') == 2) {
-            if (file_exists(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php')) {
-                unlink(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php');
-            }
-            echo 'Complete!';
-            exit();
-        }
-
         // Switch this to < for validation when live
         if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) == 0) {
             // Complete one-click updating
-            if ($this->request->getQuery('update') == 1) {
-                $code = new Code\Generator(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php');
-                $code->setBody(file_get_contents(__DIR__ . '/../../../data/.htupdates'));
-                $code->save();
+            if (($this->request->getQuery('update') == 1) && is_writable(__DIR__ . '/../../../../') && is_writable(__DIR__ . '/../../../..' . APP_PATH)) {
 
-                chmod(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php', 0777);
-                Response::redirect(BASE_PATH . CONTENT_PATH . '/updates/update.php');
             } else {
                 $this->prepareView('phire/update.phtml');
                 $this->view->title = 'Update Phire';
