@@ -1,7 +1,7 @@
 require __DIR__ . '/../../config.php';
 require __DIR__ . '/../..' . APP_PATH . '/vendor/autoload.php';
 
-file_put_contents(__DIR__ . '/../../phirecms.zip', fopen('{$this->url}', 'r'));
+file_put_contents(__DIR__ . '/../../phirecms.zip', fopen('http://updates.phirecms.org/releases/phire/phirecms.zip', 'r'));
 $basePath = realpath(__DIR__ . '/../../');
 $archive  = new \Pop\Archive\Archive($basePath . '/phirecms.zip');
 $archive->extract($basePath);

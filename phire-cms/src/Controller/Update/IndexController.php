@@ -25,8 +25,16 @@ class IndexController extends AbstractController
      */
     public function index()
     {
+        if ($this->request->getQuery('update') == 2) {
+            if (file_exists(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php')) {
+                unlink(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php');
+            }
+            echo 'Complete!';
+            exit();
+        }
+
         // Switch this to < for validation when live
-        if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) < 0) {
+        if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) == 0) {
             // Complete one-click updating
             if ($this->request->getQuery('update') == 1) {
                 $code = new Code\Generator(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php');
@@ -35,11 +43,6 @@ class IndexController extends AbstractController
 
                 chmod(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php', 0777);
                 Response::redirect(BASE_PATH . CONTENT_PATH . '/updates/update.php');
-            } else if ($this->request->getQuery('update') == 2) {
-                if (file_exists(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php')) {
-                    unlink(__DIR__ . '/../../../..' . CONTENT_PATH . '/updates/update.php');
-                    echo 'Complete!';
-                }
             } else {
                 $this->prepareView('phire/update.phtml');
                 $this->view->title = 'Update Phire';
