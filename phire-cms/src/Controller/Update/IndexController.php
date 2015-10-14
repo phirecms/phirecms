@@ -3,9 +3,11 @@
 namespace Phire\Controller\Update;
 
 use Pop\Archive\Archive;
+use Pop\File\Dir;
 use Pop\Http\Client\Curl;
 use Phire\Controller\AbstractController;
 use Phire\Form;
+use Phire\Updater;
 use Pop\Http\Response;
 
 class IndexController extends AbstractController
@@ -28,7 +30,23 @@ class IndexController extends AbstractController
         if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) == 0) {
             // Complete one-click updating
             if (($this->request->getQuery('update') == 1) && is_writable(__DIR__ . '/../../../../') && is_writable(__DIR__ . '/../../../..' . APP_PATH)) {
+                file_put_contents(__DIR__ . '/../../../../' . CONTENT_PATH . '/updates/phire-cms.zip', fopen('http://updates.phirecms.org/releases/phire/phire-cms.zip', 'r'));
+                $basePath = realpath(__DIR__ . '/../../../../' . CONTENT_PATH . '/updates/');
+                $archive  = new Archive($basePath . '/phire-cms.zip');
+                $archive->extract($basePath);
+                unlink(__DIR__ . '/../../../../' . CONTENT_PATH . '/updates/phire-cms.zip');
+                $json = json_decode(stream_get_contents(fopen('http://updates.phirecms.org/releases/phire/phire.json', 'r')), true);
+                foreach ($json as $file) {
+                    echo 'Updating: ' . $file . '<br />' . PHP_EOL;
+                    copy(__DIR__ . '/../../../../' . CONTENT_PATH . '/updates/phire-cms/' . $file, __DIR__ . '/../../../' . $file);
+                }
+                $dir = new Dir(__DIR__ . '/../../../../' . CONTENT_PATH . '/updates/phire-cms/');
+                $dir->emptyDir(true);
 
+                $updater = new Updater();
+                $updater->run();
+
+                echo 'Done!';
             } else {
                 $this->prepareView('phire/update.phtml');
                 $this->view->title = 'Update Phire';
