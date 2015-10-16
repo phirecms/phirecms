@@ -103,6 +103,8 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]modules` (
   `order` int(16) NOT NULL,
   `assets` text,
   `updates` text,
+  `installed_on` datetime,
+  `updated_on` datetime,
   PRIMARY KEY (`id`),
   INDEX `module_folder` (`folder`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3001 ;

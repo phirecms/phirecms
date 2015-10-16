@@ -19,6 +19,8 @@
                 <th>Version</th>
                 <th>Description</th>
                 <th>Author</th>
+                <th>Installed</th>
+                <th>Updated</th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><a href="<?=$phireUri . '/modules?sort=active';?>">Active</a><?php else: ?>&nbsp;<?php endif; ?></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><a href="<?=$phireUri . '/modules?sort=order';?>">Order</a><?php else: ?>&nbsp;<?php endif; ?></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><input type="checkbox" name="checkall" id="checkall" value="rm_modules" /><?php else: ?>&nbsp;<?php endif; ?></th>
@@ -38,13 +40,15 @@
 endif; ?></td>
                 <td><?=($assets['info']['Description']) ? $assets['info']['Description'] : '&nbsp;'; ?></td>
                 <td><?=($assets['info']['Author']) ? $assets['info']['Author'] : '&nbsp;'; ?></td>
+                <td><?=date($config->datetime_format, strtotime($module->installed_on)); ?></td>
+                <td><?=((null !== $module->updated_on) ? date($config->datetime_format, strtotime($module->updated_on)) : '&nbsp;'); ?></td>
                 <td class="text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><input type="radio" name="active_<?=$module->id; ?>" value="1" <?=$yesChecked; ?>/> Yes &nbsp;&nbsp;&nbsp; <input type="radio" name="active_<?=$module->id; ?>" value="0" <?=$noChecked; ?>/> No<?php else: ?>&nbsp;<?php endif; ?></td>
                 <td class="text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><input type="text" name="order_<?=$module->id; ?>" value="<?=(int)$module->order; ?>" class="module-order" size="2" /> <?php else: ?>&nbsp;<?php endif; ?></td>
                 <td class="text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><input type="checkbox" name="rm_modules[]" id="rm_modules<?=$i++; ?>" value="<?=$module->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
             </tr>
 <?php if (null !== $module->nav): ?>
             <tr>
-                <td colspan="8" class="no-padding">
+                <td colspan="10" class="no-padding">
 <?=$module->nav; ?>
                 </td>
             </tr>

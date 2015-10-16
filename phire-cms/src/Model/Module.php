@@ -203,7 +203,8 @@ class Module extends AbstractModel
                             'assets'  => serialize([
                                 'tables' => $tables,
                                 'info'   => $info
-                            ])
+                            ]),
+                            'installed_on' => date('Y-m-d H:i:s')
                         ]);
                         $mod->save();
 

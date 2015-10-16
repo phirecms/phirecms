@@ -1,0 +1,83 @@
+<?php
+
+namespace Phire;
+
+use Phire\Table;
+
+abstract class AbstractUpdater
+{
+
+    protected $resource        = null;
+    protected $newUpdates      = [];
+    protected $previousUpdates = [];
+
+    public function __construct($resource = 'phire')
+    {
+        $this->setResource($resource);
+
+        $updates = null;
+
+        if ($this->resource == 'phire') {
+            $updates = Table\Config::findById('updates')->value;
+        } else {
+            $module = Table\Modules::findBy(['folder' => $this->resource]);
+            if (isset($module->id)) {
+                $updates = $module->updates;
+            }
+        }
+
+        if (!empty($updates)) {
+            $this->previousUpdates = explode('|', $updates);
+        }
+    }
+
+    public function setResource($resource)
+    {
+        $this->resource = $resource;
+        return $this;
+    }
+
+    public function getResource()
+    {
+        return $this->resource;
+    }
+
+    public function getNewUpdates()
+    {
+        return $this->newUpdates;
+    }
+
+    public function getPreviousUpdates()
+    {
+        return $this->previousUpdates;
+    }
+
+    public function run()
+    {
+        foreach ($this->newUpdates as $new) {
+            if (!in_array($new, $this->previousUpdates)) {
+                $method = 'update' . $new;
+                $this->$method();
+                $this->previousUpdates[] = $new;
+            }
+        }
+
+        if ($this->resource == 'phire') {
+            $updates = Table\Config::findById('updates');
+            $updates->value = implode('|', $this->previousUpdates);
+            $updates->save();
+
+            $updated = Table\Config::findById('updated_on');
+            $updated->value = date('Y-m-d H:i:s');
+            $updated->save();
+        } else {
+            $module = Table\Modules::findBy(['folder' => $this->resource]);
+            if (isset($module->id)) {
+                $module->updates    = implode('|', $this->previousUpdates);
+                $module->updated_on = date('Y-m-d H:i:s');
+                $module->save();
+            }
+        }
+    }
+
+}

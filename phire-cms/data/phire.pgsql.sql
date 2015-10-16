@@ -115,6 +115,8 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
   "order" integer NOT NULL,
   "assets" text,
   "updates" text,
+  "installed_on" timestamp,
+  "updated_on" timestamp,
   PRIMARY KEY ("id")
 ) ;
 
