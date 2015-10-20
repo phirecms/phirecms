@@ -75,11 +75,19 @@ class IndexController extends AbstractController
                 clearstatcache();
 
                 $updaterClass = $module->prefix . 'Updater';
+
                 if (class_exists($updaterClass)) {
                     $updater = new $updaterClass($module->folder);
                     $updater->runPost();
-                    $this->redirect(BASE_PATH . APP_URI . '/modules/complete/' . $id);
+                } else {
+                    $module = \Phire\Table\Modules::findById($id);
+                    if (isset($module->id)) {
+                        $module->updated_on = date('Y-m-d H:i:s');
+                        $module->save();
+                    }
                 }
+
+                $this->redirect(BASE_PATH . APP_URI . '/modules/complete/' . $id);
             } else if (($this->request->getQuery('update') == 1) &&
                 is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules') &&
                 is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder) &&
