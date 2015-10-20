@@ -111,6 +111,14 @@ return [
                 'permission' => 'update'
             ]
         ],
+        '/modules/complete/:id' => [
+            'controller' => 'Phire\Controller\Modules\IndexController',
+            'action'     => 'complete',
+            'acl'        => [
+                'resource'   => 'modules',
+                'permission' => 'update'
+            ]
+        ],
         '/modules/process[/]' => [
             'controller' => 'Phire\Controller\Modules\IndexController',
             'action'     => 'process',

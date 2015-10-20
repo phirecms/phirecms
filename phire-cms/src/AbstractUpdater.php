@@ -49,30 +49,52 @@ abstract class AbstractUpdater
     }
 
     /**
-     * Method to run one-click system update (for Phire only)
+     * Method to get update for one-click update
+     *
+     * @param string $module
      */
-    public function getUpdate()
+    public function getUpdate($module = null)
     {
-        file_put_contents(
-            __DIR__ . '/../..' . CONTENT_PATH . '/updates/phirecms.zip',
-            fopen('http://updates.phirecms.org/releases/phire/phirecms.zip', 'r')
-        );
+        if (null === $module) {
+            file_put_contents(
+                __DIR__ . '/../..' . CONTENT_PATH . '/updates/phirecms.zip',
+                fopen('http://updates.phirecms.org/releases/phire/phirecms.zip', 'r')
+            );
 
-        $basePath = realpath(__DIR__ . '/../..' . CONTENT_PATH . '/updates/');
+            $basePath = realpath(__DIR__ . '/../..' . CONTENT_PATH . '/updates/');
 
-        $archive  = new Archive($basePath . '/phirecms.zip');
-        $archive->extract($basePath);
-        unlink(__DIR__ . '/../..' . CONTENT_PATH . '/updates/phirecms.zip');
+            $archive = new Archive($basePath . '/phirecms.zip');
+            $archive->extract($basePath);
+            unlink(__DIR__ . '/../..' . CONTENT_PATH . '/updates/phirecms.zip');
 
-        $json = json_decode(stream_get_contents(fopen('http://updates.phirecms.org/releases/phire/phire.json', 'r')), true);
+            $json = json_decode(stream_get_contents(fopen('http://updates.phirecms.org/releases/phire/phire.json', 'r')), true);
 
-        foreach ($json as $file) {
-            echo 'Updating: ' . $file . '<br />' . PHP_EOL;
-            copy(__DIR__ . '/../..' . CONTENT_PATH . '/updates/phire-cms/' . $file, __DIR__ . '/../' . $file);
+            foreach ($json as $file) {
+                echo 'Updating: ' . $file . '<br />' . PHP_EOL;
+                copy(__DIR__ . '/../..' . CONTENT_PATH . '/updates/phire-cms/' . $file, __DIR__ . '/../' . $file);
+            }
+
+            $dir = new Dir(__DIR__ . '/../..' . CONTENT_PATH . '/updates/phire-cms/');
+            $dir->emptyDir(true);
+        } else {
+            if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module . '.zip')) {
+                unlink(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module . '.zip');
+            }
+
+            if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module)) {
+                $dir = new Dir(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module);
+                $dir->emptyDir(true);
+            }
+
+            file_put_contents(
+                __DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module . '.zip',
+                fopen('http://updates.phirecms.org/releases/modules/' . $module . '.zip', 'r')
+            );
+
+            $basePath = realpath(__DIR__ . '/../..' . CONTENT_PATH . '/modules/');
+            $archive = new Archive($basePath . '/' . $module . '.zip');
+            $archive->extract($basePath);
         }
-
-        $dir = new Dir(__DIR__ . '/../..' . CONTENT_PATH . '/updates/phire-cms/');
-        $dir->emptyDir(true);
     }
 
     /**

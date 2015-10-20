@@ -11,12 +11,6 @@ class IndexController extends AbstractController
 {
 
     /**
-     * Update URL
-     * @var string
-     */
-    protected $url = 'http://updates.phirecms.org/releases/phire/phirecms.zip';
-
-    /**
      * Index action method
      *
      * @return void
@@ -42,7 +36,7 @@ class IndexController extends AbstractController
             } else {
                 $this->prepareView('phire/update.phtml');
                 $this->view->title = 'Update Phire';
-                $this->view->url   = $this->url;
+                $this->view->url   = 'http://updates.phirecms.org/releases/phire/phirecms.zip';
                 $this->view->phire_update_version = $this->sess->updates->phirecms;
 
                 // Detect one-click updating

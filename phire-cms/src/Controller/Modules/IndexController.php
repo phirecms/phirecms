@@ -63,18 +63,33 @@ class IndexController extends AbstractController
      */
     public function update($id)
     {
-        // Switch this to < for validation when live
-        //if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) < 0) {
-        if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) >= 0) {
-            if ($this->request->getQuery('update') == 1) {
-                echo 'Its go time';
-            } else {
-                $module = new Model\Module();
-                $module->getById($id);
+        $module = new Model\Module();
+        $module->getById($id);
 
+        // Switch this to < for validation when live
+        if (version_compare($module->version, $this->sess->updates->modules[$module->folder]) == 0) {
+            if (($this->request->getQuery('update') == 1) &&
+                is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules') &&
+                is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder) &&
+                is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder . '.zip')) {
+                clearstatcache();
+
+                $updaterClass = $module->prefix . 'Updater';
+                if (class_exists($updaterClass)) {
+                    $updater = new $updaterClass($module->folder);
+                    $updater->runPost();
+                    $this->redirect(BASE_PATH . APP_URI . '/modules/complete/' . $id);
+                }
+            } else if (($this->request->getQuery('update') == 1) &&
+                is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules') &&
+                is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder) &&
+                is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder . '.zip')) {
+                $updater = new \Phire\Updater($module->folder);
+                $updater->getUpdate($module->folder);
+                $this->redirect(BASE_PATH . APP_URI . '/modules/update/' . $id . '?update=2');
+            } else {
                 $this->prepareView('phire/modules/update.phtml');
                 $this->view->title = 'Update ' . $module->folder;
-
                 $this->view->module_id             = $module->id;
                 $this->view->module_name           = $module->folder;
                 $this->view->module_update_version = $this->sess->updates->modules[$module->folder];
@@ -83,12 +98,25 @@ class IndexController extends AbstractController
         } else {
             $this->redirect(BASE_PATH . APP_URI . '/modules');
         }
-        //$this->prepareView('phire/modules/update.phtml');
-        //$module = new Model\Module();
-        //$module->update($id);
-        //
-        //$this->sess->setRequestValue('saved', true);
-        //$this->redirect(BASE_PATH . APP_URI . '/modules');
+    }
+
+    /**
+     * Complete action method
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function complete($id)
+    {
+        $module = new Model\Module();
+        $module->getById($id);
+
+        $this->prepareView('phire/modules/update.phtml');
+        $this->view->title       = 'Update Module ' . $module->folder . ' : Complete!';
+        $this->view->complete    = true;
+        $this->view->module_name = $module->folder;
+        $this->view->version     = $module->version;
+        $this->send();
     }
 
     /**
