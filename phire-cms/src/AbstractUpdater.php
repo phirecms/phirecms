@@ -8,7 +8,6 @@ abstract class AbstractUpdater
 {
 
     protected $resource        = null;
-    protected $newUpdates      = [];
     protected $previousUpdates = [];
 
     public function __construct($resource)
@@ -42,30 +41,25 @@ abstract class AbstractUpdater
         return $this->resource;
     }
 
-    public function getNewUpdates()
-    {
-        return $this->newUpdates;
-    }
-
     public function getPreviousUpdates()
     {
         return $this->previousUpdates;
     }
 
     /**
-     * Method to post update code for Phire or a module,
+     * Method to post update code for Phire or for a module,
      * usually for database modification or file cleanup
      */
     public function runPost()
     {
-        foreach ($this->newUpdates as $new) {
-            if (!in_array($new, $this->previousUpdates)) {
-                $method = 'update' . $new;
-                if (method_exists($this, $method)) {
-                    $this->$method();
-                }
-                $this->previousUpdates[] = $new;
-            }
+        $i      = (count($this->previousUpdates) > 0) ? max($this->previousUpdates) + 1 : 1;
+        $method = 'update' . $i;
+
+        while (method_exists($this, $method)) {
+            $this->$method();
+            $this->previousUpdates[] = $i;
+            $i++;
+            $method = 'update' . $i;
         }
 
         if ($this->resource == 'phire') {
