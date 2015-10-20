@@ -51,7 +51,7 @@ abstract class AbstractUpdater
     /**
      * Method to run one-click system update (for Phire only)
      */
-    public function runUpdate()
+    public function getUpdate()
     {
         file_put_contents(
             __DIR__ . '/../..' . CONTENT_PATH . '/updates/phirecms.zip',
