@@ -68,7 +68,7 @@ class IndexController extends AbstractController
 
         // Switch this to < for validation when live
         if (version_compare($module->version, $this->sess->updates->modules[$module->folder]) == 0) {
-            if (($this->request->getQuery('update') == 1) &&
+            if (($this->request->getQuery('update') == 2) &&
                 is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules') &&
                 is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder) &&
                 is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder . '.zip')) {
