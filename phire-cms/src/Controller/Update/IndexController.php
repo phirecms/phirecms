@@ -6,7 +6,6 @@ use Phire\Controller\AbstractController;
 use Phire\Form;
 use Phire\Updater;
 use Pop\Http\Client\Curl;
-use Pop\Http\Response;
 
 class IndexController extends AbstractController
 {
@@ -32,7 +31,7 @@ class IndexController extends AbstractController
                 $updater = new Updater('phire');
                 $updater->runUpdate();
                 $updater->runPost();
-                Response::redirect(BASE_PATH . APP_URI . '/update/complete');
+                $this->redirect(BASE_PATH . APP_URI . '/update/complete');
             // Else, use FTP fpr updating
             } else {
                 $this->prepareView('phire/update.phtml');
@@ -69,7 +68,7 @@ class IndexController extends AbstractController
                         } else {
                             $updater = new Updater('phire');
                             $updater->runPost();
-                            Response::redirect(BASE_PATH . APP_URI . '/update/complete');
+                            $this->redirect(BASE_PATH . APP_URI . '/update/complete');
                         }
                     }
                 }
