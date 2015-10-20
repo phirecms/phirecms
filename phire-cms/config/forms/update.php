@@ -66,6 +66,10 @@ return [
             'type'  => 'hidden',
             'value' => BASE_PATH
         ],
+        'app_path' => [
+            'type'  => 'hidden',
+            'value' => APP_PATH
+        ],
         'content_path' => [
             'type'  => 'hidden',
             'value' => CONTENT_PATH
