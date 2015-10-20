@@ -28,12 +28,15 @@ class IndexController extends AbstractController
             // Complete one-click updating
             if (($this->request->getQuery('update') == 1) &&
                 is_writable(__DIR__ . '/../../../../') && is_writable(__DIR__ . '/../../../..' . APP_PATH)) {
-                clearstatcache();
                 $updater = new Updater('phire');
                 $updater->runUpdate();
+
+                clearstatcache();
+
+                $updater = new Updater('phire');
                 $updater->runPost();
                 $this->redirect(BASE_PATH . APP_URI . '/update/complete');
-            // Else, use FTP fpr updating
+            // Else, use FTP for updating
             } else {
                 $this->prepareView('phire/update.phtml');
                 $this->view->title = 'Update Phire';
