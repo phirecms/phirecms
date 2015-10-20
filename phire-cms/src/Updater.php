@@ -11,7 +11,6 @@ class Updater extends AbstractUpdater
 
     /**
      * Method to run one-click update
-     * @throws \Pop\Archive\Exception
      */
     public function runUpdate()
     {
