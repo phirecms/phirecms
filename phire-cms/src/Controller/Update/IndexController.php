@@ -16,7 +16,7 @@ class IndexController extends AbstractController
      * Update URL
      * @var string
      */
-    protected $url = 'http://updates.phirecms.org/releases/phire/phire-cms.zip';
+    protected $url = 'http://updates.phirecms.org/releases/phire/phirecms.zip';
 
     /**
      * Index action method
@@ -57,36 +57,20 @@ class IndexController extends AbstractController
 
                     if ($this->view->form->isValid()) {
                         $fields = $this->view->form->getFields();
+
                         $curl = new Curl('http://updates.phirecms.org/fetch/' . $fields['resource']);
                         $curl->setFields($fields);
                         $curl->setPost(true);
 
                         $curl->send();
                         $json = json_decode($curl->getBody(), true);
+
                         if ($curl->getCode() == 401) {
                             $this->view->form = '<h4 class="error">' . $json['error'] . '</h4>';
                         } else {
-                            // Complete update via FTP
-                            $basePath = realpath(__DIR__ . '/../../../..' . CONTENT_PATH);
-                            $archive  = new Archive($basePath . '/phire-cms.zip');
-                            $archive->extract($basePath);
-                            chmod($basePath . '/phire-cms-new', 0777);
-                            unlink(__DIR__ . '/../../../..' . CONTENT_PATH . '/phire-cms.zip');
-
-                            $curl = new Curl('http://updates.phirecms.org/fetch/' . $fields['resource'] . '?move=1');
-                            $curl->setFields($fields);
-                            $curl->setPost(true);
-
-                            $curl->send();
-                            $json = json_decode($curl->getBody(), true);
-                            if ($curl->getCode() == 401) {
-                                $this->view->form = '<h4 class="error">' . $json['error'] . '</h4>';
-                            } else {
-                                $updater = new Updater('phire');
-                                $updater->runPost();
-                                Response::redirect(BASE_PATH . APP_URI . '/update/complete');
-                                //$this->view->form = '<h4 class="required">' . $json['message'] . '</h4>';
-                            }
+                            $updater = new Updater('phire');
+                            $updater->runPost();
+                            Response::redirect(BASE_PATH . APP_URI . '/update/complete');
                         }
                     }
                 }

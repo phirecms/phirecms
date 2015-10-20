@@ -12,15 +12,15 @@ class Updater extends AbstractUpdater
     public function update()
     {
         file_put_contents(
-            __DIR__ . '/../..' . CONTENT_PATH . '/updates/phire-cms.zip',
-            fopen('http://updates.phirecms.org/releases/phire/phire-cms.zip', 'r')
+            __DIR__ . '/../..' . CONTENT_PATH . '/updates/phirecms.zip',
+            fopen('http://updates.phirecms.org/releases/phire/phirecms.zip', 'r')
         );
 
         $basePath = realpath(__DIR__ . '/../..' . CONTENT_PATH . '/updates/');
 
-        $archive  = new Archive($basePath . '/phire-cms.zip');
+        $archive  = new Archive($basePath . '/phirecms.zip');
         $archive->extract($basePath);
-        unlink(__DIR__ . '/../..' . CONTENT_PATH . '/updates/phire-cms.zip');
+        unlink(__DIR__ . '/../..' . CONTENT_PATH . '/updates/phirecms.zip');
 
         $json = json_decode(stream_get_contents(fopen('http://updates.phirecms.org/releases/phire/phire.json', 'r')), true);
 
