@@ -2,11 +2,10 @@
 
 namespace Phire\Controller\Update;
 
-use Pop\Archive\Archive;
-use Pop\Http\Client\Curl;
 use Phire\Controller\AbstractController;
 use Phire\Form;
 use Phire\Updater;
+use Pop\Http\Client\Curl;
 use Pop\Http\Response;
 
 class IndexController extends AbstractController
@@ -31,7 +30,7 @@ class IndexController extends AbstractController
             if (($this->request->getQuery('update') == 1) &&
                 is_writable(__DIR__ . '/../../../../') && is_writable(__DIR__ . '/../../../..' . APP_PATH)) {
                 $updater = new Updater('phire');
-                $updater->update();
+                $updater->runUpdate();
                 $updater->runPost();
                 Response::redirect(BASE_PATH . APP_URI . '/update/complete');
             // Else, use FTP fpr updating

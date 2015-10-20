@@ -9,7 +9,11 @@ use Pop\File\Dir;
 class Updater extends AbstractUpdater
 {
 
-    public function update()
+    /**
+     * Method to run one-click update
+     * @throws \Pop\Archive\Exception
+     */
+    public function runUpdate()
     {
         file_put_contents(
             __DIR__ . '/../..' . CONTENT_PATH . '/updates/phirecms.zip',
