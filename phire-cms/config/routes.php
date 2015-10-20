@@ -80,11 +80,11 @@ return [
                 'resource'   => 'update'
             ]
         ],
-        '/update/run[/]' => [
+        '/update/complete[/]' => [
             'controller' => 'Phire\Controller\Update\IndexController',
-            'action'     => 'run',
+            'action'     => 'complete',
             'acl'        => [
-                'resource'   => 'run'
+                'resource'   => 'update'
             ]
         ],
         '/modules[/]' => [

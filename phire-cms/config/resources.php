@@ -8,9 +8,7 @@ return [
     'unsubscribe' => [],
     'dashboard'   => [],
     'config'      => [],
-    'update'      => [
-        'run'
-    ],
+    'update'      => [],
     'modules'     => [
         'index',
         'install',

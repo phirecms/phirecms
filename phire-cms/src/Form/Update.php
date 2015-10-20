@@ -46,7 +46,7 @@ class Update extends Form
             if ($curl->getCode() == 401) {
                 $json = json_decode($curl->getBody(), true);
                 $this->getElement('ftp_address')
-                    ->addValidator(new Validator\NotEqual($this->ftp_address, $json['error']));
+                     ->addValidator(new Validator\NotEqual($this->ftp_address, $json['error']));
             }
         }
 

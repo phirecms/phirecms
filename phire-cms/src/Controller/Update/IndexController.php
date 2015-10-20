@@ -3,7 +3,6 @@
 namespace Phire\Controller\Update;
 
 use Pop\Archive\Archive;
-use Pop\File\Dir;
 use Pop\Http\Client\Curl;
 use Phire\Controller\AbstractController;
 use Phire\Form;
@@ -17,7 +16,7 @@ class IndexController extends AbstractController
      * Update URL
      * @var string
      */
-    protected $url = 'http://updates.phirecms.org/releases/phire/phirecms.zip';
+    protected $url = 'http://updates.phirecms.org/releases/phire/phire-cms.zip';
 
     /**
      * Index action method
@@ -29,24 +28,13 @@ class IndexController extends AbstractController
         // Switch this to < for validation when live
         if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) == 0) {
             // Complete one-click updating
-            if (($this->request->getQuery('update') == 1) && is_writable(__DIR__ . '/../../../../') && is_writable(__DIR__ . '/../../../..' . APP_PATH)) {
-                file_put_contents(__DIR__ . '/../../../../' . CONTENT_PATH . '/updates/phire-cms.zip', fopen('http://updates.phirecms.org/releases/phire/phire-cms.zip', 'r'));
-                $basePath = realpath(__DIR__ . '/../../../../' . CONTENT_PATH . '/updates/');
-                $archive  = new Archive($basePath . '/phire-cms.zip');
-                $archive->extract($basePath);
-                unlink(__DIR__ . '/../../../../' . CONTENT_PATH . '/updates/phire-cms.zip');
-                $json = json_decode(stream_get_contents(fopen('http://updates.phirecms.org/releases/phire/phire.json', 'r')), true);
-                foreach ($json as $file) {
-                    echo 'Updating: ' . $file . '<br />' . PHP_EOL;
-                    copy(__DIR__ . '/../../../../' . CONTENT_PATH . '/updates/phire-cms/' . $file, __DIR__ . '/../../../' . $file);
-                }
-                $dir = new Dir(__DIR__ . '/../../../../' . CONTENT_PATH . '/updates/phire-cms/');
-                $dir->emptyDir(true);
-
-                $updater = new Updater();
-                $updater->run();
-
-                echo 'Done!';
+            if (($this->request->getQuery('update') == 1) &&
+                is_writable(__DIR__ . '/../../../../') && is_writable(__DIR__ . '/../../../..' . APP_PATH)) {
+                $updater = new Updater('phire');
+                $updater->update();
+                $updater->runPost();
+                Response::redirect(BASE_PATH . APP_URI . '/update/complete');
+            // Else, use FTP fpr updating
             } else {
                 $this->prepareView('phire/update.phtml');
                 $this->view->title = 'Update Phire';
@@ -80,10 +68,10 @@ class IndexController extends AbstractController
                         } else {
                             // Complete update via FTP
                             $basePath = realpath(__DIR__ . '/../../../..' . CONTENT_PATH);
-                            $archive  = new Archive($basePath . '/phirecms.zip');
+                            $archive  = new Archive($basePath . '/phire-cms.zip');
                             $archive->extract($basePath);
                             chmod($basePath . '/phire-cms-new', 0777);
-                            unlink(__DIR__ . '/../../../..' . CONTENT_PATH . '/phirecms.zip');
+                            unlink(__DIR__ . '/../../../..' . CONTENT_PATH . '/phire-cms.zip');
 
                             $curl = new Curl('http://updates.phirecms.org/fetch/' . $fields['resource'] . '?move=1');
                             $curl->setFields($fields);
@@ -94,7 +82,10 @@ class IndexController extends AbstractController
                             if ($curl->getCode() == 401) {
                                 $this->view->form = '<h4 class="error">' . $json['error'] . '</h4>';
                             } else {
-                                $this->view->form = '<h4 class="required">' . $json['message'] . '</h4>';
+                                $updater = new Updater('phire');
+                                $updater->runPost();
+                                Response::redirect(BASE_PATH . APP_URI . '/update/complete');
+                                //$this->view->form = '<h4 class="required">' . $json['message'] . '</h4>';
                             }
                         }
                     }
@@ -108,13 +99,17 @@ class IndexController extends AbstractController
     }
 
     /**
-     * Run system updater action method
+     * Complete action method
      *
      * @return void
      */
-    public function run()
+    public function complete()
     {
-
+        $this->prepareView('phire/update.phtml');
+        $this->view->title    = 'Update Phire : Complete!';
+        $this->view->complete = true;
+        $this->view->version  = \Phire\Module::VERSION;
+        $this->send();
     }
 
 }
