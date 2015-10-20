@@ -9,19 +9,19 @@ use Pop\File\Dir;
 abstract class AbstractUpdater
 {
 
-    protected $resource        = null;
+    protected $module          = null;
     protected $previousUpdates = [];
 
-    public function __construct($resource)
+    public function __construct($module = null)
     {
-        $this->setResource($resource);
+        $this->setModule($module);
 
         $updates = null;
 
-        if ($this->resource == 'phire') {
+        if (null === $this->module) {
             $updates = Table\Config::findById('updates')->value;
         } else {
-            $module = Table\Modules::findBy(['folder' => $this->resource]);
+            $module = Table\Modules::findBy(['folder' => $this->module]);
             if (isset($module->id)) {
                 $updates = $module->updates;
             }
@@ -32,15 +32,15 @@ abstract class AbstractUpdater
         }
     }
 
-    public function setResource($resource)
+    public function setModule($module = null)
     {
-        $this->resource = $resource;
+        $this->module = $module;
         return $this;
     }
 
-    public function getResource()
+    public function getModule()
     {
-        return $this->resource;
+        return $this->module;
     }
 
     public function getPreviousUpdates()
@@ -91,7 +91,7 @@ abstract class AbstractUpdater
             $method = 'update' . $i;
         }
 
-        if ($this->resource == 'phire') {
+        if (null === $this->module) {
             $updates = Table\Config::findById('updates');
             $updates->value = implode('|', $this->previousUpdates);
             $updates->save();
@@ -100,7 +100,7 @@ abstract class AbstractUpdater
             $updated->value = date('Y-m-d H:i:s');
             $updated->save();
         } else {
-            $module = Table\Modules::findBy(['folder' => $this->resource]);
+            $module = Table\Modules::findBy(['folder' => $this->module]);
             if (isset($module->id)) {
                 $module->updates    = implode('|', $this->previousUpdates);
                 $module->updated_on = date('Y-m-d H:i:s');

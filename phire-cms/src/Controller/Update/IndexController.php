@@ -23,23 +23,22 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        // Switch this to < for validation when live
-        if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) == 0) {
+        if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) < 0) {
             // Complete one-click updating
             if (($this->request->getQuery('update') == 2) &&
                 is_writable(__DIR__ . '/../../../../') && is_writable(__DIR__ . '/../../../..' . APP_PATH)) {
                 clearstatcache();
 
-                $updater = new Updater('phire');
+                $updater = new Updater();
                 $updater->runPost();
                 $this->redirect(BASE_PATH . APP_URI . '/update/complete');
-            // Get updates one-click updating
+            // Get updates via one-click updating
             } else if (($this->request->getQuery('update') == 1) &&
                 is_writable(__DIR__ . '/../../../../') && is_writable(__DIR__ . '/../../../..' . APP_PATH)) {
-                $updater = new Updater('phire');
+                $updater = new Updater();
                 $updater->getUpdate();
                 $this->redirect(BASE_PATH . APP_URI . '/update?update=2');
-            // Else, use FTP for updating
+            // Else, use FTP to get updates
             } else {
                 $this->prepareView('phire/update.phtml');
                 $this->view->title = 'Update Phire';
@@ -74,7 +73,7 @@ class IndexController extends AbstractController
                             $this->view->form = '<h4 class="error">' . $json['error'] . '</h4>';
                         } else {
                             clearstatcache();
-                            $updater = new Updater('phire');
+                            $updater = new Updater();
                             $updater->runPost();
                             $this->redirect(BASE_PATH . APP_URI . '/update/complete');
                         }
