@@ -66,8 +66,8 @@ class IndexController extends AbstractController
         $module = new Model\Module();
         $module->getById($id);
 
-        // Switch this to < for validation when live
-        if (version_compare($module->version, $this->sess->updates->modules[$module->folder]) == 0) {
+        if (isset($module->id) && isset($this->sess->updates->modules[$module->folder]) &&
+            (version_compare($module->version, $this->sess->updates->modules[$module->folder]) < 0)) {
             if (($this->request->getQuery('update') == 2) &&
                 is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules') &&
                 is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder) &&
@@ -93,6 +93,15 @@ class IndexController extends AbstractController
                 $this->view->module_id             = $module->id;
                 $this->view->module_name           = $module->folder;
                 $this->view->module_update_version = $this->sess->updates->modules[$module->folder];
+
+                if (is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules') &&
+                    is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder) &&
+                    is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder . '.zip')) {
+                    $this->view->writable = true;
+                } else {
+                    $this->view->writable = false;
+                }
+
                 $this->send();
             }
         } else {
@@ -111,12 +120,16 @@ class IndexController extends AbstractController
         $module = new Model\Module();
         $module->getById($id);
 
-        $this->prepareView('phire/modules/update.phtml');
-        $this->view->title       = 'Update Module ' . $module->folder . ' : Complete!';
-        $this->view->complete    = true;
-        $this->view->module_name = $module->folder;
-        $this->view->version     = $module->version;
-        $this->send();
+        if (isset($module->id)) {
+            $this->prepareView('phire/modules/update.phtml');
+            $this->view->title       = 'Update Module ' . $module->folder . ' : Complete!';
+            $this->view->complete    = true;
+            $this->view->module_name = $module->folder;
+            $this->view->version     = $module->version;
+            $this->send();
+        } else {
+            $this->redirect(BASE_PATH . APP_URI . '/modules');
+        }
     }
 
     /**
