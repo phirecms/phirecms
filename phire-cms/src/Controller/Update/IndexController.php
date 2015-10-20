@@ -28,6 +28,7 @@ class IndexController extends AbstractController
             // Complete one-click updating
             if (($this->request->getQuery('update') == 1) &&
                 is_writable(__DIR__ . '/../../../../') && is_writable(__DIR__ . '/../../../..' . APP_PATH)) {
+                clearstatcache();
                 $updater = new Updater('phire');
                 $updater->runUpdate();
                 $updater->runPost();
@@ -66,6 +67,7 @@ class IndexController extends AbstractController
                         if ($curl->getCode() == 401) {
                             $this->view->form = '<h4 class="error">' . $json['error'] . '</h4>';
                         } else {
+                            clearstatcache();
                             $updater = new Updater('phire');
                             $updater->runPost();
                             $this->redirect(BASE_PATH . APP_URI . '/update/complete');
