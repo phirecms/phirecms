@@ -295,5 +295,10 @@ jax(document).ready(function(){
             }
         }
     }
+    if (jax('#update-form')[0] != undefined) {
+        jax('#update-form').submit(function(){
+            jax('#loading').show();
+        });
+    }
 });
 
