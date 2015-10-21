@@ -57,7 +57,8 @@ abstract class AbstractUpdater
     {
         if (null === $module) {
             if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/assets/phire')) {
-                unlink(__DIR__ . '/../..' . CONTENT_PATH . '/assets/phire');
+                $dir = new Dir(__DIR__ . '/../..' . CONTENT_PATH . '/assets/phire');
+                $dir->emptyDir(true);
             }
 
             file_put_contents(
@@ -93,7 +94,8 @@ abstract class AbstractUpdater
             }
 
             if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/assets/' . $module)) {
-                unlink(__DIR__ . '/../..' . CONTENT_PATH . '/assets/' . $module);
+                $dir = new Dir(__DIR__ . '/../..' . CONTENT_PATH . '/assets/' . $module);
+                $dir->emptyDir(true);
             }
 
             file_put_contents(
