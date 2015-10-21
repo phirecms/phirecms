@@ -6,7 +6,7 @@ use Phire\Table;
 use Pop\Archive\Archive;
 use Pop\File\Dir;
 
-abstract class AbstractUpdater
+class BaseUpdater
 {
 
     protected $module          = null;

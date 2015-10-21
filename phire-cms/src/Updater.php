@@ -2,7 +2,7 @@
 
 namespace Phire;
 
-class Updater extends AbstractUpdater
+class Updater extends BaseUpdater
 {
 
 }
