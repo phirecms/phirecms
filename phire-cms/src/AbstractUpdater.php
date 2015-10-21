@@ -56,6 +56,10 @@ abstract class AbstractUpdater
     public function getUpdate($module = null)
     {
         if (null === $module) {
+            if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/assets/phire')) {
+                unlink(__DIR__ . '/../..' . CONTENT_PATH . '/assets/phire');
+            }
+
             file_put_contents(
                 __DIR__ . '/../..' . CONTENT_PATH . '/updates/phirecms.zip',
                 fopen('http://updates.phirecms.org/releases/phire/phirecms.zip', 'r')
@@ -70,7 +74,9 @@ abstract class AbstractUpdater
             $json = json_decode(stream_get_contents(fopen('http://updates.phirecms.org/releases/phire/phire.json', 'r')), true);
 
             foreach ($json as $file) {
-                echo 'Updating: ' . $file . '<br />' . PHP_EOL;
+                if (!file_exists(__DIR__ . '/../' . $file) && !file_exists(dirname(__DIR__ . '/../' . $file))) {
+                    mkdir(dirname(__DIR__ . '/../' . $file), 0755, true);
+                }
                 copy(__DIR__ . '/../..' . CONTENT_PATH . '/updates/phire-cms/' . $file, __DIR__ . '/../' . $file);
             }
 
@@ -84,6 +90,10 @@ abstract class AbstractUpdater
             if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module)) {
                 $dir = new Dir(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module);
                 $dir->emptyDir(true);
+            }
+
+            if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/assets/' . $module)) {
+                unlink(__DIR__ . '/../..' . CONTENT_PATH . '/assets/' . $module);
             }
 
             file_put_contents(
