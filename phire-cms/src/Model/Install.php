@@ -5,6 +5,7 @@ namespace Phire\Model;
 use Phire\Table;
 use Pop\Db\Db;
 use Pop\Mail\Mail;
+use Pop\Http\Client\Curl;
 
 class Install extends AbstractModel
 {
@@ -153,6 +154,39 @@ class Install extends AbstractModel
         $config = Table\Config::findById('installed_on');
         $config->value = (string)date('Y-m-d H:i:s');
         $config->save();
+
+        $this->sendStats();
+    }
+
+    /**
+     * Send installation stats
+     *
+     * @return void
+     */
+    protected function sendStats()
+    {
+        $headers = [
+            'Authorization: ' . base64_encode('phire-stats-' . time()),
+            'User-Agent: ' . (isset($_SERVER['HTTP_USER_AGENT']) ?
+                $_SERVER['HTTP_USER_AGENT'] : 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:41.0) Gecko/20100101 Firefox/41.0')
+        ];
+
+        $curl = new Curl('http://stats.phirecms.org/system', [
+            CURLOPT_HTTPHEADER => $headers,
+        ]);
+
+        $curl->setPost(true);
+        $curl->setFields([
+            'version'   => \Phire\Module::VERSION,
+            'domain'    => (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ''),
+            'ip'        => (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : ''),
+            'os'        => PHP_OS,
+            'server'    => (isset($_SERVER['SERVER_SOFTWARE']) ? $_SERVER['SERVER_SOFTWARE'] : ''),
+            'php'       => PHP_VERSION,
+            'db'        => DB_INTERFACE . ((DB_INTERFACE == 'pdo') ? ' (' . DB_TYPE . ')' : '')
+        ]);
+
+        $curl->send();
     }
 
 }

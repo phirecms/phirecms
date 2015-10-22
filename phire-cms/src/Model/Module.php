@@ -6,6 +6,7 @@ use Phire\Table;
 use Pop\Archive\Archive;
 use Pop\Db\Db;
 use Pop\File\Dir;
+use Pop\Http\Client\Curl;
 use Pop\Nav\Nav;
 use Pop\Web\Session;
 
@@ -208,6 +209,8 @@ class Module extends AbstractModel
                         ]);
                         $mod->save();
 
+                        $this->sendStats($name, $version);
+
                         // Execute any SQL that came with the module
                         if (null !== $sqlFile) {
                             Db::install($sqlFile, [
@@ -228,17 +231,6 @@ class Module extends AbstractModel
                 }
             }
         }
-    }
-
-    /**
-     * Update module
-     *
-     * @param  int $id
-     * @return void
-     */
-    public function update($id)
-    {
-        // Update the module
     }
 
     /**
@@ -396,6 +388,40 @@ class Module extends AbstractModel
         }
 
         return $tables;
+    }
+
+    /**
+     * Send installation stats
+     *
+     * @param  string $name
+     * @param  string $version
+     * @return void
+     */
+    protected function sendStats($name, $version)
+    {
+        $headers = [
+            'Authorization: ' . base64_encode('phire-stats-' . time()),
+            'User-Agent: ' . (isset($_SERVER['HTTP_USER_AGENT']) ?
+                $_SERVER['HTTP_USER_AGENT'] : 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:41.0) Gecko/20100101 Firefox/41.0')
+        ];
+
+        $curl = new Curl('http://stats.phirecms.org/module', [
+            CURLOPT_HTTPHEADER => $headers,
+        ]);
+
+        $curl->setPost(true);
+        $curl->setFields([
+            'name'      => $name,
+            'version'   => $version,
+            'domain'    => (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ''),
+            'ip'        => (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : ''),
+            'os'        => PHP_OS,
+            'server'    => (isset($_SERVER['SERVER_SOFTWARE']) ? $_SERVER['SERVER_SOFTWARE'] : ''),
+            'php'       => PHP_VERSION,
+            'db'        => DB_INTERFACE . ((DB_INTERFACE == 'pdo') ? ' (' . DB_TYPE . ')' : '')
+        ]);
+
+        $curl->send();
     }
 
 }
