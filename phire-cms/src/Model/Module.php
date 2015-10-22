@@ -1,5 +1,16 @@
 <?php
+/**
+ * Phire CMS (http://www.phirecms.org/)
+ *
+ * @link       https://github.com/phirecms/phirecms
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2015 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.phirecms.org/license     New BSD License
+ */
 
+/**
+ * @namespace
+ */
 namespace Phire\Model;
 
 use Phire\Table;
@@ -10,6 +21,16 @@ use Pop\Http\Client\Curl;
 use Pop\Nav\Nav;
 use Pop\Web\Session;
 
+/**
+ * Module Model class
+ *
+ * @category   Phire
+ * @package    Phire
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2015 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.phirecms.org/license     New BSD License
+ * @version    2.0.0
+ */
 class Module extends AbstractModel
 {
 

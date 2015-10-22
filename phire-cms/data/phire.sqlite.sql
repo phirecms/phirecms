@@ -1,5 +1,5 @@
 --
--- Phire CMS 2.0 SQLite Database
+-- Phire CMS 2 SQLite Database
 --
 
 -- --------------------------------------------------------

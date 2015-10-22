@@ -1,5 +1,5 @@
 --
--- Phire CMS 2.0 PostgreSQL Database
+-- Phire CMS 2 PostgreSQL Database
 --
 
 -- --------------------------------------------------------

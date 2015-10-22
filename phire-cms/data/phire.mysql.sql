@@ -1,5 +1,5 @@
 --
--- Phire CMS 2.0 MySQL Database
+-- Phire CMS 2 MySQL Database
 --
 
 -- --------------------------------------------------------
