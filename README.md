@@ -18,7 +18,7 @@ functionality of Phire.
 
 REQUIREMENTS
 ------------
-The basic requirements for Phire CMS 2.0.0rc1 are as follows:
+The basic requirements for Phire CMS 2.0.0 are as follows:
 
 * PHP 5.4.0+
 * Apache 2+, IIS 7+, or any web server with URL rewrite support
