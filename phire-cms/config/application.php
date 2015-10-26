@@ -5,12 +5,8 @@ $config = [
     'resources' => include 'resources.php',
     'forms'     => include 'forms.php',
     'services' => [
-        'session' => [
-            'call' => 'Pop\Web\Session::getInstance'
-        ],
-        'acl' => [
-            'call' => 'Pop\Acl\Acl'
-        ],
+        'session'   => 'Pop\Web\Session::getInstance',
+        'acl'       => 'Pop\Acl\Acl',
         'nav.phire' => [
             'call'   => 'Pop\Nav\Nav',
             'params' => [
