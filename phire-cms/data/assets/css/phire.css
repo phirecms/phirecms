@@ -552,7 +552,7 @@ input[type=submit]:focus, button:focus {
 }
 
 #role-form-field-group-2 > dt, #role-form-field-group-2 > dd {
-    width: 99.5%;
+    width: 98%;
 }
 
 #role-form-field-group-3 > dd > select {
