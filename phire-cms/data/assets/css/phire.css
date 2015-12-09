@@ -224,7 +224,7 @@ input[type=submit]:focus, button:focus {
     margin: 0;
     padding: 0;
     display: block;
-    width: 270px;
+    width: 300px;
     min-height: 160px;
 }
 
@@ -293,12 +293,12 @@ input[type=submit]:focus, button:focus {
 
 #forgot-form > dl > dd, #unsubscribe-form > dl > dd {
     padding: 0 0 18px 0;
-    width: 100%;
+    width: 98%;
 }
 
 #profile-form > dl > dd, #unsubscribe-user-form > dl > dd {
     padding: 0 2px 18px 2px;
-    width: 100%;
+    width: 98%;
 }
 
 #login-form > dl > dd > input[type=text], #login-form > dl > dd > input[type=password],
