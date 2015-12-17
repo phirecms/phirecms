@@ -29,6 +29,11 @@
 <?php endforeach; ?>
 <?php endif; ?>
 
+<?php if (isset($headers)): ?>
+<?php foreach ($headers as $header): ?>
+<?php include $header; ?>
+<?php endforeach; ?>
+<?php endif; ?>
 </head>
 
 <body>

@@ -73,7 +73,9 @@ $config = [
             ]
         ]
     ],
+    'headers'              => [],
     'dashboard'            => [],
+    'footers'              => [],
     'system_title'         => 'Phire CMS',
     'force_ssl'            => false,
     'navigation_vertical'  => true,

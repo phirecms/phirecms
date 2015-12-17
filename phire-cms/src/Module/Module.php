@@ -73,10 +73,22 @@ class Module extends \Pop\Module\Module
                 $this->application->mergeConfig(['forms' => $this->config['forms']]);
             }
 
+            // If the module has a header include
+            if (isset($this->config['header'])) {
+                $header = array_merge([$this->config['header']], $this->application->config()['headers']);
+                $this->application->mergeConfig(['headers' => $header]);
+            }
+
             // If the module has a dashboard include
             if (isset($this->config['dashboard'])) {
                 $dashboard = array_merge([$this->config['dashboard']], $this->application->config()['dashboard']);
                 $this->application->mergeConfig(['dashboard' => $dashboard]);
+            }
+
+            // If the module has a footer include
+            if (isset($this->config['footer'])) {
+                $footer = array_merge([$this->config['footer']], $this->application->config()['footers']);
+                $this->application->mergeConfig(['footers' => $footer]);
             }
 
             // Add the nav params back to the service

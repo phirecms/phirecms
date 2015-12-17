@@ -17,6 +17,7 @@ html {
 }
 
 body {
+    position: relative;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -120,7 +121,7 @@ input[type=file] {
 
 select {
     margin: 0;
-    padding: 4px 32px 4px 2px;
+    padding: 4px 28px 4px 2px;
     font-family: "Source Sans Pro", sans-serif;
     border: solid 1px #c9c9c9;
     background-color: #d3d3d3;
@@ -140,7 +141,7 @@ select::-ms-expand {
 }
 
 option {
-    padding: 2px;
+    padding: 2px 4px 2px 4px;
 }
 
 textarea {
@@ -197,7 +198,7 @@ input[type=submit]:focus, button:focus {
     box-shadow: 0 0 10px 10px #dbd8d5;
     width: 270px;
     min-height: 160px;
-    border-radius: 8px;
+    border-radius: 6px;
     background-image: url(../img/phire-seal.png);
     background-position: center 40px;
     background-repeat: no-repeat;
@@ -637,7 +638,7 @@ input[type=submit]:focus, button:focus {
     font-size: 0.9em;
     color: #0c96d6;
     background-color: #bde8fc;
-    border-radius: 6px;
+    border-radius: 4px;
     box-shadow: 0 0 10px 3px #a6b5bc;
 }
 
@@ -669,7 +670,7 @@ input[type=submit]:focus, button:focus {
 
 #user-search-form > div > select {
     margin: 0;
-    padding: 0 4px 0 2px;
+    padding: 0 28px 0 2px;
     color: #615357;
     font-size: 0.825em;
     height: 22px;
