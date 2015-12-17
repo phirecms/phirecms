@@ -7,8 +7,8 @@
 html {
     margin: 0;
     padding: 0;
-    font-family: "Roboto", Arial, sans-serif;
-    font-size: 0.825em;
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    font-size: 0.9em;
     color: #727170;
     box-shadow: inset 0 0 120px 90px #d1cecb;
     background-color: #f4f1ed;
@@ -101,28 +101,31 @@ fieldset {
 input[type=text], input[type=email], input[type=password] {
     margin: 0;
     padding: 8px 6px 8px 6px;
-    font-family: "Roboto", sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
+    border-radius: 4px;
     font-size: 1.0em;
-    border: solid 1px #999;
-    background-color: #ddd;
+    border: solid 1px #c9c9c9;
+    background-color: #d3d3d3;
 }
 
 input[type=file] {
     margin: 0;
     padding: 3px;
-    font-family: "Roboto", sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
+    border-radius: 4px;
     font-size: 0.9em;
-    border: solid 1px #999;
-    background-color: #ddd;
+    border: solid 1px #c9c9c9;
+    background-color: #d3d3d3;
 }
 
 select {
     margin: 0;
     padding: 4px 32px 4px 2px;
-    font-family: "Roboto", sans-serif;
-    border: solid 1px #999;
-    background-color: #ddd;
+    font-family: "Source Sans Pro", sans-serif;
+    border: solid 1px #c9c9c9;
+    background-color: #d3d3d3;
     min-width: 60px;
+    border-radius: 4px;
     -webkit-appearance: none;
     -moz-appearance: none;
     text-indent: 1px;
@@ -143,15 +146,17 @@ option {
 textarea {
     margin: 0 0 10px 0;
     padding: 3px;
-    background-color: #ddd;
-    border: solid 1px #999;
+    background-color: #d3d3d3;
+    border: solid 1px #c9c9c9;
+    border-radius: 4px;
     font-size: 0.825em;
     font-family: "Courier New", "Courier10 BT", courier, serif;
 }
 
 input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, input[type=file]:focus, select:focus, textarea:focus {
     border: solid 1px #52b2e5;
-    background-color: #fff;
+    background-color: #efefef;
+    box-shadow: 0 0 4px 1px #8cd6ff;
 }
 
 input[type=submit]:focus, button:focus {
@@ -178,9 +183,9 @@ input[type=submit]:focus, button:focus {
     overflow: auto;
 }
 
-#login-form-field-group-1 > dd {
+#login-form-field-group-1 > dd, #login-form-field-group-2 > dd {
     clear: left;
-    padding: 0 0 20px 0;
+    padding: 4px 4px 20px 4px;
 }
 
 #error {
@@ -189,8 +194,10 @@ input[type=submit]:focus, button:focus {
     margin: 125px auto 25px auto;
     padding: 130px 35px 35px 35px;
     display: block;
+    box-shadow: 0 0 10px 10px #dbd8d5;
     width: 270px;
     min-height: 160px;
+    border-radius: 8px;
     background-image: url(../img/phire-seal.png);
     background-position: center 40px;
     background-repeat: no-repeat;
@@ -201,8 +208,10 @@ input[type=submit]:focus, button:focus {
     margin: 0 auto 25px auto;
     padding: 150px 35px 35px 35px;
     display: block;
+    box-shadow: 0 0 10px 10px #dbd8d5;
     width: 270px;
     min-height: 160px;
+    border-radius: 8px;
     background-image: url(../img/phire-seal.png);
     background-position: center 40px;
     background-repeat: no-repeat;
@@ -213,8 +222,10 @@ input[type=submit]:focus, button:focus {
     margin: 0 auto 25px auto;
     padding: 150px 35px 35px 35px;
     display: block;
+    box-shadow: 0 0 10px 10px #dbd8d5;
     width: 80%;
     min-height: 500px;
+    border-radius: 8px;
     background-image: url(../img/phire-seal.png);
     background-position: center 40px;
     background-repeat: no-repeat;
@@ -238,8 +249,8 @@ input[type=submit]:focus, button:focus {
 }
 
 #install-form > dl > dt, #install-config-form > dl > dt, #install > #register-form > dl > dt,
-#forgot-form > dl > dt, #unsubscribe-form > dl > dt {
-    padding: 2px 0 2px 0;
+#forgot-form > dl > dt, #unsubscribe-form > dl > dt, #login-form > dl > dt  {
+    padding: 2px 4px 2px 4px;
 }
 
 #install-form > dl > dd, #install > #register-form dl > dd {
@@ -267,7 +278,7 @@ input[type=submit]:focus, button:focus {
     display: block;
     font-size: 1.2em;
     font-weight: normal;
-    font-family: "Roboto", Arial, sans-serif;
+    font-family: "Source Sans Pro", Arial, sans-serif;
 }
 
 #install-config-form > dl > dd {
@@ -293,13 +304,13 @@ input[type=submit]:focus, button:focus {
 }
 
 #forgot-form > dl > dd, #unsubscribe-form > dl > dd {
-    padding: 0 0 18px 0;
-    width: 98%;
+    padding: 0 4px 18px 4px;
+    width: 96%;
 }
 
 #profile-form > dl > dd, #unsubscribe-user-form > dl > dd {
-    padding: 0 2px 18px 2px;
-    width: 98%;
+    padding: 0 4px 18px 4px;
+    width: 96%;
 }
 
 #login-form > dl > dd > input[type=text], #login-form > dl > dd > input[type=password],
@@ -307,19 +318,19 @@ input[type=submit]:focus, button:focus {
 #profile-form > dl > dd > input[type=text], #profile-form > dl > dd > input[type=email],
 #profile-form > dl > dd > input[type=password],
 #unsubscribe-user-form > dl > dd > input[type=email] {
-    width: 256px;
+    width: 248px;
     display: block;
 }
 
 #login-form > dl > dd > input[type=submit], #forgot-form > dl > dd > input[type=submit],
 #unsubscribe-form > dl > dd > input[type=submit], #profile-form > dl > dd > input[type=submit],
 #unsubscribe-user-form > dl > dd > input[type=submit] {
-    width: 270px;
+    width: 262px;
     padding: 10px 0 10px 0;
     display: block;
     font-size: 1.2em;
     font-weight: normal;
-    font-family: "Roboto", Arial, sans-serif;
+    font-family: "Source Sans Pro", Arial, sans-serif;
 }
 
 #forgot {
@@ -467,6 +478,7 @@ input[type=submit]:focus, button:focus {
     border: none;
     text-decoration: none;
     text-transform: uppercase;
+    border-radius: 4px;
     font-size: 0.75em;
     background-color: #4aa1ce;
 }
@@ -625,6 +637,7 @@ input[type=submit]:focus, button:focus {
     font-size: 0.9em;
     color: #0c96d6;
     background-color: #bde8fc;
+    border-radius: 6px;
     box-shadow: 0 0 10px 3px #a6b5bc;
 }
 
@@ -648,19 +661,21 @@ input[type=submit]:focus, button:focus {
     color: #666;
     font-size: 0.825em;
     background-color: #fff;
-    border: solid 1px #999;
+    border: solid 1px #aaa;
+    border-radius: 4px;
     float: right;
     display: block;
 }
 
 #user-search-form > div > select {
     margin: 0;
-    padding: 0 32px 0 2px;
+    padding: 0 4px 0 2px;
     color: #615357;
     font-size: 0.825em;
     height: 22px;
     background-color: #fff;
-    border: solid 1px #999;
+    border: solid 1px #aaa;
+    border-radius: 4px;
     float: right;
     display: block;
 }
@@ -679,8 +694,9 @@ input[type=submit]:focus, button:focus {
     float: right;
     display: block;
     color: #444;
+    border-radius: 4px;
     border: solid 1px #aaa;
-    background: linear-gradient(#dedede, #aaa);
+    background: linear-gradient(#dedede, #ababab);
     background-color: #ddd;
 }
 
@@ -858,11 +874,12 @@ input[type=submit]:focus, button:focus {
     padding: 1px;
     width: 20px;
     height: 17px;
-    color: #aaa;
+    color: #666;
     text-align: center;
     font-size: 0.9em;
     background-color: #fff;
     border: solid 1px #aaa;
+    border-radius: 4px;
 }
 
 .page-links > a {
@@ -876,6 +893,7 @@ input[type=submit]:focus, button:focus {
     text-decoration: none;
     color: #666;
     background-color: #ddd;
+    border-radius: 4px;
 }
 
 .page-links > a:hover {
@@ -958,8 +976,9 @@ th.text-center, td.text-center {
     font-weight: normal;
     font-size: 0.9em;
     background-color: #4aa1ce;
+    border-radius: 4px;
     border: none;
-    font-family: "Roboto", Arial, sans-serif;
+    font-family: "Source Sans Pro", Arial, sans-serif;
 }
 
 .save-btn:hover {
@@ -978,8 +997,9 @@ th.text-center, td.text-center {
     font-size: 0.9em;
     width: 308px;
     background-color: #4aa1ce;
+    border-radius: 4px;
     border: none;
-    font-family: "Roboto", Arial, sans-serif;
+    font-family: "Source Sans Pro", Arial, sans-serif;
 }
 
 .update-btn:hover {
@@ -1004,8 +1024,9 @@ th.text-center, td.text-center {
     font-weight: normal;
     font-size: 0.9em;
     background-color: #7a7a7a;
+    border-radius: 4px;
     border: none;
-    font-family: "Roboto", Arial, sans-serif;
+    font-family: "Source Sans Pro", Arial, sans-serif;
 }
 
 .process-btn:hover {
