@@ -64,15 +64,6 @@ class Module extends Module\Module
     {
         parent::register($application);
 
-        // Load assets, if they haven't been loaded already
-        $this->loadAssets(__DIR__ . '/../data/assets', 'phire');
-        sort($this->assets['js']);
-        sort($this->assets['css']['link']);
-        sort($this->assets['css']['import']);
-
-        // Load any custom/override assets
-        $this->loadAssets($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/assets', 'phire-custom', true);
-
         // Set the database
         if ($this->application->services()->isAvailable('database')) {
             Record::setDb($this->application->getService('database'));
@@ -80,7 +71,27 @@ class Module extends Module\Module
         } else {
             $db = false;
         }
+
         $this->application->mergeConfig(['db' => $db]);
+
+        // Load assets, if they haven't been loaded already
+        $this->loadAssets(__DIR__ . '/../data/assets', 'phire');
+
+        if ($db) {
+            $systemTheme = Table\Config::findById('system_theme')->value;
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/themes/' . $systemTheme)) {
+                $this->loadAssets($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/themes/' . $systemTheme, $systemTheme);
+            }
+        } else {
+            $this->loadAssets($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/themes/default', 'default');
+        }
+
+        sort($this->assets['js']);
+        sort($this->assets['css']['link']);
+        sort($this->assets['css']['import']);
+
+        // Load any custom/override assets
+        $this->loadAssets($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/assets', 'phire-custom', true);
 
         // Check PHP version
         if (version_compare(PHP_VERSION, '5.4.0') < 0) {
@@ -255,15 +266,16 @@ class Module extends Module\Module
             $toDir = $_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets/' . $to;
             if (!file_exists($toDir)) {
                 mkdir($toDir);
-                $dir = new Dir($from, true, true);
+                $dir = new Dir($from, [
+                    'absolute'  => true,
+                    'recursive' => true
+                ]);
                 $dir->copyDir($toDir, false);
             }
 
             $cssDirs     = ['css', 'styles', 'style'];
             $jsDirs      = ['js', 'scripts', 'script', 'scr'];
             $cssType     = ($import) ? 'import' : 'link';
-            $navVertical = ((null !== $this->application) && isset($this->application->config()['navigation_vertical']) &&
-                ($this->application->config()['navigation_vertical']));
 
             foreach ($cssDirs as $cssDir) {
                 if (file_exists($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets/' . $to .'/' . $cssDir)) {
@@ -273,12 +285,7 @@ class Module extends Module\Module
                             $css = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $cssDir . '/' . $cssFile;
                             if (!in_array($css, $this->assets['css'][$cssType]) && (substr($css, -4) == '.css') &&
                                 (stripos($css, 'public') === false)) {
-                                if ((($cssFile != 'phire.nav.horz.css') && ($cssFile != 'phire.nav.vert.css')) ||
-                                    (($cssFile == 'phire.nav.horz.css') && (!$navVertical)) ||
-                                    (($cssFile == 'phire.nav.vert.css') && ($navVertical))
-                                ) {
-                                    $this->assets['css'][$cssType][] = $css;
-                                }
+                                $this->assets['css'][$cssType][] = $css;
                             }
                         }
                     }

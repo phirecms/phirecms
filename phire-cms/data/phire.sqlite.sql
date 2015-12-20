@@ -32,6 +32,7 @@ INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('domain', '');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('document_root', '');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('installed_on', '0000-00-00 00:00:00');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updated_on', '0000-00-00 00:00:00');
+INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('system_theme', 'default');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('datetime_format', 'M j Y');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('pagination', '25');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updates', '');

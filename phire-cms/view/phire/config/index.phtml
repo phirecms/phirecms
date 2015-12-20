@@ -21,7 +21,7 @@ foreach($config['datetime_formats'] as $datetime):
         $checked    = 'checked="checked" ';
         $wasChecked = true;
     else:
-        $checked = '';
+        $checked    = '';
     endif;
 ?>
                     <div class="datetime-format"><input type="radio" name="datetime_format" id="datetime_format" onclick="phire.customDatetime('<?=$phireUri; ?>');" <?=$checked; ?>value="<?=$datetime; ?>" /> <span class="radio-block-span"><?=date($datetime); ?></span></div>
@@ -39,6 +39,27 @@ foreach($config['datetime_formats'] as $datetime):
                 </td>
                 <td class="no-background">
                     <input type="text" name="pagination" id="pagination" size="3" value="<?=$config['pagination']; ?>" />
+                </td>
+            </tr>
+            <tr class="no-background">
+                <td class="no-background">
+                    <strong>System Theme</strong>
+                </td>
+                <td class="no-background">
+                    <select name="system_theme" id="system_theme">
+<?php
+$wasSelected = false;
+foreach($config['system_themes'] as $system_theme):
+if ($config['system_theme'] == $system_theme):
+    $selected    = ' selected="selected"';
+    $wasSelected = true;
+else:
+    $selected = '';
+endif;
+?>
+                        <option value="<?=$system_theme; ?>"<?=$selected; ?>><?=$system_theme; ?></option>
+<?php endforeach; ?>
+                    </select>
                 </td>
             </tr>
         </table>

@@ -116,7 +116,9 @@ class Module extends AbstractModel
                 $installed[] = $module->file;
             }
 
-            $dir = new Dir($modulesPath, false, false, false);
+            $dir = new Dir($modulesPath, [
+                'filesOnly' => true
+            ]);
             foreach ($dir->getFiles() as $file) {
                 if (((substr($file, -4) == '.zip') || (substr($file, -4) == '.tgz') ||
                         (substr($file, -7) == '.tar.gz')) && (!in_array($file, $installed))

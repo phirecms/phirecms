@@ -14,6 +14,7 @@
 namespace Phire\Model;
 
 use Phire\Table;
+use Pop\File\Dir;
 use Pop\Http\Client\Curl;
 use Pop\Web\Server;
 
@@ -67,6 +68,15 @@ class Config extends AbstractModel
             'M j Y g:i A', 'm/d/Y g:i A', 'Y/m/d g:i A'
         ];
 
+        $config['system_themes'] = [];
+
+        $dir = new Dir(__DIR__ . '/../../..' . MODULES_PATH . '/phire/themes');
+        foreach ($dir->getFiles() as $file) {
+            if ($file != 'index.html') {
+                $config['system_themes'][$file] = $file;
+            }
+        }
+
         $this->data['config']  = $config;
         $this->data['modules'] = Table\Modules::findAll(['order' => 'id DESC', 'limit' => 5])->rows();
     }
@@ -119,6 +129,17 @@ class Config extends AbstractModel
         $config = Table\Config::findById('pagination');
         $config->value = (int)$post['pagination'];
         $config->save();
+
+        $config = Table\Config::findById('system_theme');
+        $oldValue = $config->value;
+        $config->value = $post['system_theme'];
+        $config->save();
+
+        if (isset($_SERVER['DOCUMENT_ROOT']) &&
+            file_exists($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets/' . $oldValue)) {
+            $dir = new Dir($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/assets/' . $oldValue);
+            $dir->emptyDir(true);
+        }
     }
 
     /**
