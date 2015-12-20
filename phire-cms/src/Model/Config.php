@@ -70,10 +70,12 @@ class Config extends AbstractModel
 
         $config['system_themes'] = [];
 
-        $dir = new Dir(__DIR__ . '/../../..' . MODULES_PATH . '/phire/themes');
-        foreach ($dir->getFiles() as $file) {
-            if ($file != 'index.html') {
-                $config['system_themes'][$file] = $file;
+        if (isset($_SERVER['DOCUMENT_ROOT'])) {
+            $dir = new Dir($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/modules/phire/themes');
+            foreach ($dir->getFiles() as $file) {
+                if ($file != 'index.html') {
+                    $config['system_themes'][$file] = $file;
+                }
             }
         }
 
