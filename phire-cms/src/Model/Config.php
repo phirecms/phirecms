@@ -79,6 +79,8 @@ class Config extends AbstractModel
             }
         }
 
+        sort($config['system_themes']);
+
         $this->data['config']  = $config;
         $this->data['modules'] = Table\Modules::findAll(['order' => 'id DESC', 'limit' => 5])->rows();
     }

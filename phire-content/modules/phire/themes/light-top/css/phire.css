@@ -688,15 +688,12 @@ input[type=submit]:focus, button:focus {
     background-color: #ddd;
 }
 
-/* Side Navigation Styles */
+/* Top Navigation Styles */
 
 #container {
     position: relative;
     min-height: 100%;
     overflow: auto;
-    background-image: url(../img/nav-back.gif);
-    background-repeat: repeat-y;
-    background-position: left top;
     background-color: #f4f1ed;
 }
 
@@ -721,30 +718,32 @@ input[type=submit]:focus, button:focus {
 #phire-nav {
     position: relative;
     z-index: 10;
-    margin: 0;
-    padding: 0 0 35px 0;
-    width: 150px;
-    min-height: 100%;
-    float: left;
+    margin: 0 auto;
+    padding: 0 0 0 2%;
+    width: 98%;
     font-size: 0.9em;
+    background-color: #d3d2d1;
 }
 
 #phire-nav > nav {
     position: relative;
-    margin: 0;
+    margin: 0 0 0 -3px;
     padding: 0;
-    display: block;
+    display: inline-block;
 }
 
 #phire-nav > nav > a {
     position: relative;
-    margin: 0;
-    padding: 10px 0 10px 37px;
-    display: block;
+    padding: 10px 35px 10px 35px;
+    display: inline-block;
     color: #808689;
-    text-align: left;
+    text-align: center;
     text-decoration: none;
-    border-bottom: solid 1px #adadad;
+    border-right: solid 1px #adadad;
+}
+
+#phire-nav > nav:first-child > a {
+    border-left: solid 1px #adadad;
 }
 
 #phire-nav > nav > a:hover {
@@ -760,14 +759,12 @@ input[type=submit]:focus, button:focus {
     position: absolute;
     display: none;
     width: 150px;
-    top: 0;
-    left: 150px;
 }
 
 #phire-nav > nav > nav > nav > a {
     position: relative;
     margin: 0;
-    padding: 10px;
+    padding: 8px 10px 8px 10px;
     display: block;
     color: #fff;
     text-align: left;
@@ -797,7 +794,7 @@ input[type=submit]:focus, button:focus {
 #phire-nav > nav > nav > nav > nav > nav > a {
     position: relative;
     margin: 0;
-    padding: 10px;
+    padding: 8px 10px 8px 10px;
     display: block;
     font-weight: normal;
     color: #111;
@@ -818,11 +815,9 @@ input[type=submit]:focus, button:focus {
 }
 
 #content {
-    margin: 0;
-    padding: 0 2% 35px 0;
-    width: calc(100% - 215px);
-    float: right;
-    height: 100%;
+    margin: 0 auto;
+    padding: 0 2% 50px 2%;
+    width: 96%;
     overflow: auto;
 }
 
@@ -830,7 +825,7 @@ input[type=submit]:focus, button:focus {
     position: absolute;
     z-index: 10000;
     right: 30px;
-    top: 120px;
+    top: 155px;
     display: none;
     opacity: 0;
     margin: 0;
@@ -851,7 +846,7 @@ input[type=submit]:focus, button:focus {
     position: absolute;
     z-index: 10000;
     right: 30px;
-    top: 120px;
+    top: 155px;
     display: none;
     opacity: 0;
     margin: 0;
@@ -866,12 +861,6 @@ input[type=submit]:focus, button:focus {
     background-image: url(../img/x-red.png);
     background-position: 10px center;
     background-repeat: no-repeat;
-}
-
-nav.nav-arrow:hover {
-    background-image: url(../img/nav-arrow-left.png);
-    background-repeat: no-repeat;
-    background-position: right center;
 }
 
 /* Class Definitions */
