@@ -50,15 +50,28 @@ foreach($config['datetime_formats'] as $datetime):
 <?php
 $wasSelected = false;
 foreach($config['system_themes'] as $system_theme):
-if ($config['system_theme'] == $system_theme):
-    $selected    = ' selected="selected"';
-    $wasSelected = true;
-else:
-    $selected = '';
-endif;
+    if ($config['system_theme'] == $system_theme):
+        $selected    = ' selected="selected"';
+        $wasSelected = true;
+    else:
+        $selected = '';
+    endif;
 ?>
                         <option value="<?=$system_theme; ?>"<?=$selected; ?>><?=$system_theme; ?></option>
 <?php endforeach; ?>
+<?php
+$wasSelected = false;
+foreach($config['custom_system_themes'] as $system_theme):
+    if ($config['system_theme'] == $system_theme):
+        $selected    = ' selected="selected"';
+        $wasSelected = true;
+    else:
+        $selected = '';
+    endif;
+?>
+                        <option value="<?=$system_theme; ?>"<?=$selected; ?>><?=$system_theme; ?></option>
+<?php endforeach; ?>
+
                     </select>
                 </td>
             </tr>

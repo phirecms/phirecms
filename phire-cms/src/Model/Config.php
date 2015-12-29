@@ -68,18 +68,27 @@ class Config extends AbstractModel
             'M j Y g:i A', 'm/d/Y g:i A', 'Y/m/d g:i A'
         ];
 
-        $config['system_themes'] = [];
+        $config['system_themes']        = [];
+        $config['custom_system_themes'] = [];
+
+        $dir = new Dir(__DIR__ . '/../../data/themes');
+        foreach ($dir->getFiles() as $file) {
+            if ($file != 'index.html') {
+                $config['system_themes'][$file] = $file;
+            }
+        }
 
         if (isset($_SERVER['DOCUMENT_ROOT'])) {
             $dir = new Dir($_SERVER['DOCUMENT_ROOT'] . BASE_PATH . CONTENT_PATH . '/modules/phire/themes');
             foreach ($dir->getFiles() as $file) {
                 if ($file != 'index.html') {
-                    $config['system_themes'][$file] = $file;
+                    $config['custom_system_themes'][$file] = $file;
                 }
             }
         }
 
         sort($config['system_themes']);
+        sort($config['custom_system_themes']);
 
         $this->data['config']  = $config;
         $this->data['modules'] = Table\Modules::findAll(['order' => 'id DESC', 'limit' => 5])->rows();

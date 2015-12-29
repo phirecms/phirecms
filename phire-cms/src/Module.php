@@ -81,9 +81,11 @@ class Module extends Module\Module
             $systemTheme = Table\Config::findById('system_theme')->value;
             if (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/themes/' . $systemTheme)) {
                 $this->loadAssets($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/themes/' . $systemTheme, $systemTheme);
+            } else if (file_exists(__DIR__ . '/../data/themes/' . $systemTheme)) {
+                $this->loadAssets(__DIR__ . '/../data/themes/' . $systemTheme, $systemTheme);
             }
         } else {
-            $this->loadAssets($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/themes/default', 'default');
+            $this->loadAssets(__DIR__ . '/../data/themes/default', 'default');
         }
 
         sort($this->assets['js']);
