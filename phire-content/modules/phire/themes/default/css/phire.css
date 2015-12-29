@@ -1326,3 +1326,19 @@ input[type=text].order-field {
     font-size: 0.825em;
     text-align: center;
 }
+
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float: left;
+}
+
+.clear-right {
+    clear: right;
+}
+
+.clear-left {
+    clear: left;
+}
