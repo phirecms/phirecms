@@ -634,13 +634,13 @@ input[type=submit]:focus, button:focus {
     box-shadow: 0 0 10px 3px #a6b5bc;
 }
 
-#asset-search-form {
+#asset-search-form, #asset-upload-form {
     margin: 32px 0 0 0;
     padding: 0;
     float: right;
 }
 
-#asset-search-form > div {
+#asset-search-form > div, #asset-upload-form > div {
     margin: 0 0 0 5px;
     padding: 0;
     float: right;
@@ -651,6 +651,18 @@ input[type=submit]:focus, button:focus {
     margin: 0;
     padding: 2px 4px 2px 4px;
     height: 16px;
+    color: #666;
+    font-size: 0.825em;
+    background-color: #fff;
+    border: solid 1px #aaa;
+    float: right;
+    display: block;
+}
+
+#asset-upload-form > div > input[type=file] {
+    margin: 0;
+    padding: 2px 4px 2px 4px;
+    height: 22px;
     color: #666;
     font-size: 0.825em;
     background-color: #fff;
@@ -681,6 +693,19 @@ input[type=submit]:focus, button:focus {
     margin: 0;
     padding: 0 4px 0 4px;
     height: 22px;
+    font-size: 0.825em;
+    float: right;
+    display: block;
+    color: #444;
+    border: solid 1px #aaa;
+    background: linear-gradient(#dedede, #ababab);
+    background-color: #ddd;
+}
+
+#asset-upload-form > div > input[type=submit] {
+    margin: 0;
+    padding: 4px 4px 4px 4px;
+    height: 28px;
     font-size: 0.825em;
     float: right;
     display: block;

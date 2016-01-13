@@ -63,6 +63,23 @@ class IndexController extends AbstractController
     }
 
     /**
+     * Upload action method
+     *
+     * @return void
+     */
+    public function upload()
+    {
+        if (($_FILES) && !empty($_FILES['upload_module']) && !empty($_FILES['upload_module']['name'])) {
+            $module = new Model\Module();
+            $module->upload($_FILES['upload_module']);
+            $module->install($this->services);
+            $this->sess->setRequestValue('saved', true);
+        }
+
+        $this->redirect(BASE_PATH . APP_URI . '/modules');
+    }
+
+    /**
      * Install action method
      *
      * @return void

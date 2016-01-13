@@ -103,6 +103,14 @@ return [
                 'permission' => 'install'
             ]
         ],
+        '/modules/upload[/]' => [
+            'controller' => 'Phire\Controller\Modules\IndexController',
+            'action'     => 'upload',
+            'acl'        => [
+                'resource'   => 'modules',
+                'permission' => 'upload'
+            ]
+        ],
         '/modules/update/:id' => [
             'controller' => 'Phire\Controller\Modules\IndexController',
             'action'     => 'update',

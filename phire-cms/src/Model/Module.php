@@ -17,6 +17,7 @@ use Phire\Table;
 use Pop\Archive\Archive;
 use Pop\Db\Db;
 use Pop\File\Dir;
+use Pop\File\Upload;
 use Pop\Http\Client\Curl;
 use Pop\Nav\Nav;
 use Pop\Web\Session;
@@ -150,6 +151,19 @@ class Module extends AbstractModel
     public function getCount()
     {
         return Table\Modules::findAll()->count();
+    }
+
+    /**
+     * Upload module
+     *
+     * @param  array $file
+     * @return void
+     */
+    public function upload($file)
+    {
+        $folder = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
+        $upload = new Upload($folder);
+        $upload->upload($file);
     }
 
     /**
