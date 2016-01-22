@@ -1,8 +1,10 @@
 <?php include $phireHeader; ?>
+<?php if ($acl->isAllowed($user->role, 'modules', 'install')): ?>
     <form id="asset-upload-form" action="<?=$phireUri . '/modules/upload'; ?>" method="post" enctype="multipart/form-data">
         <div><input tabindex="2" type="submit" id="submit" value="Upload" /></div>
         <div><input tabindex="1" type="file" name="upload_module" id="upload_module" required="required" value="" size="25" /></div>
     </form>
+<?php endif; ?>
     <h1 class="modules-header"><?=$title; ?></h1>
 <?php if (($newModules > 0) && ($acl->isAllowed($user->role, 'modules', 'install'))): ?>
     <nav id="sub-nav">
