@@ -221,7 +221,8 @@ class IndexController extends AbstractController
             $this->sess->setRequestValue('saved', true);
         }
 
-        $this->redirect(BASE_PATH . APP_URI . '/users');
+        $this->redirect(BASE_PATH . APP_URI . '/users' .
+            (((int)$this->request->getPost('role_id') != 0) ? '/' . (int)$this->request->getPost('role_id') : null));
     }
 
 }

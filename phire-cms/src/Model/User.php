@@ -269,20 +269,13 @@ class User extends AbstractModel
                 $user = Table\Users::findById((int)$id);
                 if (isset($user->id)) {
                     switch ((int)$post['user_process_action']) {
-                        case 3:
+                        case 1:
                             $user->active = 1;
                             $user->save();
-                            break;
-                        case 2:
-                            $user->active = 0;
-                            $user->save();
-                            break;
-                        case 1:
-                            $user->verified = 1;
-                            $user->save();
+                            $this->sendApproval($user);
                             break;
                         case 0:
-                            $user->verified = 0;
+                            $user->active = 0;
                             $user->save();
                             break;
                         case -1:

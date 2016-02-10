@@ -49,8 +49,8 @@
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=title';?>">Title</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=email';?>">Email</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=role_name';?>">Role</a></th>
-                <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=active';?>">Active</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=verified';?>">Verified</a></th>
+                <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=active';?>">Active</a></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'edit')): ?>Edit<?php else: ?>&nbsp;<?php endif; ?></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'remove')): ?><input type="checkbox" name="checkall" id="checkall" value="process_users" /><?php else: ?>&nbsp;<?php endif; ?></th>
             </tr>
@@ -65,8 +65,8 @@
                 <td><?=$u->title; ?></td>
                 <td><?=$u->email; ?></td>
                 <td><?=(!empty($u->role_name) ? $u->role_name : '[Blocked]'); ?></td>
-                <td><?=(($u->active) ? 'Yes' : 'No'); ?></td>
                 <td><?=(($u->verified) ? 'Yes' : 'No'); ?></td>
+                <td><?=(($u->active) ? 'Yes' : 'No'); ?></td>
 <?php if (null !== $u->role_id): ?>
                 <td><?php if (($acl->isAllowed($user->role, 'users', 'edit') && ($acl->isAllowed($user->role, 'users-of-role-' . $u->role_id, 'edit')))): ?><a class="edit-link" href="<?=$phireUri . '/users/edit/' . $u->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
                 <td class="text-center"><?php if (($user->id != $u->id) && ($acl->isAllowed($user->role, 'users', 'remove')) && ($acl->isAllowed($user->role, 'users-of-role-' . $u->role_id, 'remove'))): ?><input type="checkbox" name="process_users[]" id="process_users<?=$i++; ?>" value="<?=$u->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
@@ -80,12 +80,11 @@
 <?php if ($acl->isAllowed($user->role, 'users', 'remove')): ?>
         <div id="form-footer">
             <select id="user_process_action" name="user_process_action">
-                <option value="3">Activate</option>
-                <option value="2">Deactivate</option>
-                <option value="1">Verify</option>
-                <option value="0">Clear Verify</option>
+                <option value="1">Activate</option>
+                <option value="0">Deactivate</option>
                 <option value="-1">Remove</option>
             </select>
+            <input type="hidden" name="role_id" value="<?php if (null !== $roleId): echo $roleId; else: echo '0'; endif; ?>" />
             <input type="submit" name="submit" class="process-btn" value="Process" />
         </div>
     </form>
