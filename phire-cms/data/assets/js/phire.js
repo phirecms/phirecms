@@ -222,7 +222,11 @@ jax(document).ready(function(){
             }
         });
         jax('#users-form').submit(function(){
-            return jax('#users-form').checkValidate('checkbox', true);
+            if (jax('#user_process_action').val() == '-1') {
+                return jax('#users-form').checkValidate('checkbox', true);
+            } else {
+                return true;
+            }
         });
     }
     if (jax('#roles-form')[0] != undefined) {

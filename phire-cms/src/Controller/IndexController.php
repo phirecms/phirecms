@@ -163,8 +163,9 @@ class IndexController extends AbstractController
                     $user = new Model\User();
                     $user->save($fields);
 
-                    $this->view->id      = $user->id;
-                    $this->view->success = true;
+                    $this->view->id       = $user->id;
+                    $this->view->success  = true;
+                    $this->view->verified = $user->verified;
                 }
             }
             $this->send();

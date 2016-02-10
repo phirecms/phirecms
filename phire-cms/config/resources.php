@@ -19,7 +19,7 @@ return [
         'index',
         'add',
         'edit',
-        'remove'
+        'process'
     ],
     'roles' => [
         'index',

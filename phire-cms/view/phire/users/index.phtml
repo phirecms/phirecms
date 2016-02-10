@@ -19,6 +19,7 @@
                 <option value="first_name"<?=(('first_name' == $searchBy) ? ' selected="selected"' : null); ?>>First Name</option>
                 <option value="last_name"<?=(('last_name' == $searchBy) ? ' selected="selected"' : null); ?>>Last Name</option>
                 <option value="company"<?=(('company' == $searchBy) ? ' selected="selected"' : null); ?>>Company</option>
+                <option value="title"<?=(('title' == $searchBy) ? ' selected="selected"' : null); ?>>Title</option>
                 <option value="email"<?=(('email' == $searchBy) ? ' selected="selected"' : null); ?>>Email</option>
             </select>
         </div>
@@ -35,8 +36,8 @@
         <nav><a href="<?=$phireUri; ?>/users/add<?php if (null !== $roleId): ?><?='/' . $roleId; ?><?php endif; ?>">+ Add</a></nav>
     </nav>
 <?php endif; ?>
-<?php if ($acl->isAllowed($user->role, 'users', 'remove')): ?>
-    <form id="users-form" action="<?=$phireUri . '/users/remove'; ?>" method="post">
+<?php if ($acl->isAllowed($user->role, 'users', 'process')): ?>
+    <form id="users-form" action="<?=$phireUri . '/users/process'; ?>" method="post">
 <?php endif; ?>
         <table class="data-table" cellpadding="0" cellspacing="0" border="0">
             <tr>
@@ -45,12 +46,13 @@
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=first_name';?>">First Name</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=last_name';?>">Last Name</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=company';?>">Company</a></th>
+                <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=title';?>">Title</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=email';?>">Email</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=role_name';?>">Role</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=active';?>">Active</a></th>
                 <th><a href="<?=$phireUri . '/users' . ((null !== $roleId) ? '/' . $roleId : null) . '?sort=verified';?>">Verified</a></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'edit')): ?>Edit<?php else: ?>&nbsp;<?php endif; ?></th>
-                <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'remove')): ?><input type="checkbox" name="checkall" id="checkall" value="rm_users" /><?php else: ?>&nbsp;<?php endif; ?></th>
+                <th class="text-center"><?php if ($acl->isAllowed($user->role, 'users', 'remove')): ?><input type="checkbox" name="checkall" id="checkall" value="process_users" /><?php else: ?>&nbsp;<?php endif; ?></th>
             </tr>
 <?php $i = 1; ?>
 <?php foreach ($users as $u): ?>
@@ -60,22 +62,32 @@
                 <td><?=$u->first_name; ?></td>
                 <td><?=$u->last_name; ?></td>
                 <td><?=$u->company; ?></td>
+                <td><?=$u->title; ?></td>
                 <td><?=$u->email; ?></td>
                 <td><?=(!empty($u->role_name) ? $u->role_name : '[Blocked]'); ?></td>
                 <td><?=(($u->active) ? 'Yes' : 'No'); ?></td>
                 <td><?=(($u->verified) ? 'Yes' : 'No'); ?></td>
 <?php if (null !== $u->role_id): ?>
                 <td><?php if (($acl->isAllowed($user->role, 'users', 'edit') && ($acl->isAllowed($user->role, 'users-of-role-' . $u->role_id, 'edit')))): ?><a class="edit-link" href="<?=$phireUri . '/users/edit/' . $u->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
-                <td class="text-center"><?php if (($user->id != $u->id) && ($acl->isAllowed($user->role, 'users', 'remove')) && ($acl->isAllowed($user->role, 'users-of-role-' . $u->role_id, 'remove'))): ?><input type="checkbox" name="rm_users[]" id="rm_users<?=$i++; ?>" value="<?=$u->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
+                <td class="text-center"><?php if (($user->id != $u->id) && ($acl->isAllowed($user->role, 'users', 'remove')) && ($acl->isAllowed($user->role, 'users-of-role-' . $u->role_id, 'remove'))): ?><input type="checkbox" name="process_users[]" id="process_users<?=$i++; ?>" value="<?=$u->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
 <?php else: ?>
                 <td><?php if ($acl->isAllowed($user->role, 'users', 'edit')): ?><a class="edit-link" href="<?=$phireUri . '/users/edit/' . $u->id; ?>">Edit</a><?php else: ?>&nbsp;<?php endif; ?></td>
-                <td class="text-center"><?php if (($user->id != $u->id) && ($acl->isAllowed($user->role, 'users', 'remove'))): ?><input type="checkbox" name="rm_users[]" id="rm_users<?=$i++; ?>" value="<?=$u->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
+                <td class="text-center"><?php if (($user->id != $u->id) && ($acl->isAllowed($user->role, 'users', 'remove'))): ?><input type="checkbox" name="process_users[]" id="process_users<?=$i++; ?>" value="<?=$u->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
 <?php endif;?>
             </tr>
 <?php endforeach; ?>
         </table>
 <?php if ($acl->isAllowed($user->role, 'users', 'remove')): ?>
-        <div id="form-footer"><input type="submit" name="submit" class="process-btn" value="Remove" /></div>
+        <div id="form-footer">
+            <select id="user_process_action" name="user_process_action">
+                <option value="3">Activate</option>
+                <option value="2">Deactivate</option>
+                <option value="1">Verify</option>
+                <option value="0">Clear Verify</option>
+                <option value="-1">Remove</option>
+            </select>
+            <input type="submit" name="submit" class="process-btn" value="Process" />
+        </div>
     </form>
 <?php endif; ?>
 <?php else: ?>

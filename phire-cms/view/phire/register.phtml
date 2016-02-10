@@ -4,7 +4,7 @@
     <h1><?=$title; ?></h1>
 <?php if (isset($success) && ($success)): ?>
     <div id="register-form" style="margin-top: 25px;">
-        <p style="text-align: center;">Thank you. You have successfully registered with this website.</p>
+        <p style="text-align: center;">Thank you. You have successfully registered with this website.<?php if (!($verified)): ?> Please check your email to verify your email address.<?php endif; ?></p>
     </div>
 <?php elseif (isset($form)): ?>
 <?=$form; ?>

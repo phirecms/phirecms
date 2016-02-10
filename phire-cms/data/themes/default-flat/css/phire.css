@@ -890,6 +890,10 @@ input[type=submit]:focus, button:focus {
     background-repeat: no-repeat;
 }
 
+#user_process_action {
+    margin: 2px 15px 0 10px;
+}
+
 nav.nav-arrow:hover {
     background-image: url(../img/nav-arrow-left.png);
     background-repeat: no-repeat;

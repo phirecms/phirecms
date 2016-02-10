@@ -53,6 +53,7 @@ class User extends AbstractModel
             'first_name'   => DB_PREFIX . 'users.first_name',
             'last_name'    => DB_PREFIX . 'users.last_name',
             'company'      => DB_PREFIX . 'users.company',
+            'title'        => DB_PREFIX . 'users.title',
             'email'        => DB_PREFIX . 'users.email',
             'active'       => DB_PREFIX . 'users.active',
             'verified'     => DB_PREFIX . 'users.verified',
@@ -166,6 +167,7 @@ class User extends AbstractModel
             $this->data['first_name'] = $user->first_name;
             $this->data['last_name']  = $user->last_name;
             $this->data['company']    = $user->company;
+            $this->data['title']      = $user->title;
             $this->data['email']      = $user->email;
             $this->data['phone']      = $user->phone;
             $this->data['active']     = $user->active;
@@ -177,10 +179,11 @@ class User extends AbstractModel
     /**
      * Save new user
      *
-     * @param  array $fields
+     * @param  array  $fields
+     * @param  string $uri
      * @return void
      */
-    public function save(array $fields)
+    public function save(array $fields, $uri = null)
     {
         $user = new Table\Users([
             'role_id'    => $fields['role_id'],
@@ -189,6 +192,7 @@ class User extends AbstractModel
             'first_name' => (isset($fields['first_name']) ? $fields['first_name'] : null),
             'last_name'  => (isset($fields['last_name']) ? $fields['last_name'] : null),
             'company'    => (isset($fields['company']) ? $fields['company'] : null),
+            'title'      => (isset($fields['title']) ? $fields['title'] : null),
             'email'      => (isset($fields['email']) ? $fields['email'] : null),
             'phone'      => (isset($fields['phone']) ? $fields['phone'] : null),
             'active'     => (int)$fields['active'],
@@ -199,7 +203,7 @@ class User extends AbstractModel
         $this->data = array_merge($this->data, $user->getColumns());
 
         if ((!$user->verified) && !empty($user->email)) {
-            $this->sendVerification($user);
+            $this->sendVerification($user, $uri);
         }
     }
 
@@ -215,6 +219,7 @@ class User extends AbstractModel
         $user = Table\Users::findById((int)$fields['id']);
         if (isset($user->id)) {
             $oldRoleId = $user->role_id;
+            $oldActive = $user->active;
             $username  = $user->username;
             $role      = Table\Roles::findById($fields['role_id']);
             if (($role->email_as_username) && isset($fields['email']) && !empty($fields['email'])) {
@@ -230,6 +235,7 @@ class User extends AbstractModel
             $user->first_name = (isset($fields['first_name']) ? $fields['first_name'] : $user->first_name);
             $user->last_name  = (isset($fields['last_name']) ? $fields['last_name'] : $user->last_name);
             $user->company    = (isset($fields['company']) ? $fields['company'] : $user->company);
+            $user->title      = (isset($fields['title']) ? $fields['title'] : $user->title);
             $user->email      = (isset($fields['email']) ? $fields['email'] : $user->email);
             $user->phone      = (isset($fields['phone']) ? $fields['phone'] : $user->phone);
             $user->active     = (isset($fields['active']) ? (int)$fields['active'] : $user->active);
@@ -244,25 +250,45 @@ class User extends AbstractModel
 
             $this->data = array_merge($this->data, $user->getColumns());
 
-            if ((null === $oldRoleId) && (null !== $user->role_id) && !empty($user->email)) {
+            if ((((null === $oldRoleId) && (null !== $user->role_id)) || ((!($oldActive) && ($user->active)))) && !empty($user->email)) {
                 $this->sendApproval($user);
             }
         }
     }
 
     /**
-     * Remove a user
+     * Process users
      *
      * @param  array $post
      * @return void
      */
-    public function remove(array $post)
+    public function process(array $post)
     {
-        if (isset($post['rm_users'])) {
-            foreach ($post['rm_users'] as $id) {
+        if (isset($post['process_users'])) {
+            foreach ($post['process_users'] as $id) {
                 $user = Table\Users::findById((int)$id);
                 if (isset($user->id)) {
-                    $user->delete();
+                    switch ((int)$post['user_process_action']) {
+                        case 3:
+                            $user->active = 1;
+                            $user->save();
+                            break;
+                        case 2:
+                            $user->active = 0;
+                            $user->save();
+                            break;
+                        case 1:
+                            $user->verified = 1;
+                            $user->save();
+                            break;
+                        case 0:
+                            $user->verified = 0;
+                            $user->save();
+                            break;
+                        case -1:
+                            $user->delete();
+                            break;
+                    }
                 }
             }
         }
@@ -316,8 +342,8 @@ class User extends AbstractModel
         $user = Table\Users::findBy(['email' => $fields['email']]);
         if (isset($user->id)) {
             $this->data['id'] = $user->id;
-            $user->delete();
             $this->sendUnsubscribe($user);
+            $user->delete();
         }
     }
 
@@ -402,9 +428,10 @@ class User extends AbstractModel
      * Send user verification notification
      *
      * @param  Table\Users $user
+     * @param  string      $uri
      * @return void
      */
-    protected function sendVerification(Table\Users $user)
+    protected function sendVerification(Table\Users $user, $uri = null)
     {
         $docRoot = Table\Config::findById('document_root')->value;
         $host    = Table\Config::findById('domain')->value;
@@ -417,7 +444,7 @@ class User extends AbstractModel
         $rcpt = [
             'name'   => $user->username,
             'email'  => $user->email,
-            'url'    => 'http://' . $host . $basePath . APP_URI . '/verify/' .
+            'url'    => 'http://' . $host . $basePath . ((null !== $uri) ? $uri : APP_URI) . '/verify/' .
                 $user->id . '/' . sha1($user->email),
             'domain' => $domain
         ];

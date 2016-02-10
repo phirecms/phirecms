@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "first_name" varchar,
   "last_name" varchar,
   "company" varchar,
+  "title" varchar,
   "email" varchar,
   "phone" varchar,
   "active" integer,

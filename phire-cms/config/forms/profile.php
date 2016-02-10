@@ -30,6 +30,10 @@ return [
             'type'     => 'text',
             'label'    => 'Company'
         ],
+        'title' => [
+            'type'     => 'text',
+            'label'    => 'Title'
+        ],
         'email' => [
             'type'       => 'email',
             'label'      => 'Email',

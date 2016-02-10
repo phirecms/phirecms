@@ -159,12 +159,12 @@ return [
                 'permission' => 'edit'
             ]
         ],
-        '/users/remove' => [
+        '/users/process' => [
             'controller' => 'Phire\Controller\Users\IndexController',
-            'action'     => 'remove',
+            'action'     => 'process',
             'acl'        => [
                 'resource'   => 'users',
-                'permission' => 'remove'
+                'permission' => 'process'
             ]
         ],
         '/roles[/]' => [

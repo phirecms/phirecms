@@ -86,6 +86,13 @@ return [
                 'size'    => 40
             ]
         ],
+        'title' => [
+            'type'     => 'text',
+            'label'    => 'Title',
+            'attributes' => [
+                'size'    => 40
+            ]
+        ],
         'phone' => [
             'type'     => 'text',
             'label'    => 'Phone',

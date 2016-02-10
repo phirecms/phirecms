@@ -208,13 +208,19 @@ class IndexController extends AbstractController
      *
      * @return void
      */
-    public function remove()
+    public function process()
     {
         if ($this->request->isPost()) {
             $user = new Model\User();
-            $user->remove($this->request->getPost());
+            $user->process($this->request->getPost());
         }
-        $this->sess->setRequestValue('removed', true);
+
+        if ((null !== $this->request->getPost('user_process_action')) && ($this->request->getPost('user_process_action') == -1)) {
+            $this->sess->setRequestValue('removed', true);
+        } else {
+            $this->sess->setRequestValue('saved', true);
+        }
+
         $this->redirect(BASE_PATH . APP_URI . '/users');
     }
 

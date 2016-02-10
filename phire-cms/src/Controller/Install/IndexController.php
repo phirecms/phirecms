@@ -124,6 +124,7 @@ class IndexController extends AbstractController
         unset($fields[1]['first_name']);
         unset($fields[1]['last_name']);
         unset($fields[1]['company']);
+        unset($fields[1]['title']);
         unset($fields[1]['phone']);
 
         $this->view->form = new Form\Register(false, false, $fields);

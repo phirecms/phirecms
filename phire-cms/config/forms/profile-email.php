@@ -31,6 +31,10 @@ return [
             'type'     => 'text',
             'label'    => 'Company'
         ],
+        'title' => [
+            'type'     => 'text',
+            'label'    => 'Title'
+        ],
         'phone' => [
             'type'     => 'text',
             'label'    => 'Phone'
