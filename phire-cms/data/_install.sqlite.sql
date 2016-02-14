@@ -11,7 +11,7 @@
 -- phire-templates
 --
 
-INSERT INTO "[{prefix}]content_types" ("id", "name", "content_type", "strict_publishing", "open_authoring", "force_ssl", "order") VALUES (5001, 'Pages', 'text/html', 1, 1, 0, 1);
+INSERT INTO "[{prefix}]content_types" ("id", "name", "content_type", "strict_publishing", "open_authoring", "in_date", "force_ssl", "order") VALUES (5001, 'Pages', 'text/html', 1, 1, 0, 0, 1);
 
 INSERT INTO "[{prefix}]content" ("id", "type_id", "parent_id", "title", "uri", "slug", "status", "template", "roles", "order", "force_ssl", "hierarchy", "publish", "expire", "created", "updated", "created_by", "updated_by") VALUES (6001, 5001, NULL, 'Home Page', '/', '', 1, '9001', 'a:0:{}', 0, 0, '', datetime('now', 'localtime', 'start of day'), NULL, datetime('now', 'localtime', 'start of day'), NULL, 1001, NULL);
 INSERT INTO "[{prefix}]content" ("id", "type_id", "parent_id", "title", "uri", "slug", "status", "template", "roles", "order", "force_ssl", "hierarchy", "publish", "expire", "created", "updated", "created_by", "updated_by") VALUES (6002, 5001, NULL, 'About Us', '/about-us', 'about-us', 1, '9001', 'a:0:{}', 0, 0, '', datetime('now', 'localtime', 'start of day'), NULL, datetime('now', 'localtime', 'start of day'), NULL, 1001, NULL);
