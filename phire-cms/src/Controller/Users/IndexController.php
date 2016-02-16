@@ -52,7 +52,7 @@ class IndexController extends AbstractController
             $searchAry = null;
             if ((null !== $this->request->getQuery('search_for')) &&
                 (null !== $this->request->getQuery('search_by')) &&
-                !empty($this->request->getQuery('search_for')) &&
+                ($this->request->getQuery('search_for') != '') &&
                 ($this->request->getQuery('search_by') != '----')) {
                 $searchAry = [
                     'for' => $this->request->getQuery('search_for'),
