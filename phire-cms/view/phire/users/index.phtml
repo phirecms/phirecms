@@ -7,7 +7,7 @@
                 <option value="----">----</option>
 <?php foreach ($roles as $id => $role): ?>
 <?php if (($acl->hasResource('users-of-role-' . $id)) && ($acl->isAllowed($user->role, 'users-of-role-' . $id, 'index'))): ?>
-                <option value="<?=$id; ?>"<?=(((null !== $roleId) && ($roleId == $id)) ? ' selected="selected"' : null); ?>><?=$role; ?></option>
+                <option value="<?=$id; ?>"<?=((((null !== $roleId) && ($roleId == $id)) || (!empty($_GET['role_id']) && ((int)$_GET['role_id'] == (int)$id))) ? ' selected="selected"' : null); ?>><?=$role; ?></option>
 <?php endif; ?>
 <?php endforeach; ?>
             </select>
