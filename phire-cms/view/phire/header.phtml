@@ -7,7 +7,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <link type="image/png" rel="shortcut icon" href="<?=$contentPath; ?>/assets/phire/img/phire-icon.png"  />
+    <link type="image/png" rel="shortcut icon" href="<?=$contentPath; ?>/assets/<?=(isset($config) && isset($config['system_theme'])) ? $config['system_theme'] : 'default'; ?>/img/phire-icon.png"  />
 <?php if (count($assets['css']['link']) > 0): ?>
 <?php foreach ($assets['css']['link'] as $css): ?>
     <link type="text/css" rel="stylesheet" href="<?=$css; ?>" />
