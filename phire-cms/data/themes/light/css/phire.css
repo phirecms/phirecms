@@ -551,6 +551,10 @@ input[type=submit]:focus, button:focus {
     border-top: solid 1px #ccc;
 }
 
+#user-form > dl:nth-child(3) > dd, #user-form > dl:nth-child(3) > dt {
+    width: 98%;
+}
+
 #role-form-field-group-2 {
     width: calc(100% - 220px);
 }
