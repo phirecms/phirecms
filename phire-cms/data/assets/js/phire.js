@@ -146,6 +146,35 @@ var phire = {
         clearTimeout(phire.clear);
     },
 
+    checkUserRole : function(sel) {
+        if (jax.cookie.load('phire') != '') {
+            var phireCookie = jax.cookie.load('phire');
+            var json = jax.get(phireCookie.base_path + phireCookie.app_uri + '/roles/json/email/' + jax(sel).val());
+            if (json.email_as_username != undefined) {
+                if ((json.email_as_username == 1) && (jax('#username')[0] != undefined)) {
+                    jax('label[for=username]').val('Email');
+                    jax('#username').attrib('type', 'email');
+                    jax(jax('#email').parent()).hide();
+                    jax(jax('label[for=email]').parent()).hide();
+                } else if ((json.email_as_username == 0) && (jax('#username')[0] == undefined)) {
+                    jax('label[for=email]').val('Username');
+                    jax('#email').attrib('type', 'text');
+                } else if ((json.email_as_username == 0) && (jax('label[for=username]')[0] != undefined) &&
+                    (jax('label[for=username]').val() == 'Email')) {
+                    jax('label[for=username]').val('Username');
+                    jax('#username').attrib('type', 'text');
+                    jax('#username').attrib('type', 'email');
+                    jax(jax('#email').parent()).show();
+                    jax(jax('label[for=email]').parent()).show();
+                } else if ((json.email_as_username == 1) && (jax('label[for=username]')[0] == undefined) &&
+                    (jax('label[for=email]').val() == 'Username')) {
+                    jax('label[for=email]').val('Email');
+                    jax('#email').attrib('type', 'email');
+                }
+            }
+        }
+    },
+
     checkFormChange : function() {
         if (!phire.submitted) {
             var change = false;

@@ -221,11 +221,30 @@ class User extends AbstractModel
             $oldRoleId = $user->role_id;
             $oldActive = $user->active;
             $username  = $user->username;
+            $oldRole   = Table\Roles::findById($oldRoleId);
             $role      = Table\Roles::findById($fields['role_id']);
-            if (($role->email_as_username) && isset($fields['email']) && !empty($fields['email'])) {
-                $username = $fields['email'];
-            } else if (isset($fields['username']) && !empty($fields['username'])) {
-                $username = $fields['username'];
+
+            // Going from username to email
+            if ((!$oldRole->email_as_username) && ($role->email_as_username)) {
+                if ((new \Pop\Validator\Email())->evaluate($fields['username'])) {
+                    $username = $fields['username'];
+                    $fields['email'] = $username;
+                } else {
+                    $username = (isset($fields['email']) ? $fields['email'] : $user->email);
+                }
+            // Going from email to username
+            } else if (($oldRole->email_as_username) && (!$role->email_as_username)) {
+                if (!(new \Pop\Validator\Email())->evaluate($fields['username'])) {
+                    $username = $fields['email'];
+                    unset($fields['email']);
+                }
+            // Staying the same
+            } else if ($oldRole->email_as_username == $role->email_as_username) {
+                if (($role->email_as_username) && isset($fields['email']) && !empty($fields['email'])) {
+                    $username = $fields['email'];
+                } else if (isset($fields['username']) && !empty($fields['username'])) {
+                    $username = $fields['username'];
+                }
             }
 
             $user->role_id    = $fields['role_id'];

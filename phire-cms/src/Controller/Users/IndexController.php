@@ -175,9 +175,21 @@ class IndexController extends AbstractController
                 }
             }
 
+            $roles      = $role->getAll();
+            $roleValues = [];
+            foreach ($roles as $r) {
+                $roleValues[$r->id] = $r->name;
+            }
+
             $fields[1]['password1']['required'] = false;
             $fields[1]['password2']['required'] = false;
-            $fields[0]['role_id']['value']      = $user->role_id;
+            $fields[0]['role_id']['type']       = 'select';
+            $fields[0]['role_id']['label']      = 'Role';
+            $fields[0]['role_id']['value']      = $roleValues;
+            $fields[0]['role_id']['marked']     = $user->role_id;
+            $fields[0]['role_id']['attributes'] = [
+                'onchange' => 'phire.checkUserRole(this);'
+            ];
 
             $this->view->form = ($role->email_as_username) ? new Form\UserEmail($fields) : new Form\User($fields);
             $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])

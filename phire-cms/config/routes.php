@@ -195,6 +195,10 @@ return [
             'controller' => 'Phire\Controller\Roles\IndexController',
             'action'     => 'json'
         ],
+        '/roles/json/email/:id' => [
+            'controller' => 'Phire\Controller\Roles\IndexController',
+            'action'     => 'jsonEmail'
+        ],
         '/roles/remove' => [
             'controller' => 'Phire\Controller\Roles\IndexController',
             'action'     => 'remove',

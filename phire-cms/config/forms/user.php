@@ -95,7 +95,6 @@ return [
         'email' => [
             'type'       => 'email',
             'label'      => 'Email',
-            'validators' => new \Pop\Validator\Email(),
             'attributes' => [
                 'size'    => 40
             ]

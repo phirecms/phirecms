@@ -38,10 +38,9 @@ return [
     ],
     [
         'email' => [
-            'type'       => 'text',
+            'type'       => 'email',
             'label'      => 'Email',
             'required'   => true,
-            'validators' => new \Pop\Validator\Email(),
             'attributes' => [
                 'size'    => 40
             ]

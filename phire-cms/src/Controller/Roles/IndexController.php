@@ -227,6 +227,26 @@ class IndexController extends AbstractController
     }
 
     /**
+     * JSON action method
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function jsonEmail($id)
+    {
+        $json = [];
+
+        if (is_numeric($id)) {
+            $role = new Model\Role();
+            $role->getById($id);
+            $json['email_as_username'] = $role->email_as_username;
+        }
+
+        $this->response->setBody(json_encode($json, JSON_PRETTY_PRINT));
+        $this->send(200, ['Content-Type' => 'application/json']);
+    }
+
+    /**
      * Remove action method
      *
      * @return void
