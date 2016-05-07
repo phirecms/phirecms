@@ -77,6 +77,7 @@ $config = [
     'dashboard'            => [],
     'footers'              => [],
     'system_title'         => 'Phire CMS',
+    'updates'              => true,
     'force_ssl'            => false,
     'registration_captcha' => false,
     'registration_csrf'    => false

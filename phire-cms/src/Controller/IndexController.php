@@ -42,7 +42,7 @@ class IndexController extends AbstractController
         $config = new Model\Config();
 
         if (!isset($this->sess->updates)) {
-            $this->sess->updates = $config->getUpdates();
+            $this->sess->updates = $config->getUpdates($this->application->config()['updates']);
         }
 
         $this->prepareView('phire/index.phtml');

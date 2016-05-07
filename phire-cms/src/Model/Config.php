@@ -158,43 +158,46 @@ class Config extends AbstractModel
     /**
      * Get update info
      *
+     * @param  boolean $live
      * @return \ArrayObject
      */
-    public function getUpdates()
+    public function getUpdates($live = true)
     {
         $updates = [
             'phirecms' => null,
             'modules'  => []
         ];
 
-        $headers = [
-            'Authorization: ' . base64_encode('phire-updater-' . time()),
-            'User-Agent: ' . (isset($_SERVER['HTTP_USER_AGENT']) ?
-                $_SERVER['HTTP_USER_AGENT'] : 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:41.0) Gecko/20100101 Firefox/41.0')
-        ];
+        if ($live) {
+            $headers = [
+                'Authorization: ' . base64_encode('phire-updater-' . time()),
+                'User-Agent: ' . (isset($_SERVER['HTTP_USER_AGENT']) ?
+                    $_SERVER['HTTP_USER_AGENT'] : 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:41.0) Gecko/20100101 Firefox/41.0')
+            ];
 
-        $curl = new Curl('http://updates.phirecms.org/latest/phirecms', [
-            CURLOPT_HTTPHEADER => $headers
-        ]);
+            $curl = new Curl('http://updates.phirecms.org/latest/phirecms', [
+                CURLOPT_HTTPHEADER => $headers
+            ]);
 
-        $curl->send();
+            $curl->send();
 
-        if ($curl->getCode() == 200) {
-            $json = json_decode($curl->getBody(), true);
-            $updates['phirecms'] = $json['version'];
-        }
+            if ($curl->getCode() == 200) {
+                $json = json_decode($curl->getBody(), true);
+                $updates['phirecms'] = $json['version'];
+            }
 
-        $modules = Table\Modules::findAll();
-        if ($modules->hasRows()) {
-            foreach ($modules->rows() as $module) {
-                $curl = new Curl('http://updates.phirecms.org/latest/' . $module->folder, [
-                    CURLOPT_HTTPHEADER => $headers
-                ]);
-                $curl->send();
+            $modules = Table\Modules::findAll();
+            if ($modules->hasRows()) {
+                foreach ($modules->rows() as $module) {
+                    $curl = new Curl('http://updates.phirecms.org/latest/' . $module->folder, [
+                        CURLOPT_HTTPHEADER => $headers
+                    ]);
+                    $curl->send();
 
-                if ($curl->getCode() == 200) {
-                    $json = json_decode($curl->getBody(), true);
-                    $updates['modules'][$module->folder] = $json['version'];
+                    if ($curl->getCode() == 200) {
+                        $json = json_decode($curl->getBody(), true);
+                        $updates['modules'][$module->folder] = $json['version'];
+                    }
                 }
             }
         }
