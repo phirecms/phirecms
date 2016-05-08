@@ -86,9 +86,9 @@ INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "templat
 </html>
 ', NULL, 0);
 
-UPDATE "[{prefix}]modules" SET "order" = 1 WHERE "folder" = 'phire-content';
-UPDATE "[{prefix}]modules" SET "order" = 2 WHERE "folder" = 'phire-media';
-UPDATE "[{prefix}]modules" SET "order" = 3 WHERE "folder" = 'phire-templates';
-UPDATE "[{prefix}]modules" SET "order" = 4 WHERE "folder" = 'phire-navigation';
-UPDATE "[{prefix}]modules" SET "order" = 5 WHERE "folder" = 'phire-categories';
-UPDATE "[{prefix}]modules" SET "order" = 6 WHERE "folder" = 'phire-fields';
+UPDATE "[{prefix}]modules" SET "order" = 1 WHERE "name" = 'phire-content';
+UPDATE "[{prefix}]modules" SET "order" = 2 WHERE "name" = 'phire-media';
+UPDATE "[{prefix}]modules" SET "order" = 3 WHERE "name" = 'phire-templates';
+UPDATE "[{prefix}]modules" SET "order" = 4 WHERE "name" = 'phire-navigation';
+UPDATE "[{prefix}]modules" SET "order" = 5 WHERE "name" = 'phire-categories';
+UPDATE "[{prefix}]modules" SET "order" = 6 WHERE "name" = 'phire-fields';

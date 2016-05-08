@@ -38,9 +38,9 @@ INSERT INTO "[{prefix}]templates" ("parent_id", "name", "device", "template", "h
 (NULL, 'Main Template', 'desktop', E'<!DOCTYPE html>\r\n<!-- Header //-->\r\n<html>\r\n\r\n<head>\r\n\r\n    <title>\r\n        [{title}]\r\n    </title>\r\n\r\n    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />\r\n    <meta name="author" content="Phire CMS" />\r\n    <meta name="keywords" content="[{keywords}]" />\r\n    <meta name="description" content="[{description}]" />\r\n    <meta name="robots" content="all" />\r\n    <meta name="viewport" content="initial-scale=1.0">\r\n\r\n</head>\r\n\r\n<body>\r\n<!-- Content //-->\r\n    <div id="content">\r\n        <h1>[{title}]</h1>\r\n[{content}]\r\n    </div>\r\n<!-- Footer //-->\r\n</body>\r\n\r\n</html>\r\n', NULL, 1),
 (NULL, 'Error', 'desktop', E'<!DOCTYPE html>\r\n<!-- Header //-->\r\n<html>\r\n\r\n<head>\r\n\r\n    <title>\r\n        [{title}]\r\n    </title>\r\n\r\n    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />\r\n    <meta name="viewport" content="initial-scale=1.0">\r\n\r\n</head>\r\n\r\n<body>\r\n<!-- Content //-->\r\n    <div id="content">\r\n        <h1 style="color: #f00;">[{title}]</h1>\r\n        <p>Sorry, that page was not found.</p>\r\n    </div>\r\n<!-- Footer //-->\r\n</body>\r\n\r\n</html>\r\n', NULL, 0);
 
-UPDATE "[{prefix}]modules" SET "order" = 1 WHERE "folder" = 'phire-content';
-UPDATE "[{prefix}]modules" SET "order" = 2 WHERE "folder" = 'phire-media';
-UPDATE "[{prefix}]modules" SET "order" = 3 WHERE "folder" = 'phire-templates';
-UPDATE "[{prefix}]modules" SET "order" = 4 WHERE "folder" = 'phire-navigation';
-UPDATE "[{prefix}]modules" SET "order" = 5 WHERE "folder" = 'phire-categories';
-UPDATE "[{prefix}]modules" SET "order" = 6 WHERE "folder" = 'phire-fields';
+UPDATE "[{prefix}]modules" SET "order" = 1 WHERE "name" = 'phire-content';
+UPDATE "[{prefix}]modules" SET "order" = 2 WHERE "name" = 'phire-media';
+UPDATE "[{prefix}]modules" SET "order" = 3 WHERE "name" = 'phire-templates';
+UPDATE "[{prefix}]modules" SET "order" = 4 WHERE "name" = 'phire-navigation';
+UPDATE "[{prefix}]modules" SET "order" = 5 WHERE "name" = 'phire-categories';
+UPDATE "[{prefix}]modules" SET "order" = 6 WHERE "name" = 'phire-fields';
