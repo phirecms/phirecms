@@ -99,6 +99,7 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]modules` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `file` varchar(255) NOT NULL,
   `folder` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `prefix` varchar(255) NOT NULL,
   `version` varchar(255) NOT NULL,
   `active` int(1) NOT NULL,

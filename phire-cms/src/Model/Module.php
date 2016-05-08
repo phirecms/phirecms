@@ -112,19 +112,29 @@ class Module extends AbstractModel
 
         if (file_exists($modulesPath)) {
             $modules = Table\Modules::findAll();
-
-            foreach ($modules->rows() as $module) {
-                $installed[] = $module->file;
-            }
-
-            $dir = new Dir($modulesPath, [
-                'filesOnly' => true
-            ]);
-            foreach ($dir->getFiles() as $file) {
-                if (((substr($file, -4) == '.zip') || (substr($file, -4) == '.tgz') ||
-                        (substr($file, -7) == '.tar.gz')) && (!in_array($file, $installed))
-                ) {
-                    $newModules[] = $file;
+            if (strpos($modulesPath, 'vendor') !== false) {
+                foreach ($modules->rows() as $module) {
+                    $installed[] = $module->folder;
+                }
+                $dir = new Dir($modulesPath);
+                foreach ($dir->getFiles() as $file) {
+                    if (!in_array($file, $installed)) {
+                        $newModules[] = $file;
+                    }
+                }
+            } else {
+                foreach ($modules->rows() as $module) {
+                    $installed[] = $module->file;
+                }
+                $dir = new Dir($modulesPath, [
+                    'filesOnly' => true
+                ]);
+                foreach ($dir->getFiles() as $file) {
+                    if (((substr($file, -4) == '.zip') || (substr($file, -4) == '.tgz') ||
+                            (substr($file, -7) == '.tar.gz')) && (!in_array($file, $installed))
+                    ) {
+                        $newModules[] = $file;
+                    }
                 }
             }
         }
@@ -178,91 +188,42 @@ class Module extends AbstractModel
         $modulesPath = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
         $modules     = $this->detectNew(false);
 
-        if (!is_writable($modulesPath)) {
-            throw new \Phire\Exception('Error: The module folder is not writable.');
-        }
+        if (strpos($modulesPath, 'vendor') !== false) {
+            foreach ($modules as $module) {
+                $this->finalizeInstall('', $module, $modulesPath, $services);
+            }
+        } else {
+            if (!is_writable($modulesPath)) {
+                throw new \Phire\Exception('Error: The module folder is not writable.');
+            }
 
-        $formats = Archive::getFormats();
+            $formats = Archive::getFormats();
 
-        foreach ($modules as $module) {
-            if (file_exists($modulesPath . '/' . $module)) {
-                $ext  = null;
-                $name = null;
-                if (substr($module, -4) == '.zip') {
-                    $ext  = 'zip';
-                    $name = substr($module, 0, -4);
-                } else if (substr($module, -4) == '.tgz') {
-                    $ext  = 'tgz';
-                    $name = substr($module, 0, -4);
-                } else if (substr($module, -7) == '.tar.gz') {
-                    $ext  = 'tar.gz';
-                    $name = substr($module, 0, -7);
-                }
-
-                if ((null !== $ext) && (null !== $name) && array_key_exists($ext, $formats)) {
-                    $archive = new Archive($modulesPath . '/' . $module);
-                    $archive->extract($modulesPath);
-                    if ((stripos($module, 'gz') !== false) && (file_exists($modulesPath . '/' . $name . '.tar'))) {
-                        unlink($modulesPath . '/' . $name . '.tar');
+            foreach ($modules as $module) {
+                if (file_exists($modulesPath . '/' . $module)) {
+                    $ext  = null;
+                    $folder = null;
+                    if (substr($module, -4) == '.zip') {
+                        $ext  = 'zip';
+                        $folder = substr($module, 0, -4);
+                    } else if (substr($module, -4) == '.tgz') {
+                        $ext  = 'tgz';
+                        $folder = substr($module, 0, -4);
+                    } else if (substr($module, -7) == '.tar.gz') {
+                        $ext  = 'tar.gz';
+                        $folder = substr($module, 0, -7);
                     }
 
-                    if (file_exists($modulesPath . '/' . $name) &&
-                        file_exists($modulesPath . '/' . $name . '/config/module.php')) {
-                        // Get SQL, if exists
-                        $sqlType = strtolower(((DB_INTERFACE == 'pdo') ? DB_TYPE : DB_INTERFACE));
-                        $sqlFile = $modulesPath . '/' . $name . '/data/' . $name . '.' . $sqlType . '.sql';
-                        if (!file_exists($sqlFile)) {
-                            $sqlFile = null;
+                    if ((null !== $ext) && (null !== $folder) && array_key_exists($ext, $formats)) {
+                        $archive = new Archive($modulesPath . '/' . $module);
+                        $archive->extract($modulesPath);
+                        if ((stripos($module, 'gz') !== false) && (file_exists($modulesPath . '/' . $folder . '.tar'))) {
+                            unlink($modulesPath . '/' . $folder . '.tar');
                         }
 
-                        // Get module info from config file
-                        $info   = $this->getInfo(file_get_contents($modulesPath . '/' . $name . '/config/module.php'));
-                        $tables = (null !== $sqlFile) ? $this->getTables(file_get_contents($sqlFile)) : [];
-                        $config = include $modulesPath . '/' . $name . '/config/module.php';
-
-                        if (isset($info['version'])) {
-                            $version = $info['version'];
-                        } else if (isset($info['Version'])) {
-                            $version = $info['Version'];
-                        } else if (isset($info['VERSION'])) {
-                            $version = $info['VERSION'];
-                        } else {
-                            $version = 'N/A';
-                        }
-
-                        // Save module in the database
-                        $mod = new Table\Modules([
-                            'file'    => $module,
-                            'folder'  => $name,
-                            'prefix'  => $config[$name]['prefix'],
-                            'version' => $version,
-                            'active'  => 1,
-                            'order'   => (int)Table\Modules::findAll()->count() + 1,
-                            'assets'  => serialize([
-                                'tables' => $tables,
-                                'info'   => $info
-                            ]),
-                            'installed_on' => date('Y-m-d H:i:s')
-                        ]);
-                        $mod->save();
-
-                        $this->sendStats($name, $version);
-
-                        // Execute any SQL that came with the module
-                        if (null !== $sqlFile) {
-                            Db::install($sqlFile, [
-                                'database' => DB_NAME,
-                                'username' => DB_USER,
-                                'password' => DB_PASS,
-                                'host'     => DB_HOST,
-                                'prefix'   => DB_PREFIX,
-                                'type'     => DB_TYPE
-                            ], ucfirst(strtolower(DB_INTERFACE)));
-                        }
-
-                        // Run any install functions
-                        if (!empty($config[$name]['install'])) {
-                            call_user_func_array($config[$name]['install'], [$services]);
+                        if (file_exists($modulesPath . '/' . $folder) &&
+                            file_exists($modulesPath . '/' . $folder . '/config/module.php')) {
+                            $this->finalizeInstall($module, $folder, $modulesPath, $services);
                         }
                     }
                 }
@@ -332,29 +293,120 @@ class Module extends AbstractModel
 
                 // Run any uninstall functions
                 $config = include $modulesPath . '/' . $module->folder . '/config/module.php';
-                if (!empty($config[$module->folder]['uninstall'])) {
-                    call_user_func_array($config[$module->folder]['uninstall'], [$services]);
-                }
-
-                // Remove the module folder and files
-                if (file_exists($modulesPath . '/' . $module->folder)) {
-                    $dir = new Dir($modulesPath . '/' . $module->folder);
-                    $dir->emptyDir(true);
-                }
-
-                // Remove the module file
-                if (file_exists($modulesPath . '/' . $module->file) &&
-                    is_writable($modulesPath . '/' . $module->file)) {
-                    unlink($modulesPath . '/' . $module->file);
+                if (isset($config[$module->name]) && isset($config[$module->name]['uninstall']) &&
+                    !empty($config[$module->name]['uninstall'])) {
+                    call_user_func_array($config[$module->name]['uninstall'], [$services]);
                 }
 
                 // Remove any assets
-                if (file_exists(__DIR__ . '/../../..' . CONTENT_PATH . '/assets/' . strtolower($module->folder))) {
-                    $dir = new Dir(__DIR__ . '/../../..' . CONTENT_PATH . '/assets/' . strtolower($module->folder));
+                if (file_exists(__DIR__ . '/../../..' . CONTENT_PATH . '/assets/' . strtolower($module->name))) {
+                    $dir = new Dir(__DIR__ . '/../../..' . CONTENT_PATH . '/assets/' . strtolower($module->name));
                     $dir->emptyDir(true);
                 }
+
+                if (strpos($modulesPath, 'vendor') === false) {
+                    // Remove the module folder and files
+                    if (file_exists($modulesPath . '/' . $module->folder)) {
+                        $dir = new Dir($modulesPath . '/' . $module->folder);
+                        $dir->emptyDir(true);
+                    }
+
+                    // Remove the module file
+                    if (file_exists($modulesPath . '/' . $module->file) &&
+                        is_writable($modulesPath . '/' . $module->file)) {
+                        unlink($modulesPath . '/' . $module->file);
+                    }
+                }
+
                 $module->delete();
             }
+        }
+    }
+
+    /**
+     * Finalize module install
+     *
+     * @param  string               $module
+     * @param  string               $folder
+     * @param  string               $modulesPath
+     * @param  \Pop\Service\Locator $services
+     * @return void
+     */
+    protected function finalizeInstall($module, $folder, $modulesPath, $services)
+    {
+        // Get module info from config file
+        $info = $this->getInfo(file_get_contents($modulesPath . '/' . $folder . '/config/module.php'));
+
+        if (isset($info['name'])) {
+            $name = $info['name'];
+        } else if (isset($info['Name'])) {
+            $name = $info['Name'];
+        } else if (isset($info['NAME'])) {
+            $name = $info['NAME'];
+        } else if (isset($info['module name'])) {
+            $name = $info['module name'];
+        } else if (isset($info['Module Name'])) {
+            $name = $info['Module Name'];
+        } else if (isset($info['MODULE NAME'])) {
+            $name = $info['MODULE NAME'];
+        } else {
+            $name = '';
+        }
+
+        if (isset($info['version'])) {
+            $version = $info['version'];
+        } else if (isset($info['Version'])) {
+            $version = $info['Version'];
+        } else if (isset($info['VERSION'])) {
+            $version = $info['VERSION'];
+        } else {
+            $version = 'N/A';
+        }
+
+        // Get SQL, if exists
+        $sqlType = strtolower(((DB_INTERFACE == 'pdo') ? DB_TYPE : DB_INTERFACE));
+        $sqlFile = $modulesPath . '/' . $folder . '/data/' . $name . '.' . $sqlType . '.sql';
+        if (!file_exists($sqlFile)) {
+            $sqlFile = null;
+        }
+
+        $tables = (null !== $sqlFile) ? $this->getTables(file_get_contents($sqlFile)) : [];
+        $config = include $modulesPath . '/' . $folder . '/config/module.php';
+
+        // Save module in the database
+        $mod = new Table\Modules([
+            'file'    => $module,
+            'folder'  => $folder,
+            'name'    => $name,
+            'prefix'  => (isset($config[$name]['prefix'])) ? $config[$name]['prefix'] : '',
+            'version' => $version,
+            'active'  => 1,
+            'order'   => (int)Table\Modules::findAll()->count() + 1,
+            'assets'  => serialize([
+                'tables' => $tables,
+                'info'   => $info
+            ]),
+            'installed_on' => date('Y-m-d H:i:s')
+        ]);
+        $mod->save();
+
+        $this->sendStats($name, $version);
+
+        // Execute any SQL that came with the module
+        if (null !== $sqlFile) {
+            Db::install($sqlFile, [
+                'database' => DB_NAME,
+                'username' => DB_USER,
+                'password' => DB_PASS,
+                'host'     => DB_HOST,
+                'prefix'   => DB_PREFIX,
+                'type'     => DB_TYPE
+            ], ucfirst(strtolower(DB_INTERFACE)));
+        }
+
+        // Run any install functions
+        if (isset($config[$name]) && isset($config[$name]['install']) && !empty($config[$name]['install'])) {
+            call_user_func_array($config[$name]['install'], [$services]);
         }
     }
 

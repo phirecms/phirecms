@@ -202,7 +202,8 @@ class Module extends Module\Module
     public function registerModules()
     {
         if ($this->application->config()['db']) {
-            $modulesPath = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
+            $modulesPath   = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
+            $moduleFolders = [];
 
             $modules = Table\Modules::findBy(['active' => 1], ['order' => 'order DESC']);
             foreach ($modules->rows() as $module) {
@@ -222,19 +223,25 @@ class Module extends Module\Module
                             );
                         }
 
+                        if (strpos($modulesPath, 'vendor') !== false) {
+                            unset($config['prefix']);
+                            unset($config['src']);
+                        }
                         $this->application->register($name, new Module\Module($config, $this->application));
                     }
                 }
 
-                // Check module configs for Phire-specific configs
-                foreach ($this->application->modules() as $module => $config) {
-                    // Load module assets
-                    if (file_exists($modulesPath . '/' . $module . '/data/assets')) {
-                        $this->loadAssets(
-                            $modulesPath . '/' . $module . '/data/assets',
-                            strtolower($module)
-                        );
-                    }
+                $moduleFolders[$module->name] = $module->folder;
+            }
+
+            // Check module configs for Phire-specific configs
+            foreach ($this->application->modules() as $module => $config) {
+                // Load module assets
+                if (isset($moduleFolders[$module]) && file_exists($modulesPath . '/' . $moduleFolders[$module] . '/data/assets')) {
+                    $this->loadAssets(
+                        $modulesPath . '/' . $moduleFolders[$module] . '/data/assets',
+                        strtolower($module)
+                    );
                 }
             }
         }

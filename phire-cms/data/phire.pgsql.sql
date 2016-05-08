@@ -111,6 +111,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
   "id" integer NOT NULL DEFAULT nextval('module_id_seq'),
   "file" varchar(255) NOT NULL,
   "folder" varchar(255) NOT NULL,
+  "name" varchar(255) NOT NULL,
   "prefix" varchar(255) NOT NULL,
   "version" varchar(255) NOT NULL,
   "active" integer NOT NULL,

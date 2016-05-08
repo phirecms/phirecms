@@ -113,6 +113,7 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
   "file" varchar NOT NULL,
   "folder" varchar NOT NULL,
+  "name" varchar NOT NULL,
   "prefix" varchar NOT NULL,
   "version" varchar NOT NULL,
   "active" integer NOT NULL,
