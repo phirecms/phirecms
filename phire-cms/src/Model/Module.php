@@ -74,9 +74,9 @@ class Module extends AbstractModel
 
         $sess = Session::getInstance();
         foreach ($modules as $module) {
-            if (isset($moduleManager[$module->folder]) && isset($moduleManager[$module->folder]->config()['nav.module'])) {
+            if (isset($moduleManager[$module->name]) && isset($moduleManager[$module->name]->config()['nav.module'])) {
                 $module->nav = new Nav(
-                    [$moduleManager[$module->folder]->config()['nav.module']], ['top' => ['class' => 'module-nav']]
+                    [$moduleManager[$module->name]->config()['nav.module']], ['top' => ['class' => 'module-nav']]
                 );
                 $module->nav->setBaseUrl(BASE_PATH . APP_URI);
                 $module->nav->setAcl($acl);
