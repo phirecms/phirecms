@@ -21,7 +21,7 @@
         <table class="data-table-alt" cellpadding="0" cellspacing="0" border="0">
             <tr>
                 <th><a href="<?=$phireUri . '/modules?sort=id';?>">#</a></th>
-                <th><a href="<?=$phireUri . '/modules?sort=folder';?>">Name</a></th>
+                <th><a href="<?=$phireUri . '/modules?sort=name';?>">Name</a></th>
                 <th>Version</th>
                 <th>Description</th>
                 <th>Author</th>
@@ -41,8 +41,8 @@
             <tr>
                 <td><?=$module->id; ?></td>
                 <td><?=($assets['info']['Module Name']) ? $assets['info']['Module Name'] : '&nbsp;'; ?></td>
-                <td><?=$module->version; ?><?php if ($acl->isAllowed($user->role, 'modules', 'update') && isset($moduleUpdates) && isset($moduleUpdates[$module->folder]) && (version_compare($module->version, $moduleUpdates[$module->folder]) < 0)):
-    echo ' (<a class="normal-link" href="' . $phireUri . '/modules/update/' . $module->id .  '">Update to ' . $moduleUpdates[$module->folder] . '</a>)';
+                <td><?=$module->version; ?><?php if ($acl->isAllowed($user->role, 'modules', 'update') && isset($moduleUpdates) && isset($moduleUpdates[$module->name]) && (version_compare($module->version, $moduleUpdates[$module->name]) < 0)):
+    echo ' (<a class="normal-link" href="' . $phireUri . '/modules/update/' . $module->id .  '">Update to ' . $moduleUpdates[$module->name] . '</a>)';
 endif; ?></td>
                 <td><?=($assets['info']['Description']) ? $assets['info']['Description'] : '&nbsp;'; ?></td>
                 <td><?=($assets['info']['Author']) ? $assets['info']['Author'] : '&nbsp;'; ?></td>

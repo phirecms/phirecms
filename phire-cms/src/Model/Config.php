@@ -189,14 +189,14 @@ class Config extends AbstractModel
             $modules = Table\Modules::findAll();
             if ($modules->hasRows()) {
                 foreach ($modules->rows() as $module) {
-                    $curl = new Curl('http://updates.phirecms.org/latest/' . $module->folder, [
+                    $curl = new Curl('http://updates.phirecms.org/latest/' . $module->name, [
                         CURLOPT_HTTPHEADER => $headers
                     ]);
                     $curl->send();
 
                     if ($curl->getCode() == 200) {
                         $json = json_decode($curl->getBody(), true);
-                        $updates['modules'][$module->folder] = $json['version'];
+                        $updates['modules'][$module->name] = $json['version'];
                     }
                 }
             }

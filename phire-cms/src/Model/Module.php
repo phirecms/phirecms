@@ -223,7 +223,7 @@ class Module extends AbstractModel
 
             foreach ($modules as $module) {
                 if (file_exists($modulesPath . '/' . $module)) {
-                    $ext  = null;
+                    $ext   = null;
                     $folder = null;
                     if (substr($module, -4) == '.zip') {
                         $ext  = 'zip';
