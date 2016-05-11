@@ -36,6 +36,14 @@ class Module extends AbstractModel
 {
 
     /**
+     * Priority modules
+     */
+    protected $priority = [
+        'phire-content',
+        'phire-media'
+    ];
+
+    /**
      * Get all modules
      *
      * @param  \Pop\Module\Manager $moduleManager
@@ -136,6 +144,20 @@ class Module extends AbstractModel
                         $newModules[] = $file;
                     }
                 }
+            }
+        }
+
+        if (count($newModules) > 0) {
+            $priority = [];
+            foreach ($newModules as $i => $new) {
+                $newMod = substr($new, 0, strrpos($new, '-'));
+                if (in_array($newMod, $this->priority)) {
+                    $priority[] = $new;
+                    unset($newModules[$i]);
+                }
+            }
+            if (count($priority) > 0) {
+                $newModules = array_merge($priority, $newModules);
             }
         }
 
