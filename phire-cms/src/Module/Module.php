@@ -14,7 +14,7 @@
 namespace Phire\Module;
 
 /**
- * Main Module class
+ * Main Phire Module class
  *
  * @category   Phire
  * @package    Phire

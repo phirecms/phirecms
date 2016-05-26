@@ -3,10 +3,10 @@
 --
 -- Requires the following modules:
 --
--- phire-categories
 -- phire-content
--- phire-fields
 -- phire-media
+-- phire-categories
+-- phire-fields
 -- phire-navigation
 -- phire-templates
 --

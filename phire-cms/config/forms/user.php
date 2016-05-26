@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire\Form\User configuration
+ */
 return [
     [
         'submit' => [

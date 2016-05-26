@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire\Form\Install configuration
+ */
 return [
     [
         'db_adapter'     => [

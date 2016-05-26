@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire resources for the ACL
+ */
 return [
     'login'       => [],
     'register'    => [],

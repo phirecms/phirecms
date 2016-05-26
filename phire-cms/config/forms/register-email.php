@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire\Form\RegisterEmail configuration
+ */
 return [
     [
         'email' => [

@@ -30,9 +30,24 @@ use Pop\File\Dir;
 class BaseUpdater
 {
 
-    protected $module          = null;
+    /**
+     * Module
+     * @var mixed
+     */
+    protected $module = null;
+
+    /**
+     * Previous updates
+     * @var array
+     */
     protected $previousUpdates = [];
 
+    /**
+     * Constructor
+     *
+     * @param  mixed $module
+     * @return BaseUpdater
+     */
     public function __construct($module = null)
     {
         $this->setModule($module);
@@ -53,17 +68,33 @@ class BaseUpdater
         }
     }
 
+    /**
+     * Set the module
+     *
+     * @param  mixed $module
+     * @return BaseUpdater
+     */
     public function setModule($module = null)
     {
         $this->module = $module;
         return $this;
     }
 
+    /**
+     * Get the module
+     *
+     * @return mixed
+     */
     public function getModule()
     {
         return $this->module;
     }
-
+    
+    /**
+     * Get the previous updates
+     *
+     * @return array
+     */
     public function getPreviousUpdates()
     {
         return $this->previousUpdates;
@@ -73,6 +104,7 @@ class BaseUpdater
      * Method to get update for one-click update
      *
      * @param string $module
+     * @return void
      */
     public function getUpdate($module = null)
     {
@@ -131,8 +163,10 @@ class BaseUpdater
     }
 
     /**
-     * Method to post update code for Phire or for a module,
+     * Method for post update code for Phire or for a module,
      * usually for database modification or file cleanup
+     *
+     * @return void
      */
     public function runPost()
     {

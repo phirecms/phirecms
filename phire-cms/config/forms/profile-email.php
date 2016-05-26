@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire\Form\ProfileEmail configuration
+ */
 return [
     [
         'email' => [

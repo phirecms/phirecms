@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire configuration
+ */
 $config = [
     'routes'    => include 'routes.php',
     'resources' => include 'resources.php',
@@ -83,6 +85,7 @@ $config = [
     'registration_csrf'    => false
 ];
 
+// If the database has been configuration, set up the database service
 if ((DB_INTERFACE != '') && (DB_NAME != '')) {
     $config['services']['database'] = [
         'call'   => 'Pop\Db\Db::connect',

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire\Form\Register configuration
+ */
 return [
     [
         'username' => [

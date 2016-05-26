@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire\Form\Update configuration
+ */
 return [
     [
         'ftp_address' => [

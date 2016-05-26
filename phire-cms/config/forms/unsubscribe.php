@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire\Form\Unsubscribe configuration
+ */
 return [
     [
         'email' => [

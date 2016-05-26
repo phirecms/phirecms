@@ -22,12 +22,13 @@ try {
     // Get the autoloader
     $autoloader = require __DIR__ . APP_PATH . '/vendor/autoload.php';
 
-    // Create and run the app
+    // Create main app object
     $app = new Pop\Application(
         $autoloader,
         include __DIR__ . APP_PATH . '/config/application.php'
     );
 
+    // Register the main Phire module, run the app
     $app->register('phire', new Phire\Module($app))
         ->run();
 } catch (Exception $exception) {

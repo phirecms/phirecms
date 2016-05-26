@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire\Form\InstallConfig configuration
+ */
 return [
     [
         'config' => [

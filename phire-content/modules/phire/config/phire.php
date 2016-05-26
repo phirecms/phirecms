@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire override configuration file
+ */
 return [
     'system_title'         => 'Phire CMS',
     'updates'              => true,

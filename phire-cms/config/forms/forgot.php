@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire\Form\Forgot configuration
+ */
 return [
     [
         'email' => [

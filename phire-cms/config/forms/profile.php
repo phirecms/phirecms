@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire\Form\Profile configuration
+ */
 return [
     [
         'username' => [

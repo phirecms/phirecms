@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire\Form\Role configuration
+ */
 return [
     [
         'submit' => [

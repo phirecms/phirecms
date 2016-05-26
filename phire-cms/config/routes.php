@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Phire routes
+ */
 return [
     APP_URI => [
         '*' => [
