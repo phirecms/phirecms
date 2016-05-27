@@ -1358,3 +1358,123 @@ input[type=text].order-field {
 .clear-left {
     clear: left;
 }
+
+/* Calendar Styles */
+
+div#calendar {
+    position: absolute;
+    z-index: 10000001;
+    margin: 0;
+    padding: 0;
+    top: 52px;
+    left: -30px;
+    width: 170px;
+    background-color: #dcdcdc;
+    overflow: auto;
+    box-shadow: 0 0 6px 2px #808080;
+}
+
+#calendar-header {
+    margin: 3px 0 5px 0;
+    padding: 0;
+    float: left;
+}
+
+#calendar-close {
+    margin: 3px 5px 0 0;
+    float: right;
+}
+
+#next-month, #prev-month {
+    padding: 0 5px 0 5px;
+}
+
+#calendar-table {
+    clear: both;
+    margin: 5px auto 0 auto;
+    padding: 0;
+    border: none;
+    width: 100%;
+}
+
+#calendar-table tr {
+    margin: 0;
+    padding: 0;
+}
+
+#calendar-table tr > th {
+    margin: 0;
+    padding: 0;
+    font-size: 0.825em;
+    background-color: #ccc;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#calendar-table tr > td {
+    margin: 0;
+    padding: 0;
+    height: 20px;
+    font-size: 0.825em;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #ececec;
+}
+
+#calendar-table tr > td > a {
+    margin: 0;
+    padding: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    color: #666;
+    font-weight: normal;
+    text-decoration: none;
+    background: transparent;
+}
+
+#calendar-table tr > td > a:hover {
+    color: #000;
+    font-weight: normal;
+    text-decoration: underline;
+    background-color: #fff;
+}
+
+.calendar-open-link {
+    margin: 2px 5px 0 0;
+    padding: 0;
+    display: block;
+    float: left;
+    width: 15px;
+    height: 15px;
+    background-image: url(../img/calendar-icon.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    text-indent: -9999px;
+}
+
+.calendar-close-link {
+    text-decoration: none;
+    color: #425f63;
+    font-size: 0.825em;
+}
+
+.calendar-nav-link {
+    text-decoration: none;
+    color: #425f63;
+    font-size: 0.825em;
+}
+
+#calendar-table tr > td > a.day-on {
+    margin: 0;
+    padding: 2% 4% 2% 2%;
+    display: block;
+    width: 94%;
+    height: 96%;
+    color: #fff;
+    font-weight: bold;
+    background-color: #0774b7;
+}
