@@ -107,8 +107,8 @@ input[type=text], input[type=email], input[type=number], input[type=password] {
     font-family: "Source Sans Pro", sans-serif;
     border-radius: 4px;
     font-size: 1.0em;
-    border: solid 1px #c9c9c9;
-    background-color: #d3d3d3;
+    border: solid 1px #dcdcdc;
+    background-color: #fafafa;
 }
 
 input[type=file] {
@@ -117,16 +117,16 @@ input[type=file] {
     font-family: "Source Sans Pro", sans-serif;
     border-radius: 4px;
     font-size: 0.9em;
-    border: solid 1px #c9c9c9;
-    background-color: #d3d3d3;
+    border: solid 1px #dcdcdc;
+    background-color: #fbfbfb;
 }
 
 select {
     margin: 0;
     padding: 4px 28px 4px 2px;
     font-family: "Source Sans Pro", sans-serif;
-    border: solid 1px #c9c9c9;
-    background-color: #d3d3d3;
+    border: solid 1px #dcdcdc;
+    background-color: #fbfbfb;
     min-width: 60px;
     border-radius: 4px;
     -webkit-appearance: none;
@@ -151,8 +151,8 @@ option {
 textarea {
     margin: 0 0 10px 0;
     padding: 3px;
-    background-color: #d3d3d3;
-    border: solid 1px #c9c9c9;
+    background-color: #fbfbfb;
+    border: solid 1px #dcdcdc;
     border-radius: 4px;
     font-size: 0.825em;
     font-family: "Courier New", "Courier10 BT", courier, serif;
@@ -160,7 +160,7 @@ textarea {
 
 input[type=text]:focus, input[type=email]:focus, input[type=number]:focus, input[type=password]:focus, input[type=file]:focus, select:focus, textarea:focus {
     border: solid 1px #52b2e5;
-    background-color: #efefef;
+    background-color: #fff;
     box-shadow: 0 0 4px 1px #8cd6ff;
 }
 
@@ -203,7 +203,8 @@ input[type=submit]:focus, button:focus {
     width: 270px;
     min-height: 160px;
     border-radius: 6px;
-    background-image: url(../img/phire-seal.png);
+    background-image: url(../img/phire-seal.svg);
+    background-size: 75px 75px;
     background-position: center 40px;
     background-repeat: no-repeat;
     background-color: #fff;
@@ -217,7 +218,8 @@ input[type=submit]:focus, button:focus {
     width: 270px;
     min-height: 160px;
     border-radius: 8px;
-    background-image: url(../img/phire-seal.png);
+    background-image: url(../img/phire-seal.svg);
+    background-size: 75px 75px;
     background-position: center 40px;
     background-repeat: no-repeat;
     background-color: #fff;
@@ -231,7 +233,8 @@ input[type=submit]:focus, button:focus {
     width: 80%;
     min-height: 500px;
     border-radius: 8px;
-    background-image: url(../img/phire-seal.png);
+    background-image: url(../img/phire-seal.svg);
+    background-size: 75px 75px;
     background-position: center 40px;
     background-repeat: no-repeat;
     background-color: #fff;
@@ -955,7 +958,7 @@ nav.nav-arrow:hover {
     height: 40px;
     display: block;
     float: left;
-    background-image: url(../img/phire-logo.png);
+    background-image: url(../img/phire-logo.svg);
     background-repeat: no-repeat;
     background-position: center;
     overflow: hidden;
