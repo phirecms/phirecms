@@ -107,8 +107,8 @@ input[type=text], input[type=email], input[type=number], input[type=password] {
     font-family: "Source Sans Pro", sans-serif;
     border-radius: 4px;
     font-size: 1.0em;
-    border: solid 1px #c9c9c9;
-    background-color: #d3d3d3;
+    border: solid 1px #dcdcdc;
+    background-color: #fafafa;
 }
 
 input[type=file] {
@@ -117,25 +117,27 @@ input[type=file] {
     font-family: "Source Sans Pro", sans-serif;
     border-radius: 4px;
     font-size: 0.9em;
-    border: solid 1px #c9c9c9;
-    background-color: #d3d3d3;
+    border: solid 1px #dcdcdc;
+    background-color: #fbfbfb;
 }
 
 select {
     margin: 0;
     padding: 4px 28px 4px 2px;
     font-family: "Source Sans Pro", sans-serif;
-    border: solid 1px #c9c9c9;
-    background-color: #d3d3d3;
+    border: solid 1px #dcdcdc;
+    background-color: #fbfbfb;
     min-width: 60px;
     border-radius: 4px;
     -webkit-appearance: none;
     -moz-appearance: none;
+    appearance: none;
     text-indent: 1px;
     text-overflow: '';
-    background-image: url(../img/arrow-down-gray.png);
+    background-image: url(../img/arrow-down-gray.svg);
     background-repeat: no-repeat;
     background-position: right center;
+    background-size: 18px 7px;
 }
 
 select::-ms-expand {
@@ -149,8 +151,8 @@ option {
 textarea {
     margin: 0 0 10px 0;
     padding: 3px;
-    background-color: #d3d3d3;
-    border: solid 1px #c9c9c9;
+    background-color: #fbfbfb;
+    border: solid 1px #dcdcdc;
     border-radius: 4px;
     font-size: 0.825em;
     font-family: "Courier New", "Courier10 BT", courier, serif;
@@ -158,7 +160,7 @@ textarea {
 
 input[type=text]:focus, input[type=email]:focus, input[type=number]:focus, input[type=password]:focus, input[type=file]:focus, select:focus, textarea:focus {
     border: solid 1px #52b2e5;
-    background-color: #efefef;
+    background-color: #fff;
     box-shadow: 0 0 4px 1px #8cd6ff;
 }
 
@@ -201,7 +203,8 @@ input[type=submit]:focus, button:focus {
     width: 270px;
     min-height: 160px;
     border-radius: 6px;
-    background-image: url(../img/phire-seal.png);
+    background-image: url(../img/phire-seal.svg);
+    background-size: 75px 75px;
     background-position: center 40px;
     background-repeat: no-repeat;
     background-color: #fff;
@@ -215,7 +218,8 @@ input[type=submit]:focus, button:focus {
     width: 270px;
     min-height: 160px;
     border-radius: 8px;
-    background-image: url(../img/phire-seal.png);
+    background-image: url(../img/phire-seal.svg);
+    background-size: 75px 75px;
     background-position: center 40px;
     background-repeat: no-repeat;
     background-color: #fff;
@@ -229,7 +233,8 @@ input[type=submit]:focus, button:focus {
     width: 80%;
     min-height: 500px;
     border-radius: 8px;
-    background-image: url(../img/phire-seal.png);
+    background-image: url(../img/phire-seal.svg);
+    background-size: 75px 75px;
     background-position: center 40px;
     background-repeat: no-repeat;
     background-color: #fff;
@@ -406,17 +411,26 @@ input[type=submit]:focus, button:focus {
 
 #header-nav > nav:last-child > a {
     position: relative;
-    top: 5px;
+    top: 2px;
     margin: 0 0 0 6px;
     padding: 0;
-    width: 20px;
-    height: 20px;
     display: inline-block;
-    background-image: url(../img/logout.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    overflow: hidden;
-    text-indent: 9999px;
+    width: 15px;
+    height: 10px;
+}
+
+#header-nav > nav:last-child > a > span {
+    display: none;
+}
+
+#header-nav > nav:last-child > a:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f08b";
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 1.1em;
 }
 
 #header-nav > nav > nav {
@@ -780,7 +794,7 @@ input[type=submit]:focus, button:focus {
 
 #phire-nav > nav > a {
     position: relative;
-    padding: 10px 35px 10px 35px;
+    padding: 7px 30px 7px 10px;
     display: inline-block;
     color: #fff;
     text-align: center;
@@ -872,16 +886,23 @@ input[type=submit]:focus, button:focus {
     margin: 0;
     font-weight: bold;
     text-align: left;
-    padding: 12px 20px 12px 35px;
-    width: 150px;
+    padding: 12px;
+    width: 125px;
     height: 20px;
     color: #315900;
     background-color: #dbf2bf;
     border-radius: 4px;
     box-shadow: 0 0 10px 3px #b8c9a1;
-    background-image: url(../img/check.png);
-    background-position: 10px center;
-    background-repeat: no-repeat;
+}
+
+#saved:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f00c";
+    margin: 0;
+    padding: 0 5px 0 0;
+    color: #5f8700;
+    font-size: 1.1em;
 }
 
 #removed {
@@ -894,16 +915,23 @@ input[type=submit]:focus, button:focus {
     margin: 0;
     font-weight: bold;
     text-align: left;
-    padding: 12px 20px 12px 35px;
-    width: 150px;
+    padding: 12px;
+    width: 125px;
     height: 20px;
     color: #8e0202;
     background-color: #e8d0d0;
     border-radius: 4px;
     box-shadow: 0 0 10px 3px #bfa4a4;
-    background-image: url(../img/x-red.png);
-    background-position: 10px center;
-    background-repeat: no-repeat;
+}
+
+#removed:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f00d";
+    margin: 0;
+    padding: 0 5px 0 0;
+    color: #9c0000;
+    font-size: 1.1em;
 }
 
 #user_process_action {
@@ -919,7 +947,7 @@ input[type=submit]:focus, button:focus {
     height: 40px;
     display: block;
     float: left;
-    background-image: url(../img/phire-logo.png);
+    background-image: url(../img/phire-logo.svg);
     background-repeat: no-repeat;
     background-position: center;
     overflow: hidden;
@@ -1119,8 +1147,9 @@ input[type=submit]:focus, button:focus {
     overflow: hidden;
     width: 19px;
     height: 21px;
-    background-image: url(../img/edit.png);
+    background-image: url(../img/edit.svg);
     text-indent: -1000px;
+    background-size: 19px 21px;
 }
 
 .copy-link {
@@ -1130,8 +1159,9 @@ input[type=submit]:focus, button:focus {
     overflow: hidden;
     width: 19px;
     height: 21px;
-    background-image: url(../img/copy.png);
+    background-image: url(../img/copy.svg);
     text-indent: -1000px;
+    background-size: 19px 21px;
 }
 
 .download-link {
@@ -1141,8 +1171,9 @@ input[type=submit]:focus, button:focus {
     overflow: hidden;
     width: 19px;
     height: 21px;
-    background-image: url(../img/download.png);
+    background-image: url(../img/download.svg);
     text-indent: -1000px;
+    background-size: 19px 21px;
 }
 
 th.text-center, td.text-center {
@@ -1244,68 +1275,130 @@ th.text-center, td.text-center {
     background-color: #a6a6a6;
 }
 
-.modules-nav-icon {
-    background-image: url(../img/gear-icon-sm.png);
-    background-position: 8px center;
-    background-repeat: no-repeat;
+.modules-nav-icon:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f085";
+    display: inline-block;
+    margin: 0;
+    padding: 0 5px 0 0;
+    vertical-align: middle;
+    color: #b4b5b4;
+    font-size: 1.5em;
+    width: 25px;
+    text-align: center;
 }
 
-.users-nav-icon {
-    background-image: url(../img/users-icon-sm.png);
-    background-position: 8px center;
-    background-repeat: no-repeat;
+.users-nav-icon:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f0c0";
+    display: inline-block;
+    margin: 0;
+    padding: 0 5px 0 0;
+    vertical-align: middle;
+    color: #b4b5b4;
+    font-size: 1.5em;
+    width: 25px;
+    text-align: center;
 }
 
-.roles-nav-icon {
-    background-image: url(../img/roles-icon-sm.png);
-    background-position: 8px center;
-    background-repeat: no-repeat;
+.roles-nav-icon:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f023";
+    display: inline-block;
+    margin: 0;
+    padding: 0 5px 0 0;
+    vertical-align: middle;
+    color: #b4b5b4;
+    font-size: 1.5em;
+    width: 25px;
+    text-align: center;
 }
 
-.config-nav-icon {
-    background-image: url(../img/sliders-icon-sm.png);
-    background-position: 8px center;
-    background-repeat: no-repeat;
+.config-nav-icon:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f1de";
+    display: inline-block;
+    margin: 0;
+    padding: 0 5px 0 0;
+    vertical-align: middle;
+    color: #b4b5b4;
+    font-size: 1.5em;
+    width: 25px;
+    text-align: center;
 }
 
 .dashboard-header {
     margin: 10px 0 10px 0;
-    padding: 10px 0 10px 45px;
-    background-image: url(../img/dashboard-icon-lg.png);
-    background-position: left center;
-    background-repeat: no-repeat;
+    padding: 10px 0 10px 0;
+}
+
+.dashboard-header:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f0e4";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 .modules-header {
     margin: 10px 0 10px 0;
-    padding: 10px 0 10px 40px;
-    background-image: url(../img/gear-icon-lg.png);
-    background-position: left center;
-    background-repeat: no-repeat;
+    padding: 10px 0 10px 0;
+}
+
+.modules-header:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f085";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 .users-header {
     margin: 10px 0 10px 0;
-    padding: 10px 0 10px 45px;
-    background-image: url(../img/users-icon-lg.png);
-    background-position: left center;
-    background-repeat: no-repeat;
+    padding: 10px 0 10px 0;
+}
+
+.users-header:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f0c0";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 .roles-header {
     margin: 10px 0 10px 0;
-    padding: 10px 0 10px 45px;
-    background-image: url(../img/roles-icon-lg.png);
-    background-position: left center;
-    background-repeat: no-repeat;
+    padding: 10px 0 10px 0;
+}
+
+.roles-header:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f023";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 .config-header {
     margin: 10px 0 10px 0;
-    padding: 10px 0 10px 42px;
-    background-image: url(../img/sliders-icon-lg.png);
-    background-position: left center;
-    background-repeat: no-repeat;
+    padding: 10px 0 10px 0;
+}
+
+.config-header:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f1de";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 .module-nav {
@@ -1457,11 +1550,19 @@ div#calendar {
     float: left;
     width: 15px;
     height: 15px;
-    background-image: url(../img/calendar-icon.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    overflow: hidden;
-    text-indent: -9999px;
+}
+
+.calendar-open-link:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f073";
+    margin: 0;
+    padding: 0;
+    color: #8d8d8d;
+}
+
+.calendar-open-link > span {
+    display: none;
 }
 
 .calendar-close-link {
