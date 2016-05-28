@@ -13,7 +13,7 @@ html {
     font-size: 0.9em;
     color: #727170;
     box-shadow: inset 0 0 120px 90px #d1cecb;
-    background-color: #f4f1ed;
+    background-color: #e8e5e3;
     height: 100%;
     overflow: auto;
 }
@@ -47,7 +47,7 @@ header {
     padding: 0;
     width: 100%;
     height: 90px;
-    background-color: #211f1e;
+    background-color: #000;
 }
 
 form {
@@ -366,7 +366,7 @@ input[type=submit]:focus, button:focus {
 #header-nav {
     position: relative;
     z-index: 10000;
-    margin: 55px 16px 0 0;
+    margin: 60px 16px 0 0;
     padding: 0;
     color: #f4f1ed;
     float: right;
@@ -752,10 +752,11 @@ input[type=submit]:focus, button:focus {
     height: 15px;
     font-size: 0.825em;
     text-align: center;
-    background-color: #d1d0d0;
+    color: #4f4f4f;
+    background-color: #cdcdcd;
 }
 
-#container > footer > a {
+#container > footer a {
     font-weight: normal;
 }
 
@@ -766,7 +767,7 @@ input[type=submit]:focus, button:focus {
     padding: 0 0 0 2%;
     width: 98%;
     font-size: 0.9em;
-    background-color: #514e4c;
+    background-color: #444;
 }
 
 #phire-nav > nav {
@@ -783,11 +784,11 @@ input[type=submit]:focus, button:focus {
     color: #fff;
     text-align: center;
     text-decoration: none;
-    border-right: solid 1px #6b6765;
+    border-right: solid 1px #2b2b2b;
 }
 
 #phire-nav > nav:first-child > a {
-    border-left: solid 1px #6b6765;
+    border-left: solid 1px #2b2b2b;
 }
 
 #phire-nav > nav:hover {
@@ -977,7 +978,7 @@ input[type=submit]:focus, button:focus {
     margin: 0 auto 20px auto;
     padding: 0;
     width: 100%;
-    border: solid 1px #ccc;
+    border: solid 1px #bbb;
 }
 
 .dashboard-table tr {
@@ -986,7 +987,7 @@ input[type=submit]:focus, button:focus {
 }
 
 .dashboard-table tr:hover {
-    background-color: #e8f4f7;
+    background-color: #dce3e5;
 }
 
 .dashboard-table th {
@@ -994,13 +995,13 @@ input[type=submit]:focus, button:focus {
     text-align: left;
     padding: 8px 5px 8px 5px;
     font-size: 0.9em;
-    background-color: #dedede;
+    background-color: #cdcdcd;
 }
 
 .dashboard-table td {
     margin: 0;
     padding: 8px 5px 8px 5px;
-    border-top: solid 1px #ccc;
+    border-top: solid 1px #bbb;
     font-size: 0.9em;
 }
 
@@ -1009,9 +1010,9 @@ input[type=submit]:focus, button:focus {
     margin: 10px auto 10px auto;
     padding: 0;
     width: 100%;
-    border-left: solid 1px #ccc;
-    border-right: solid 1px #ccc;
-    border-bottom: solid 1px #ccc;
+    border-left: solid 1px #bbb;
+    border-right: solid 1px #bbb;
+    border-bottom: solid 1px #bbb;
 }
 
 .data-table tr, .data-table-alt tr {
@@ -1020,7 +1021,7 @@ input[type=submit]:focus, button:focus {
 }
 
 .data-table tr:hover, .data-table-alt tr:hover {
-    background-color: #e8f4f7;
+    background-color: #d5e6ea;
 }
 
 .data-table th, .data-table-alt th {
@@ -1028,23 +1029,23 @@ input[type=submit]:focus, button:focus {
     text-align: left;
     padding: 8px 5px 8px 5px;
     font-size: 0.9em;
-    border-top: solid 1px #ccc;
-    background-color: #ddd;
+    border-top: solid 1px #bbb;
+    background-color: #cdcdcd;
 }
 
 .data-table td, .data-table-alt td {
     margin: 0;
     padding: 8px 5px 8px 5px;
-    border-top: solid 1px #ccc;
+    border-top: solid 1px #bbb;
     font-size: 0.9em;
 }
 
 .data-table tr:nth-child(odd) {
-    background-color: #e5e5e5;
+    background-color: #E0E0E0;
 }
 
 .data-table tr:nth-child(odd):hover {
-    background-color: #e8f4f7;
+    background-color: #d5e6ea;
 }
 
 .data-table tr.no-background, .data-table td.no-background,

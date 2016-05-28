@@ -375,7 +375,7 @@ input[type=submit]:focus, button:focus {
 #header-nav {
     position: relative;
     z-index: 10000;
-    margin: 58px 16px 0 0;
+    margin: 60px 16px 0 0;
     padding: 0;
     color: #f4f1ed;
     float: right;
