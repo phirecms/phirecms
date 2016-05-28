@@ -106,7 +106,7 @@ input[type=text], input[type=email], input[type=number], input[type=password] {
     padding: 8px 6px 8px 6px;
     font-family: "Source Sans Pro", sans-serif;
     font-size: 1.0em;
-    border: solid 1px #dcdcdc;
+    border: solid 1px #bcbcbc;
     background-color: #fafafa;
 }
 
@@ -115,7 +115,7 @@ input[type=file] {
     padding: 3px;
     font-family: "Source Sans Pro", sans-serif;
     font-size: 0.9em;
-    border: solid 1px #dcdcdc;
+    border: solid 1px #bcbcbc;
     background-color: #fafafa;
 }
 
@@ -123,7 +123,7 @@ select {
     margin: 0;
     padding: 4px 32px 4px 2px;
     font-family: "Source Sans Pro", sans-serif;
-    border: solid 1px #dcdcdc;
+    border: solid 1px #bcbcbc;
     background-color: #fafafa;
     min-width: 60px;
     -webkit-appearance: none;
@@ -147,7 +147,7 @@ option {
 textarea {
     margin: 0 0 10px 0;
     padding: 3px;
-    border: solid 1px #dcdcdc;
+    border: solid 1px #bcbcbc;
     background-color: #fbfbfb;
     font-size: 0.825em;
     font-family: "Courier New", "Courier10 BT", courier, serif;
