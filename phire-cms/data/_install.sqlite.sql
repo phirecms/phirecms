@@ -39,7 +39,7 @@ INSERT INTO "[{prefix}]field_values" ("field_id", "model_id", "model", "value", 
 
 INSERT INTO "[{prefix}]media_libraries" ("id", "name", "folder", "allowed_types", "disallowed_types", "max_filesize", "actions", "adapter", "order") VALUES (30001, 'Uploads', 'uploads', 'ai,aif,aiff,avi,bmp,bz2,csv,doc,docx,eps,fla,flv,gif,gz,jpe,jpg,jpeg,log,md,mov,mp2,mp3,mp4,mpg,mpeg,otf,pdf,png,ppt,pptx,psd,rar,svg,swf,tar,tbz,tbz2,tgz,tif,tiff,tsv,ttf,txt,wav,wma,wmv,xls,xlsx,xml,zip', 'css,htm,html,js,json,pgsql,php,php3,php4,php5,sql,sqlite,yaml,yml', 25000000, 'a:4:{s:5:"large";a:3:{s:6:"method";s:6:"resize";s:6:"params";s:3:"800";s:7:"quality";i:80;}s:6:"medium";a:3:{s:6:"method";s:6:"resize";s:6:"params";s:3:"480";s:7:"quality";i:80;}s:5:"small";a:3:{s:6:"method";s:9:"cropThumb";s:6:"params";s:3:"160";s:7:"quality";i:70;}s:5:"thumb";a:3:{s:6:"method";s:9:"cropThumb";s:6:"params";s:2:"80";s:7:"quality";i:70;}}', 'Gd', 1);
 
-INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9001, NULL, 'index', 'desktop', '[{template_header}]
+INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9001, NULL, 'Index', 'desktop', '[{template_header}]
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
@@ -90,7 +90,7 @@ INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "templat
     </div> <!-- /container -->
 
 [{template_footer}]', NULL, 1);
-INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9002, NULL, 'sub', 'desktop', '[{template_header}]
+INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9002, NULL, 'Sub', 'desktop', '[{template_header}]
 
     <div class="container padding-top subheader"></div>
 
@@ -108,7 +108,7 @@ INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "templat
     </div> <!-- /container -->
 
 [{template_footer}]', NULL, 1);
-INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9003, NULL, 'company', 'desktop', '      <!-- Three columns of text below the carousel -->
+INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9003, NULL, 'Company', 'desktop', '      <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
           <img class="img-circle" src="[{base_path}][{content_path}]/templates/jumbotron-template-1.0/img/man1-240.jpg" alt="Generic placeholder image" width="140" height="140">
@@ -130,7 +130,7 @@ INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "templat
         </div><!-- /.col-lg-4 -->
       </div><!-- /.row -->
 ', NULL, 0);
-INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9004, NULL, 'header', 'desktop', '<!DOCTYPE html>
+INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9004, NULL, 'Header', 'desktop', '<!DOCTYPE html>
 <!-- Header //-->
 <html>
 
@@ -172,7 +172,7 @@ INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "templat
       </div>
     </nav>
 ', NULL, 0);
-INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9005, NULL, 'footer', 'desktop', '    <footer class="footer">
+INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9005, NULL, 'Footer', 'desktop', '    <footer class="footer">
       <div class="container">
         <p>&copy; [{date_Y}] Company, Inc.</p>
       </div>
@@ -182,7 +182,7 @@ INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "templat
 </body>
 
 </html>', NULL, 0);
-INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9006, NULL, 'error', 'desktop', '[{template_header}]
+INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9006, NULL, 'Error', 'desktop', '[{template_header}]
 
     <div class="container padding-top subheader"></div>
 
