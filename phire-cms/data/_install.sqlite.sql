@@ -182,6 +182,23 @@ INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "templat
 </body>
 
 </html>', NULL, 0);
+INSERT INTO "[{prefix}]templates" ("id", "parent_id", "name", "device", "template", "history", "visible") VALUES (9006, NULL, 'error', 'desktop', '[{template_header}]
+
+    <div class="container padding-top subheader"></div>
+
+    <div class="container padding-top">
+      <h2 class="error">[{title}]</h2>
+      <p>Sorry, that page was not found.</p>
+      <hr class="featurette-divider">
+    </div>
+
+    <div class="container marketing">
+
+[{template_company}]
+
+    </div> <!-- /container -->
+
+[{template_footer}]', NULL, 0);
 
 INSERT INTO "[{prefix}]navigation" ("id", "title", "top_node", "top_id", "top_class", "top_attributes", "parent_node", "parent_id", "parent_class", "parent_attributes", "child_node", "child_id", "child_class", "child_attributes", "on_class", "off_class", "indent") VALUES (7001, 'Main Nav', 'ul', '', 'nav navbar-nav navbar-right', '', 'ul', '', '', '', 'li', '', '', '', '', '', '0');
 
