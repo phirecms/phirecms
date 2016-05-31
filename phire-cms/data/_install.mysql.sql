@@ -25,7 +25,7 @@ INSERT INTO `[{prefix}]content` (`id`, `type_id`, `parent_id`, `title`, `uri`, `
 INSERT INTO `[{prefix}]fields` (`id`, `group_id`, `storage`, `type`, `name`, `label`, `values`, `default_values`, `attributes`, `validators`, `encrypt`, `order`, `required`, `prepend`, `dynamic`, `editor`, `models`) VALUES
 (11001, NULL, 'eav', 'text', 'description', 'Description', NULL, NULL, 'size="80" style="width: 99.5%;"', 'a:0:{}', 0, 1, 0, 0, 0, NULL, 'a:1:{i:0;a:3:{s:5:"model";s:27:"Phire\\Content\\Model\\Content";s:10:"type_field";N;s:10:"type_value";N;}}'),
 (11002, NULL, 'eav', 'text', 'keywords', 'Keywords', NULL, NULL, 'size="80" style="width: 99.5%;"', 'a:0:{}', 0, 2, 0, 0, 0, NULL, 'a:1:{i:0;a:3:{s:5:"model";s:27:"Phire\\Content\\Model\\Content";s:10:"type_field";N;s:10:"type_value";N;}}'),
-(11003, NULL, 'eav', 'textarea-history', 'content', 'Content', NULL, NULL, 'rows="20" cols="80" style="display: block; width: 100%;"', 'a:0:{}', 0, 3, 0, 0, 0, 'source', 'a:1:{i:0;a:3:{s:5:"model";s:27:"Phire\\Content\\Model\\Content";s:10:"type_field";N;s:10:"type_value";N;}}');
+(11003, NULL, 'eav', 'textarea-history', 'content', 'Content', NULL, NULL, 'rows="20" cols="80" style="display: block; width: 100%;"', 'a:0:{}', 0, 3, 0, 0, 0, 'ckeditor-remote', 'a:1:{i:0;a:3:{s:5:"model";s:27:"Phire\\Content\\Model\\Content";s:10:"type_field";N;s:10:"type_value";N;}}');
 
 INSERT INTO `[{prefix}]field_values` (`field_id`, `model_id`, `model`, `value`, `timestamp`, `history`) VALUES
 (11001, 6001, 'Phire\\Content\\Model\\Content', '"This is the home page"', 1464490934, NULL),
