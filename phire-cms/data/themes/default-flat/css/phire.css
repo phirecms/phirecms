@@ -156,6 +156,7 @@ textarea {
 input[type=text]:focus, input[type=email]:focus, input[type=number]:focus, input[type=password]:focus, input[type=file]:focus, select:focus, textarea:focus {
     border: solid 1px #52b2e5;
     background-color: #fff;
+    box-shadow: 0 0 4px 1px #8cd6ff;
 }
 
 input[type=submit]:focus, button:focus {
