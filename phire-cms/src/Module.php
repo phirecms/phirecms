@@ -140,7 +140,7 @@ class Module extends Module\Module
         }
 
         // Load assets, if they haven't been loaded already
-        $this->loadAssets($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/themes/default', 'default');
+        $this->loadAssets($_SERVER['DOCUMENT_ROOT'] . APP_PATH . '/data/themes/default', 'default');
         $this->loadAssets(__DIR__ . '/../data/assets', 'phire');
         sort($this->assets['js']);
         sort($this->assets['css']['link']);
