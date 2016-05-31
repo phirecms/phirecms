@@ -1044,6 +1044,14 @@ nav.nav-arrow:hover {
     background-color: #cdcdcd;
 }
 
+.data-table th a, .data-table-alt th a {
+    color: #0087b5;
+}
+
+.data-table th a:hover, .data-table-alt th a:hover {
+    color: #013b4f;
+}
+
 .data-table td, .data-table-alt td {
     margin: 0;
     padding: 8px 5px 8px 5px;
