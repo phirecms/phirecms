@@ -879,9 +879,6 @@ input[type=submit]:focus, button:focus {
     color: #315900;
     background-color: #dbf2bf;
     box-shadow: 0 0 10px 3px #b8c9a1;
-    background-image: url(../img/check.png);
-    background-position: 10px center;
-    background-repeat: no-repeat;
 }
 
 #saved:before {
