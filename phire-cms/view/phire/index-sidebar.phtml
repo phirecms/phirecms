@@ -1,5 +1,10 @@
         <div class="dashboard-right-column">
-<?php if ($acl->isAllowed($user->role, 'dashboard')): ?>
+<?php if (isset($dashboardSide) && (count($dashboardSide) > 0)): ?>
+<?php foreach ($dashboardSide as $dashSide): ?>
+<?php include $dashSide; ?>
+<?php endforeach; ?>
+<?php endif; ?>
+<?php if ($acl->isAllowed($user->role, 'system-overview')): ?>
             <table class="dashboard-table" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                     <th colspan="2">

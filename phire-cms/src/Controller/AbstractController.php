@@ -267,15 +267,16 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
         if (isset($this->sess->user)) {
             $this->services['nav.phire']->setRole($this->services['acl']->getRole($this->sess->user->role));
             $this->services['nav.phire']->returnFalse(true);
-            $this->view->phireNav  = $this->services['nav.phire'];
-            $this->view->phirePath = BASE_PATH . APP_PATH;
-            $this->view->docRoot   = $_SERVER['DOCUMENT_ROOT'];
-            $this->view->user      = $this->sess->user;
-            $this->view->acl       = $this->services['acl'];
-            $this->view->config    = $this->config;
-            $this->view->headers   = $this->application->config()['headers'];
-            $this->view->dashboard = $this->application->config()['dashboard'];
-            $this->view->footers   = $this->application->config()['footers'];
+            $this->view->phireNav      = $this->services['nav.phire'];
+            $this->view->phirePath     = BASE_PATH . APP_PATH;
+            $this->view->docRoot       = $_SERVER['DOCUMENT_ROOT'];
+            $this->view->user          = $this->sess->user;
+            $this->view->acl           = $this->services['acl'];
+            $this->view->config        = $this->config;
+            $this->view->headers       = $this->application->config()['headers'];
+            $this->view->dashboard     = $this->application->config()['dashboard'];
+            $this->view->dashboardSide = $this->application->config()['dashboard_side'];
+            $this->view->footers       = $this->application->config()['footers'];
         } else {
             $this->view->phireNav = null;
         }

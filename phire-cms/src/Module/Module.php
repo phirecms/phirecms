@@ -85,6 +85,12 @@ class Module extends \Pop\Module\Module
                 $this->application->mergeConfig(['dashboard' => $dashboard]);
             }
 
+            // If the module has a dashboard side include
+            if (isset($this->config['dashboard_side'])) {
+                $dashboard_side = array_merge([$this->config['dashboard_side']], $this->application->config()['dashboard_side']);
+                $this->application->mergeConfig(['dashboard_side' => $dashboard_side]);
+            }
+
             // If the module has a footer include
             if (isset($this->config['footer'])) {
                 $footer = array_merge([$this->config['footer']], $this->application->config()['footers']);
