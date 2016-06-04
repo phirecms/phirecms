@@ -356,24 +356,27 @@ class Module extends AbstractModel
      */
     protected function finalizeInstall($module, $folder, $modulesPath, $services)
     {
-        // Get module info from config file
-        $info = $this->getInfo(file_get_contents($modulesPath . '/' . $folder . '/config/module.php'));
+        // Get module config and module info from config file
+        $config   = include $modulesPath . '/' . $folder . '/config/module.php';
+        $info     = $this->getInfo(file_get_contents($modulesPath . '/' . $folder . '/config/module.php'));
+        $name     = key($config);
+        $descName = '';
 
         if (isset($info['name'])) {
-            $name = $info['name'];
+            $descName = $info['name'];
         } else if (isset($info['Name'])) {
-            $name = $info['Name'];
+            $descName = $info['Name'];
         } else if (isset($info['NAME'])) {
-            $name = $info['NAME'];
+            $descName = $info['NAME'];
         } else if (isset($info['module name'])) {
-            $name = $info['module name'];
+            $descName = $info['module name'];
         } else if (isset($info['Module Name'])) {
-            $name = $info['Module Name'];
+            $descName = $info['Module Name'];
         } else if (isset($info['MODULE NAME'])) {
-            $name = $info['MODULE NAME'];
-        } else {
-            $name = '';
+            $descName = $info['MODULE NAME'];
         }
+
+        $info['Desc Name'] = $descName;
 
         if (isset($info['version'])) {
             $version = $info['version'];
@@ -393,7 +396,6 @@ class Module extends AbstractModel
         }
 
         $tables = (null !== $sqlFile) ? $this->getTables(file_get_contents($sqlFile)) : [];
-        $config = include $modulesPath . '/' . $folder . '/config/module.php';
 
         // Save module in the database
         $mod = new Table\Modules([
