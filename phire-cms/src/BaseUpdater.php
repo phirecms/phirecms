@@ -57,7 +57,7 @@ class BaseUpdater
         if (null === $this->module) {
             $updates = Table\Config::findById('updates')->value;
         } else {
-            $module = Table\Modules::findBy(['folder' => $this->module]);
+            $module = Table\Modules::findBy(['name' => $this->module]);
             if (isset($module->id)) {
                 $updates = $module->updates;
             }
@@ -104,61 +104,94 @@ class BaseUpdater
      * Method to get update for one-click update
      *
      * @param string $module
+     * @param string $new
+     * @param string $old
+     * @param int    $id
      * @return void
      */
-    public function getUpdate($module = null)
+    public function getUpdate($module = null, $new = null, $old = null, $id = null)
     {
-        if (null === $module) {
-            if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/assets/phire')) {
-                $dir = new Dir(__DIR__ . '/../..' . CONTENT_PATH . '/assets/phire');
-                $dir->emptyDir(true);
-            }
+        $docRoot = null;
 
-            file_put_contents(
-                __DIR__ . '/../..' . CONTENT_PATH . '/updates/phirecms.zip',
-                fopen('http://updates.phirecms.org/releases/phire/phirecms.zip', 'r')
-            );
-
-            $basePath = realpath(__DIR__ . '/../..' . CONTENT_PATH . '/updates/');
-
-            $archive = new Archive($basePath . '/phirecms.zip');
-            $archive->extract($basePath);
-            unlink(__DIR__ . '/../..' . CONTENT_PATH . '/updates/phirecms.zip');
-
-            $json = json_decode(stream_get_contents(fopen('http://updates.phirecms.org/releases/phire/phire.json', 'r')), true);
-
-            foreach ($json as $file) {
-                if (!file_exists(__DIR__ . '/../' . $file) && !file_exists(dirname(__DIR__ . '/../' . $file))) {
-                    mkdir(dirname(__DIR__ . '/../' . $file), 0755, true);
-                }
-                copy(__DIR__ . '/../..' . CONTENT_PATH . '/updates/phire-cms/' . $file, __DIR__ . '/../' . $file);
-            }
-
-            $dir = new Dir(__DIR__ . '/../..' . CONTENT_PATH . '/updates/phire-cms/');
-            $dir->emptyDir(true);
+        if (isset($_SERVER['DOCUMENT_ROOT'])) {
+            $docRoot = $_SERVER['DOCUMENT_ROOT'];
         } else {
-            if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module . '.zip')) {
-                unlink(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module . '.zip');
+            $config = Table\Config::findById('document_root');
+            if (isset($config->value)) {
+                $docRoot = $config->value;
             }
+        }
 
-            if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module)) {
-                $dir = new Dir(__DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module);
+        if (null !== $docRoot) {
+            if (null === $module) {
+                if (file_exists($docRoot . CONTENT_PATH . '/assets/phire')) {
+                    $dir = new Dir($docRoot . CONTENT_PATH . '/assets/phire');
+                    $dir->emptyDir(true);
+                }
+
+                file_put_contents(
+                    $docRoot . CONTENT_PATH . '/updates/phirecms.zip',
+                    fopen('http://updates.phirecms.org/releases/phire/phirecms.zip', 'r')
+                );
+
+                $basePath = realpath($docRoot . CONTENT_PATH . '/updates/');
+
+                $archive = new Archive($basePath . '/phirecms.zip');
+                $archive->extract($basePath);
+                unlink($docRoot . CONTENT_PATH . '/updates/phirecms.zip');
+
+                $json = json_decode(stream_get_contents(fopen('http://updates.phirecms.org/releases/phire/phire.json', 'r')), true);
+
+                foreach ($json as $file) {
+                    if (!file_exists(__DIR__ . '/../' . $file) && !file_exists(dirname(__DIR__ . '/../' . $file))) {
+                        mkdir(dirname(__DIR__ . '/../' . $file), 0755, true);
+                    }
+                    copy($docRoot . CONTENT_PATH . '/updates/phire-cms/' . $file, __DIR__ . '/../' . $file);
+                }
+
+                $dir = new Dir($docRoot . CONTENT_PATH . '/updates/phire-cms/');
                 $dir->emptyDir(true);
+            } else {
+                if (file_exists($docRoot . MODULES_PATH . '/' . $module . '-' . $old . '.zip')) {
+                    unlink($docRoot . MODULES_PATH . '/' . $module . '-' . $old . '.zip');
+                }
+
+                if (file_exists($docRoot . MODULES_PATH . '/' . $module . '-' . $old)) {
+                    $dir = new Dir($docRoot . MODULES_PATH . '/' . $module . '-' . $old);
+                    $dir->emptyDir(true);
+                }
+
+                if (file_exists($docRoot . CONTENT_PATH . '/assets/' . $module)) {
+                    $dir = new Dir($docRoot . CONTENT_PATH . '/assets/' . $module);
+                    $dir->emptyDir(true);
+                }
+
+                file_put_contents(
+                    $docRoot . MODULES_PATH . '/' . $module . '-' . $new . '.zip',
+                    fopen('http://updates.phirecms.org/releases/modules/' . $module . '-' . $new . '.zip', 'r')
+                );
+
+                $basePath = realpath($docRoot . MODULES_PATH . '/');
+                $archive = new Archive($basePath . '/' . $module . '-' . $new . '.zip');
+                $archive->extract($basePath);
+
+                $mod = Table\Modules::findById($id);
+
+                $assets = unserialize($mod->assets);
+                if (isset($assets['info']['version'])) {
+                    $assets['info']['version'] = $new;
+                } else if (isset($assets['info']['Version'])) {
+                    $assets['info']['Version'] = $new;
+                } else if (isset($assets['info']['VERSION'])) {
+                    $assets['info']['VERSION'] = $new;
+                }
+
+                $mod->file    = $module . '-' . $new . '.zip';
+                $mod->folder  = $module . '-' . $new;
+                $mod->assets  = serialize($assets);
+
+                $mod->save();
             }
-
-            if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/assets/' . $module)) {
-                $dir = new Dir(__DIR__ . '/../..' . CONTENT_PATH . '/assets/' . $module);
-                $dir->emptyDir(true);
-            }
-
-            file_put_contents(
-                __DIR__ . '/../..' . CONTENT_PATH . '/modules/' . $module . '.zip',
-                fopen('http://updates.phirecms.org/releases/modules/' . $module . '.zip', 'r')
-            );
-
-            $basePath = realpath(__DIR__ . '/../..' . CONTENT_PATH . '/modules/');
-            $archive = new Archive($basePath . '/' . $module . '.zip');
-            $archive->extract($basePath);
         }
     }
 
@@ -189,7 +222,7 @@ class BaseUpdater
             $updated->value = date('Y-m-d H:i:s');
             $updated->save();
         } else {
-            $module = Table\Modules::findBy(['folder' => $this->module]);
+            $module = Table\Modules::findBy(['name' => $this->module]);
             if (isset($module->id)) {
                 $module->updates    = implode('|', $this->previousUpdates);
                 $module->updated_on = date('Y-m-d H:i:s');

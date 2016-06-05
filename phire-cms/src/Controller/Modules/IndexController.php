@@ -104,8 +104,8 @@ class IndexController extends AbstractController
         $module = new Model\Module();
         $module->getById($id);
 
-        if (isset($module->id) && isset($this->sess->updates->modules[$module->folder]) &&
-            (version_compare($module->version, $this->sess->updates->modules[$module->folder]) < 0)) {
+        if (isset($module->id) && isset($this->sess->updates->modules[$module->name]) &&
+            (version_compare($module->version, $this->sess->updates->modules[$module->name]) < 0)) {
             if (($this->request->getQuery('update') == 2) &&
                 is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules') &&
                 is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder) &&
@@ -115,14 +115,14 @@ class IndexController extends AbstractController
                 $updaterClass = $module->prefix . 'Updater';
 
                 if (class_exists($updaterClass)) {
-                    $updater = new $updaterClass($module->folder);
+                    $updater = new $updaterClass($module->name);
                     $updater->runPost();
-                } else {
-                    $module = \Phire\Table\Modules::findById($id);
-                    if (isset($module->id)) {
-                        $module->updated_on = date('Y-m-d H:i:s');
-                        $module->save();
-                    }
+                }
+                $mod = \Phire\Table\Modules::findById($id);
+                if (isset($mod->id)) {
+                    $mod->version = $this->sess->updates->modules[$module->name];
+                    $mod->updated_on = date('Y-m-d H:i:s');
+                    $mod->save();
                 }
 
                 $this->redirect(BASE_PATH . APP_URI . '/modules/complete/' . $id);
@@ -130,15 +130,15 @@ class IndexController extends AbstractController
                 is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules') &&
                 is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder) &&
                 is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder . '.zip')) {
-                $updater = new \Phire\Updater($module->folder);
-                $updater->getUpdate($module->folder);
+                $updater = new \Phire\Updater($module->name);
+                $updater->getUpdate($module->name, $this->sess->updates->modules[$module->name], $module->version, $id);
                 $this->redirect(BASE_PATH . APP_URI . '/modules/update/' . $id . '?update=2');
             } else {
                 $this->prepareView('phire/modules/update.phtml');
-                $this->view->title = 'Update ' . $module->folder;
+                $this->view->title                 = 'Update ' . $module->name;
                 $this->view->module_id             = $module->id;
-                $this->view->module_name           = $module->folder;
-                $this->view->module_update_version = $this->sess->updates->modules[$module->folder];
+                $this->view->module_name           = $module->name;
+                $this->view->module_update_version = $this->sess->updates->modules[$module->name];
 
                 if (is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules') &&
                     is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder) &&
