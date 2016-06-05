@@ -38,17 +38,17 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) < 0) {
-            // Complete one-click updating
-            if (($this->request->getQuery('update') == 2) &&
-                is_writable(__DIR__ . '/../../../../') && is_writable(__DIR__ . '/../../../..' . APP_PATH)) {
-                clearstatcache();
+        // Complete one-click updating
+        if ($this->request->getQuery('update') == 2) {
+            clearstatcache();
 
-                $updater = new Updater();
-                $updater->runPost();
-                $this->redirect(BASE_PATH . APP_URI . '/update/complete');
+            $updater = new Updater();
+            $updater->runPost();
+            $this->redirect(BASE_PATH . APP_URI . '/update/complete');
+        // Else, compare versions
+        } else if (version_compare(\Phire\Module::VERSION, $this->sess->updates->phirecms) < 0) {
             // Get updates via one-click updating
-            } else if (($this->request->getQuery('update') == 1) &&
+            if (($this->request->getQuery('update') == 1) &&
                 is_writable(__DIR__ . '/../../../../') && is_writable(__DIR__ . '/../../../..' . APP_PATH)) {
                 $updater = new Updater();
                 $updater->getUpdate();
@@ -72,7 +72,7 @@ class IndexController extends AbstractController
                 // Start update via FTP
                 if (($this->view->form !== false) && ($this->request->isPost())) {
                     $this->view->form->addFilter('strip_tags')
-                         ->setFieldValues($this->request->getPost());
+                        ->setFieldValues($this->request->getPost());
 
                     if ($this->view->form->isValid()) {
                         $fields = $this->view->form->getFields();
