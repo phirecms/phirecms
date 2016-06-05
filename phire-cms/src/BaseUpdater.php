@@ -128,6 +128,22 @@ class BaseUpdater
                     $dir = new Dir($docRoot . CONTENT_PATH . '/assets/phire');
                     $dir->emptyDir(true);
                 }
+                if (file_exists($docRoot . CONTENT_PATH . '/assets/default')) {
+                    $dir = new Dir($docRoot . CONTENT_PATH . '/assets/default');
+                    $dir->emptyDir(true);
+                }
+                if (file_exists($docRoot . CONTENT_PATH . '/assets/default-flat')) {
+                    $dir = new Dir($docRoot . CONTENT_PATH . '/assets/default-flat');
+                    $dir->emptyDir(true);
+                }
+                if (file_exists($docRoot . CONTENT_PATH . '/assets/default-top')) {
+                    $dir = new Dir($docRoot . CONTENT_PATH . '/assets/default-top');
+                    $dir->emptyDir(true);
+                }
+                if (file_exists($docRoot . CONTENT_PATH . '/assets/default-top-flat')) {
+                    $dir = new Dir($docRoot . CONTENT_PATH . '/assets/default-top-flat');
+                    $dir->emptyDir(true);
+                }
 
                 file_put_contents(
                     $docRoot . CONTENT_PATH . '/updates/phirecms.zip',
