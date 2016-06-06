@@ -64,8 +64,8 @@ CREATE INDEX "user_role_name" ON "[{prefix}]roles" ("name");
 -- Dumping data for table "roles"
 --
 
-INSERT INTO "[{prefix}]roles" ("id", "parent_id", "name", "verification", "approval", "email_as_username", "permissions") VALUES
-(2001, NULL, 'Phire', 0, 0, 0, NULL);
+INSERT INTO "[{prefix}]roles" ("id", "parent_id", "name", "verification", "approval", "email_as_username", "email_required", "permissions") VALUES
+(2001, NULL, 'Phire', 1, 1, 0, 0, 'a:2:{s:5:"allow";a:0:{}s:4:"deny";a:2:{i:0;a:2:{s:8:"resource";s:8:"register";s:10:"permission";N;}i:1;a:2:{s:8:"resource";s:11:"unsubscribe";s:10:"permission";N;}}}');
 
 -- --------------------------------------------------------
 
