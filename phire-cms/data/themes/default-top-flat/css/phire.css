@@ -1057,12 +1057,15 @@ input[type=submit]:focus, button:focus {
 .data-table tr.no-background, .data-table td.no-background,
 .data-table tr.no-background:hover, .data-table td.no-background:hover,
 .data-table-alt tr.no-background, .data-table-alt td.no-background,
-.data-table-alt tr.no-background:hover, .data-table-alt td.no-background:hover {
+.data-table-alt tr.no-background:hover, .data-table-alt td.no-background:hover,
+.dashboard-table tr.no-background, .dashboard-table td.no-background,
+.dashboard-table tr.no-background:hover, .dashboard-table td.no-background:hover {
     background: transparent;
 }
 
 .data-table tr.no-padding, .data-table td.no-padding,
-.data-table-alt tr.no-padding, .data-table-alt td.no-padding {
+.data-table-alt tr.no-padding, .data-table-alt td.no-padding,
+.dashboard-table tr.no-padding, .dashboard-table td.no-padding {
     padding: 0;
 }
 
