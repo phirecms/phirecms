@@ -445,18 +445,15 @@ class User extends AbstractModel
      */
     protected function sendVerification(Table\Users $user, $uri = null)
     {
-        $docRoot = Table\Config::findById('document_root')->value;
         $host    = Table\Config::findById('domain')->value;
         $domain  = str_replace('www.', '', $host);
-
-        $basePath = str_replace([realpath($docRoot), '\\'], ['', '/'], realpath(__DIR__ . '/../../../'));
-        $basePath = (!empty($basePath) ? $basePath : '');
+        $schema  = (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443')) ? 'https://' : 'http://';
 
         // Set the recipient
         $rcpt = [
             'name'   => $user->username,
             'email'  => $user->email,
-            'url'    => 'http://' . $host . $basePath . ((null !== $uri) ? $uri : APP_URI) . '/verify/' .
+            'url'    => $schema . $host . BASE_PATH . ((null !== $uri) ? $uri : APP_URI) . '/verify/' .
                 $user->id . '/' . sha1($user->email),
             'domain' => $domain
         ];

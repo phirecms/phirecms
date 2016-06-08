@@ -141,13 +141,14 @@ class Install extends AbstractModel
      */
     public function sendConfirmation($user)
     {
-        $domain  = str_replace('www.', '', $_SERVER['HTTP_HOST']);
+        $domain = str_replace('www.', '', $_SERVER['HTTP_HOST']);
+        $schema = (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443')) ? 'https://' : 'http://';
 
         // Set the recipient
         $rcpt = [
             'name'   => $user->username,
             'email'  => $user->email,
-            'login'  => 'http://' . $_SERVER['HTTP_HOST'] . BASE_PATH . APP_URI . '/login',
+            'login'  => $schema . $_SERVER['HTTP_HOST'] . BASE_PATH . APP_URI . '/login',
             'domain' => $domain
         ];
 
