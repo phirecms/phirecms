@@ -44,7 +44,7 @@
                 <td><?=$module->version; ?><?php if ($acl->isAllowed($user->role, 'modules', 'update') && isset($moduleUpdates) && isset($moduleUpdates[$module->name]) && ($module->version != 'N/A') && (version_compare($module->version, $moduleUpdates[$module->name]) < 0)):
     echo ' (<a class="normal-link" href="' . $phireUri . '/modules/update/' . $module->id .  '">Update to ' . $moduleUpdates[$module->name] . '</a>)';
 endif; ?></td>
-                <td><?=((($assets['info']['Desc Name'] != '') && ($assets['info']['Desc Name'] != $module->name)) ? $assets['info']['Desc Name'] . ': ' : null); ?><?=(isset($assets['info']['Description']) ? $assets['info']['Description'] : '&nbsp;'); ?></td>
+                <td><?=((isset($assets['info']['Desc Name']) && ($assets['info']['Desc Name'] != '') && ($assets['info']['Desc Name'] != $module->name)) ? $assets['info']['Desc Name'] . ': ' : null); ?><?=(isset($assets['info']['Description']) ? $assets['info']['Description'] : '&nbsp;'); ?></td>
                 <td><?=(isset($assets['info']['Author']) ? $assets['info']['Author'] : '&nbsp;'); ?></td>
                 <td><?=date($config->datetime_format, strtotime($module->installed_on)); ?></td>
                 <td><?=((null !== $module->updated_on) ? date($config->datetime_format, strtotime($module->updated_on)) : '&nbsp;'); ?></td>
