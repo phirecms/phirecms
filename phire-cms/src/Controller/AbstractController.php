@@ -233,14 +233,14 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
     protected function prepareView($template)
     {
         // Check for any override templates
-        $headerTemplate = (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/view/phire/header.phtml')) ?
-            $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/view/phire/header.phtml' : __DIR__ . '/../../view/phire/header.phtml';
+        $headerTemplate = (file_exists(MODULES_ABS_PATH . '/phire/view/phire/header.phtml')) ?
+            MODULES_ABS_PATH . '/phire/view/phire/header.phtml' : __DIR__ . '/../../view/phire/header.phtml';
 
-        $footerTemplate = (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/view/phire/footer.phtml')) ?
-            $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/view/phire/footer.phtml' : __DIR__ . '/../../view/phire/footer.phtml';
+        $footerTemplate = (file_exists(MODULES_ABS_PATH . '/phire/view/phire/footer.phtml')) ?
+            MODULES_ABS_PATH . '/phire/view/phire/footer.phtml' : __DIR__ . '/../../view/phire/footer.phtml';
 
-        $viewTemplate = (file_exists($_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/view/' . $template)) ?
-            $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
+        $viewTemplate = (file_exists(MODULES_ABS_PATH . '/phire/view/' . $template)) ?
+            MODULES_ABS_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
 
         $this->view                  = new View($viewTemplate);
         $this->view->phire           = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
@@ -251,8 +251,8 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
         $this->view->phireUri        = BASE_PATH . APP_URI;
         $this->view->basePath        = BASE_PATH;
         $this->view->base_path       = BASE_PATH;
-        $this->view->contentPath     = BASE_PATH . CONTENT_PATH;
-        $this->view->content_path    = BASE_PATH . CONTENT_PATH;
+        $this->view->contentPath     = CONTENT_PATH;
+        $this->view->content_path    = CONTENT_PATH;
 
         if (isset($this->sess->installed)) {
             $this->view->installed = true;

@@ -107,9 +107,9 @@ class IndexController extends AbstractController
         if (isset($module->id) && isset($this->sess->updates->modules[$module->name]) &&
             (version_compare($module->version, $this->sess->updates->modules[$module->name]) < 0)) {
             if (($this->request->getQuery('update') == 2) &&
-                is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules') &&
-                is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder) &&
-                is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder . '.zip')) {
+                is_writable(MODULES_ABS_PATH) &&
+                is_writable(MODULES_ABS_PATH . '/' . $module->folder) &&
+                is_writable(MODULES_ABS_PATH . '/' . $module->folder . '.zip')) {
                 clearstatcache();
 
                 $updaterClass = $module->prefix . 'Updater';
@@ -127,9 +127,9 @@ class IndexController extends AbstractController
 
                 $this->redirect(BASE_PATH . APP_URI . '/modules/complete/' . $id);
             } else if (($this->request->getQuery('update') == 1) &&
-                is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules') &&
-                is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder) &&
-                is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder . '.zip')) {
+                is_writable(MODULES_ABS_PATH) &&
+                is_writable(MODULES_ABS_PATH . '/' . $module->folder) &&
+                is_writable(MODULES_ABS_PATH . '/' . $module->folder . '.zip')) {
                 $updater = new \Phire\Updater($module->name);
                 $updater->getUpdate($module->name, $this->sess->updates->modules[$module->name], $module->version, $id);
                 $this->redirect(BASE_PATH . APP_URI . '/modules/update/' . $id . '?update=2');
@@ -140,9 +140,9 @@ class IndexController extends AbstractController
                 $this->view->module_name           = $module->name;
                 $this->view->module_update_version = $this->sess->updates->modules[$module->name];
 
-                if (is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules') &&
-                    is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder) &&
-                    is_writable(__DIR__ . '/../../../..' . CONTENT_PATH . '/modules/' . $module->folder . '.zip')) {
+                if (is_writable(MODULES_ABS_PATH) &&
+                    is_writable(MODULES_ABS_PATH . '/' . $module->folder) &&
+                    is_writable(MODULES_ABS_PATH . '/' . $module->folder . '.zip')) {
                     $this->view->writable = true;
                 } else {
                     $this->view->writable = false;

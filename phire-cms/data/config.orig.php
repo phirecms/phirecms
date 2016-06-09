@@ -18,22 +18,24 @@
 // Calculate and define the base path
 $basePath = str_replace([realpath($_SERVER['DOCUMENT_ROOT']), '\\'], ['', '/'], realpath(__DIR__));
 define('BASE_PATH', (!empty($basePath) ? $basePath : ''));
-define('BASE_ABS_PATH', realpath(__DIR__ . BASE_PATH));
 
 // Define the application path
 define('APP_PATH', '/phire-cms');
-define('APP_ABS_PATH', realpath(__DIR__ . APP_PATH));
 
 // Define the content path
 define('CONTENT_PATH', '/phire-content');
-define('CONTENT_ABS_PATH', realpath(__DIR__ . CONTENT_PATH));
 
 // Define the modules path
 define('MODULES_PATH', BASE_PATH . CONTENT_PATH . '/modules');
-define('MODULES_ABS_PATH', realpath(__DIR__ . MODULES_PATH));
 
 // Define the application URI
 define('APP_URI', '/phire');
+
+// Define absolute paths
+define('BASE_ABS_PATH', realpath(__DIR__ . BASE_PATH));
+define('APP_ABS_PATH', realpath(__DIR__ . APP_PATH));
+define('CONTENT_ABS_PATH', realpath(__DIR__ . CONTENT_PATH));
+define('MODULES_ABS_PATH', realpath(__DIR__ . MODULES_PATH));
 
 /**
  * Database Configuration Settings

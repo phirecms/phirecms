@@ -114,9 +114,9 @@ class Module extends AbstractModel
      */
     public function detectNew($count = true)
     {
-        $modulesPath = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
-        $installed  = [];
-        $newModules = [];
+        $modulesPath = MODULES_ABS_PATH;
+        $installed   = [];
+        $newModules  = [];
 
         if (file_exists($modulesPath)) {
             $modules = Table\Modules::findAll();
@@ -193,7 +193,7 @@ class Module extends AbstractModel
      */
     public function upload($file)
     {
-        $folder = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
+        $folder = MODULES_ABS_PATH;
         $upload = new Upload($folder);
         $upload->upload($file);
     }
@@ -207,7 +207,7 @@ class Module extends AbstractModel
      */
     public function install(\Pop\Service\Locator $services)
     {
-        $modulesPath = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
+        $modulesPath = MODULES_ABS_PATH;
         $modules     = $this->detectNew(false);
 
         if (strpos($modulesPath, 'vendor') !== false) {
@@ -288,7 +288,7 @@ class Module extends AbstractModel
      */
     public function uninstall($ids, $services)
     {
-        $modulesPath = $_SERVER['DOCUMENT_ROOT'] . MODULES_PATH;
+        $modulesPath = MODULES_ABS_PATH;
 
         foreach ($ids as $id) {
             $module = Table\Modules::findById((int)$id);
