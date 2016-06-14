@@ -25,7 +25,7 @@ use Pop\Paginator\Paginator;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.0.0
+ * @version    2.0.1
  */
 class IndexController extends AbstractController
 {
@@ -192,7 +192,8 @@ class IndexController extends AbstractController
             ];
 
             $this->view->form = ($role->email_as_username) ? new Form\UserEmail($fields) : new Form\User($fields);
-            $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+            $this->view->form->addFilter('strip_tags')
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($user->toArray());
 
             if ($this->request->isPost()) {

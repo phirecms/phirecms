@@ -21,7 +21,7 @@ namespace Phire;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.0.0
+ * @version    2.0.1
  */
 class Updater extends BaseUpdater
 {

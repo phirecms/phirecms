@@ -31,7 +31,7 @@ use Pop\View\View;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.0.0
+ * @version    2.0.1
  */
 class Module extends Module\Module
 {
@@ -39,7 +39,7 @@ class Module extends Module\Module
     /**
      * Phire version
      */
-    const VERSION = '2.0.0';
+    const VERSION = '2.0.1';
 
     /**
      * JS and CSS assets
@@ -158,7 +158,7 @@ class Module extends Module\Module
         $view->base_path    = BASE_PATH;
         $view->contentPath  = BASE_PATH . CONTENT_PATH;
         $view->content_path = BASE_PATH . CONTENT_PATH;
-        $view->message      = $exception->getMessage();
+        $view->message      = htmlentities(strip_tags($exception->getMessage()), ENT_QUOTES, 'UTF-8');
 
         $response = new Response();
         $response->setBody((string)$view);

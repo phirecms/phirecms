@@ -26,7 +26,7 @@ use Pop\Web\Server;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.0.0
+ * @version    2.0.1
  */
 class Config extends AbstractModel
 {
@@ -135,8 +135,16 @@ class Config extends AbstractModel
             $config->save();
         }
 
+        if (!empty($post['datetime_format_custom']) && ($post['datetime_format'] == 'custom')) {
+            $dateFormatValue = str_replace(['"', "'"], ['', ''], strip_tags($post['datetime_format_custom']));
+        } else if (!empty($post['datetime_format']) && ($post['datetime_format'] != 'custom')) {
+            $dateFormatValue = $post['datetime_format'];
+        } else {
+            $dateFormatValue = 'M j Y';
+        }
+
         $config = Table\Config::findById('datetime_format');
-        $config->value = (!empty($post['datetime_format'])) ? $post['datetime_format'] : $post['datetime_format_custom'];
+        $config->value = $dateFormatValue;
         $config->save();
 
         $config = Table\Config::findById('pagination');

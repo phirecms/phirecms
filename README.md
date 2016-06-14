@@ -3,8 +3,10 @@ Welcome to Phire CMS
 
 RELEASE INFORMATION
 -------------------
-Phire CMS 2.0.0 is FINALLY here!  
-October 22, 2015
+Phire CMS 2 is here!  
+
+Version 2.0.1
+June 14, 2016
 
 OVERVIEW
 --------
@@ -18,7 +20,7 @@ functionality of Phire.
 
 REQUIREMENTS
 ------------
-The basic requirements for Phire CMS 2.0.0 are as follows:
+The basic requirements for Phire CMS 2 are as follows:
 
 * PHP 5.4.0+
 * Apache 2+, IIS 7+, or any web server with URL rewrite support

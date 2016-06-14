@@ -27,7 +27,7 @@ foreach($config['datetime_formats'] as $datetime):
                     <div class="datetime-format"><input type="radio" name="datetime_format" id="datetime_format" onclick="phire.customDatetime('<?=$phireUri; ?>');" <?=$checked; ?>value="<?=$datetime; ?>" /> <span class="radio-block-span"><?=date($datetime); ?></span></div>
 <?php endforeach; ?>
                     <div class="datetime-format">
-                        <input type="radio" name="datetime_format" id="datetime_format8" onclick="phire.customDatetime('<?=$phireUri; ?>');" <?=((!$wasChecked) ? 'checked="checked" ' : ''); ?>value="<?=((!$wasChecked) ? $config['datetime_format'] : ''); ?>" />
+                        <input type="radio" name="datetime_format" id="datetime_format8" <?=((!$wasChecked) ? 'checked="checked" ' : ''); ?>value="custom" />
                         <input type="text" name="datetime_format_custom" id="datetime_format_custom" onkeyup="phire.customDatetime('<?=$phireUri; ?>')" value="<?=((!$wasChecked) ? $config['datetime_format'] : ''); ?>" size="10" />
                         <span id="datetime-custom"><?=((!$wasChecked) ? '(' . date($config['datetime_format']) . ')' : ''); ?></span>
                     </div>
