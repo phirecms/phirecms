@@ -210,27 +210,32 @@ class Module extends Module\Module
                 if (file_exists($modulesPath . '/' . $module->folder . '/src/Module.php')) {
                     include $modulesPath . '/' . $module->folder . '/src/Module.php';
                     $moduleClass = $module->prefix . 'Module';
-                    $this->application->register($module->folder, new $moduleClass($this->application));
-                } else if (file_exists($modulesPath . '/' . $module->folder . '/config/module.php')) {
+                } else {
+                    $moduleClass = 'Phire\Module\Module';
+                }
+
+                if (file_exists($modulesPath . '/' . $module->folder . '/config/module.php')) {
                     $moduleConfig = include $modulesPath . '/' . $module->folder . '/config/module.php';
 
                     // Load and register each module
-                    foreach ($moduleConfig as $name => $config) {
-                        // Check for module config override
-                        if (file_exists($modulesPath . '/phire/config/' . $name . '.php')) {
-                            $config = array_merge(
-                                $config, include $modulesPath . '/phire/config/' . $name . '.php'
-                            );
-                        }
-
-                        if (strpos($modulesPath, 'vendor') !== false) {
-                            unset($config['prefix']);
-                            unset($config['src']);
-                        }
-                        $this->application->register($name, new Module\Module($config, $this->application));
+                    if (file_exists($modulesPath . '/phire/config/' . $module->name . '.php')) {
+                        $moduleConfig = array_merge(
+                            $moduleConfig[$module->name], include $modulesPath . '/phire/config/' . $module->name . '.php'
+                        );
+                    } else {
+                        $moduleConfig = $moduleConfig[$module->name];
                     }
+
+                    if (strpos($modulesPath, 'vendor') !== false) {
+                        unset($moduleConfig['prefix']);
+                        unset($moduleConfig['src']);
+                    }
+                    $newModule = new $moduleClass($moduleConfig, $this->application);
+                } else {
+                    $newModule = new $moduleClass($this->application);
                 }
 
+                $this->application->register($module->name, $newModule);
                 $moduleFolders[$module->name] = $module->folder;
             }
 
