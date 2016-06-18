@@ -233,14 +233,14 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
     protected function prepareView($template)
     {
         // Check for any override templates
-        $headerTemplate = (file_exists(MODULES_ABS_PATH . '/phire/view/phire/header.phtml')) ?
-            MODULES_ABS_PATH . '/phire/view/phire/header.phtml' : __DIR__ . '/../../view/phire/header.phtml';
+        $headerTemplate = (file_exists(CONTENT_ABS_PATH . '/phire/view/phire/header.phtml')) ?
+            CONTENT_ABS_PATH . '/phire/view/phire/header.phtml' : __DIR__ . '/../../view/phire/header.phtml';
 
-        $footerTemplate = (file_exists(MODULES_ABS_PATH . '/phire/view/phire/footer.phtml')) ?
-            MODULES_ABS_PATH . '/phire/view/phire/footer.phtml' : __DIR__ . '/../../view/phire/footer.phtml';
+        $footerTemplate = (file_exists(CONTENT_ABS_PATH . '/phire/view/phire/footer.phtml')) ?
+            CONTENT_ABS_PATH . '/phire/view/phire/footer.phtml' : __DIR__ . '/../../view/phire/footer.phtml';
 
-        $viewTemplate = (file_exists(MODULES_ABS_PATH . '/phire/view/' . $template)) ?
-            MODULES_ABS_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
+        $viewTemplate = (file_exists(CONTENT_ABS_PATH . '/phire/view/' . $template)) ?
+            CONTENT_ABS_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
 
         $this->view                  = new View($viewTemplate);
         $this->view->phire           = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);

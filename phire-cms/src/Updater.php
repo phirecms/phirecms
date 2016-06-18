@@ -26,4 +26,16 @@ namespace Phire;
 class Updater extends BaseUpdater
 {
 
+    public function update1()
+    {
+        // Move the phire override asset/config folder up a level
+        if (!file_exists(CONTENT_ABS_PATH . '/phire')) {
+            mkdir(CONTENT_ABS_PATH . '/phire');
+            chmod(CONTENT_ABS_PATH . '/phire', 0777);
+            $dir = new \Pop\File\Dir(MODULES_ABS_PATH . '/phire');
+            $dir->copyDir(CONTENT_ABS_PATH . '/phire', false);
+            $dir->emptyDir(true);
+        }
+    }
+
 }

@@ -104,8 +104,8 @@ if ((DB_INTERFACE != '') && (DB_NAME != '')) {
 }
 
 // Merge any custom/override config values
-if (defined('MODULES_ABS_PATH') && (MODULES_ABS_PATH != '') && file_exists(MODULES_ABS_PATH . '/phire/config/phire.php')) {
-    $config = array_merge($config, include MODULES_ABS_PATH . '/phire/config/phire.php');
+if (defined('CONTENT_ABS_PATH') && (CONTENT_ABS_PATH != '') && file_exists(CONTENT_ABS_PATH . '/phire/config/phire.php')) {
+    $config = array_merge($config, include CONTENT_ABS_PATH . '/phire/config/phire.php');
 }
 
 return $config;

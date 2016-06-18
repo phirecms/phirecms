@@ -79,8 +79,8 @@ class Module extends Module\Module
 
         if ($db) {
             $systemTheme = Table\Config::findById('system_theme')->value;
-            if (file_exists(MODULES_ABS_PATH . '/phire/themes/' . $systemTheme)) {
-                $this->loadAssets(MODULES_ABS_PATH . '/phire/themes/' . $systemTheme, $systemTheme);
+            if (file_exists(CONTENT_ABS_PATH . '/phire/themes/' . $systemTheme)) {
+                $this->loadAssets(CONTENT_ABS_PATH . '/phire/themes/' . $systemTheme, $systemTheme);
             } else if (file_exists(__DIR__ . '/../data/themes/' . $systemTheme)) {
                 $this->loadAssets(__DIR__ . '/../data/themes/' . $systemTheme, $systemTheme);
             }
@@ -93,7 +93,7 @@ class Module extends Module\Module
         sort($this->assets['css']['import']);
 
         // Load any custom/override assets
-        $this->loadAssets(MODULES_ABS_PATH . '/phire/assets', 'phire-custom', true);
+        $this->loadAssets(CONTENT_ABS_PATH . '/phire/assets', 'phire-custom', true);
 
         // Check PHP version
         if (version_compare(PHP_VERSION, '5.4.0') < 0) {
@@ -147,7 +147,7 @@ class Module extends Module\Module
         sort($this->assets['css']['import']);
 
         // Load any custom/override assets
-        $this->loadAssets(MODULES_ABS_PATH . '/phire/assets', 'phire-custom', true);
+        $this->loadAssets(CONTENT_ABS_PATH . '/phire/assets', 'phire-custom', true);
 
         $view = new View(__DIR__ . '/../view/phire/exception.phtml');
         $view->title        = 'Application Error';
@@ -218,9 +218,9 @@ class Module extends Module\Module
                     $moduleConfig = include $modulesPath . '/' . $module->folder . '/config/module.php';
 
                     // Load and register each module
-                    if (file_exists($modulesPath . '/phire/config/' . $module->name . '.php')) {
+                    if (file_exists(CONTENT_ABS_PATH . '/phire/config/' . $module->name . '.php')) {
                         $moduleConfig = array_merge(
-                            $moduleConfig[$module->name], include $modulesPath . '/phire/config/' . $module->name . '.php'
+                            $moduleConfig[$module->name], include CONTENT_ABS_PATH . '/phire/config/' . $module->name . '.php'
                         );
                     } else {
                         $moduleConfig = $moduleConfig[$module->name];
