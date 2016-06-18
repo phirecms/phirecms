@@ -118,7 +118,7 @@ class IndexController extends AbstractController
             $this->view->form = ($role->email_as_username) ? new Form\UserEmail($fields) : new Form\User($fields);
 
             if ($this->request->isPost()) {
-                $this->view->form->addFilter('strip_tags')
+                $this->view->form->addFilter('strip_tags', null, 'textarea')
                      ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                      ->setFieldValues($this->request->getPost());
 
@@ -192,12 +192,12 @@ class IndexController extends AbstractController
             ];
 
             $this->view->form = ($role->email_as_username) ? new Form\UserEmail($fields) : new Form\User($fields);
-            $this->view->form->addFilter('strip_tags')
+            $this->view->form->addFilter('strip_tags', null, 'textarea')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($user->toArray());
 
             if ($this->request->isPost()) {
-                $this->view->form->addFilter('strip_tags')
+                $this->view->form->addFilter('strip_tags', null, 'textarea')
                      ->setFieldValues($this->request->getPost());
 
                 if ($this->view->form->isValid()) {
