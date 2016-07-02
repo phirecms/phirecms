@@ -5,8 +5,8 @@ RELEASE INFORMATION
 -------------------
 Phire CMS 2 is here!  
 
-Version 2.0.1
-June 14, 2016
+Version 2.0.2
+July 2, 2016
 
 OVERVIEW
 --------
