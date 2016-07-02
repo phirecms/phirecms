@@ -31,7 +31,7 @@ use Pop\View\View;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.0.1
+ * @version    2.0.2
  */
 class Module extends Module\Module
 {
@@ -39,7 +39,7 @@ class Module extends Module\Module
     /**
      * Phire version
      */
-    const VERSION = '2.0.1';
+    const VERSION = '2.0.2';
 
     /**
      * JS and CSS assets
