@@ -25,7 +25,7 @@ use Pop\Paginator\Paginator;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.0.2
+ * @version    2.1.0
  */
 class IndexController extends AbstractController
 {
@@ -70,12 +70,13 @@ class IndexController extends AbstractController
             }
 
             $this->prepareView('phire/users/index.phtml');
-            $this->view->title     = 'Users';
-            $this->view->pages     = $pages;
-            $this->view->roleId    = $id;
-            $this->view->searchFor = $this->request->getQuery('search_for');
-            $this->view->searchBy  = $this->request->getQuery('search_by');
-            $this->view->users     = $user->getAll(
+            $this->view->title       = 'Users';
+            $this->view->pages       = $pages;
+            $this->view->roleId      = $id;
+            $this->view->queryString = $this->getQueryString('sort');
+            $this->view->searchFor   = $this->request->getQuery('search_for');
+            $this->view->searchBy    = $this->request->getQuery('search_by');
+            $this->view->users       = $user->getAll(
                 $id, $searchAry, $deniedRoles, $limit,
                 $this->request->getQuery('page'), $this->request->getQuery('sort')
             );

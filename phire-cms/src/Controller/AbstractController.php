@@ -27,7 +27,7 @@ use Pop\View\View;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.0.2
+ * @version    2.1.0
  */
 abstract class AbstractController extends \Pop\Controller\AbstractController
 {
@@ -222,6 +222,29 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
         $this->application->trigger('app.send.post', ['controller' => $this]);
         Response::redirect($url, $code, $version);
         exit();
+    }
+
+    /**
+     * Get query string
+     *
+     * @param  mixed  $omit
+     * @return string
+     */
+    public function getQueryString($omit = null)
+    {
+        if ((null !== $omit) && !is_array($omit)) {
+            $omit = [$omit];
+        }
+
+        $get   = $this->request->getQuery();
+        $query = [];
+        foreach ($get as $key => $value) {
+            if (!isset($query[$key]) && !in_array($key, $omit)) {
+                $query[$key] = $value;
+            }
+        }
+
+        return (count($query) > 0) ? http_build_query($query) : '';
     }
 
     /**

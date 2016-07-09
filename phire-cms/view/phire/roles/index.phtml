@@ -14,8 +14,8 @@
 <?php endif; ?>
         <table class="data-table" cellpadding="0" cellspacing="0" border="0">
             <tr>
-                <th><a href="<?=$phireUri . '/roles?sort=id';?>">#</a></th>
-                <th><a href="<?=$phireUri . '/roles?sort=name';?>">Name</a></th>
+                <th><a href="<?=$phireUri . '/roles?sort=id' . (($queryString != '') ? '&' . $queryString : '');?>">#</a></th>
+                <th><a href="<?=$phireUri . '/roles?sort=name' . (($queryString != '') ? '&' . $queryString : '');?>">Name</a></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'roles', 'edit')): ?>Edit<?php else: ?>&nbsp;<?php endif; ?></th>
                 <th class="text-center"><?php if ($acl->isAllowed($user->role, 'roles', 'remove')): ?><input type="checkbox" name="checkall" id="checkall" value="rm_roles" /><?php else: ?>&nbsp;<?php endif; ?></th>
             </tr>
