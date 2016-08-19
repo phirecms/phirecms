@@ -1,16 +1,20 @@
-Pop Bootstrap
-=============
+Welcome to Phire CMS
+====================
 
 Release Information
 -------------------
-Version 1.0.3  
-August 5, 2016
+Version 3.0.0  
+TBD
 
 Overview
 --------
-
-A skeleton web application for the Pop Web Application Framework,
-using the Bootstrap and Font Awesome frameworks. 
+Phire CMS is a simple and robust content management system that is built
+on the [Pop PHP Framework](http://www.popphp.org/). By itself, it provides
+very basic features and functionality for user and user role management,
+as well as module installation and management. The module functionality is
+where the strength of Phire lies. With it, you can install any of the
+pre-written modules, or write ones of your own and easily extend the
+functionality of Phire.
 
 Requirements
 ------------
@@ -21,67 +25,3 @@ Requirements
     - MySQL 5.0+
     - PostgreSQL 9.0+
     - SQLite 3+
-
-Installation
-------------
-
-The command below will install all of the necessary components and
-take you through the installation steps automatically:
-
-```console
-$ composer create-project popphp/pop-bootstrap project-folder
-```
-
-Get Started
------------
-
-Either create a vhost on your web server or start the PHP web server
-and point the document root to the `public` folder:
-
-```console
-$ sudo php -S localhost:8000 -t public
-```
-
-Visit the main web address. If you are using the PHP web server like
-above, you would visit `http://localhost:8000`. You will be redirected
-to a login screen. The default credentials are:
-
-* Username: `admin`
-* Password: `password`
-
-Features
---------
-
-This skeleton application provides a basic set of features common to
-web applications. This includes:
-
-- User Login
-- User Roles
-- User Sessions
-- User Management
-
-Console Access
---------------
-
-The application comes with a simple console interface to assist
-with user management from the CLI as well. The following commands
-are available:
-
-```console
-$ ./app help                Show this help screen
-    
-$ ./app users               List users
-$ ./app users add           Add a user
-$ ./app users password      Change a user password
-$ ./app users activate      Activate a user
-$ ./app users deactivate    Deactivate a user
-$ ./app users remove        Remove a user
-    
-$ ./app roles               List roles
-$ ./app roles add           Add a role
-$ ./app roles edit          Edit a role
-$ ./app roles remove        Remove a role
-    
-$ ./app sessions            List sessions
-$ ./app sessions remove     Remove a session
-```
