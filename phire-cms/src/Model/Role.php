@@ -16,14 +16,14 @@ namespace Phire\Model;
 use Phire\Table;
 
 /**
- * Role Model class
+ * Role model class
  *
  * @category   Phire
  * @package    Phire
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.1.0
+ * @version    3.0
  */
 class Role extends AbstractModel
 {
@@ -38,22 +38,18 @@ class Role extends AbstractModel
      */
     public function getAll($limit = null, $page = null, $sort = null)
     {
-        $order = $this->getSortOrder($sort, $page);
+        $order   = $this->getSortOrder($sort, $page);
+        $options = ['order'  => $order];
 
         if (null !== $limit) {
             $page = ((null !== $page) && ((int)$page > 1)) ?
                 ($page * $limit) - $limit : null;
 
-            return Table\Roles::findAll([
-                'offset' => $page,
-                'limit'  => $limit,
-                'order'  => $order
-            ])->rows();
-        } else {
-            return Table\Roles::findAll([
-                'order'  => $order
-            ])->rows();
+            $options['offset'] = $page;
+            $options['limit']  = $limit;
         }
+
+        return Table\Roles::findAll($options)->rows();
     }
 
     /**
@@ -83,10 +79,6 @@ class Role extends AbstractModel
         $role = new Table\Roles([
             'parent_id'         => ($post['role_parent_id'] != '----') ? (int)$post['role_parent_id'] : null,
             'name'              => html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8'),
-            'verification'      => (int)$post['verification'],
-            'approval'          => (int)$post['approval'],
-            'email_as_username' => (int)$post['email_as_username'],
-            'email_required'    => (int)$post['email_required'],
             'permissions'       => serialize($this->getPermissions($post))
         ]);
         $role->save();
@@ -97,8 +89,8 @@ class Role extends AbstractModel
     /**
      * Update an existing user role
      *
-     * @param  array            $post
-     * @param  \Pop\Web\Session $sess
+     * @param  array                $post
+     * @param  \Pop\Session\Session $sess
      * @return void
      */
     public function update(array $post, $sess = null)
@@ -107,10 +99,6 @@ class Role extends AbstractModel
         if (isset($role->id)) {
             $role->parent_id         = ($post['role_parent_id'] != '----') ? (int)$post['role_parent_id'] : null;
             $role->name              = html_entity_decode($post['name'], ENT_QUOTES, 'UTF-8');
-            $role->verification      = (int)$post['verification'];
-            $role->approval          = (int)$post['approval'];
-            $role->email_as_username = (int)$post['email_as_username'];
-            $role->email_required    = (int)$post['email_required'];
             $role->permissions       = serialize($this->getPermissions($post));
             $role->save();
 
@@ -123,7 +111,7 @@ class Role extends AbstractModel
     }
 
     /**
-     * Remove a user role
+     * Remove user role(s)
      *
      * @param  array $post
      * @return void
@@ -141,14 +129,14 @@ class Role extends AbstractModel
     }
 
     /**
-     * Determine if list of user roles have pages
+     * Determine if list of user roles has pages
      *
      * @param  int $limit
      * @return boolean
      */
     public function hasPages($limit)
     {
-        return (Table\Roles::findAll()->count() > $limit);
+        return (Table\Roles::findAll(null, Table\Roles::ROW_AS_ARRAY)->count() > $limit);
     }
 
     /**
@@ -158,63 +146,7 @@ class Role extends AbstractModel
      */
     public function getCount()
     {
-        return Table\Roles::findAll()->count();
-    }
-
-    /**
-     * Determine if user role has permission to register
-     *
-     * @param  int    $id
-     * @param  string $register
-     * @return boolean
-     */
-    public function canRegister($id, $register = 'register')
-    {
-        $result = true;
-        $role   = Table\Roles::findById((int)$id);
-
-        if (isset($role->id) && (null !== $role->permissions)) {
-            $permissions = unserialize($role->permissions);
-            if (isset($permissions['deny'])) {
-                foreach ($permissions['deny'] as $deny) {
-                    if ($deny['resource'] == $register) {
-                        $result = false;
-                    }
-                }
-            }
-        } else if (!isset($role->id)) {
-            $result = false;
-        }
-
-        return $result;
-    }
-
-    /**
-     * Determine if user role has permission to send a password reminder
-     * and reset the password
-     *
-     * @param  int $id
-     * @return boolean
-     */
-    public function canSendReminder($id)
-    {
-        $result = true;
-        $role   = Table\Roles::findById((int)$id);
-
-        if (isset($role->id) && (null !== $role->permissions)) {
-            $permissions = unserialize($role->permissions);
-            if (isset($permissions['deny'])) {
-                foreach ($permissions['deny'] as $deny) {
-                    if ($deny['resource'] == 'forgot') {
-                        $result = false;
-                    }
-                }
-            }
-        } else if (!isset($role->id)) {
-            $result = false;
-        }
-
-        return $result;
+        return Table\Roles::findAll(null, Table\Roles::ROW_AS_ARRAY)->count();
     }
 
     /**

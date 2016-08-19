@@ -1,24 +1,8 @@
 <?php
 /**
- * Phire resources for the ACL
+ * Pop Web Bootstrap Application Framework resources
  */
 return [
-    'login'           => [],
-    'register'        => [],
-    'forgot'          => [],
-    'profile'         => [],
-    'unsubscribe'     => [],
-    'dashboard'       => [],
-    'dashboard-side'  => [],
-    'system-overview' => [],
-    'config'          => [],
-    'update'          => [],
-    'modules'         => [
-        'index',
-        'install',
-        'update',
-        'process'
-    ],
     'users' => [
         'index',
         'add',
@@ -29,6 +13,12 @@ return [
         'index',
         'add',
         'edit',
+        'json',
+        'remove'
+    ],
+    'sessions' => [
+        'index',
+        'logins',
         'remove'
     ]
 ];

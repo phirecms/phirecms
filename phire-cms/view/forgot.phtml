@@ -1,0 +1,13 @@
+<?php include __DIR__ . '/header.phtml'; ?>
+
+    <div id="login-container">
+        <h2><?=$title; ?></h2>
+<?php if ($success): ?>
+        <p class="text-center">An email has been sent to your email address with a new password.</p>
+<?php else: ?>
+<?=$form; ?>
+<?php endif; ?>
+    </div> <!-- /container -->
+    <div id="login-footer"><a href="/login">Login</a></div>
+
+<?php include __DIR__ . '/footer.phtml'; ?>

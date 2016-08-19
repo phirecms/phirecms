@@ -1,49 +1,41 @@
 <?php
 /**
- * Phire\Form\Profile configuration
+ * Pop Web Bootstrap Application Framework profile form configuration
  */
 return [
     [
         'username' => [
             'type'     => 'text',
             'label'    => 'Username',
-            'required' => true
+            'required' => true,
+            'attributes' => [
+                'class' => 'form-control'
+            ]
         ],
         'password1' => [
             'type'       => 'password',
-            'label'      => 'Password',
-            'validators' => new \Pop\Validator\LengthGte(6)
+            'label'      => 'Change Password?',
+            'validators' => new \Pop\Validator\LengthGte(6),
+            'attributes' => [
+                'class' => 'form-control'
+            ]
         ],
         'password2' => [
             'type'      => 'password',
-            'label'     => 'Re-Type Password'
+            'label'     => 'Re-Type Password',
+            'attributes' => [
+                'class' => 'form-control'
+            ]
         ]
     ],
     [
-        'first_name' => [
-            'type'     => 'text',
-            'label'    => 'First Name'
-        ],
-        'last_name' => [
-            'type'     => 'text',
-            'label'    => 'Last Name'
-        ],
-        'company' => [
-            'type'     => 'text',
-            'label'    => 'Company'
-        ],
-        'title' => [
-            'type'     => 'text',
-            'label'    => 'Title'
-        ],
         'email' => [
             'type'       => 'email',
             'label'      => 'Email',
-            'validators' => new \Pop\Validator\Email()
-        ],
-        'phone' => [
-            'type'     => 'text',
-            'label'    => 'Phone'
+            'validators' => new \Pop\Validator\Email(),
+            'attributes' => [
+                'class' => 'form-control'
+            ]
         ]
     ],
     [
@@ -51,12 +43,8 @@ return [
             'type'  => 'submit',
             'value' => 'Save',
             'attributes' => [
-                'class'  => 'save-btn'
+                'class'  => 'btn btn-lg btn-info btn-block text-uppercase'
             ]
-        ],
-        'role_id' => [
-            'type'  => 'hidden',
-            'value' => '0'
         ],
         'id' => [
             'type'  => 'hidden',
@@ -64,4 +52,3 @@ return [
         ]
     ]
 ];
-

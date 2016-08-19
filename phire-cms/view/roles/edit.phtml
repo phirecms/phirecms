@@ -1,0 +1,14 @@
+<?php include __DIR__ . '/../header.phtml'; ?>
+
+    <div class="col-md-12">
+    <h1 class="roles-header"><?=$title; ?> : <span id="title-span"><?=$role_name; ?></span></h1>
+    <nav id="sub-nav">
+<?php if ($acl->isAllowed($user->role, 'roles', 'add')): ?>
+        <nav><a class="btn-sm btn-info" href="/roles/add">+ Add</a></nav>
+<?php endif; ?>
+        <nav><a class="btn-sm btn-info" href="/roles">Back</a></nav>
+    </nav>
+<?=$form; ?>
+    </div>
+
+<?php include __DIR__ . '/../footer.phtml'; ?>

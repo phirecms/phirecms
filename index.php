@@ -10,28 +10,15 @@
 
 require_once __DIR__ . '/config.php';
 
+// Require autoloader
+$autoloader = require __DIR__ . APP_PATH . '/vendor/autoload.php';
+
+// Create main app object, register the app module and run the app
 try {
-    // Check the app constants
-    if (!defined('BASE_PATH') || !defined('APP_PATH') || !defined('APP_URI') ||
-        !defined('DB_INTERFACE') || !defined('DB_NAME')) {
-        throw new \Exception(
-            'Error: The config file is not properly configured. Please check the config file or install the system.'
-        );
-    }
-
-    // Get the autoloader
-    $autoloader = require __DIR__ . APP_PATH . '/vendor/autoload.php';
-
-    // Create main app object
-    $app = new Pop\Application(
-        $autoloader,
-        include __DIR__ . APP_PATH . '/config/application.php'
-    );
-
-    // Register the main Phire module, run the app
-    $app->register('phire', new Phire\Module($app))
-        ->run();
-} catch (Exception $exception) {
-    $phire = new Phire\Module();
-    $phire->error($exception);
+    $app = new Pop\Application($autoloader, include __DIR__ . APP_PATH . '/config/application.php');
+    $app->register('phire', new Phire\Module($app));
+    $app->run();
+} catch (\Exception $exception) {
+    $app = new Phire\Module();
+    $app->error($exception);
 }

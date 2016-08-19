@@ -19,14 +19,14 @@ use Pop\Form\Element;
 use Pop\Validator;
 
 /**
- * User Form class
+ * User form class
  *
  * @category   Phire
  * @package    Phire
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.1.0
+ * @version    3.0
  */
 class User extends Form
 {
@@ -45,6 +45,7 @@ class User extends Form
     {
         parent::__construct($fields, $action, $method);
         $this->setAttribute('id', 'user-form');
+        $this->setAttribute('class', 'data-form');
         $this->setIndent('    ');
     }
 

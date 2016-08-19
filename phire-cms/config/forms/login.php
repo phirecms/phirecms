@@ -1,6 +1,6 @@
 <?php
 /**
- * Phire\Form\Login configuration
+ * Pop Web Bootstrap Application Framework login form configuration
  */
 return [
     [
@@ -9,7 +9,8 @@ return [
             'required'   => 'true',
             'validators' => new \Pop\Validator\NotEmpty(),
             'attributes' => [
-                'placeholder' => 'Username'
+                'placeholder' => 'Username',
+                'class'       => 'form-control'
             ]
         ],
         'password' => [
@@ -17,7 +18,8 @@ return [
             'required'   => 'true',
             'validators' => new \Pop\Validator\NotEmpty(),
             'attributes' => [
-                'placeholder' => 'Password'
+                'placeholder' => 'Password',
+                'class'       => 'form-control'
             ]
         ]
     ],
@@ -26,7 +28,7 @@ return [
             'type'  => 'submit',
             'value' => 'Login',
             'attributes' => [
-                'class'  => 'save-btn'
+                'class'  => 'btn btn-lg btn-info btn-block text-uppercase'
             ]
         ]
     ]

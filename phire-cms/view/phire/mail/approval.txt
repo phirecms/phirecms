@@ -1,7 +1,0 @@
-Dear [{name}],
-
-You have been approved and granted access to [{domain}].
-
-Thank You,
-The Phire CMS Team
-

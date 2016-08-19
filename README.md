@@ -1,98 +1,87 @@
-Welcome to Phire CMS
-====================
+Pop Bootstrap
+=============
 
-RELEASE INFORMATION
+Release Information
 -------------------
-Phire CMS 2 is here!  
+Version 1.0.3  
+August 5, 2016
 
-Version 2.0.2  
-July 2, 2016
-
-OVERVIEW
+Overview
 --------
-Phire CMS is a simple and robust content management system that is built
-on the [Pop PHP Framework](http://www.popphp.org/). By itself, it provides
-very basic features and functionality for user and user role management,
-as well as module installation and management. The module functionality is
-where the strength of Phire lies. With it, you can install any of the
-pre-written modules, or write ones of your own and easily extend the
-functionality of Phire.
 
-REQUIREMENTS
+A skeleton web application for the Pop Web Application Framework,
+using the Bootstrap and Font Awesome frameworks. 
+
+Requirements
 ------------
-The basic requirements for Phire CMS 2 are as follows:
 
-* PHP 5.4.0+
+* Minimum of PHP 5.4.0 and PHP 7.0 is supported as well
 * Apache 2+, IIS 7+, or any web server with URL rewrite support
 * Supported Databases:
     - MySQL 5.0+
     - PostgreSQL 9.0+
     - SQLite 3+
 
-INSTALL
--------
-To install Phire from this repo, you can simply clone it or install
-it via composer:
+Installation
+------------
+
+The command below will install all of the necessary components and
+take you through the installation steps automatically:
 
 ```console
-$ composer create-project phirecms/phirecms
+$ composer create-project popphp/pop-bootstrap project-folder
 ```
 
-Once it's one your system, make sure the
-`/phire-content` folder and everything below it is writable, and then
-hit the domain:
+Get Started
+-----------
 
-```
-http://www.yourdomain.com/phirecms/
-```
+Either create a vhost on your web server or start the PHP web server
+and point the document root to the `public` folder:
 
-Of course, you can move all of the files and folders in `/phirecms/` to
-whatever folder you need to, or just move them up to the document root, so you
-can just go to:
-
-```
-http://www.yourdomain.com/
+```console
+$ sudo php -S localhost:8000 -t public
 ```
 
-Once you go to your domain, you'll be redirected to the install screen,
-which will take you through 3 easy steps:
+Visit the main web address. If you are using the PHP web server like
+above, you would visit `http://localhost:8000`. You will be redirected
+to a login screen. The default credentials are:
 
-1. Input the initial database and configuration settings
-2. Copy and save the configuration to the `config.php` file (The step may be skipped if the `config.php` file is writable)
-3. Set up the initial user
+* Username: `admin`
+* Password: `password`
 
-### Standalone Version
+Features
+--------
 
-You can download a standalone version of the CMS that comes packaged
-with 6 basic modules to give you some common CMS features right
-out of the gate. Head over to the [main Phire website](http://www.phirecms.org/) to download a copy of it.
-The 6 modules included in the standalone version are:
+This skeleton application provides a basic set of features common to
+web applications. This includes:
 
-* phire-content
-* phire-media
-* phire-templates
-* phire-navigation
-* phire-categories
-* phire-fields
+- User Login
+- User Roles
+- User Sessions
+- User Management
 
-THAT'S IT!
-----------
-You can then login it at:
+Console Access
+--------------
 
+The application comes with a simple console interface to assist
+with user management from the CLI as well. The following commands
+are available:
+
+```console
+$ ./app help                Show this help screen
+    
+$ ./app users               List users
+$ ./app users add           Add a user
+$ ./app users password      Change a user password
+$ ./app users activate      Activate a user
+$ ./app users deactivate    Deactivate a user
+$ ./app users remove        Remove a user
+    
+$ ./app roles               List roles
+$ ./app roles add           Add a role
+$ ./app roles edit          Edit a role
+$ ./app roles remove        Remove a role
+    
+$ ./app sessions            List sessions
+$ ./app sessions remove     Remove a session
 ```
-http://www.yourdomain.com/phire
-```
-
-Or whatever you set the application URI to.
-
-MODULES
--------
-Modules are available and in the works at [https://github.com/phirecms](https://github.com/phirecms).
-If you choose to download and install any of those modules, then you need to copy
-the module ZIP file under the modules folder `/phire-content/modules`. When you do
-that, and then visit the Modules screen in Phire, you'll see a button alerting you
-that there are new modules available to be installed.
-
-STAY TUNED FOR MORE!
---------------------
-The a new website and documentation will be coming soon!

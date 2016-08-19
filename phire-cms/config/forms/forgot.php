@@ -1,16 +1,16 @@
 <?php
 /**
- * Phire\Form\Forgot configuration
+ * Pop Web Bootstrap Application Framework forgot form configuration
  */
 return [
     [
         'email' => [
             'type'       => 'email',
-            'label'      => 'Forgot Your Password?',
             'required'   => 'true',
             'validators' => new \Pop\Validator\Email(),
             'attributes' => [
-                'placeholder' => 'Please enter your email'
+                'placeholder' => 'Please enter your email',
+                'class'       => 'form-control'
             ]
         ]
     ],
@@ -19,9 +19,8 @@ return [
             'type'  => 'submit',
             'value' => 'Submit',
             'attributes' => [
-                'class'  => 'save-btn'
+                'class'  => 'btn btn-lg btn-info btn-block text-uppercase'
             ]
         ]
     ]
 ];
-

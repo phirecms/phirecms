@@ -14,14 +14,14 @@
 namespace Phire\Model;
 
 /**
- * AbstractModel class
+ * Abstract model class
  *
  * @category   Phire
  * @package    Phire
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.1.0
+ * @version    3.0
  */
 abstract class AbstractModel implements \ArrayAccess
 {
@@ -70,7 +70,7 @@ abstract class AbstractModel implements \ArrayAccess
         $sess  = null;
 
         if ((stripos(php_sapi_name(), 'cli') === false) || (stripos(php_sapi_name(), 'server') !== false)) {
-            $sess = \Pop\Web\Session::getInstance();
+            $sess = \Pop\Session\Session::getInstance();
         }
 
         if (null !== $sort) {

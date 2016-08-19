@@ -1,0 +1,194 @@
+<?php include __DIR__ . '/header.phtml'; ?>
+
+        <div class="col-md-12">
+            <h1 class="dashboard-header"><?=$title; ?></h1>
+        </div>
+
+        <div class="col-md-9">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1001</td>
+                    <td>Lorem</td>
+                    <td>ipsum</td>
+                    <td>dolor</td>
+                    <td>sit</td>
+                </tr>
+                <tr>
+                    <td>1002</td>
+                    <td>amet</td>
+                    <td>consectetur</td>
+                    <td>adipiscing</td>
+                    <td>elit</td>
+                </tr>
+                <tr>
+                    <td>1003</td>
+                    <td>Integer</td>
+                    <td>nec</td>
+                    <td>odio</td>
+                    <td>Praesent</td>
+                </tr>
+                <tr>
+                    <td>1004</td>
+                    <td>libero</td>
+                    <td>Sed</td>
+                    <td>cursus</td>
+                    <td>ante</td>
+                </tr>
+                <tr>
+                    <td>1005</td>
+                    <td>dapibus</td>
+                    <td>diam</td>
+                    <td>Sed</td>
+                    <td>nisi</td>
+                </tr>
+                <tr>
+                    <td>1006</td>
+                    <td>Nulla</td>
+                    <td>quis</td>
+                    <td>sem</td>
+                    <td>at</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h2 class="sub-header">Section title</h2>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                    <th>Header</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1001</td>
+                    <td>Lorem</td>
+                    <td>ipsum</td>
+                    <td>dolor</td>
+                    <td>sit</td>
+                </tr>
+                <tr>
+                    <td>1002</td>
+                    <td>amet</td>
+                    <td>consectetur</td>
+                    <td>adipiscing</td>
+                    <td>elit</td>
+                </tr>
+                <tr>
+                    <td>1003</td>
+                    <td>Integer</td>
+                    <td>nec</td>
+                    <td>odio</td>
+                    <td>Praesent</td>
+                </tr>
+                <tr>
+                    <td>1004</td>
+                    <td>libero</td>
+                    <td>Sed</td>
+                    <td>cursus</td>
+                    <td>ante</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Welcome</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <p class="welcome">
+                            This application is best viewed on a monitor that supports
+                            a resolution of at least 1280x800. It is also recommended
+                            that you use <a class="normal-link" href="https://www.google.com/chrome/" target="_blank">Google Chrome</a>,
+                            <a class="normal-link" href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Mozilla Firefox</a>
+                            or at least Internet Explorer 10+ as your browser.
+                        </p>
+                        <p class="welcome">
+                            Below are some links to some example side navigation layouts:
+                        </p>
+                        <ul>
+<?php if (!isset($fluidNav)): ?>
+                            <li><a href="/side">Fluid Side Nav</a></li>
+<?php endif; ?>
+<?php if (!isset($staticNav)): ?>
+                            <li><a href="/static">Static Side Nav</a></li>
+<?php endif; ?>
+<?php if (isset($fluidNav) || isset($staticNav)): ?>
+                            <li><a href="/">No Side Nav</a></li>
+<?php endif; ?>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th colspan="2">Your Environment</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><strong>Version:</strong></td>
+                    <td>1.0</td>
+                </tr>
+                <tr>
+                    <td><strong>Browser:</strong></td>
+                    <td id="browser-detect"></td>
+                </tr>
+                <tr>
+                    <td><strong>Browser Size:</strong></td>
+                    <td id="browser-size"></td>
+                </tr>
+                <tr>
+                    <td><strong>Screen Resolution:</strong></td>
+                    <td><script type="text/javascript">document.write(screen.width + ' x ' + screen.height);</script></td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th colspan="2">System Overview</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><strong>OS:</strong></td>
+                    <td><?=PHP_OS; ?></td>
+                </tr>
+                <tr>
+                    <td><strong>Server:</strong></td>
+                    <td><?=(isset($_SERVER['SERVER_SOFTWARE']) ? $_SERVER['SERVER_SOFTWARE'] : ''); ?></td>
+                </tr>
+                <tr>
+                    <td><strong>Database:</strong></td>
+                    <td><?=$database; ?> (<?=$dbVersion; ?>)</td>
+                </tr>
+                <tr>
+                    <td><strong>PHP:</strong></td>
+                    <td><?=PHP_VERSION; ?></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+<?php include __DIR__ . '/footer.phtml'; ?>

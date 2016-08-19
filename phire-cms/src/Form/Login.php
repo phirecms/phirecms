@@ -19,14 +19,14 @@ use Pop\Form\Form;
 use Pop\Validator;
 
 /**
- * Login Form class
+ * Login form class
  *
  * @category   Phire
  * @package    Phire
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.1.0
+ * @version    3.0
  */
 class Login extends Form
 {
@@ -45,6 +45,7 @@ class Login extends Form
     {
         parent::__construct($fields, $action, $method);
         $this->setAttribute('id', 'login-form');
+        $this->setAttribute('class', 'form-signin');
         $this->setIndent('    ');
     }
 
@@ -74,21 +75,6 @@ class Login extends Form
             } else if (!$auth->adapter()->getUser()->active) {
                 $this->getElement('password')
                      ->addValidator(new Validator\NotEqual($this->password, 'That user is blocked.'));
-            } else  {
-                $role = Table\Roles::findById($auth->adapter()->getUser()->role_id);
-                if (isset($role->id) && (null !== $role->permissions)) {
-                    $permissions = unserialize($role->permissions);
-                    if (isset($permissions['deny'])) {
-                        foreach ($permissions['deny'] as $deny) {
-                            if ($deny['resource'] == 'login') {
-                                $this->getElement('password')
-                                     ->addValidator(new Validator\NotEqual(
-                                         $this->password, 'That user is not allowed to login.'
-                                     ));
-                            }
-                        }
-                    }
-                }
             }
         }
 

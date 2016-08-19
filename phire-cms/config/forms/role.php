@@ -1,6 +1,6 @@
 <?php
 /**
- * Phire\Form\Role configuration
+ * Pop Web Bootstrap Application Framework role form configuration
  */
 return [
     [
@@ -8,52 +8,13 @@ return [
             'type'       => 'submit',
             'value'      => 'Save',
             'attributes' => [
-                'class'  => 'save-btn wide'
+                'class'  => 'btn btn-md btn-info btn-block text-uppercase'
             ]
         ],
         'role_parent_id' => [
             'type'       => 'select',
             'label'      => 'Parent',
-            'value'      => null,
-            'attributes' => [
-                'class'    => 'wide'
-            ]
-        ],
-        'verification' => [
-            'type'      => 'radio',
-            'label'     => 'Verification',
-            'value'     => [
-                '1' => 'Yes',
-                '0' => 'No'
-            ],
-            'marked' => 0
-        ],
-        'approval' => [
-            'type'      => 'radio',
-            'label'     => 'Approval',
-            'value'     => [
-                '1' => 'Yes',
-                '0' => 'No'
-            ],
-            'marked' => 0
-        ],
-        'email_as_username' => [
-            'type'      => 'radio',
-            'label'     => 'Email as Username',
-            'value'     => [
-                '1' => 'Yes',
-                '0' => 'No'
-            ],
-            'marked' => 0
-        ],
-        'email_required' => [
-            'type'      => 'radio',
-            'label'     => 'Email Required',
-            'value'     => [
-                '1' => 'Yes',
-                '0' => 'No'
-            ],
-            'marked' => 0
+            'value'      => null
         ],
         'id' => [
             'type'  => 'hidden',
@@ -66,20 +27,17 @@ return [
             'label'      => 'Name',
             'required'   => 'true',
             'attributes' => [
-                'size'    => 60,
-                'style'   => 'width: 99.5%',
-                'onkeyup' => 'phire.changeTitle(this.value);'
+                'size'   => 60,
+                'style'  => 'width: 99.5%',
+                'class'  => 'form-control'
             ]
         ]
     ],
     [
         'resource_1' => [
             'type'       => 'select',
-            'label'      => '<a href="#" onclick="return phire.addResource();">[+]</a> Resources, Actions &amp; Permissions',
-            'value'      => null,
-            'attributes' => [
-                'onchange' => 'phire.changeActions(this);'
-            ]
+            'label'      => '<a href="#" id="permission-add-link">[+]</a> Resources, Actions &amp; Permissions',
+            'value'      => null
         ],
         'action_1' => [
             'type'       => 'select',

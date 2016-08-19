@@ -17,15 +17,16 @@ use Phire\Controller\AbstractController;
 use Phire\Form;
 use Phire\Model;
 use Pop\Paginator\Paginator;
+
 /**
- * Users Index Controller class
+ * Users controller class
  *
  * @category   Phire
  * @package    Phire
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.1.0
+ * @version    3.0
  */
 class IndexController extends AbstractController
 {
@@ -33,12 +34,11 @@ class IndexController extends AbstractController
     /**
      * Index action method
      *
-     * @param  int $id
      * @return void
      */
-    public function index($id = null)
+    public function index($rid = null)
     {
-        if ((null === $id) || ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $id, 'index'))) {
+        if ((null === $rid) || ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $rid, 'index'))) {
             $deniedRoles = [];
             $resources   = $this->services['acl']->getResources();
             foreach ($resources as $name => $resource) {
@@ -49,77 +49,59 @@ class IndexController extends AbstractController
 
             $user = new Model\User();
 
-            $searchAry = null;
-            if ((null !== $this->request->getQuery('search_for')) &&
-                (null !== $this->request->getQuery('search_by')) &&
-                ($this->request->getQuery('search_for') != '') &&
-                ($this->request->getQuery('search_by') != '----')) {
-                $searchAry = [
-                    'for' => $this->request->getQuery('search_for'),
-                    'by'  => $this->request->getQuery('search_by')
-                ];
-            }
+            $searchUsername = $this->request->getQuery('search_username');
 
-            if ($user->hasPages($this->config->pagination, $id, $searchAry, $deniedRoles)) {
-                $limit = $this->config->pagination;
-                $pages = new Paginator($user->getCount($id, $searchAry, $deniedRoles), $limit);
+            if ($user->hasPages($this->application->config()['pagination'], $rid, $searchUsername, $deniedRoles)) {
+                $limit = $this->application->config()['pagination'];
+                $pages = new Paginator($user->getCount($rid, $searchUsername, $deniedRoles), $limit);
                 $pages->useInput(true);
             } else {
                 $limit = null;
                 $pages = null;
             }
 
-            $this->prepareView('phire/users/index.phtml');
-            $this->view->title       = 'Users';
-            $this->view->pages       = $pages;
-            $this->view->roleId      = $id;
-            $this->view->queryString = $this->getQueryString('sort');
-            $this->view->searchFor   = $this->request->getQuery('search_for');
-            $this->view->searchBy    = $this->request->getQuery('search_by');
-            $this->view->users       = $user->getAll(
-                $id, $searchAry, $deniedRoles, $limit,
+            $this->prepareView('users/index.phtml');
+            $this->view->title          = 'Users';
+            $this->view->pages          = $pages;
+            $this->view->roleId         = $rid;
+            $this->view->queryString    = $this->getQueryString('sort');
+            $this->view->searchUsername = $searchUsername;
+            $this->view->users          = $user->getAll(
+                $rid, $searchUsername, $deniedRoles, $limit,
                 $this->request->getQuery('page'), $this->request->getQuery('sort')
             );
             $this->view->roles = $user->getRoles();
             $this->send();
         } else {
-            $this->redirect(BASE_PATH . APP_URI . '/users');
+            $this->redirect('/users');
         }
     }
 
     /**
      * Add action method
      *
-     * @param  int $rid
      * @return void
      */
     public function add($rid = null)
     {
-        $this->prepareView('phire/users/add.phtml');
+        $this->prepareView('users/add.phtml');
         $this->view->title = 'Add User';
 
-        if ((null !== $rid) && ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $rid, 'add'))) {
+        if (null !== $rid) {
             $role = new Model\Role();
             $role->getById($rid);
             $this->view->title .= ' : ' . $role->name;
 
-            if ($role->email_as_username) {
-                $fields = $this->application->config()['forms']['Phire\Form\UserEmail'];
-            } else {
-                $fields = $this->application->config()['forms']['Phire\Form\User'];
-                if ($role->email_required) {
-                    $fields[2]['email']['required'] = true;
-                }
-            }
-
+            $fields = $this->application->config()['forms']['App\Form\User'];
             $fields[1]['password1']['required'] = true;
             $fields[1]['password2']['required'] = true;
             $fields[0]['role_id']['value']      = $rid;
+            unset($fields[0]['clear_logins']);
+            unset($fields[0]['failed_attempts']);
 
-            $this->view->form = ($role->email_as_username) ? new Form\UserEmail($fields) : new Form\User($fields);
-
+            $this->view->form = new Form\User($fields);
             if ($this->request->isPost()) {
-                $this->view->form->addFilter('strip_tags', null, 'textarea')
+                $this->view->form->addFilter('strip_tags')
                      ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                      ->setFieldValues($this->request->getPost());
 
@@ -128,11 +110,11 @@ class IndexController extends AbstractController
                          ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
                          ->filter();
                     $user = new Model\User();
-                    $user->save($this->view->form->getFields());
+                    $user->save($this->view->form->getFields(), $this->application->config()['application_title']);
 
                     $this->view->id = $user->id;
                     $this->sess->setRequestValue('saved', true);
-                    $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id);
+                    $this->redirect('/users/edit/' . $user->id);
                 }
             }
         } else {
@@ -145,7 +127,6 @@ class IndexController extends AbstractController
     /**
      * Edit action method
      *
-     * @param  int $id
      * @return void
      */
     public function edit($id)
@@ -154,74 +135,61 @@ class IndexController extends AbstractController
         $user->getById($id);
 
         if (!isset($user->id)) {
-            $this->redirect(BASE_PATH . APP_URI . '/users');
+            $this->redirect('/users');
         }
 
         if ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $user->role_id, 'edit')) {
-            $this->prepareView('phire/users/edit.phtml');
+            $this->prepareView('users/edit.phtml');
             $this->view->title    = 'Edit User';
             $this->view->username = $user->username;
 
-            $role   = new Model\Role();
-            $role->getById($user->role_id);
-
-            if ($role->email_as_username) {
-                $fields = $this->application->config()['forms']['Phire\Form\UserEmail'];
-                $fields[1]['email']['attributes']['onkeyup'] = 'phire.changeTitle(this.value);';
-            } else {
-                $fields = $this->application->config()['forms']['Phire\Form\User'];
-                $fields[1]['username']['attributes']['onkeyup'] = 'phire.changeTitle(this.value);';
-                if ($role->email_required) {
-                    $fields[2]['email']['required'] = true;
-                }
-            }
-
+            $role       = new Model\Role();
             $roles      = $role->getAll();
             $roleValues = [];
             foreach ($roles as $r) {
                 $roleValues[$r->id] = $r->name;
             }
 
-            $fields[1]['password1']['required'] = false;
-            $fields[1]['password2']['required'] = false;
-            $fields[0]['role_id']['type']       = 'select';
-            $fields[0]['role_id']['label']      = 'Role';
-            $fields[0]['role_id']['value']      = $roleValues;
-            $fields[0]['role_id']['marked']     = $user->role_id;
-            $fields[0]['role_id']['attributes'] = [
-                'onchange' => 'phire.checkUserRole(this);'
-            ];
+            $fields = $this->application->config()['forms']['App\Form\User'];
 
-            $this->view->form = ($role->email_as_username) ? new Form\UserEmail($fields) : new Form\User($fields);
+            $fields[1]['username']['attributes']['onkeyup'] = 'pop.changeTitle(this.value);';
+            $fields[1]['password1']['required']    = false;
+            $fields[1]['password2']['required']    = false;
+            $fields[0]['clear_logins']['value'][1] = $user->total_logins . ' Login' . (($user->total_logins == 1) ? '' : 's');
+            $fields[0]['role_id']['type']          = 'select';
+            $fields[0]['role_id']['label']         = 'Role';
+            $fields[0]['role_id']['value']         = $roleValues;
+            $fields[0]['role_id']['marked']        = $user->role_id;
+
+            $this->view->form = new Form\User($fields);
             $this->view->form->addFilter('strip_tags', null, 'textarea')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($user->toArray());
 
             if ($this->request->isPost()) {
                 $this->view->form->addFilter('strip_tags', null, 'textarea')
-                     ->setFieldValues($this->request->getPost());
+                    ->setFieldValues($this->request->getPost());
 
                 if ($this->view->form->isValid()) {
                     $this->view->form->clearFilters()
-                         ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                         ->filter();
+                        ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                        ->filter();
                     $user = new Model\User();
-                    $user->update($this->view->form->getFields(), $this->sess);
+                    $user->update($this->view->form->getFields(), $this->application->config()['application_title'], $this->sess);
 
                     $this->view->id = $user->id;
                     $this->sess->setRequestValue('saved', true);
-                    $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id);
+                    $this->redirect('/users/edit/' . $user->id);
                 }
             }
-
             $this->send();
         } else {
-            $this->redirect(BASE_PATH . APP_URI . '/users');
+            $this->redirect('/users');
         }
     }
 
     /**
-     * Remove action method
+     * Process action method
      *
      * @return void
      */
@@ -229,7 +197,7 @@ class IndexController extends AbstractController
     {
         if ($this->request->isPost()) {
             $user = new Model\User();
-            $user->process($this->request->getPost());
+            $user->process($this->request->getPost(), $this->application->config()['application_title']);
         }
 
         if ((null !== $this->request->getPost('user_process_action')) && ($this->request->getPost('user_process_action') == -1)) {
@@ -238,7 +206,7 @@ class IndexController extends AbstractController
             $this->sess->setRequestValue('saved', true);
         }
 
-        $this->redirect(BASE_PATH . APP_URI . '/users' .
+        $this->redirect('/users' .
             (((int)$this->request->getPost('role_id') != 0) ? '/' . (int)$this->request->getPost('role_id') : null));
     }
 

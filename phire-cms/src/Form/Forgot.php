@@ -13,20 +13,19 @@
  */
 namespace Phire\Form;
 
-use Phire\Model;
 use Phire\Table;
 use Pop\Form\Form;
 use Pop\Validator;
 
 /**
- * Forgot Form class
+ * Forgot form class
  *
  * @category   Phire
  * @package    Phire
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.1.0
+ * @version    3.0
  */
 class Forgot extends Form
 {
@@ -44,7 +43,8 @@ class Forgot extends Form
     public function __construct(array $fields, $action = null, $method = 'post')
     {
         parent::__construct($fields, $action, $method);
-        $this->setAttribute('id', 'forgot-form');
+        $this->setAttribute('id', 'login-form');
+        $this->setAttribute('class', 'form-signin');
         $this->setIndent('    ');
     }
 
@@ -63,12 +63,6 @@ class Forgot extends Form
             if (!isset($user->id)) {
                 $this->getElement('email')
                      ->addValidator(new Validator\NotEqual($this->email, 'That email does not exist.'));
-            } else {
-                $role = new Model\Role();
-                if (!$role->canSendReminder($user->role_id)) {
-                    $this->getElement('email')
-                         ->addValidator(new Validator\NotEqual($this->email, 'That request cannot be processed.'));
-                }
             }
         }
 

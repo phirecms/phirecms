@@ -2,88 +2,81 @@
 /**
  * Phire configuration
  */
+
 $config = [
     'routes'    => include 'routes.php',
     'resources' => include 'resources.php',
     'forms'     => include 'forms.php',
-    'services' => [
-        'session'   => 'Pop\Web\Session::getInstance',
-        'acl'       => 'Pop\Acl\Acl',
-        'nav.phire' => [
+    'services'  => [
+        'session' => 'Pop\Session\Session::getInstance',
+        'acl'     => 'Pop\Acl\Acl',
+        'nav.top' => [
             'call'   => 'Pop\Nav\Nav',
             'params' => [
-                'tree' => [
-                    'modules' => [
-                        'name' => 'Modules',
-                        'href' => '/modules',
-                        'acl'  => [
-                            'resource'   => 'modules',
-                            'permission' => 'index'
-                        ],
-                        'attributes' => [
-                            'class' => 'modules-nav-icon'
-                        ]
-                    ],
-                    'users' => [
-                        'name' => 'Users',
-                        'href' => '/users',
-                        'acl'  => [
-                            'resource'   => 'users',
-                            'permission' => 'index'
-                        ],
-                        'attributes' => [
-                            'class' => 'users-nav-icon'
-                        ]
-                    ],
-                    'roles' => [
-                        'name' => 'Roles',
-                        'href' => '/roles',
-                        'acl'  => [
-                            'resource'   => 'roles',
-                            'permission' => 'index'
-                        ],
-                        'attributes' => [
-                            'class' => 'roles-nav-icon'
-                        ]
-                    ],
-                    'config' => [
-                        'name' => 'Config',
-                        'href' => '/config',
-                        'acl'  => [
-                            'resource'   => 'config',
-                            'permission' => 'index'
-                        ],
-                        'attributes' => [
-                            'class' => 'config-nav-icon'
-                        ]
-                    ]
-                ],
+                'tree' => include 'nav/top.php',
                 'config' => [
-                    'baseUrl' => BASE_PATH . APP_URI,
                     'top'     => [
-                        'id'   => 'phire-nav',
-                        'node' => 'nav'
+                        'id'    => 'phire-nav',
+                        'node'  => 'ul',
+                        'class' => 'nav navbar-nav'
                     ],
                     'parent' => [
-                        'node' => 'nav'
+                        'node' => 'ul'
                     ],
                     'child'  => [
-                        'node' => 'nav'
+                        'node' => 'li'
+                    ],
+                    'indent' => '    '
+                ]
+            ]
+        ],
+        'nav.fluid' => [
+            'call'   => 'Pop\Nav\Nav',
+            'params' => [
+                'tree' => include 'nav/fluid.php',
+                'config' => [
+                    'top'     => [
+                        'id'    => 'phire-fluid-nav',
+                        'node'  => 'ul',
+                        'class' => 'nav nav-sidebar'
+                    ],
+                    'parent' => [
+                        'node' => 'ul'
+                    ],
+                    'child'  => [
+                        'node' => 'li'
+                    ],
+                    'indent' => '    '
+                ]
+            ]
+        ],
+        'nav.static' => [
+            'call'   => 'Pop\Nav\Nav',
+            'params' => [
+                'tree' => include 'nav/static.php',
+                'config' => [
+                    'top'     => [
+                        'id'    => 'phire-static-nav',
+                        'node'  => 'ul'
+                    ],
+                    'parent' => [
+                        'node' => 'ul'
+                    ],
+                    'child'  => [
+                        'node' => 'li'
                     ],
                     'indent' => '    '
                 ]
             ]
         ]
     ],
-    'headers'              => [],
-    'dashboard'            => [],
-    'dashboard_side'       => [],
-    'footers'              => [],
-    'system_title'         => 'Phire CMS',
-    'updates'              => true,
-    'force_ssl'            => false,
-    'registration_captcha' => false,
-    'registration_csrf'    => false
+    'application_title' => 'Phire CMS',
+    'force_ssl'         => false,
+    'pagination'        => 25,
+    'multiple_sessions' => true,
+    'login_attempts'    => 0,
+    'session_timeout'   => 0,  // In minutes
+    'timeout_warning'   => 0   // In seconds
 ];
 
 // If the database has been configuration, set up the database service
@@ -101,11 +94,6 @@ if ((DB_INTERFACE != '') && (DB_NAME != '')) {
             ]
         ]
     ];
-}
-
-// Merge any custom/override config values
-if (defined('CONTENT_ABS_PATH') && (CONTENT_ABS_PATH != '') && file_exists(CONTENT_ABS_PATH . '/phire/config/phire.php')) {
-    $config = array_merge($config, include CONTENT_ABS_PATH . '/phire/config/phire.php');
 }
 
 return $config;

@@ -1,0 +1,9 @@
+Dear [{name}],
+
+Here is your new password for [{domain}].
+
+[{username}]
+[{password}]
+
+Thank You,
+The [{title}] Team

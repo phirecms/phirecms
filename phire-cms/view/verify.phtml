@@ -1,0 +1,12 @@
+<?php include __DIR__ . '/header.phtml'; ?>
+
+    <div id="login-container">
+        <h2><?=$title; ?></h2>
+<?php if ($result): ?>
+        <p style="text-align: center;">Thank you. Your account has been verified.</p>
+<?php else: ?>
+        <p style="text-align: center;">Sorry, your email address could not be verified.</p>
+<?php endif; ?>
+    </div> <!-- /container -->
+
+<?php include __DIR__ . '/footer.phtml'; ?>

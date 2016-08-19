@@ -1,6 +1,6 @@
 <?php
 /**
- * Phire\Form\User configuration
+ * Pop Web Bootstrap Application Framework user form configuration
  */
 return [
     [
@@ -8,7 +8,7 @@ return [
             'type'       => 'submit',
             'value'      => 'Save',
             'attributes' => [
-                'class'  => 'save-btn wide'
+                'class'  => 'btn btn-md btn-info btn-block text-uppercase'
             ]
         ],
         'active' => [
@@ -29,6 +29,22 @@ return [
             ],
             'marked' => 0
         ],
+        'clear_logins'   => [
+            'type'  => 'checkbox',
+            'label' => 'Clear Logins?',
+            'value' => [
+                1 => ''
+            ]
+        ],
+        'failed_attempts'   => [
+            'type'  => 'text',
+            'label' => 'Failed Attempts',
+            'value' => 0,
+            'attributes' => [
+                'class' => 'form-control input-sm',
+                'size'  => 3
+            ]
+        ],
         'role_id'   => [
             'type'  => 'hidden',
             'value' => 0
@@ -44,7 +60,8 @@ return [
             'label'    => 'Username',
             'required' => true,
             'attributes' => [
-                'size'    => 40
+                'size'    => 40,
+                'class'   => 'form-control'
             ]
         ],
         'password1' => [
@@ -53,7 +70,8 @@ return [
             'required'   => true,
             'validators' => new \Pop\Validator\LengthGte(6),
             'attributes' => [
-                'size'    => 40
+                'size'    => 40,
+                'class'   => 'form-control'
             ]
         ],
         'password2' => [
@@ -61,51 +79,16 @@ return [
             'label'      => 'Re-Type Password',
             'required'   => true,
             'attributes' => [
-                'size'    => 40
-            ]
-        ]
-    ],
-    [
-        'first_name' => [
-            'type'     => 'text',
-            'label'    => 'First Name',
-            'attributes' => [
-                'size'    => 40
-            ]
-        ],
-        'last_name' => [
-            'type'     => 'text',
-            'label'    => 'Last Name',
-            'attributes' => [
-                'size'    => 40
-            ]
-        ],
-        'company' => [
-            'type'     => 'text',
-            'label'    => 'Company',
-            'attributes' => [
-                'size'    => 40
-            ]
-        ],
-        'title' => [
-            'type'     => 'text',
-            'label'    => 'Title',
-            'attributes' => [
-                'size'    => 40
+                'size'    => 40,
+                'class'   => 'form-control'
             ]
         ],
         'email' => [
             'type'       => 'email',
             'label'      => 'Email',
             'attributes' => [
-                'size'    => 40
-            ]
-        ],
-        'phone' => [
-            'type'     => 'text',
-            'label'    => 'Phone',
-            'attributes' => [
-                'size'    => 40
+                'size'    => 40,
+                'class'   => 'form-control'
             ]
         ]
     ]

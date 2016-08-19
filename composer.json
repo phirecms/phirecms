@@ -19,16 +19,16 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "popphp/popphp-framework": "2.1.*"
+        "popphp/popphp-framework": "3.0.*"
     },
-    "autoload": {
+    "autoload" : {
         "psr-4": {
             "Phire\\": "phire-cms/src/"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.1.x-dev"
+            "dev-master": "3.0.x-dev"
         }
     },
     "config": {

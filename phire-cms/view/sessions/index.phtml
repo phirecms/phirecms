@@ -1,0 +1,82 @@
+<?php include __DIR__ . '/../header.phtml'; ?>
+    <div class="col-md-12">
+        <form id="asset-search-form" action="/sessions" method="get">
+            <div><input class="btn btn-default input-sm" tabindex="2" type="submit" id="submit" value="Search" /></div>
+            <div><input class="form-control input-sm" tabindex="1" type="text" name="search_username" id="search_username" value="<?=((null !== $searchUsername) ? $searchUsername : null); ?>" placeholder="Username" size="25" /></div>
+        </form>
+        <h1 class="sessions-header"><?=$title; ?></h1>
+<?php if (null !== $pages): ?>
+        <div class="page-links"><?=$pages; ?></div>
+<?php endif; ?>
+<?php if (count($sessions) > 0): ?>
+        <div class="table-responsive">
+<?php if ($acl->isAllowed($user->role, 'sessions', 'remove')): ?>
+            <form id="roles-form" action="/sessions/remove" method="post">
+<?php endif; ?>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th class="col-md-1 text-center"><a href="/sessions?sort=id<?=(($queryString != '') ? '&' . $queryString : '');?>">#</a></th>
+                    <th><a href="/sessions?sort=username<?=(($queryString != '') ? '&' . $queryString : '');?>">Username</a></th>
+                    <th><a href="/sessions?sort=role_name<?=(($queryString != '') ? '&' . $queryString : '');?>">Role</a></th>
+                    <th><a href="/sessions?sort=start<?=(($queryString != '') ? '&' . $queryString : '');?>">Start</a></th>
+<?php if ($windowWidth >= 480): ?>
+                    <th>IP</th>
+<?php endif; ?>
+<?php if ($windowWidth >= 768): ?>
+                    <th>User-Agent</th>
+<?php endif; ?>
+                    <th class="col-md-1 text-center"><?php if ($acl->isAllowed($user->role, 'sessions', 'remove')): ?><input type="checkbox" name="check_all" id="checkAll" data-name="rm_sessions" value="" /><?php else: ?>&nbsp;<?php endif; ?></th>
+                </tr>
+                </thead>
+                <tbody>
+<?php foreach ($sessions as $session):
+    $ago = time() - $session->start;
+    if ($ago < 60):
+        $ago = '< 1 minute ago';
+    elseif (($ago >= 60) && ($ago < 3600)):
+        $minutes = round($ago / 60);
+        $ago     = $minutes . ' minute' . (($minutes > 1) ? 's' : '') . ' ago';
+    else:
+        $hours = round($ago / 3600);
+        $ago   = $hours . ' hour' . (($hours > 1) ? 's' : '') . ' ago';
+    endif;
+?>
+                <tr>
+                    <td class="text-center"><?=$session->id; ?></td>
+                    <td><?=$session->username; ?></td>
+                    <td><?=$session->role_name; ?></td>
+                    <td><?=($windowWidth >= 768) ? date('M j Y H:i:s', $session->start) . ' [ ' . $ago . ' ]' : date('m/d/y H:i', $session->start); ?></td>
+<?php if ($windowWidth >= 480): ?>
+                    <td><?=$session->ip; ?></td>
+<?php endif; ?>
+<?php if ($windowWidth >= 768): ?>
+                    <td><?=$session->ua; ?></td>
+<?php endif; ?>
+                    <td class="text-center"><?php if (($user->sess_id != $session->id) && ($acl->isAllowed($user->role, 'sessions', 'remove'))): ?><input type="checkbox" name="rm_sessions[]" value="<?=$session->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
+                </tr>
+<?php endforeach; ?>
+                </tbody>
+            </table>
+<?php if ($acl->isAllowed($user->role, 'sessions', 'remove')): ?>
+            <div id="form-footer">
+                <input type="submit" name="submit" class="btn btn-md btn-primary text-uppercase" value="Remove" />
+                <select id="clear_sessions_by" name="clear_sessions_by" class="form-control input-sm">
+                    <option value="----">[ Clear By User ]</option>
+<?php if (isset($users) && (count($users) > 0)): ?>
+<?php foreach ($users as $user): ?>
+                    <option value="<?=$user->id; ?>"><?=$user->username; ?></option>
+<?php endforeach; ?>
+<?php endif; ?>
+                </select>
+                <div id="clear-all-logins"><input type="checkbox" name="clear_all_sessions" id="clear_all_sessions" value="1" /><span>Clear All Sessions?</span></div>
+            </div>
+            </form>
+<?php endif; ?>
+        </div>
+<?php else: ?>
+        <p>There are currently no sessions.</p>
+<?php endif; ?>
+    </div>
+
+<?php include __DIR__ . '/../footer.phtml'; ?>

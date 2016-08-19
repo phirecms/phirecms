@@ -9,7 +9,7 @@
  */
 
 /**
- * Phire CMS 2 Configuration File
+ * Phire CMS Configuration File
  */
 
 /**
@@ -30,12 +30,6 @@ define('MODULES_PATH', BASE_PATH . CONTENT_PATH . '/modules');
 
 // Define the application URI
 define('APP_URI', '/phire');
-
-// Define absolute paths
-define('BASE_ABS_PATH', realpath(__DIR__ . BASE_PATH));
-define('APP_ABS_PATH', realpath(__DIR__ . APP_PATH));
-define('CONTENT_ABS_PATH', realpath(__DIR__ . CONTENT_PATH));
-define('MODULES_ABS_PATH', realpath(__DIR__ . MODULES_PATH));
 
 /**
  * Database Configuration Settings
@@ -59,7 +53,7 @@ define('DB_PASS', '');
 define('DB_HOST', '');
 
 // Define the database prefix
-define('DB_PREFIX', '');
+define('DB_PREFIX', 'ph_');
 
 /**
  * Custom Application Configuration Settings

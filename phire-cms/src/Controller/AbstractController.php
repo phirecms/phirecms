@@ -20,16 +20,16 @@ use Pop\Service\Locator;
 use Pop\View\View;
 
 /**
- * Abstract Controller class
+ * Abstract controller class
  *
  * @category   Phire
  * @package    Phire
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.1.0
+ * @version    3.0
  */
-abstract class AbstractController extends \Pop\Controller\AbstractController
+class AbstractController extends \Pop\Controller\AbstractController
 {
 
     /**
@@ -46,7 +46,7 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
 
     /**
      * Session object
-     * @var \Pop\Web\Session
+     * @var \Pop\Session\Session
      */
     protected $sess = null;
 
@@ -96,10 +96,6 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
         $this->response    = $response;
         $this->sess        = $this->services['session'];
         $this->viewPath    = __DIR__ . '/../../view';
-
-        if ($this->services->isAvailable('database')) {
-            $this->config = (new \Phire\Model\Config())->getAll();
-        }
     }
 
     /**
@@ -179,7 +175,7 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
      */
     public function error()
     {
-        $this->prepareView('phire/error.phtml');
+        $this->prepareView('error.phtml');
         $this->view->title = 'Error';
         $this->send(404);
     }
@@ -204,7 +200,6 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
         }
 
         $this->application->trigger('app.send.post', ['controller' => $this]);
-
         $this->response->send($code, $headers);
     }
 
@@ -218,8 +213,6 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
      */
     public function redirect($url, $code = '302', $version = '1.1')
     {
-        $this->application->trigger('app.send.pre', ['controller' => $this]);
-        $this->application->trigger('app.send.post', ['controller' => $this]);
         Response::redirect($url, $code, $version);
         exit();
     }
@@ -255,53 +248,43 @@ abstract class AbstractController extends \Pop\Controller\AbstractController
      */
     protected function prepareView($template)
     {
-        // Check for any override templates
-        $headerTemplate = (file_exists(CONTENT_ABS_PATH . '/phire/view/phire/header.phtml')) ?
-            CONTENT_ABS_PATH . '/phire/view/phire/header.phtml' : __DIR__ . '/../../view/phire/header.phtml';
+        $this->view = new View($this->viewPath . '/' . $template);
 
-        $footerTemplate = (file_exists(CONTENT_ABS_PATH . '/phire/view/phire/footer.phtml')) ?
-            CONTENT_ABS_PATH . '/phire/view/phire/footer.phtml' : __DIR__ . '/../../view/phire/footer.phtml';
+        $this->view->application_title = $this->application->config()['application_title'];
 
-        $viewTemplate = (file_exists(CONTENT_ABS_PATH . '/phire/view/' . $template)) ?
-            CONTENT_ABS_PATH . '/phire/view/' . $template : $this->viewPath . '/' . $template;
-
-        $this->view                  = new View($viewTemplate);
-        $this->view->phire           = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
-        $this->view->assets          = $this->application->module('phire')->getAssets();
-        $this->view->systemTitle     = $this->application->config()['system_title'];
-        $this->view->phireHeader     = $headerTemplate;
-        $this->view->phireFooter     = $footerTemplate;
-        $this->view->phireUri        = BASE_PATH . APP_URI;
-        $this->view->basePath        = BASE_PATH;
-        $this->view->base_path       = BASE_PATH;
-        $this->view->contentPath     = CONTENT_PATH;
-        $this->view->content_path    = CONTENT_PATH;
-
-        if (isset($this->sess->installed)) {
-            $this->view->installed = true;
+        if (isset($this->sess->failed)) {
+            $this->view->failed = true;
         }
+
+        if (isset($this->sess->expired)) {
+            $this->view->expired = true;
+        }
+
         if (isset($this->sess->saved)) {
             $this->view->saved = true;
         }
+
         if (isset($this->sess->removed)) {
             $this->view->removed = true;
         }
 
         if (isset($this->sess->user)) {
-            $this->services['nav.phire']->setRole($this->services['acl']->getRole($this->sess->user->role));
-            $this->services['nav.phire']->returnFalse(true);
-            $this->view->phireNav      = $this->services['nav.phire'];
-            $this->view->phirePath     = BASE_PATH . APP_PATH;
-            $this->view->docRoot       = $_SERVER['DOCUMENT_ROOT'];
-            $this->view->user          = $this->sess->user;
-            $this->view->acl           = $this->services['acl'];
-            $this->view->config        = $this->config;
-            $this->view->headers       = $this->application->config()['headers'];
-            $this->view->dashboard     = $this->application->config()['dashboard'];
-            $this->view->dashboardSide = $this->application->config()['dashboard_side'];
-            $this->view->footers       = $this->application->config()['footers'];
-        } else {
-            $this->view->phireNav = null;
+            $this->services['nav.top']->setRole($this->services['acl']->getRole($this->sess->user->role));
+            $this->services['nav.top']->returnFalse(true);
+            if ($this->services->isAvailable('nav.fluid')) {
+                $this->services['nav.fluid']->setRole($this->services['acl']->getRole($this->sess->user->role));
+                $this->services['nav.fluid']->returnFalse(true);
+            }
+            if ($this->services->isAvailable('nav.static')) {
+                $this->services['nav.static']->setRole($this->services['acl']->getRole($this->sess->user->role));
+                $this->services['nav.static']->returnFalse(true);
+            }
+            $this->view->popNav = $this->services['nav.top'];
+            $this->view->acl    = $this->services['acl'];
+            $this->view->user   = $this->sess->user;
+
+            $cookie = \Pop\Cookie\Cookie::getInstance(['path' => '/']);
+            $this->view->windowWidth = $cookie['pop_current_width'];
         }
     }
 

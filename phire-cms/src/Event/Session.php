@@ -13,18 +13,20 @@
  */
 namespace Phire\Event;
 
+use Phire\Model;
+use Phire\Table;
 use Pop\Application;
 use Pop\Http\Response;
 
 /**
- * Session Event class
+ * Session event class
  *
  * @category   Phire
  * @package    Phire
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.1.0
+ * @version    3.0
  */
 class Session
 {
@@ -37,29 +39,21 @@ class Session
      */
     public static function check(Application $application)
     {
-        $sess      = $application->getService('session');
-        $action    = $application->router()->getRouteMatch()->getAction();
-        $route     = $application->router()->getRouteMatch()->getRoute();
-        $isInstall = (substr($route, 0, strlen(APP_URI . '/install')) == APP_URI . '/install');
+        $sess   = $application->getService('session');
+        $action = $application->router()->getRouteMatch()->getAction();
 
-        // Special install check
-        if (isset($sess->app_uri) && (strpos($_SERVER['REQUEST_URI'], 'install/config') !== false)) {
-            if ((BASE_PATH . APP_URI) == (BASE_PATH . $sess->app_uri) && ($application->config()['db'])) {
-                Response::redirect(BASE_PATH . APP_URI . '/install/user');
-                exit();
-            }
-        }
-
-        // If logged in, and a system URL, redirect to dashboard
-        if (isset($sess->user) && (($action == 'login') || ($action == 'register') ||
-                ($action == 'verify') || ($action == 'forgot') || ($isInstall))) {
-            Response::redirect(BASE_PATH . ((APP_URI != '') ? APP_URI : '/'));
+        if (isset($sess->user) && isset($sess->user->sess_id) && !isset(Table\UserSessions::findById($sess->user->sess_id)->id)) {
+            $user = new Model\User();
+            $user->logout($sess);
+            unset($sess->user);
+            $sess->setRequestValue('expired', true);
+            Response::redirect('/login');
             exit();
-            // Else, if NOT logged in and NOT a system URL, redirect to login
-        } else if (!isset($sess->user) && (($action != 'login') && ($action != 'register') && (!$isInstall) &&
-                ($action != 'unsubscribe') && ($action != 'verify') && ($action != 'forgot') && (null !== $action)) &&
-            (substr($route, 0, strlen(APP_URI)) == APP_URI)) {
-            Response::redirect(BASE_PATH . APP_URI . '/login');
+        } else if (isset($sess->user) && (($action == 'login') || ($action == 'forgot') || ($action == 'verify'))) {
+            Response::redirect('/');
+            exit();
+        } else if (!isset($sess->user) && ($action != 'login') && ($action != 'forgot') && ($action != 'verify')) {
+            Response::redirect('/login');
             exit();
         }
     }

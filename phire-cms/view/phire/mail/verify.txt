@@ -1,8 +1,0 @@
-Dear [{name}],
-
-Thank you for taking the time to register with [{domain}]. In order to verify your email address, please click on the following link:
-[{url}]
-
-Thank You,
-The Phire CMS Team
-

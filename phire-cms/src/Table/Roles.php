@@ -13,8 +13,6 @@
  */
 namespace Phire\Table;
 
-use Pop\Db\Record;
-
 /**
  * Roles table class
  *
@@ -23,21 +21,11 @@ use Pop\Db\Record;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    2.1.0
+ * @version    3.0
  */
-class Roles extends Record
+class Roles extends \Pop\Db\Record
 {
-
-    /**
-     * Table prefix
-     * @var string
-     */
+    
     protected $prefix = DB_PREFIX;
-
-    /**
-     * Primary keys
-     * @var array
-     */
-    protected $primaryKeys = ['id'];
 
 }
