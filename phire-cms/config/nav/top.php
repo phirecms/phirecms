@@ -24,26 +24,5 @@ return [
         'attributes' => [
             'class' => 'roles-nav-icon'
         ]
-    ],
-    'sessions' => [
-        'name' => 'Sessions',
-        'href' => '/sessions',
-        'acl'  => [
-            'resource'   => 'sessions',
-            'permission' => 'index'
-        ],
-        'attributes' => [
-            'class' => 'sessions-nav-icon'
-        ],
-        'children' => [
-            'logins' => [
-                'name' => 'Logins',
-                'href' => 'logins',
-                'acl'  => [
-                    'resource'   => 'sessions',
-                    'permission' => 'logins'
-                ]
-            ]
-        ]
     ]
 ];

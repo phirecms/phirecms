@@ -121,46 +121,7 @@
                             <a class="normal-link" href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Mozilla Firefox</a>
                             or at least Internet Explorer 10+ as your browser.
                         </p>
-                        <p class="welcome">
-                            Below are some links to some example side navigation layouts:
-                        </p>
-                        <ul>
-<?php if (!isset($fluidNav)): ?>
-                            <li><a href="/side">Fluid Side Nav</a></li>
-<?php endif; ?>
-<?php if (!isset($staticNav)): ?>
-                            <li><a href="/static">Static Side Nav</a></li>
-<?php endif; ?>
-<?php if (isset($fluidNav) || isset($staticNav)): ?>
-                            <li><a href="/">No Side Nav</a></li>
-<?php endif; ?>
-                        </ul>
                     </td>
-                </tr>
-                </tbody>
-            </table>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th colspan="2">Your Environment</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><strong>Version:</strong></td>
-                    <td>1.0</td>
-                </tr>
-                <tr>
-                    <td><strong>Browser:</strong></td>
-                    <td id="browser-detect"></td>
-                </tr>
-                <tr>
-                    <td><strong>Browser Size:</strong></td>
-                    <td id="browser-size"></td>
-                </tr>
-                <tr>
-                    <td><strong>Screen Resolution:</strong></td>
-                    <td><script type="text/javascript">document.write(screen.width + ' x ' + screen.height);</script></td>
                 </tr>
                 </tbody>
             </table>
@@ -171,6 +132,10 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr>
+                    <td><strong>Version:</strong></td>
+                    <td><?=\Phire\Module::VERSION; ?></td>
+                </tr>
                 <tr>
                     <td><strong>OS:</strong></td>
                     <td><?=PHP_OS; ?></td>

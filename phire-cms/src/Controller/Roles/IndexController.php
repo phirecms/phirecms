@@ -68,7 +68,7 @@ class IndexController extends AbstractController
         $this->view->title = 'Roles : Add';
         $role = new Model\Role();
 
-        $fields = $this->application->config()['forms']['App\Form\Role'];
+        $fields = $this->application->config()['forms']['Phire\Form\Role'];
         $config = $this->application->config();
 
         $resources = ['----' => '----'];
@@ -109,7 +109,7 @@ class IndexController extends AbstractController
 
         $this->send();
     }
-    
+
     /**
      * Edit action method
      *
@@ -128,7 +128,7 @@ class IndexController extends AbstractController
         $this->view->title     = 'Roles';
         $this->view->role_name = $role->name;
 
-        $fields = $this->application->config()['forms']['App\Form\Role'];
+        $fields = $this->application->config()['forms']['Phire\Form\Role'];
         $config = $this->application->config();
 
         $resources = ['----' => '----'];
@@ -225,7 +225,7 @@ class IndexController extends AbstractController
         $this->response->setBody(json_encode($json, JSON_PRETTY_PRINT));
         $this->send(200, ['Content-Type' => 'application/json']);
     }
-    
+
     /**
      * Remove action method
      *

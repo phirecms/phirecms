@@ -92,7 +92,7 @@ class IndexController extends AbstractController
             $role->getById($rid);
             $this->view->title .= ' : ' . $role->name;
 
-            $fields = $this->application->config()['forms']['App\Form\User'];
+            $fields = $this->application->config()['forms']['Phire\Form\User'];
             $fields[1]['password1']['required'] = true;
             $fields[1]['password2']['required'] = true;
             $fields[0]['role_id']['value']      = $rid;
@@ -150,7 +150,7 @@ class IndexController extends AbstractController
                 $roleValues[$r->id] = $r->name;
             }
 
-            $fields = $this->application->config()['forms']['App\Form\User'];
+            $fields = $this->application->config()['forms']['Phire\Form\User'];
 
             $fields[1]['username']['attributes']['onkeyup'] = 'pop.changeTitle(this.value);';
             $fields[1]['password1']['required']    = false;

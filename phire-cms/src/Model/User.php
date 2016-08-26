@@ -289,9 +289,6 @@ class User extends AbstractModel
         $user->total_logins++;
         $user->save();
 
-        $cookie = Cookie::getInstance(['path' => '/']);
-        $cookie->set('phire_session', 1);
-
         $role = Table\Roles::findById($user->role_id);
 
         $sess->user = new \ArrayObject([
@@ -326,10 +323,6 @@ class User extends AbstractModel
     public function logout($sess)
     {
         $user = Table\Users::findById($sess->user->id);
-
-        $cookie = Cookie::getInstance(['path' => '/']);
-        $cookie->delete('phire_session');
-        $cookie->delete('phire_current_width');
 
         if (isset($user->id)) {
             $user->last_login = date('Y-m-d H:i:s');

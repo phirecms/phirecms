@@ -57,13 +57,6 @@ phire = {
 };
 
 $(document).ready(function(){
-    var session = jax.cookie.load('phire_session');
-    if (session != '') {
-        jax.cookie.save('phire_current_width', window.innerWidth, {path: '/'});
-    } else {
-        jax.cookie.remove('phire_current_width');
-    }
-
     if ($('#saved').data('saved') == 1) {
         $('#saved').fadeIn({complete : function(){
             $('#saved').delay(2000).fadeOut();

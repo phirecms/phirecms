@@ -37,7 +37,7 @@ class Acl
      */
     public static function check(Application $application)
     {
-        $application->module('app')->initAcl();
+        $application->module('phire')->initAcl();
         $sess = $application->getService('session');
         $acl  = $application->getService('acl');
 

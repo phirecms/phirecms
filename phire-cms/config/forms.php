@@ -3,9 +3,9 @@
  * Pop Web Bootstrap Application Framework form configurations
  */
 return [
-    'App\Form\Login'   => include 'forms/login.php',
-    'App\Form\Forgot'  => include 'forms/forgot.php',
-    'App\Form\Profile' => include 'forms/profile.php',
-    'App\Form\User'    => include 'forms/user.php',
-    'App\Form\Role'    => include 'forms/role.php'
+    'Phire\Form\Login'   => include 'forms/login.php',
+    'Phire\Form\Forgot'  => include 'forms/forgot.php',
+    'Phire\Form\Profile' => include 'forms/profile.php',
+    'Phire\Form\User'    => include 'forms/user.php',
+    'Phire\Form\Role'    => include 'forms/role.php'
 ];

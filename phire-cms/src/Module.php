@@ -13,7 +13,7 @@
  */
 namespace Phire;
 
-use App\Table;
+use Phire\Table;
 use Pop\Acl\Resource\Resource;
 use Pop\Acl\Role\Role;
 use Pop\Application;
@@ -34,6 +34,11 @@ use Pop\View\View;
  */
 class Module extends \Pop\Module\Module
 {
+
+    /**
+     * Phire version
+     */
+    const VERSION = '3.0.0';
 
     /**
      * Register module
@@ -93,9 +98,9 @@ class Module extends \Pop\Module\Module
             $this->application->mergeConfig(['resources' => $this->config['resources']]);
         }
 
-        $this->application->on('app.route.pre', 'App\Event\Ssl::check', 1000)
-             ->on('app.dispatch.pre', 'App\Event\Session::check', 1001)
-             ->on('app.dispatch.pre', 'App\Event\Acl::check', 1000);
+        $this->application->on('app.route.pre', 'Phire\Event\Ssl::check', 1000)
+             ->on('app.dispatch.pre', 'Phire\Event\Session::check', 1001)
+             ->on('app.dispatch.pre', 'Phire\Event\Acl::check', 1000);
 
         $this->initNav();
 

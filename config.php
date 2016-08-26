@@ -25,9 +25,6 @@ define('APP_PATH', '/phire-cms');
 // Define the content path
 define('CONTENT_PATH', '/phire-content');
 
-// Define the modules path
-define('MODULES_PATH', BASE_PATH . CONTENT_PATH . '/modules');
-
 // Define the application URI
 define('APP_URI', '/phire');
 
@@ -53,7 +50,7 @@ define('DB_PASS', '');
 define('DB_HOST', '');
 
 // Define the database prefix
-define('DB_PREFIX', 'ph_');
+define('DB_PREFIX', '');
 
 /**
  * Custom Application Configuration Settings

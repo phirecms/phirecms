@@ -282,9 +282,6 @@ class AbstractController extends \Pop\Controller\AbstractController
             $this->view->popNav = $this->services['nav.top'];
             $this->view->acl    = $this->services['acl'];
             $this->view->user   = $this->sess->user;
-
-            $cookie = \Pop\Cookie\Cookie::getInstance(['path' => '/']);
-            $this->view->windowWidth = $cookie['pop_current_width'];
         }
     }
 

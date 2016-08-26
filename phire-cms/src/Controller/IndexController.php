@@ -40,47 +40,9 @@ class IndexController extends AbstractController
         $this->prepareView('index.phtml');
         $this->view->title     = 'Dashboard';
         $this->view->dbVersion = $this->services['database']->version();
-        $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
+        $this->view->database  = (DB_TYPE != '') ?
             $this->application->config()['database']['type'] . ' (pdo)' :
-            $this->view->database = $this->application->config()['database']['adapter'];
-        
-        $this->send();
-    }
-
-    /**
-     * Side nav example action method
-     *
-     * @return void
-     */
-    public function side()
-    {
-        $this->prepareView('index.phtml');
-
-        $this->view->fluidNav  = $this->services['nav.fluid'];
-        $this->view->title     = 'Dashboard';
-        $this->view->dbVersion = $this->services['database']->version();
-        $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
-            $this->application->config()['database']['type'] . ' (pdo)' :
-            $this->view->database = $this->application->config()['database']['adapter'];
-
-        $this->send();
-    }
-
-    /**
-     * Static side nav example action method
-     *
-     * @return void
-     */
-    public function staticSide()
-    {
-        $this->prepareView('index-static.phtml');
-
-        $this->view->staticNav = $this->services['nav.static'];
-        $this->view->title     = 'Dashboard';
-        $this->view->dbVersion = $this->services['database']->version();
-        $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
-            $this->application->config()['database']['type'] . ' (pdo)' :
-            $this->view->database = $this->application->config()['database']['adapter'];
+            $this->view->database = DB_INTERFACE;
 
         $this->send();
     }
@@ -98,7 +60,7 @@ class IndexController extends AbstractController
         $user = new Model\User();
         $user->getById($this->sess->user->id);
 
-        $this->view->form = new Form\Profile($this->application->config()['forms']['App\Form\Profile']);
+        $this->view->form = new Form\Profile($this->application->config()['forms']['Phire\Form\Profile']);
         $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($user->toArray());
 
@@ -131,19 +93,18 @@ class IndexController extends AbstractController
     {
         $this->prepareView('login.phtml');
         $this->view->title = 'Please Login';
-        $this->view->form  = new Form\Login($this->application->config()['forms']['App\Form\Login']);
+        $this->view->form  = new Form\Login($this->application->config()['forms']['Phire\Form\Login']);
 
         if ($this->request->isPost()) {
-            $auth = new Auth\Auth(new Auth\Adapter\Table('App\Table\Users', Auth\Auth::ENCRYPT_BCRYPT));
+            $auth = new Auth\Auth(new Auth\Adapter\Table('Phire\Table\Users', Auth\Auth::ENCRYPT_BCRYPT));
 
             $this->view->form->addFilter('strip_tags')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
                  ->setFieldValues($this->request->getPost(), $auth);
 
-            $user    = new Model\User();
-            $session = new Model\Session();
+            $user = new Model\User();
 
-            if ($this->view->form->isValid() && ($session->validate($auth->adapter()->getUser(), $this->application->config()))) {
+            if ($this->view->form->isValid()) {
                 $user->login($auth->adapter()->getUser(), $this->sess, $this->application->config());
                 $this->redirect('/');
             } else {
@@ -189,7 +150,7 @@ class IndexController extends AbstractController
         $this->prepareView('forgot.phtml');
         $this->view->title   = 'Password Reset';
         $this->view->success = false;
-        $this->view->form    = new Form\Forgot($this->application->config()['forms']['App\Form\Forgot']);
+        $this->view->form    = new Form\Forgot($this->application->config()['forms']['Phire\Form\Forgot']);
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')

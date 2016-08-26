@@ -4,39 +4,39 @@
  */
 return [
     '/' => [
-        'controller' => 'App\Controller\IndexController',
+        'controller' => 'Phire\Controller\IndexController',
         'action'     => 'index'
     ],
     '/side' => [
-        'controller' => 'App\Controller\IndexController',
+        'controller' => 'Phire\Controller\IndexController',
         'action'     => 'side'
     ],
     '/static' => [
-        'controller' => 'App\Controller\IndexController',
+        'controller' => 'Phire\Controller\IndexController',
         'action'     => 'staticSide'
     ],
     '/login' => [
-        'controller' => 'App\Controller\IndexController',
+        'controller' => 'Phire\Controller\IndexController',
         'action'     => 'login'
     ],
     '/logout' => [
-        'controller' => 'App\Controller\IndexController',
+        'controller' => 'Phire\Controller\IndexController',
         'action'     => 'logout'
     ],
     '/forgot' => [
-        'controller' => 'App\Controller\IndexController',
+        'controller' => 'Phire\Controller\IndexController',
         'action'     => 'forgot'
     ],
     '/profile' => [
-        'controller' => 'App\Controller\IndexController',
+        'controller' => 'Phire\Controller\IndexController',
         'action'     => 'profile'
     ],
     '/verify/:id/:hash' => [
-        'controller' => 'App\Controller\IndexController',
+        'controller' => 'Phire\Controller\IndexController',
         'action'     => 'verify'
     ],
     '/users[/:rid]' => [
-        'controller' => 'App\Controller\Users\IndexController',
+        'controller' => 'Phire\Controller\Users\IndexController',
         'action'     => 'index',
         'acl'        => [
             'resource'   => 'users',
@@ -44,7 +44,7 @@ return [
         ]
     ],
     '/users/add[/:rid]' => [
-        'controller' => 'App\Controller\Users\IndexController',
+        'controller' => 'Phire\Controller\Users\IndexController',
         'action'     => 'add',
         'acl'        => [
             'resource'   => 'users',
@@ -52,7 +52,7 @@ return [
         ]
     ],
     '/users/edit/:id' => [
-        'controller' => 'App\Controller\Users\IndexController',
+        'controller' => 'Phire\Controller\Users\IndexController',
         'action'     => 'edit',
         'acl'        => [
             'resource'   => 'users',
@@ -60,7 +60,7 @@ return [
         ]
     ],
     '/users/process' => [
-        'controller' => 'App\Controller\Users\IndexController',
+        'controller' => 'Phire\Controller\Users\IndexController',
         'action'     => 'process',
         'acl'        => [
             'resource'   => 'users',
@@ -68,7 +68,7 @@ return [
         ]
     ],
     '/roles[/]' => [
-        'controller' => 'App\Controller\Roles\IndexController',
+        'controller' => 'Phire\Controller\Roles\IndexController',
         'action'     => 'index',
         'acl'        => [
             'resource'   => 'roles',
@@ -76,7 +76,7 @@ return [
         ]
     ],
     '/roles/add[/]' => [
-        'controller' => 'App\Controller\Roles\IndexController',
+        'controller' => 'Phire\Controller\Roles\IndexController',
         'action'     => 'add',
         'acl'        => [
             'resource'   => 'roles',
@@ -84,7 +84,7 @@ return [
         ]
     ],
     '/roles/edit/:id' => [
-        'controller' => 'App\Controller\Roles\IndexController',
+        'controller' => 'Phire\Controller\Roles\IndexController',
         'action'     => 'edit',
         'acl'        => [
             'resource'   => 'roles',
@@ -92,11 +92,11 @@ return [
         ]
     ],
     '/roles/json/:id' => [
-        'controller' => 'App\Controller\Roles\IndexController',
+        'controller' => 'Phire\Controller\Roles\IndexController',
         'action'     => 'json'
     ],
     '/roles/remove' => [
-        'controller' => 'App\Controller\Roles\IndexController',
+        'controller' => 'Phire\Controller\Roles\IndexController',
         'action'     => 'remove',
         'acl'        => [
             'resource'   => 'roles',
@@ -104,7 +104,7 @@ return [
         ]
     ],
     '/sessions[/]' => [
-        'controller' => 'App\Controller\Sessions\IndexController',
+        'controller' => 'Phire\Controller\Sessions\IndexController',
         'action'     => 'index',
         'acl'        => [
             'resource'   => 'sessions',
@@ -112,7 +112,7 @@ return [
         ]
     ],
     '/sessions/remove' => [
-        'controller' => 'App\Controller\Sessions\IndexController',
+        'controller' => 'Phire\Controller\Sessions\IndexController',
         'action'     => 'remove',
         'acl'        => [
             'resource'   => 'sessions',
@@ -120,7 +120,7 @@ return [
         ]
     ],
     '/sessions/logins' => [
-        'controller' => 'App\Controller\Sessions\IndexController',
+        'controller' => 'Phire\Controller\Sessions\IndexController',
         'action'     => 'logins',
         'acl'        => [
             'resource'   => 'sessions',
@@ -128,7 +128,7 @@ return [
         ]
     ],
     '*' => [
-        'controller' => 'App\Controller\IndexController',
+        'controller' => 'Phire\Controller\IndexController',
         'action'     => 'error'
     ]
 ];
