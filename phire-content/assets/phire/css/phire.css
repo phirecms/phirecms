@@ -41,12 +41,16 @@ input[type=checkbox] {
 }
 
 #login-container {
-    margin: 160px auto 0 auto;
-    padding: 40px;
+    margin: 120px auto 0 auto;
+    padding: 140px 40px 40px 40px;
     max-width: 370px;
     background-color: #fff;
     box-shadow: 0 0 10px 6px #e2e2e2;
     border-radius: 6px;
+    background-image: url("../img/phire-seal.svg");
+    background-position: center 30px;
+    background-repeat: no-repeat;
+    background-size: 75px 75px;
 }
 
 #login-container > h2 {
@@ -655,12 +659,21 @@ input[type=checkbox] {
 /**
  * Classes
  */
-/*
-.navbar-brand {
-    min-width: 160px;
-    max-width: 240px;
+
+a.navbar-brand {
+    margin: 0;
+    padding: 0;
+    width: 170px;
+    font-size: 1.2em;
+    height: 52px;
+    overflow: hidden;
+    text-indent: -9999px;
+    background-image: url(../img/phire-logo.svg);
+    background-position: center 10px;
+    background-repeat: no-repeat;
+    background-size: 140px 28px;
 }
-*/
+
 .navbar-nav > li > a.profile-link {
     font-weight: bold;
     color: #ED7E00;

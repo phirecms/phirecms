@@ -51,7 +51,3 @@ define('DB_HOST', '');
 
 // Define the database prefix
 define('DB_PREFIX', '');
-
-/**
- * Custom Application Configuration Settings
- */
