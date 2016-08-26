@@ -66,3 +66,33 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
 INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]users', 1000);
 CREATE INDEX "role_id" ON "[{prefix}]users" ("role_id");
 CREATE INDEX "username" ON "[{prefix}]users" ("username");
+
+--
+-- Dumping data for table "users"
+--
+
+-- --------------------------------------------------------
+
+-- --
+-- Table structure for table "modules"
+--
+
+DROP TABLE IF EXISTS "[{prefix}]modules";
+CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
+  "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "file" varchar NOT NULL,
+  "folder" varchar NOT NULL,
+  "name" varchar NOT NULL,
+  "prefix" varchar NOT NULL,
+  "version" varchar NOT NULL,
+  "active" integer NOT NULL,
+  "order" integer NOT NULL,
+  "assets" text,
+  "updates" text,
+  "installed_on" datetime,
+  "updated_on" datetime,
+  UNIQUE ("id")
+) ;
+
+INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]modules', 3000);
+CREATE INDEX "module_folder" ON "[{prefix}]modules" ("folder");

@@ -4,6 +4,8 @@
 
 -- --------------------------------------------------------
 
+SET FOREIGN_KEY_CHECKS = 0;
+
 --
 -- Table structure for table `roles`
 --
@@ -52,3 +54,38 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]users` (
   CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `[{prefix}]roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1001 ;
 
+--
+-- Dumping data for table `users`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `modules`
+--
+
+DROP TABLE IF EXISTS `[{prefix}]modules`;
+CREATE TABLE IF NOT EXISTS `[{prefix}]modules` (
+  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `file` varchar(255) NOT NULL,
+  `folder` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `prefix` varchar(255) NOT NULL,
+  `version` varchar(255) NOT NULL,
+  `active` int(1) NOT NULL,
+  `order` int(16) NOT NULL,
+  `assets` text,
+  `updates` text,
+  `installed_on` datetime,
+  `updated_on` datetime,
+  PRIMARY KEY (`id`),
+  INDEX `module_folder` (`folder`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3001 ;
+
+--
+-- Dumping data for table `modules`
+--
+
+--  --------------------------------------------------------
+
+SET FOREIGN_KEY_CHECKS = 1;

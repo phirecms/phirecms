@@ -61,3 +61,35 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
 ALTER SEQUENCE user_id_seq OWNED BY "[{prefix}]users"."id";
 CREATE INDEX "role_id" ON "[{prefix}]users" ("role_id");
 CREATE INDEX "username" ON "[{prefix}]users" ("username");
+
+--
+-- Dumping data for table "users"
+--
+
+--  --------------------------------------------------------
+
+--
+-- Table structure for table "modules"
+--
+
+CREATE SEQUENCE module_id_seq START 3001;
+
+DROP TABLE IF EXISTS "[{prefix}]modules" CASCADE;
+CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
+  "id" integer NOT NULL DEFAULT nextval('module_id_seq'),
+  "file" varchar(255) NOT NULL,
+  "folder" varchar(255) NOT NULL,
+  "name" varchar(255) NOT NULL,
+  "prefix" varchar(255) NOT NULL,
+  "version" varchar(255) NOT NULL,
+  "active" integer NOT NULL,
+  "order" integer NOT NULL,
+  "assets" text,
+  "updates" text,
+  "installed_on" timestamp,
+  "updated_on" timestamp,
+  PRIMARY KEY ("id")
+) ;
+
+ALTER SEQUENCE module_id_seq OWNED BY "[{prefix}]modules"."id";
+CREATE INDEX "module_folder" ON "[{prefix}]modules" ("folder");

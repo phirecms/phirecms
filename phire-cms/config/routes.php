@@ -35,6 +35,14 @@ return [
         'controller' => 'Phire\Controller\IndexController',
         'action'     => 'verify'
     ],
+    '/modules[/]' => [
+        'controller' => 'Phire\Controller\Modules\IndexController',
+        'action'     => 'index',
+        'acl'        => [
+            'resource'   => 'modules',
+            'permission' => 'index'
+        ]
+    ],
     '/users[/:rid]' => [
         'controller' => 'Phire\Controller\Users\IndexController',
         'action'     => 'index',

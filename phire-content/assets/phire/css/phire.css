@@ -984,9 +984,19 @@ div.page-links > a:hover {
     color: #b4b5b4;
 }
 
-.users-header {
+.modules-header, .users-header, .roles-header {
     margin: 10px 0 10px 0;
     padding: 10px 0 10px 0;
+}
+
+.modules-header:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f085";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
+    font-size: 0.9em;
 }
 
 .users-header:before {
@@ -999,11 +1009,6 @@ div.page-links > a:hover {
     font-size: 0.825em;
 }
 
-.roles-header {
-    margin: 10px 0 10px 0;
-    padding: 10px 0 10px 0;
-}
-
 .roles-header:before {
     font-family: "FontAwesome";
     font-weight: normal;
@@ -1014,19 +1019,18 @@ div.page-links > a:hover {
     font-size: 0.9em;
 }
 
-.sessions-header {
-    margin: 10px 0 10px 0;
-    padding: 10px 0 10px 0;
-}
-
-.sessions-header:before {
+.modules-nav-icon:before {
     font-family: "FontAwesome";
     font-weight: normal;
-    content: "\f017";
+    content: "\f085";
+    display: inline-block;
     margin: 0;
-    padding: 0 8px 0 0;
+    padding: 0 10px 0 0;
+    vertical-align: middle;
     color: #b4b5b4;
-    font-size: 0.9em;
+    font-size: 1.5em;
+    width: 28px;
+    text-align: center;
 }
 
 .users-nav-icon:before {
@@ -1039,7 +1043,7 @@ div.page-links > a:hover {
     vertical-align: middle;
     color: #b4b5b4;
     font-size: 1.3em;
-    width: 25px;
+    width: 26px;
     text-align: center;
 }
 
@@ -1047,20 +1051,6 @@ div.page-links > a:hover {
     font-family: "FontAwesome";
     font-weight: normal;
     content: "\f023";
-    display: inline-block;
-    margin: 0;
-    padding: 0 5px 0 0;
-    vertical-align: middle;
-    color: #b4b5b4;
-    font-size: 1.5em;
-    width: 25px;
-    text-align: center;
-}
-
-.sessions-nav-icon:before {
-    font-family: "FontAwesome";
-    font-weight: normal;
-    content: "\f017";
     display: inline-block;
     margin: 0;
     padding: 0 5px 0 0;
