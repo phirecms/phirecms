@@ -15,6 +15,7 @@ $config = [
             'params' => [
                 'tree' => include 'nav/top.php',
                 'config' => [
+                    'baseUrl' => BASE_PATH . APP_URI,
                     'top'     => [
                         'id'    => 'phire-nav',
                         'node'  => 'ul',
@@ -35,6 +36,7 @@ $config = [
             'params' => [
                 'tree' => include 'nav/fluid.php',
                 'config' => [
+                    'baseUrl' => BASE_PATH . APP_URI,
                     'top'     => [
                         'id'    => 'phire-fluid-nav',
                         'node'  => 'ul',
@@ -55,6 +57,7 @@ $config = [
             'params' => [
                 'tree' => include 'nav/static.php',
                 'config' => [
+                    'baseUrl' => BASE_PATH . APP_URI,
                     'top'     => [
                         'id'    => 'phire-static-nav',
                         'node'  => 'ul'
@@ -74,9 +77,7 @@ $config = [
     'force_ssl'         => false,
     'pagination'        => 25,
     'multiple_sessions' => true,
-    'login_attempts'    => 0,
-    'session_timeout'   => 0,  // In minutes
-    'timeout_warning'   => 0   // In seconds
+    'login_attempts'    => 0
 ];
 
 // If the database has been configuration, set up the database service

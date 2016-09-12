@@ -25,7 +25,7 @@ use Pop\Auth;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    3.0
+ * @version    3.0.0
  */
 class IndexController extends AbstractController
 {
@@ -77,7 +77,7 @@ class IndexController extends AbstractController
                 $user->update($this->view->form->getFields(), $this->sess);
                 $this->view->id = $user->id;
                 $this->sess->setRequestValue('saved', true);
-                $this->redirect('/profile');
+                $this->redirect(BASE_PATH . APP_URI . '/profile');
             }
         }
 
@@ -106,13 +106,13 @@ class IndexController extends AbstractController
 
             if ($this->view->form->isValid()) {
                 $user->login($auth->adapter()->getUser(), $this->sess, $this->application->config());
-                $this->redirect('/');
+                $this->redirect(BASE_PATH . APP_URI . '/');
             } else {
                 if ((null !== $auth->adapter()->getUser()) && (null !== $auth->adapter()->getUser()->id)) {
                     $user->failed($auth->adapter()->getUser());
                     if ($this->view->form->isValid()) {
                         $this->sess->setRequestValue('failed', true);
-                        $this->redirect('/login');
+                        $this->redirect(BASE_PATH . APP_URI . '/login');
                     }
                 }
             }
@@ -137,7 +137,7 @@ class IndexController extends AbstractController
             $this->sess->setRequestValue('expired', true);
         }
 
-        $this->redirect('/login');
+        $this->redirect(BASE_PATH . APP_URI . '/login');
     }
 
     /**

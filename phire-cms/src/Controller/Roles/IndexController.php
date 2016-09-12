@@ -26,7 +26,7 @@ use Pop\Paginator\Paginator;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    3.0
+ * @version    3.0.0
  */
 class IndexController extends AbstractController
 {
@@ -103,7 +103,7 @@ class IndexController extends AbstractController
                 $role->save($this->request->getPost());
                 $this->view->id = $role->id;
                 $this->sess->setRequestValue('saved', true);
-                $this->redirect('/roles/edit/' . $role->id);
+                $this->redirect(BASE_PATH . APP_URI . '/roles/edit/' . $role->id);
             }
         }
 
@@ -121,7 +121,7 @@ class IndexController extends AbstractController
         $role->getById($id);
 
         if (!isset($role->id)) {
-            $this->redirect('/roles');
+            $this->redirect(BASE_PATH . APP_URI . '/roles');
         }
 
         $this->prepareView('roles/edit.phtml');
@@ -168,7 +168,7 @@ class IndexController extends AbstractController
                 $role->update($this->request->getPost(), $this->sess);
                 $this->view->id = $role->id;
                 $this->sess->setRequestValue('saved', true);
-                $this->redirect('/roles/edit/' . $role->id);
+                $this->redirect(BASE_PATH . APP_URI . '/roles/edit/' . $role->id);
             }
         }
 
@@ -238,7 +238,7 @@ class IndexController extends AbstractController
             $role->remove($this->request->getPost());
         }
         $this->sess->setRequestValue('removed', true);
-        $this->redirect('/roles');
+        $this->redirect(BASE_PATH . APP_URI . '/roles');
     }
 
 }

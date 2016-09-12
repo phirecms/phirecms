@@ -24,7 +24,7 @@ use Pop\Http\Response;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    3.0
+ * @version    3.0.0
  */
 class Acl
 {
@@ -51,7 +51,7 @@ class Acl
                 $permission = (isset($routes[$route]['acl']['permission'])) ?
                     $routes[$route]['acl']['permission'] : null;
                 if (!$acl->isAllowed($sess->user->role, $resource, $permission)) {
-                    Response::redirect('/');
+                    Response::redirect(BASE_PATH . APP_URI . '/');
                     exit();
                 }
             }

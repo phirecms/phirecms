@@ -26,7 +26,7 @@ use Pop\Http\Response;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    3.0
+ * @version    3.0.0
  */
 class Session
 {
@@ -47,13 +47,13 @@ class Session
             $user->logout($sess);
             unset($sess->user);
             $sess->setRequestValue('expired', true);
-            Response::redirect('/login');
+            Response::redirect(BASE_PATH . APP_URI . '/login');
             exit();
         } else if (isset($sess->user) && (($action == 'login') || ($action == 'forgot') || ($action == 'verify'))) {
-            Response::redirect('/');
+            Response::redirect(BASE_PATH . APP_URI . '/');
             exit();
         } else if (!isset($sess->user) && ($action != 'login') && ($action != 'forgot') && ($action != 'verify')) {
-            Response::redirect('/login');
+            Response::redirect(BASE_PATH . APP_URI . '/login');
             exit();
         }
     }

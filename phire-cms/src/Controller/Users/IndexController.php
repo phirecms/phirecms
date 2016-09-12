@@ -26,7 +26,7 @@ use Pop\Paginator\Paginator;
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
- * @version    3.0
+ * @version    3.0.0
  */
 class IndexController extends AbstractController
 {
@@ -73,7 +73,7 @@ class IndexController extends AbstractController
             $this->view->roles = $user->getRoles();
             $this->send();
         } else {
-            $this->redirect('/users');
+            $this->redirect(BASE_PATH . APP_URI . '/users');
         }
     }
 
@@ -114,7 +114,7 @@ class IndexController extends AbstractController
 
                     $this->view->id = $user->id;
                     $this->sess->setRequestValue('saved', true);
-                    $this->redirect('/users/edit/' . $user->id);
+                    $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id);
                 }
             }
         } else {
@@ -135,7 +135,7 @@ class IndexController extends AbstractController
         $user->getById($id);
 
         if (!isset($user->id)) {
-            $this->redirect('/users');
+            $this->redirect(BASE_PATH . APP_URI . '/users');
         }
 
         if ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $user->role_id, 'edit')) {
@@ -179,12 +179,12 @@ class IndexController extends AbstractController
 
                     $this->view->id = $user->id;
                     $this->sess->setRequestValue('saved', true);
-                    $this->redirect('/users/edit/' . $user->id);
+                    $this->redirect(BASE_PATH . APP_URI . '/users/edit/' . $user->id);
                 }
             }
             $this->send();
         } else {
-            $this->redirect('/users');
+            $this->redirect(BASE_PATH . APP_URI . '/users');
         }
     }
 
@@ -206,7 +206,7 @@ class IndexController extends AbstractController
             $this->sess->setRequestValue('saved', true);
         }
 
-        $this->redirect('/users' .
+        $this->redirect(BASE_PATH . APP_URI . '/users' .
             (((int)$this->request->getPost('role_id') != 0) ? '/' . (int)$this->request->getPost('role_id') : null));
     }
 
