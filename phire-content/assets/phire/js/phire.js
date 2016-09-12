@@ -109,7 +109,7 @@ $(document).ready(function(){
     if (($('#role_id')[0] != undefined) && ($('#role_id').data('user') == 'add')) {
         $('#role_id').change(function(){
             if ($('#role_id').val() != 0) {
-                window.location.href = '/users/add/' + $('#role_id').val();
+                window.location.href = $('#role-select-form').attr('action') + '/' + $('#role_id').val();
             }
         });
     }

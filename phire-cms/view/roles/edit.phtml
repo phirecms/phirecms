@@ -4,9 +4,9 @@
     <h1 class="roles-header"><?=$title; ?> : <span id="title-span"><?=$role_name; ?></span></h1>
     <nav id="sub-nav">
 <?php if ($acl->isAllowed($user->role, 'roles', 'add')): ?>
-        <nav><a class="btn-sm btn-info" href="/roles/add">+ Add</a></nav>
+        <nav><a class="btn-sm btn-info" href="<?=BASE_PATH . APP_URI; ?>/roles/add">+ Add</a></nav>
 <?php endif; ?>
-        <nav><a class="btn-sm btn-info" href="/roles">Back</a></nav>
+        <nav><a class="btn-sm btn-info" href="<?=BASE_PATH . APP_URI; ?>/roles">Back</a></nav>
     </nav>
 <?=$form; ?>
     </div>

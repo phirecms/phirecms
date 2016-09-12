@@ -30,13 +30,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/"><?=$application_title; ?></a>
+                <a class="navbar-brand" href="<?=BASE_PATH . APP_URI; ?>/"><?=$application_title; ?></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
 <?=$popNav; ?>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/profile" class="profile-link"><?=$user->username; ?></a></li>
-                    <li><a href="/logout" class="logout-link">Logout</a></li>
+                    <li><a href="<?=BASE_PATH . APP_URI; ?>/profile" class="profile-link"><?=$user->username; ?></a></li>
+                    <li><a href="<?=BASE_PATH . APP_URI; ?>/logout" class="logout-link">Logout</a></li>
                 </ul>
 <?php if (null !== $user->last_login): ?>
                 <div class="user-header pull-right">
