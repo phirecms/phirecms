@@ -40,19 +40,23 @@ phire = {
     },
 
     changeAction : function(id, action) {
-        $('#action_' + id + ' > option').remove();
-        $('#action_' + id).append('<option value="----">----</option>');
+        if (jax.cookie.load('phire') != '') {
+            var phireCookie = jax.cookie.load('phire');
 
-        $.get('/roles/json/' + $('#resource_' + id).val(), function(json){
-            if (json.permissions != undefined) {
-                for (var i = 0; i < json.permissions.length; i++) {
-                    $('#action_' + id).append('<option value="' + json.permissions[i] + '">' + json.permissions[i] + '</option>');
+            $('#action_' + id + ' > option').remove();
+            $('#action_' + id).append('<option value="----">----</option>');
+
+            $.get(phireCookie.base_path + phireCookie.app_uri + '/roles/json/' + $('#resource_' + id).val(), function (json) {
+                if (json.permissions != undefined) {
+                    for (var i = 0; i < json.permissions.length; i++) {
+                        $('#action_' + id).append('<option value="' + json.permissions[i] + '">' + json.permissions[i] + '</option>');
+                    }
+                    if (action != null) {
+                        $('#action_' + id).val(action);
+                    }
                 }
-                if (action != null) {
-                    $('#action_' + id).val(action);
-                }
-            }
-        });
+            });
+        }
     }
 };
 
@@ -147,27 +151,31 @@ $(document).ready(function(){
     }
 
     if (($('#role-form')[0] != undefined) && ($('#id').val() != 0)) {
-        $.get('/roles/json/' + $('#id').val(), function(json){
-            if (json.length > 0) {
-                $('#resource_1').val(json[0].resource);
+        if (jax.cookie.load('phire') != '') {
+            var phireCookie = jax.cookie.load('phire');
 
-                phire.changeAction(1, json[0].action);
-
-                if (json[0].permission == 'allow') {
-                    $('#permission_1').val(1);
-                } else if (json[0].permission == 'deny') {
-                    $('#permission_1').val(0);
-                }
-
-                json.shift();
+            $.get(phireCookie.base_path + phireCookie.app_uri + '/roles/json/' + $('#id').val(), function (json) {
                 if (json.length > 0) {
-                    for (var i = 0; i < json.length; i++) {
-                        console.log(json[i]);
-                        phire.addResource(json[i]);
+                    $('#resource_1').val(json[0].resource);
+
+                    phire.changeAction(1, json[0].action);
+
+                    if (json[0].permission == 'allow') {
+                        $('#permission_1').val(1);
+                    } else if (json[0].permission == 'deny') {
+                        $('#permission_1').val(0);
+                    }
+
+                    json.shift();
+                    if (json.length > 0) {
+                        for (var i = 0; i < json.length; i++) {
+                            console.log(json[i]);
+                            phire.addResource(json[i]);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     $('[data-toggle="offcanvas"]').click(function () {

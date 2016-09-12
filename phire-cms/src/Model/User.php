@@ -16,7 +16,6 @@ namespace Phire\Model;
 use Phire\Table;
 use Pop\Cookie\Cookie;
 use Pop\Crypt\Bcrypt;
-use Pop\Db\Sql;
 
 /**
  * User model class
@@ -300,6 +299,21 @@ class User extends AbstractModel
             'last_login'   => $user->last_login,
             'last_ip'      => $user->last_ip
         ], \ArrayObject::ARRAY_AS_PROPS);
+
+        if (php_sapi_name() != 'cli') {
+            $path = BASE_PATH . APP_URI;
+            if ($path == '') {
+                $path = '/';
+            }
+
+            $cookie = Cookie::getInstance(['path' => $path]);
+            $cookie->set('phire', [
+                'base_path'    => BASE_PATH,
+                'app_path'     => APP_PATH,
+                'content_path' => CONTENT_PATH,
+                'app_uri'      => APP_URI
+            ]);
+        }
     }
 
     /**
@@ -329,6 +343,15 @@ class User extends AbstractModel
             $user->last_ip    = (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null);
             $user->last_ua    = (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null);
             $user->save();
+        }
+
+        if (php_sapi_name() != 'cli') {
+            $path = BASE_PATH . APP_URI;
+            if ($path == '') {
+                $path = '/';
+            }
+            $cookie = Cookie::getInstance(['path' => $path]);
+            $cookie->delete('phire');
         }
 
         unset($sess->user);
