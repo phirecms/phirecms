@@ -28,6 +28,10 @@ return [
             'controller' => 'Phire\Controller\IndexController',
             'action'     => 'verify'
         ],
+        '/install[/]' => [
+            'controller' => 'Phire\Controller\Install\IndexController',
+            'action'     => 'index'
+        ],
         '/modules[/]' => [
             'controller' => 'Phire\Controller\Modules\IndexController',
             'action'     => 'index',

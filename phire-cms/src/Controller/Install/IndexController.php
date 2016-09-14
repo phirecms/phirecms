@@ -11,7 +11,7 @@
 /**
  * @namespace
  */
-namespace Phire\Controller\Modules;
+namespace Phire\Controller\Install;
 
 use Phire\Controller\AbstractController;
 use Phire\Form;
@@ -19,7 +19,7 @@ use Phire\Model;
 use Pop\Paginator\Paginator;
 
 /**
- * Modules controller class
+ * Install controller class
  *
  * @category   Phire
  * @package    Phire
@@ -38,8 +38,9 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        $this->prepareView('modules/index.phtml');
-        $this->view->title = 'Modules';
+        $this->prepareView('install.phtml');
+        $this->view->title = 'Installation';
+        $this->view->form  = null;
         $this->send();
     }
 

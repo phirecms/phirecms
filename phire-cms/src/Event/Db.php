@@ -13,13 +13,10 @@
  */
 namespace Phire\Event;
 
-use Phire\Model;
-use Phire\Table;
 use Pop\Application;
-use Pop\Http\Response;
 
 /**
- * Session event class
+ * Db event class
  *
  * @category   Phire
  * @package    Phire
@@ -28,28 +25,28 @@ use Pop\Http\Response;
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
-class Session
+class Db
 {
 
     /**
-     * Check for the user session
+     * Check if the database has been installed and a database connection is available
      *
      * @param  Application $application
+     * @throws \Phire\Exception
      * @return void
      */
     public static function check(Application $application)
     {
-        $sess      = $application->getService('session');
-        $action    = $application->router()->getRouteMatch()->getAction();
-        $route     = $application->router()->getRouteMatch()->getRoute();
-        $isInstall = (substr($route, 0, strlen(APP_URI . '/install')) == APP_URI . '/install');
-
-        if (isset($sess->user) && (($action == 'login') || ($action == 'forgot') || ($action == 'verify') || ($isInstall))) {
-            Response::redirect(BASE_PATH . APP_URI . '/');
-            exit();
-        } else if (!isset($sess->user) && ($action != 'login') && ($action != 'forgot') && (!$isInstall) && ($action != 'verify')) {
-            Response::redirect(BASE_PATH . APP_URI . '/login');
-            exit();
+        $route = $application->router()->getRouteMatch()->getRoute();
+        if (!$application->services()->isAvailable('database') &&
+            (substr($route, 0, strlen(APP_URI . '/install')) != APP_URI . '/install')
+        ) {
+            $exception = new \Phire\Exception(
+                'Error: The database has not been installed. ' .
+                'Please check the config file or <a href="' . BASE_PATH . APP_URI . '/install">install</a> the system.'
+            );
+            $exception->setInstallErrorFlag(true);
+            throw $exception;
         }
     }
 
