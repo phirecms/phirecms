@@ -59,6 +59,19 @@ input[type=checkbox] {
     text-align: center;
 }
 
+#install-container {
+    margin: 0 auto 20px auto;
+    padding: 120px 40px 40px 40px;
+    max-width: 370px;
+    background-color: #fff;
+    box-shadow: 0 0 10px 6px #e2e2e2;
+    border-radius: 6px;
+    background-image: url("../img/phire-seal.svg");
+    background-position: center 30px;
+    background-repeat: no-repeat;
+    background-size: 75px 75px;
+}
+
 #login-form, #login-form > dl {
     margin: 0;
     padding: 0;

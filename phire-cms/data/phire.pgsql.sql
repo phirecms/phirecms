@@ -4,6 +4,24 @@
 
 -- --------------------------------------------------------
 
+DROP TABLE IF EXISTS "[{prefix}]config" CASCADE;
+CREATE TABLE IF NOT EXISTS "[{prefix}]config" (
+  "setting" varchar(255) NOT NULL,
+  "value" text NOT NULL,
+  PRIMARY KEY ("setting")
+) ;
+
+--
+-- Dumping data for table "config"
+--
+
+INSERT INTO "[{prefix}]config" ("setting", "value") VALUES
+('installed_on', '0000-00-00 00:00:00'),
+('updated_on', '0000-00-00 00:00:00'),
+('updates', '');
+
+-- --------------------------------------------------------
+
 --
 -- Table structure for table "roles"
 --

@@ -11,14 +11,13 @@
 /**
  * @namespace
  */
-namespace Phire\Controller\Install;
+namespace Phire\Controller\Config;
 
 use Phire\Controller\AbstractController;
-use Phire\Form;
 use Phire\Model;
 
 /**
- * Install controller class
+ * Config Index Controller class
  *
  * @category   Phire
  * @package    Phire
@@ -37,9 +36,18 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        $this->prepareView('install.phtml');
-        $this->view->title = 'Installation';
-        $this->view->form  = new Form\Install($this->application->config()['forms']['Phire\Form\Install']);
+        $config = new Model\Config();
+
+        if ($this->request->isPost()) {
+            $config->save($this->request->getPost());
+            $this->sess->setRequestValue('saved', true);
+            $this->redirect(BASE_PATH . APP_URI . '/config');
+        }
+
+        $this->prepareView('phire/config/index.phtml');
+        $this->view->title    = 'Configuration';
+        $this->view->overview = $config->overview;
+        $this->view->config   = $config->config;
         $this->send();
     }
 

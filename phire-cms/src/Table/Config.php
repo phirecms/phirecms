@@ -11,14 +11,12 @@
 /**
  * @namespace
  */
-namespace Phire\Controller\Install;
+namespace Phire\Table;
 
-use Phire\Controller\AbstractController;
-use Phire\Form;
-use Phire\Model;
+use Pop\Db\Record;
 
 /**
- * Install controller class
+ * Config table class
  *
  * @category   Phire
  * @package    Phire
@@ -27,20 +25,33 @@ use Phire\Model;
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
-class IndexController extends AbstractController
+class Config extends Record
 {
 
     /**
-     * Index action method
-     *
-     * @return void
+     * Table prefix
+     * @var string
      */
-    public function index()
-    {
-        $this->prepareView('install.phtml');
-        $this->view->title = 'Installation';
-        $this->view->form  = new Form\Install($this->application->config()['forms']['Phire\Form\Install']);
-        $this->send();
-    }
+    protected $prefix = DB_PREFIX;
 
+    /**
+     * Primary keys
+     * @var array
+     */
+    protected $primaryKeys = ['setting'];
+
+    /**
+     * Get config values
+     */
+    public static function getConfig()
+    {
+        $config = static::findAll();
+        $values = [];
+
+        foreach ($config->rows() as $row) {
+            $values[$row['setting']] = $row['value'];
+        }
+
+        return $values;
+    }
 }

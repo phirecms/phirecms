@@ -14,6 +14,27 @@ PRAGMA foreign_keys = ON;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table "config"
+--
+
+DROP TABLE IF EXISTS "[{prefix}]config";
+CREATE TABLE IF NOT EXISTS "[{prefix}]config" (
+  "setting" varchar NOT NULL PRIMARY KEY,
+  "value" text NOT NULL,
+  UNIQUE ("setting")
+) ;
+
+--
+-- Dumping data for table "config"
+--
+
+INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('installed_on', '0000-00-00 00:00:00');
+INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updated_on', '0000-00-00 00:00:00');
+INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updates', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table "roles"
 --
 
