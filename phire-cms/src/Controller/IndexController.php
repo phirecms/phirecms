@@ -4,7 +4,7 @@
  *
  * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  */
 
@@ -22,8 +22,9 @@ use Pop\Auth;
  *
  * @category   Phire
  * @package    Phire
+ * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
@@ -39,10 +40,48 @@ class IndexController extends AbstractController
     {
         $this->prepareView('index.phtml');
         $this->view->title     = 'Dashboard';
-        $this->view->dbVersion = $this->services['database']->version();
-        $this->view->database  = (DB_TYPE != '') ?
+        $this->view->dbVersion = $this->services['database']->getVersion();
+        $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
             $this->application->config()['database']['type'] . ' (pdo)' :
-            $this->view->database = DB_INTERFACE;
+            $this->view->database = $this->application->config()['database']['adapter'];
+
+        $this->send();
+    }
+
+    /**
+     * Side nav example action method
+     *
+     * @return void
+     */
+    public function side()
+    {
+        $this->prepareView('index.phtml');
+
+        $this->view->fluidNav  = $this->services['nav.fluid'];
+        $this->view->title     = 'Dashboard';
+        $this->view->dbVersion = $this->services['database']->getVersion();
+        $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
+            $this->application->config()['database']['type'] . ' (pdo)' :
+            $this->view->database = $this->application->config()['database']['adapter'];
+
+        $this->send();
+    }
+
+    /**
+     * Static side nav example action method
+     *
+     * @return void
+     */
+    public function staticSide()
+    {
+        $this->prepareView('index-static.phtml');
+
+        $this->view->staticNav = $this->services['nav.static'];
+        $this->view->title     = 'Dashboard';
+        $this->view->dbVersion = $this->services['database']->getVersion();
+        $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
+            $this->application->config()['database']['type'] . ' (pdo)' :
+            $this->view->database = $this->application->config()['database']['adapter'];
 
         $this->send();
     }
@@ -60,7 +99,7 @@ class IndexController extends AbstractController
         $user = new Model\User();
         $user->getById($this->sess->user->id);
 
-        $this->view->form = new Form\Profile($this->application->config()['forms']['Phire\Form\Profile']);
+        $this->view->form = Form\Profile::createFromFieldsetConfig($this->application->config()['forms']['Phire\Form\Profile']);
         $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($user->toArray());
 
@@ -71,10 +110,15 @@ class IndexController extends AbstractController
             if ($this->view->form->isValid()) {
                 $this->view->form->clearFilters()
                      ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                     ->filter();
+                     ->filterValues();
 
                 $user = new Model\User();
-                $user->update($this->view->form->getFields(), $this->sess);
+                $user->update(
+                    $this->view->form,
+                    $this->application->config()['application_title'],
+                    $this->application->services()->get('mailer'),
+                    $this->sess
+                );
                 $this->view->id = $user->id;
                 $this->sess->setRequestValue('saved', true);
                 $this->redirect(BASE_PATH . APP_URI . '/profile');
@@ -93,10 +137,10 @@ class IndexController extends AbstractController
     {
         $this->prepareView('login.phtml');
         $this->view->title = 'Please Login';
-        $this->view->form  = new Form\Login($this->application->config()['forms']['Phire\Form\Login']);
+        $this->view->form  = Form\Login::createFromFieldsetConfig($this->application->config()['forms']['Phire\Form\Login']);
 
         if ($this->request->isPost()) {
-            $auth = new Auth\Auth(new Auth\Adapter\Table('Phire\Table\Users', Auth\Auth::ENCRYPT_BCRYPT));
+            $auth = new Auth\Table('Phire\Table\Users');
 
             $this->view->form->addFilter('strip_tags')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
@@ -105,11 +149,11 @@ class IndexController extends AbstractController
             $user = new Model\User();
 
             if ($this->view->form->isValid()) {
-                $user->login($auth->adapter()->getUser(), $this->sess, $this->application->config());
+                $user->login($auth->getUser(), $this->sess);
                 $this->redirect(BASE_PATH . APP_URI . '/');
             } else {
-                if ((null !== $auth->adapter()->getUser()) && (null !== $auth->adapter()->getUser()->id)) {
-                    $user->failed($auth->adapter()->getUser());
+                if ((null !== $auth->getUser()) && (null !== $auth->getUser()->id)) {
+                    $user->failed($auth->getUser());
                     if ($this->view->form->isValid()) {
                         $this->sess->setRequestValue('failed', true);
                         $this->redirect(BASE_PATH . APP_URI . '/login');
@@ -150,7 +194,7 @@ class IndexController extends AbstractController
         $this->prepareView('forgot.phtml');
         $this->view->title   = 'Password Reset';
         $this->view->success = false;
-        $this->view->form    = new Form\Forgot($this->application->config()['forms']['Phire\Form\Forgot']);
+        $this->view->form    = Form\Forgot::createFromFieldsetConfig($this->application->config()['forms']['Phire\Form\Forgot']);
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
@@ -160,10 +204,14 @@ class IndexController extends AbstractController
             if ($this->view->form->isValid()) {
                 $this->view->form->clearFilters()
                      ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                     ->filter();
+                     ->filterValues();
 
                 $user = new Model\User();
-                $user->forgot($this->view->form->getFields(), $this->application->config()['application_title']);
+                $user->forgot(
+                    $this->view->form,
+                    $this->application->config()['application_title'],
+                    $this->application->services()->get('mailer')
+                );
                 $this->view->id      = $user->id;
                 $this->view->success = true;
             }
@@ -175,6 +223,8 @@ class IndexController extends AbstractController
     /**
      * Verify action method
      *
+     * @param  int    $id
+     * @param  string $hash
      * @return void
      */
     public function verify($id, $hash)

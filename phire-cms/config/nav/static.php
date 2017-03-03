@@ -1,6 +1,6 @@
 <?php
 /**
- * Pop Web Bootstrap Application Framework side nav configuration
+ * Phire CMS side nav configuration
  */
 return [
     'content' => [

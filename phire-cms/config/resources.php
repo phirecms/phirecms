@@ -1,14 +1,8 @@
 <?php
 /**
- * Pop Web Bootstrap Application Framework resources
+ * Phire CMS Framework resources
  */
 return [
-    'modules' => [
-        'index',
-        'install',
-        'update',
-        'process'
-    ],
     'users' => [
         'index',
         'add',

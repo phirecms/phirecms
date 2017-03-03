@@ -1,19 +1,8 @@
 <?php
 /**
- * Pop Web Bootstrap Application Framework main nav configuration
+ * Phire CMS main nav configuration
  */
 return [
-    'modules' => [
-        'name' => 'Modules',
-        'href' => '/modules',
-        'acl'  => [
-            'resource'   => 'modules',
-            'permission' => 'index'
-        ],
-        'attributes' => [
-            'class' => 'modules-nav-icon'
-        ]
-    ],
     'users' => [
         'name' => 'Users',
         'href' => '/users',

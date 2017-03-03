@@ -1,6 +1,6 @@
 <?php
 /**
- * Pop Web Bootstrap Application Framework user form configuration
+ * Phire CMS user form configuration
  */
 return [
     [
@@ -14,26 +14,26 @@ return [
         'active' => [
             'type'      => 'radio',
             'label'     => 'Active',
-            'value' => [
+            'values' => [
                 '1' => 'Yes',
                 '0' => 'No'
             ],
-            'marked' => 0
+            'checked' => 0
         ],
         'verified' => [
             'type'      => 'radio',
             'label'     => 'Verified',
-            'value' => [
+            'values' => [
                 '1' => 'Yes',
                 '0' => 'No'
             ],
-            'marked' => 0
+            'checked' => 0
         ],
         'clear_logins'   => [
             'type'  => 'checkbox',
-            'label' => 'Clear Logins?',
-            'value' => [
-                1 => ''
+            'label' => 'Logins',
+            'values' => [
+                1 => 'Clear Logins?'
             ]
         ],
         'failed_attempts'   => [
@@ -67,8 +67,6 @@ return [
         'password1' => [
             'type'       => 'password',
             'label'      => 'Password',
-            'required'   => true,
-            'validators' => new \Pop\Validator\LengthGte(6),
             'attributes' => [
                 'size'    => 40,
                 'class'   => 'form-control'
@@ -77,7 +75,6 @@ return [
         'password2' => [
             'type'       => 'password',
             'label'      => 'Re-Type Password',
-            'required'   => true,
             'attributes' => [
                 'size'    => 40,
                 'class'   => 'form-control'

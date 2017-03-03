@@ -10,7 +10,6 @@
 
     <title><?=$title; ?> : <?=$application_title; ?></title>
 
-    <link type="image/png" rel="shortcut icon" href="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/img/phire-icon.png"  />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,700,700italic,900,900italic" />
     <link rel="stylesheet" href="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/css/bootstrap-theme.min.css" />
@@ -33,7 +32,7 @@
                 <a class="navbar-brand" href="<?=BASE_PATH . APP_URI; ?>/"><?=$application_title; ?></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-<?=$popNav; ?>
+<?=$phireNav; ?>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?=BASE_PATH . APP_URI; ?>/profile" class="profile-link"><?=$user->username; ?></a></li>
                     <li><a href="<?=BASE_PATH . APP_URI; ?>/logout" class="logout-link">Logout</a></li>

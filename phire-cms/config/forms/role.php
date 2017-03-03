@@ -1,6 +1,6 @@
 <?php
 /**
- * Pop Web Bootstrap Application Framework role form configuration
+ * Phire CMS role form configuration
  */
 return [
     [
@@ -14,7 +14,7 @@ return [
         'role_parent_id' => [
             'type'       => 'select',
             'label'      => 'Parent',
-            'value'      => null
+            'values'     => null
         ],
         'id' => [
             'type'  => 'hidden',
@@ -37,15 +37,15 @@ return [
         'resource_1' => [
             'type'       => 'select',
             'label'      => '<a href="#" id="permission-add-link">[+]</a> Resources, Actions &amp; Permissions',
-            'value'      => null
+            'values'     => null
         ],
         'action_1' => [
             'type'       => 'select',
-            'value'      => ['----' => '----']
+            'values'     => ['----' => '----']
         ],
         'permission_1' => [
             'type'     => 'select',
-            'value'    => [
+            'values'   => [
                 '----' => '----',
                 '0'    => 'deny',
                 '1'    => 'allow'

@@ -4,7 +4,7 @@
  *
  * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  */
 
@@ -13,16 +13,17 @@
  */
 namespace Phire\Model;
 
-use Pop\Crypt\Bcrypt;
-use Pop\Mail\Mail;
+use Pop\Mail\Mailer;
+use Pop\Mail\Message;
 
 /**
  * Notification model class
  *
  * @category   Phire
  * @package    Phire
+ * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
@@ -34,31 +35,36 @@ class Notification extends AbstractModel
      *
      * @param  mixed  $user
      * @param  string $title
+     * @param  Mailer $mailer
      * @return void
      */
-    public function sendVerification($user, $title)
+    public function sendVerification($user, $title, Mailer $mailer)
     {
         $host    = $_SERVER['HTTP_HOST'];
         $domain  = str_replace('www.', '', $host);
         $schema  = (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443')) ? 'https://' : 'http://';
 
-        // Set the recipient
-        $rcpt = [
-            'name'   => $user->username,
-            'email'  => $user->email,
-            'url'    => $schema . $host . '/verify/' . $user->id . '/' . sha1($user->email),
-            'domain' => $domain,
-            'title'  => $title
-        ];
+        $body = file_get_contents(__DIR__ . '/../../view/mail/verify.txt');
+        $body = str_replace([
+            '[{name}]',
+            '[{email}]',
+            '[{url}]',
+            '[{domain}]',
+            '[{title}]'
+        ], [
+            $user->username,
+            $user->email,
+            $schema . $host . BASE_PATH . APP_URI . '/verify/' . $user->id . '/' . sha1($user->email),
+            $domain,
+            $title
+        ], $body);
 
-        // Check for an override template
-        $mailTemplate = __DIR__ . '/../../view/mail/verify.txt';
+        $message = new Message($title . ' (' . $domain . ') - Email Verification');
+        $message->setTo([$user->email => $user->username])
+            ->setFrom('noreply@' . $domain)
+            ->setBody($body);
 
-        // Send email verification
-        $mail = new Mail($title . ' (' . $domain . ') - Email Verification', $rcpt);
-        $mail->from('noreply@' . $domain);
-        $mail->setText(file_get_contents($mailTemplate));
-        $mail->send();
+        $mailer->send($message);
     }
 
     /**
@@ -66,29 +72,33 @@ class Notification extends AbstractModel
      *
      * @param  mixed  $user
      * @param  string $title
+     * @param  Mailer $mailer
      * @return void
      */
-    public function sendApproval($user, $title)
+    public function sendApproval($user, $title, Mailer $mailer)
     {
         $host   = $_SERVER['HTTP_HOST'];
         $domain = str_replace('www.', '', $host);
 
-        // Set the recipient
-        $rcpt = [
-            'name'   => $user->username,
-            'email'  => $user->email,
-            'domain' => $domain,
-            'title'  => $title
-        ];
+        $body = file_get_contents(__DIR__ . '/../../view/mail/approval.txt');
+        $body = str_replace([
+            '[{name}]',
+            '[{email}]',
+            '[{domain}]',
+            '[{title}]'
+        ], [
+            $user->username,
+            $user->email,
+            $domain,
+            $title
+        ], $body);
 
-        // Check for an override template
-        $mailTemplate = __DIR__ . '/../../view/mail/approval.txt';
+        $message = new Message($title . ' (' . $domain . ') - Approval');
+        $message->setTo([$user->email => $user->username])
+            ->setFrom('noreply@' . $domain)
+            ->setBody($body);
 
-        // Send email verification
-        $mail = new Mail($title . ' (' . $domain . ') - Approval', $rcpt);
-        $mail->from('noreply@' . $domain);
-        $mail->setText(file_get_contents($mailTemplate));
-        $mail->send();
+        $mailer->send($message);
     }
 
     /**
@@ -96,32 +106,40 @@ class Notification extends AbstractModel
      *
      * @param  mixed  $user
      * @param  string $title
+     * @param  Mailer $mailer
      * @return void
      */
-    public function sendReset($user, $title)
+    public function sendReset($user, $title, Mailer $mailer)
     {
         $host           = $_SERVER['HTTP_HOST'];
         $domain         = str_replace('www.', '', $host);
         $newPassword    = $this->random();
-        $user->password = (new Bcrypt())->create($newPassword);
+        $user->password = password_hash($newPassword, PASSWORD_BCRYPT);
         $user->save();
 
-        $rcpt = [
-            'name'     => $user->username,
-            'email'    => $user->email,
-            'domain'   => $domain,
-            'username' => $user->username,
-            'password' => $newPassword,
-            'title'    => $title
-        ];
+        $body = file_get_contents(__DIR__ . '/../../view/mail/forgot.txt');
+        $body = str_replace([
+            '[{name}]',
+            '[{email}]',
+            '[{domain}]',
+            '[{username}]',
+            '[{password}]',
+            '[{title}]'
+        ], [
+            $user->username,
+            $user->email,
+            $domain,
+            $user->username,
+            $newPassword,
+            $title
+        ], $body);
 
-        $mailTemplate = __DIR__ . '/../../view/mail/forgot.txt';
+        $message = new Message($title . ' (' . $domain . ') - Password Reset');
+        $message->setTo([$user->email => $user->username])
+            ->setFrom('noreply@' . $domain)
+            ->setBody($body);
 
-        // Send email verification
-        $mail = new Mail($title . ' (' . $domain . ') - Password Reset', $rcpt);
-        $mail->from('noreply@' . $domain);
-        $mail->setText(file_get_contents($mailTemplate));
-        $mail->send();
+        $mailer->send($message);
     }
 
     /**

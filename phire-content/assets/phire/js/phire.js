@@ -1,34 +1,13 @@
 /**
- * Phire Bootstrap Scripts
+ * Phire CMS Scripts
  */
 
 phire = {
+    sessionToInt : null,
+
     changeTitle : function(value) {
         if ($('#title-span')[0] != undefined) {
             $('#title-span')[0].innerHTML = value;
-        }
-    },
-
-    changeDbAdapter : function(sel) {
-        var val = $(sel).val();
-        if (val.indexOf('sqlite') != -1) {
-            $($('label[for=db_name]').parent()).hide();
-            $($('#db_name').parent()).hide();
-            $($('label[for=db_username]').parent()).hide();
-            $($('#db_username').parent()).hide();
-            $($('label[for=db_password]').parent()).hide();
-            $($('#db_password').parent()).hide();
-            $($('label[for=db_host]').parent()).hide();
-            $($('#db_host').parent()).hide();
-        } else {
-            $($('label[for=db_name]').parent()).show();
-            $($('#db_name').parent()).show();
-            $($('label[for=db_username]').parent()).show();
-            $($('#db_username').parent()).show();
-            $($('label[for=db_password]').parent()).show();
-            $($('#db_password').parent()).show();
-            $($('label[for=db_host]').parent()).show();
-            $($('#db_host').parent()).show();
         }
     },
 
@@ -63,24 +42,21 @@ phire = {
     },
 
     changeAction : function(id, action) {
-        if (jax.cookie.load('phire') != '') {
-            var phireCookie = jax.cookie.load('phire');
+        $('#action_' + id + ' > option').remove();
+        $('#action_' + id).append('<option value="----">----</option>');
 
-            $('#action_' + id + ' > option').remove();
-            $('#action_' + id).append('<option value="----">----</option>');
-
-            $.get(phireCookie.base_path + phireCookie.app_uri + '/roles/json/' + $('#resource_' + id).val(), function (json) {
-                if (json.permissions != undefined) {
-                    for (var i = 0; i < json.permissions.length; i++) {
-                        $('#action_' + id).append('<option value="' + json.permissions[i] + '">' + json.permissions[i] + '</option>');
-                    }
-                    if (action != null) {
-                        $('#action_' + id).val(action);
-                    }
+        $.get('/roles/json/' + $('#resource_' + id).val(), function(json){
+            if (json.permissions != undefined) {
+                for (var i = 0; i < json.permissions.length; i++) {
+                    $('#action_' + id).append('<option value="' + json.permissions[i] + '">' + json.permissions[i] + '</option>');
                 }
-            });
-        }
+                if (action != null) {
+                    $('#action_' + id).val(action);
+                }
+            }
+        });
     }
+
 };
 
 $(document).ready(function(){
@@ -136,7 +112,7 @@ $(document).ready(function(){
     if (($('#role_id')[0] != undefined) && ($('#role_id').data('user') == 'add')) {
         $('#role_id').change(function(){
             if ($('#role_id').val() != 0) {
-                window.location.href = $('#role-select-form').attr('action') + '/' + $('#role_id').val();
+                window.location.href = '/users/add/' + $('#role_id').val();
             }
         });
     }
@@ -174,31 +150,27 @@ $(document).ready(function(){
     }
 
     if (($('#role-form')[0] != undefined) && ($('#id').val() != 0)) {
-        if (jax.cookie.load('phire') != '') {
-            var phireCookie = jax.cookie.load('phire');
+        $.get('/roles/json/' + $('#id').val(), function(json){
+            if (json.length > 0) {
+                $('#resource_1').val(json[0].resource);
 
-            $.get(phireCookie.base_path + phireCookie.app_uri + '/roles/json/' + $('#id').val(), function (json) {
+                phire.changeAction(1, json[0].action);
+
+                if (json[0].permission == 'allow') {
+                    $('#permission_1').val(1);
+                } else if (json[0].permission == 'deny') {
+                    $('#permission_1').val(0);
+                }
+
+                json.shift();
                 if (json.length > 0) {
-                    $('#resource_1').val(json[0].resource);
-
-                    phire.changeAction(1, json[0].action);
-
-                    if (json[0].permission == 'allow') {
-                        $('#permission_1').val(1);
-                    } else if (json[0].permission == 'deny') {
-                        $('#permission_1').val(0);
-                    }
-
-                    json.shift();
-                    if (json.length > 0) {
-                        for (var i = 0; i < json.length; i++) {
-                            console.log(json[i]);
-                            phire.addResource(json[i]);
-                        }
+                    for (var i = 0; i < json.length; i++) {
+                        console.log(json[i]);
+                        phire.addResource(json[i]);
                     }
                 }
-            });
-        }
+            }
+        });
     }
 
     $('[data-toggle="offcanvas"]').click(function () {

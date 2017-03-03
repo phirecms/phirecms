@@ -18,8 +18,8 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "popphp/popphp-framework": "3.0.*"
+        "php": ">=5.6.0",
+        "popphp/popphp-framework": "3.5.*"
     },
     "autoload" : {
         "psr-4": {

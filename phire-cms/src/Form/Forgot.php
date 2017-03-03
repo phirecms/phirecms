@@ -4,7 +4,7 @@
  *
  * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  */
 
@@ -22,8 +22,9 @@ use Pop\Validator;
  *
  * @category   Phire
  * @package    Phire
+ * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
@@ -38,14 +39,13 @@ class Forgot extends Form
      * @param  array  $fields
      * @param  string $action
      * @param  string $method
-     * @return Forgot
      */
-    public function __construct(array $fields, $action = null, $method = 'post')
+    public function __construct(array $fields = null, $action = null, $method = 'post')
     {
         parent::__construct($fields, $action, $method);
         $this->setAttribute('id', 'login-form');
         $this->setAttribute('class', 'form-signin');
-        $this->setIndent('    ');
+        $this->setIndent('        ');
     }
 
     /**
@@ -54,14 +54,14 @@ class Forgot extends Form
      * @param  array $values
      * @return Forgot
      */
-    public function setFieldValues(array $values = null)
+    public function setFieldValues(array $values)
     {
         parent::setFieldValues($values);
 
         if (($_POST) && (null !== $this->email)) {
-            $user = Table\Users::findBy(['email' => $this->email]);
+            $user  = Table\Users::findOne(['email' => $this->email]);
             if (!isset($user->id)) {
-                $this->getElement('email')
+                $this->getField('email')
                      ->addValidator(new Validator\NotEqual($this->email, 'That email does not exist.'));
             }
         }

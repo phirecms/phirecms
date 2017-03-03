@@ -4,7 +4,7 @@
  *
  * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  */
 
@@ -23,8 +23,9 @@ use Pop\Http\Response;
  *
  * @category   Phire
  * @package    Phire
+ * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
@@ -39,15 +40,13 @@ class Session
      */
     public static function check(Application $application)
     {
-        $sess      = $application->getService('session');
-        $action    = $application->router()->getRouteMatch()->getAction();
-        $route     = $application->router()->getRouteMatch()->getRoute();
-        $isInstall = (substr($route, 0, strlen(APP_URI . '/install')) == APP_URI . '/install');
+        $sess   = $application->getService('session');
+        $action = $application->router()->getRouteMatch()->getAction();
 
-        if (isset($sess->user) && (($action == 'login') || ($action == 'forgot') || ($action == 'verify') || ($isInstall))) {
+        if (isset($sess->user) && (($action == 'login') || ($action == 'forgot') || ($action == 'verify'))) {
             Response::redirect(BASE_PATH . APP_URI . '/');
             exit();
-        } else if (!isset($sess->user) && ($action != 'login') && ($action != 'forgot') && (!$isInstall) && ($action != 'verify')) {
+        } else if (!isset($sess->user) && ($action != 'login') && ($action != 'forgot') && ($action != 'verify')) {
             Response::redirect(BASE_PATH . APP_URI . '/login');
             exit();
         }

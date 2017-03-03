@@ -4,7 +4,7 @@
  *
  * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  */
 
@@ -22,8 +22,9 @@ use Pop\Validator;
  *
  * @category   Phire
  * @package    Phire
+ * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
@@ -38,7 +39,6 @@ class Role extends Form
      * @param  array  $fields
      * @param  string $action
      * @param  string $method
-     * @return Role
      */
     public function __construct(array $fields = null, $action = null, $method = 'post')
     {
@@ -52,16 +52,16 @@ class Role extends Form
      * Set the field values
      *
      * @param  array $values
-     * @return User
+     * @return Role
      */
     public function setFieldValues(array $values = null)
     {
         parent::setFieldValues($values);
 
         if (($_POST) && (null !== $this->name)) {
-            $role = Table\Roles::findBy(['name' => $this->name]);
+            $role = Table\Roles::findOne(['name' => $this->name]);
             if (isset($role->id) && ($this->id != $role->id)) {
-                $this->getElement('name')
+                $this->getField('name')
                      ->addValidator(new Validator\NotEqual($this->name, 'That role already exists.'));
             }
         }

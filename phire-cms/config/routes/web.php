@@ -1,12 +1,20 @@
 <?php
 /**
- * Pop Web Bootstrap Application Framework routes
+ * Web Routes
  */
 return [
     APP_URI => [
         '[/]' => [
             'controller' => 'Phire\Controller\IndexController',
             'action'     => 'index'
+        ],
+        '/side[/]' => [
+            'controller' => 'Phire\Controller\IndexController',
+            'action'     => 'side'
+        ],
+        '/static[/]' => [
+            'controller' => 'Phire\Controller\IndexController',
+            'action'     => 'staticSide'
         ],
         '/login[/]' => [
             'controller' => 'Phire\Controller\IndexController',
@@ -27,18 +35,6 @@ return [
         '/verify/:id/:hash' => [
             'controller' => 'Phire\Controller\IndexController',
             'action'     => 'verify'
-        ],
-        '/install[/]' => [
-            'controller' => 'Phire\Controller\Install\IndexController',
-            'action'     => 'index'
-        ],
-        '/modules[/]' => [
-            'controller' => 'Phire\Controller\Modules\IndexController',
-            'action'     => 'index',
-            'acl'        => [
-                'resource'   => 'modules',
-                'permission' => 'index'
-            ]
         ],
         '/users[/:rid]' => [
             'controller' => 'Phire\Controller\Users\IndexController',
@@ -100,7 +96,7 @@ return [
             'controller' => 'Phire\Controller\Roles\IndexController',
             'action'     => 'json'
         ],
-        '/roles/remove[/]' => [
+        '/roles/remove' => [
             'controller' => 'Phire\Controller\Roles\IndexController',
             'action'     => 'remove',
             'acl'        => [

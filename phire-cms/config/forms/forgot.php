@@ -1,6 +1,6 @@
 <?php
 /**
- * Pop Web Bootstrap Application Framework forgot form configuration
+ * Phire CMS forgot form configuration
  */
 return [
     [

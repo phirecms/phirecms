@@ -1,5 +1,5 @@
 /**
- * Phire Bootstrap Styles
+ * Phire CMS Styles
  */
 
 /**
@@ -10,14 +10,14 @@ html {
     margin: 0;
     padding: 0;
     min-height: 100%;
-    background-color: #f4f1ed;
+    background-color: #fefefe;
     font-family: 'Source Sans Pro', arial, helvetica, verdana, sans-serif;
 }
 
 body {
     margin: 0 0 30px 0;
     padding: 50px 0 0 0;
-    background-color: #f4f1ed;
+    background-color: #fefefe;
     font-family: 'Source Sans Pro', arial, helvetica, verdana, sans-serif;
 }
 
@@ -41,16 +41,12 @@ input[type=checkbox] {
 }
 
 #login-container {
-    margin: 120px auto 0 auto;
-    padding: 140px 40px 40px 40px;
+    margin: 160px auto 0 auto;
+    padding: 40px;
     max-width: 370px;
     background-color: #fff;
     box-shadow: 0 0 10px 6px #e2e2e2;
     border-radius: 6px;
-    background-image: url("../img/phire-seal.svg");
-    background-position: center 30px;
-    background-repeat: no-repeat;
-    background-size: 75px 75px;
 }
 
 #login-container > h2 {
@@ -59,34 +55,21 @@ input[type=checkbox] {
     text-align: center;
 }
 
-#install-container {
-    margin: 0 auto 20px auto;
-    padding: 120px 40px 40px 40px;
-    max-width: 370px;
-    background-color: #fff;
-    box-shadow: 0 0 10px 6px #e2e2e2;
-    border-radius: 6px;
-    background-image: url("../img/phire-seal.svg");
-    background-position: center 30px;
-    background-repeat: no-repeat;
-    background-size: 75px 75px;
-}
-
-#login-form, #login-form > dl {
+#login-form, #login-form > fieldset > dl {
     margin: 0;
     padding: 0;
 }
 
-#login-form > dl > dt, #login-form > dl > dd {
+#login-form > fieldset > dl > dt, #login-form > fieldset > dl > dd {
     margin: 0;
     padding: 0;
 }
 
-#login-form > dl > dd {
+#login-form > fieldset > dl > dd {
     height: 60px;
 }
 
-#profile-form > dl > dd {
+#profile-form > fieldset > dl > dd {
     height: 50px;
 }
 
@@ -103,7 +86,7 @@ input[type=checkbox] {
     width: 40%;
 }
 
-/* Start Phire Side Nav */
+/* Start Pop Side Nav */
 
 #phire-nav > li > ul {
     position: absolute;
@@ -187,9 +170,9 @@ input[type=checkbox] {
     background-color: #86949e;
 }
 
-/* End Phire Side Nav */
+/* End Pop Side Nav */
 
-/* Start Phire Side Nav */
+/* Start Pop Side Nav */
 
 #phire-fluid-nav {
     position: relative;
@@ -316,9 +299,9 @@ input[type=checkbox] {
     color: #fff;
 }
 
-/* End Phire Side Nav */
+/* End Pop Side Nav */
 
-/* Start Phire Static Nav */
+/* Start Pop Static Nav */
 
 #phire-static-nav {
     position: relative;
@@ -426,7 +409,7 @@ input[type=checkbox] {
     display: block;
 }
 
-/* End Phire Static Nav */
+/* End Pop Static Nav */
 
 #sub-nav {
     margin: 0;
@@ -452,17 +435,17 @@ input[type=checkbox] {
     text-decoration: none;
 }
 
-#role-form-field-group-3 {
+#role-form-fieldset-3 > dl {
     padding-top: 20px;
     border-top: solid 1px #dcdcdc;
 }
 
-#role-form-field-group-3 > dd {
+#role-form-fieldset-3 > dl > dd {
     width: 200px;
     display: inline-block;
 }
 
-#role-form-field-group-3 > dd > select {
+#role-form-fieldset-3 > dl > dd > select {
     margin: 0 5px 5px 0;
     width: 180px;
     display: block;
@@ -672,21 +655,12 @@ input[type=checkbox] {
 /**
  * Classes
  */
-
-a.navbar-brand {
-    margin: 0;
-    padding: 0;
-    width: 170px;
-    font-size: 1.2em;
-    height: 52px;
-    overflow: hidden;
-    text-indent: -9999px;
-    background-image: url(../img/phire-logo.svg);
-    background-position: center 10px;
-    background-repeat: no-repeat;
-    background-size: 140px 28px;
+/*
+.navbar-brand {
+    min-width: 160px;
+    max-width: 240px;
 }
-
+*/
 .navbar-nav > li > a.profile-link {
     font-weight: bold;
     color: #ED7E00;
@@ -726,7 +700,12 @@ a.navbar-brand {
     border-top: solid 1px #dcdcdc;
 }
 
-.data-form > dl:first-child {
+.data-form > fieldset {
+    margin: 0;
+    padding: 0;
+}
+
+.data-form > fieldset:first-child {
     margin: 0 0 20px 20px;
     padding: 0 0 40px 20px;
     width: 220px;
@@ -735,7 +714,12 @@ a.navbar-brand {
     float: right;
 }
 
-.data-form > dl:first-child > dt {
+.data-form > fieldset:first-child > dl {
+    margin: 0;
+    padding: 0;
+}
+
+.data-form > fieldset:first-child > dl > dt {
     margin-top: 5px;
     margin-bottom: 5px;
     padding-top: 5px;
@@ -743,14 +727,14 @@ a.navbar-brand {
     border-bottom: dotted 1px #ccc;
 }
 
-.data-form > dl:not(:first-child) {
+.data-form > fieldset:not(:first-child) {
     margin: 0;
     padding: 0;
     width: calc(100% - 260px);
     float: left;
 }
 
-.data-form > dl:not(:first-child) > dd {
+.data-form > fieldset:not(:first-child) > dl {
     padding-bottom: 20px;
 }
 
@@ -890,9 +874,20 @@ div.page-links > a:hover {
     overflow: hidden;
     width: 19px;
     height: 21px;
-    background-image: url(../img/edit.svg);
-    text-indent: -1000px;
-    background-size: 19px 21px;
+}
+
+.edit-link:hover {
+    text-decoration: none;
+}
+
+.edit-link:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-size: 1.3em;
+    content: "\f040";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 .copy-link {
@@ -902,9 +897,20 @@ div.page-links > a:hover {
     overflow: hidden;
     width: 19px;
     height: 21px;
-    background-image: url(../img/copy.svg);
-    text-indent: -1000px;
-    background-size: 19px 21px;
+}
+
+.copy-link:hover {
+    text-decoration: none;
+}
+
+.copy-link:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-size: 1.3em;
+    content: "\f0c5";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 .download-link {
@@ -914,9 +920,20 @@ div.page-links > a:hover {
     overflow: hidden;
     width: 19px;
     height: 21px;
-    background-image: url(../img/download.svg);
-    text-indent: -1000px;
-    background-size: 19px 21px;
+}
+
+.download-link:hover {
+    text-decoration: none;
+}
+
+.download-link:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-size: 1.3em;
+    content: "\f019";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 .view-link {
@@ -926,21 +943,43 @@ div.page-links > a:hover {
     overflow: hidden;
     width: 19px;
     height: 21px;
-    background-image: url(../img/view.svg);
-    text-indent: -1000px;
-    background-size: 19px 21px;
 }
 
-.zoom-link {
+.view-link:hover {
+    text-decoration: none;
+}
+
+.view-link:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-size: 1.3em;
+    content: "\f14c";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
+}
+
+.search-link {
     margin: 0 auto;
     padding: 0;
     display: block;
     overflow: hidden;
     width: 19px;
     height: 21px;
-    background-image: url(../img/zoom.svg);
-    text-indent: -1000px;
-    background-size: 19px 21px;
+}
+
+.search-link:hover {
+    text-decoration: none;
+}
+
+.search-link:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-size: 1.3em;
+    content: "\f002";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
 }
 
 .required {
@@ -959,18 +998,17 @@ div.page-links > a:hover {
     border-bottom: solid 1px #ddd;
 }
 
-.table-striped > tbody > tr:nth-child(2n+1) {
+.table-striped > tbody > tr:nth-child(odd) {
     background: transparent;
 }
 
-.table-striped > tbody > tr:nth-child(2n) {
-    background-color: #e9e9e9;
+.table-striped > tbody > tr:nth-child(even) {
+    background-color: #eee;
 }
 
 .table-hover > tbody > tr:hover {
     background-color: #eaf8fc;
 }
-
 
 .table > thead > tr > th {
     padding: 8px 5px 8px 5px;
@@ -997,19 +1035,9 @@ div.page-links > a:hover {
     color: #b4b5b4;
 }
 
-.modules-header, .users-header, .roles-header {
+.users-header {
     margin: 10px 0 10px 0;
     padding: 10px 0 10px 0;
-}
-
-.modules-header:before {
-    font-family: "FontAwesome";
-    font-weight: normal;
-    content: "\f085";
-    margin: 0;
-    padding: 0 8px 0 0;
-    color: #b4b5b4;
-    font-size: 0.9em;
 }
 
 .users-header:before {
@@ -1022,6 +1050,11 @@ div.page-links > a:hover {
     font-size: 0.825em;
 }
 
+.roles-header {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+}
+
 .roles-header:before {
     font-family: "FontAwesome";
     font-weight: normal;
@@ -1032,18 +1065,19 @@ div.page-links > a:hover {
     font-size: 0.9em;
 }
 
-.modules-nav-icon:before {
+.sessions-header {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+}
+
+.sessions-header:before {
     font-family: "FontAwesome";
     font-weight: normal;
-    content: "\f085";
-    display: inline-block;
+    content: "\f017";
     margin: 0;
-    padding: 0 10px 0 0;
-    vertical-align: middle;
+    padding: 0 8px 0 0;
     color: #b4b5b4;
-    font-size: 1.5em;
-    width: 28px;
-    text-align: center;
+    font-size: 0.9em;
 }
 
 .users-nav-icon:before {
@@ -1056,7 +1090,7 @@ div.page-links > a:hover {
     vertical-align: middle;
     color: #b4b5b4;
     font-size: 1.3em;
-    width: 26px;
+    width: 25px;
     text-align: center;
 }
 
@@ -1064,6 +1098,20 @@ div.page-links > a:hover {
     font-family: "FontAwesome";
     font-weight: normal;
     content: "\f023";
+    display: inline-block;
+    margin: 0;
+    padding: 0 5px 0 0;
+    vertical-align: middle;
+    color: #b4b5b4;
+    font-size: 1.5em;
+    width: 25px;
+    text-align: center;
+}
+
+.sessions-nav-icon:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f017";
     display: inline-block;
     margin: 0;
     padding: 0 5px 0 0;

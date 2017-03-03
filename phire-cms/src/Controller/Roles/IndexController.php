@@ -4,7 +4,7 @@
  *
  * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  */
 
@@ -16,15 +16,16 @@ namespace Phire\Controller\Roles;
 use Phire\Controller\AbstractController;
 use Phire\Form;
 use Phire\Model;
-use Pop\Paginator\Paginator;
+use Pop\Paginator\Form as Paginator;
 
 /**
  * Roles controller class
  *
  * @category   Phire
  * @package    Phire
+ * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
@@ -43,7 +44,6 @@ class IndexController extends AbstractController
         if ($role->hasPages($this->application->config()['pagination'])) {
             $limit = $this->application->config()['pagination'];
             $pages = new Paginator($role->getCount(), $limit);
-            $pages->useInput(true);
         } else {
             $limit = null;
             $pages = null;
@@ -89,10 +89,10 @@ class IndexController extends AbstractController
             }
         }
 
-        $fields[0]['role_parent_id']['value']  = $parents;
-        $fields[2]['resource_1']['value'] = $resources;
+        $fields[0]['role_parent_id']['values'] = $parents;
+        $fields[2]['resource_1']['values']     = $resources;
 
-        $this->view->form = new Form\Role($fields);
+        $this->view->form = Form\Role::createFromFieldsetConfig($fields);
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
@@ -151,11 +151,11 @@ class IndexController extends AbstractController
             }
         }
 
-        $fields[0]['role_parent_id']['value']       = $parents;
-        $fields[1]['name']['attributes']['onkeyup'] = 'pop.changeTitle(this.value);';
-        $fields[2]['resource_1']['value']           = $resources;
+        $fields[0]['role_parent_id']['values']      = $parents;
+        $fields[1]['name']['attributes']['onkeyup'] = 'phire.changeTitle(this.value);';
+        $fields[2]['resource_1']['values']          = $resources;
 
-        $this->view->form = new Form\Role($fields);
+        $this->view->form = Form\Role::createFromFieldsetConfig($fields);
         $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
              ->setFieldValues($role->toArray());
 

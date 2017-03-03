@@ -4,7 +4,7 @@
  *
  * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  */
 
@@ -24,8 +24,9 @@ use Pop\View\View;
  *
  * @category   Phire
  * @package    Phire
+ * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
@@ -86,7 +87,6 @@ class AbstractController extends \Pop\Controller\AbstractController
      * @param  Application $application
      * @param  Request     $request
      * @param  Response    $response
-     * @return AbstractController
      */
     public function __construct(Application $application, Request $request, Response $response)
     {
@@ -279,9 +279,9 @@ class AbstractController extends \Pop\Controller\AbstractController
                 $this->services['nav.static']->setRole($this->services['acl']->getRole($this->sess->user->role));
                 $this->services['nav.static']->returnFalse(true);
             }
-            $this->view->popNav = $this->services['nav.top'];
-            $this->view->acl    = $this->services['acl'];
-            $this->view->user   = $this->sess->user;
+            $this->view->phireNav = $this->services['nav.top'];
+            $this->view->acl      = $this->services['acl'];
+            $this->view->user     = $this->sess->user;
         }
     }
 

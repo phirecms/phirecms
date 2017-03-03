@@ -4,7 +4,7 @@
  *
  * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  */
 
@@ -15,15 +15,16 @@ namespace Phire\Model;
 
 use Phire\Table;
 use Pop\Cookie\Cookie;
-use Pop\Crypt\Bcrypt;
+use Pop\Mail\Mailer;
 
 /**
  * User model class
  *
  * @category   Phire
  * @package    Phire
+ * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2016 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
@@ -39,23 +40,24 @@ class User extends AbstractModel
      * @param  int    $limit
      * @param  int    $page
      * @param  string $sort
-     * @return array
+     * @return \Pop\Db\Record\Collection
      */
     public function getAll($roleId = null, $username = null, array $deniedRoles = null, $limit = null, $page = null, $sort = null)
     {
         $sql = Table\Users::sql();
 
         $sql->select([
-            'id'           => DB_PREFIX . 'users.id',
-            'user_role_id' => DB_PREFIX . 'users.role_id',
-            'username'     => DB_PREFIX . 'users.username',
-            'email'        => DB_PREFIX . 'users.email',
-            'active'       => DB_PREFIX . 'users.active',
-            'verified'     => DB_PREFIX . 'users.verified',
-            'total_logins' => DB_PREFIX . 'users.total_logins',
-            'role_id'      => DB_PREFIX . 'roles.id',
-            'role_name'    => DB_PREFIX . 'roles.name'
-        ])->join(DB_PREFIX . 'roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'roles.id']);
+            'id'           => 'users.id',
+            'user_role_id' => 'users.role_id',
+            'username'     => 'users.username',
+            'email'        => 'users.email',
+            'active'       => 'users.active',
+            'verified'     => 'users.verified',
+            'total_logins' => 'users.total_logins',
+            'role_id'      => 'roles.id',
+            'role_name'    => 'roles.name'
+        ])->from(Table\Users::table())
+          ->leftJoin('roles', ['users.role_id' => 'roles.id']);
 
         if (null !== $limit) {
             $page = ((null !== $page) && ((int)$page > 1)) ?
@@ -82,19 +84,19 @@ class User extends AbstractModel
 
         if (null !== $roleId) {
             if ($roleId == 0) {
-                $sql->select()->where(DB_PREFIX . 'users.role_id IS NULL');
+                $sql->select()->where('users.role_id IS NULL');
                 $rows = (count($params) > 0) ?
-                    Table\Users::execute((string)$sql, $params)->rows() :
-                    Table\Users::query((string)$sql)->rows();
+                    Table\Users::execute((string)$sql, $params) :
+                    Table\Users::query((string)$sql);
             } else {
-                $sql->select()->where(DB_PREFIX . 'users.role_id = :role_id');
+                $sql->select()->where('users.role_id = :role_id');
                 $params['role_id'] = $roleId;
-                $rows = Table\Users::execute((string)$sql, $params)->rows();
+                $rows = Table\Users::execute((string)$sql, $params);
             }
         } else {
             $rows = (count($params) > 0) ?
-                Table\Users::execute((string)$sql, $params)->rows() :
-                Table\Users::query((string)$sql)->rows();
+                Table\Users::execute((string)$sql, $params) :
+                Table\Users::query((string)$sql);
         }
 
         return $rows;
@@ -107,7 +109,7 @@ class User extends AbstractModel
      */
     public function getRoles()
     {
-        $roles    = Table\Roles::findAll()->rows();
+        $roles    = Table\Roles::findAll();
         $rolesAry = [];
 
         foreach ($roles as $role) {
@@ -122,25 +124,25 @@ class User extends AbstractModel
      * Get users by role ID
      *
      * @param  int $rid
-     * @return array
+     * @return \Pop\Db\Record\Collection
      */
     public function getByRoleId($rid)
     {
-        return Table\Users::findBy(['role_id' => (int)$rid])->rows();
+        return Table\Users::findBy(['role_id' => (int)$rid]);
     }
 
     /**
      * Get users by role name
      *
      * @param  string $name
-     * @return array
+     * @return \Pop\Db\Record\Collection
      */
     public function getByRole($name)
     {
         $role  = Table\Roles::findBy(['name' => $name]);
         $users = [];
         if (isset($role->id)) {
-            $users = Table\Users::findBy(['role_id' => $role->id])->rows();
+            $users = Table\Users::findBy(['role_id' => $role->id]);
         }
 
         return $users;
@@ -172,71 +174,69 @@ class User extends AbstractModel
     /**
      * Save new user
      *
-     * @param  array  $fields
+     * @param  mixed  $form
      * @param  string $title
+     * @param  Mailer $mailer
      * @return void
      */
-    public function save(array $fields, $title)
+    public function save($form, $title, Mailer $mailer)
     {
         $user = new Table\Users([
-            'role_id'    => $fields['role_id'],
-            'username'   => $fields['username'],
-            'password'   => (new Bcrypt())->create($fields['password1']),
-            'email'      => (isset($fields['email']) ? $fields['email'] : null),
-            'active'     => (int)$fields['active'],
-            'verified'   => (int)$fields['verified']
+            'role_id'    => $form['role_id'],
+            'username'   => $form['username'],
+            'password'   => password_hash($form['password1'], PASSWORD_BCRYPT),
+            'email'      => (isset($form['email']) ? $form['email'] : null),
+            'active'     => (int)$form['active'],
+            'verified'   => (int)$form['verified']
         ]);
         $user->save();
 
-        $this->data = array_merge($this->data, $user->getColumns());
+        $this->data = array_merge($this->data, $user->toArray());
 
         if ((!$user->verified) && !empty($user->email)) {
             $notify = new Notification();
-            $notify->sendVerification($user, $title);
+            $notify->sendVerification($user, $title, $mailer);
         }
     }
 
     /**
      * Update an existing user
      *
-     * @param  array               $fields
+     * @param  mixed                $form
+     * @param  string               $title
+     * @param  Mailer               $mailer
      * @param  \Pop\Session\Session $sess
      * @return void
      */
-    public function update(array $fields, $title, \Pop\Session\Session $sess = null)
+    public function update($form, $title, Mailer $mailer, \Pop\Session\Session $sess = null)
     {
-        $user = Table\Users::findById((int)$fields['id']);
+        $user = Table\Users::findById((int)$form['id']);
         if (isset($user->id)) {
             $oldRoleId = $user->role_id;
             $oldActive = $user->active;
 
-            $user->role_id         = (isset($fields['role_id']) ? $fields['role_id'] : $user->role_id);
-            $user->username        = $fields['username'];
-            $user->password        = (!empty($fields['password1'])) ?
-                (new Bcrypt())->create($fields['password1']) : $user->password;
-            $user->email           = (isset($fields['email']) ? $fields['email'] : $user->email);
-            $user->active          = (isset($fields['active']) ? (int)$fields['active'] : $user->active);
-            $user->verified        = (isset($fields['verified']) ? (int)$fields['verified'] : $user->verified);
-            $user->total_logins    = (isset($fields['clear_logins']) ? 0 : $user->total_logins);
-            $user->failed_attempts = (isset($fields['failed_attempts']) ? (int)$fields['failed_attempts'] : $user->failed_attempts);
+            $user->role_id         = (isset($form['role_id']) ? $form['role_id'] : $user->role_id);
+            $user->username        = $form['username'];
+            $user->password        = (!empty($form['password1'])) ?
+                password_hash($form['password1'], PASSWORD_BCRYPT) : $user->password;
+            $user->email           = (isset($form['email']) ? $form['email'] : $user->email);
+            $user->active          = (isset($form['active']) ? (int)$form['active'] : $user->active);
+            $user->verified        = (isset($form['verified']) ? (int)$form['verified'] : $user->verified);
+            $user->total_logins    = (isset($form['clear_logins']) ? 0 : $user->total_logins);
+            $user->failed_attempts = (isset($form['failed_attempts']) ? (int)$form['failed_attempts'] : $user->failed_attempts);
 
             $user->save();
-
-            if (isset($fields['clear_logins'])) {
-                $session = new Session();
-                $session->clearLogins($user->id);
-            }
 
             if ((null !== $sess) && ($sess->user->id == $user->id)) {
                 $sess->user->username = $user->username;
                 $sess->user->email    = $user->email;
             }
 
-            $this->data = array_merge($this->data, $user->getColumns());
+            $this->data = array_merge($this->data, $user->toArray());
 
             if ((((null === $oldRoleId) && (null !== $user->role_id)) || ((!($oldActive) && ($user->active)))) && !empty($user->email)) {
                 $notify = new Notification();
-                $notify->sendApproval($user, $title);
+                $notify->sendApproval($user, $title, $mailer);
             }
         }
     }
@@ -246,9 +246,10 @@ class User extends AbstractModel
      *
      * @param  array  $post
      * @param  string $title
+     * @param  Mailer $mailer
      * @return void
      */
-    public function process(array $post, $title)
+    public function process(array $post, $title, Mailer $mailer)
     {
         if (isset($post['process_users'])) {
             foreach ($post['process_users'] as $id) {
@@ -259,7 +260,7 @@ class User extends AbstractModel
                             $user->active = 1;
                             $user->save();
                             $notify = new Notification();
-                            $notify->sendApproval($user, $title);
+                            $notify->sendApproval($user, $title, $mailer);
                             break;
                         case 0:
                             $user->active = 0;
@@ -279,10 +280,9 @@ class User extends AbstractModel
      *
      * @param  mixed                $user
      * @param  \Pop\Session\Session $sess
-     * @param  array                $config
      * @return void
      */
-    public function login($user, $sess, $config)
+    public function login($user, $sess)
     {
         $user->failed_attempts = 0;
         $user->total_logins++;
@@ -299,21 +299,6 @@ class User extends AbstractModel
             'last_login'   => $user->last_login,
             'last_ip'      => $user->last_ip
         ], \ArrayObject::ARRAY_AS_PROPS);
-
-        if (php_sapi_name() != 'cli') {
-            $path = BASE_PATH . APP_URI;
-            if ($path == '') {
-                $path = '/';
-            }
-
-            $cookie = Cookie::getInstance(['path' => $path]);
-            $cookie->set('phire', [
-                'base_path'    => BASE_PATH,
-                'app_path'     => APP_PATH,
-                'content_path' => CONTENT_PATH,
-                'app_uri'      => APP_URI
-            ]);
-        }
     }
 
     /**
@@ -338,20 +323,13 @@ class User extends AbstractModel
     {
         $user = Table\Users::findById($sess->user->id);
 
+        $cookie = Cookie::getInstance(['path' => '/']);
+
         if (isset($user->id)) {
             $user->last_login = date('Y-m-d H:i:s');
             $user->last_ip    = (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null);
             $user->last_ua    = (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null);
             $user->save();
-        }
-
-        if (php_sapi_name() != 'cli') {
-            $path = BASE_PATH . APP_URI;
-            if ($path == '') {
-                $path = '/';
-            }
-            $cookie = Cookie::getInstance(['path' => $path]);
-            $cookie->delete('phire');
         }
 
         unset($sess->user);
@@ -382,17 +360,18 @@ class User extends AbstractModel
     /**
      * Send a user a forgot password reminder
      *
-     * @param  array  $fields
+     * @param  mixed  $form
      * @param  string $title
+     * @param  Mailer $mailer
      * @return void
      */
-    public function forgot(array $fields, $title)
+    public function forgot($form, $title, Mailer $mailer)
     {
-        $user = Table\Users::findBy(['email' => $fields['email']]);
+        $user = Table\Users::findOne(['email' => $form['email']]);
         if (isset($user->id)) {
             $this->data['id'] = $user->id;
             $notify = new Notification();
-            $notify->sendReset($user, $title);
+            $notify->sendReset($user, $title, $mailer);
         }
     }
 
@@ -409,7 +388,7 @@ class User extends AbstractModel
     {
         $params = [];
         $sql    = Table\Users::sql();
-        $sql->select();
+        $sql->select()->from(Table\Users::table());
 
         if (null !== $username) {
             $sql->select()->where('username LIKE :username');
@@ -429,9 +408,9 @@ class User extends AbstractModel
         }
 
         if (count($params) > 0) {
-            return (Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_ARRAY)->count() > $limit);
+            return (Table\Users::execute((string)$sql, $params, Table\Users::AS_ARRAY)->count() > $limit);
         } else {
-            return (Table\Users::findAll(null, Table\Users::ROW_AS_ARRAY)->count() > $limit);
+            return (Table\Users::findAll(null, Table\Users::AS_ARRAY)->count() > $limit);
         }
     }
 
@@ -447,7 +426,7 @@ class User extends AbstractModel
     {
         $params = [];
         $sql    = Table\Users::sql();
-        $sql->select();
+        $sql->select()->from(Table\Users::table());
 
         if (null !== $username) {
             $sql->select()->where('username LIKE :username');
@@ -467,9 +446,9 @@ class User extends AbstractModel
         }
 
         if (count($params) > 0) {
-            return Table\Users::execute((string)$sql, $params, Table\Users::ROW_AS_ARRAY)->count();
+            return Table\Users::execute((string)$sql, $params, Table\Users::AS_ARRAY)->count();
         } else {
-            return Table\Users::findAll(null, Table\Users::ROW_AS_ARRAY)->count();
+            return Table\Users::findAll(null, Table\Users::AS_ARRAY)->count();
         }
     }
 

@@ -1,15 +1,36 @@
 <?php
 /**
- * Phire configuration
+ * Phire CMS (http://www.phirecms.org/)
+ *
+ * @link       https://github.com/phirecms/phirecms
+ * @author     Nick Sagona, III <dev@nolainteractive.com>
+ * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @license    http://www.phirecms.org/license     New BSD License
  */
 
-$config = [
-    'routes'    => include 'routes.php',
+/**
+ * Phire CMS Configuration File
+ */
+return [
+    'routes'    => include 'routes/web.php',
     'resources' => include 'resources.php',
     'forms'     => include 'forms.php',
+    'database'  => [
+        'adapter'  => DB_ADAPTER,
+        'database' => DB_NAME,
+        'username' => DB_USER,
+        'password' => DB_PASS,
+        'host'     => DB_HOST,
+        'type'     => DB_TYPE
+    ],
     'services'  => [
         'session' => 'Pop\Session\Session::getInstance',
         'acl'     => 'Pop\Acl\Acl',
+        'mailer'  => [
+            'call' => function() {
+                return new \Pop\Mail\Mailer(new \Pop\Mail\Transport\Sendmail());
+            }
+        ],
         'nav.top' => [
             'call'   => 'Pop\Nav\Nav',
             'params' => [
@@ -74,27 +95,7 @@ $config = [
         ]
     ],
     'application_title' => 'Phire CMS',
-    'force_ssl'         => false,
     'pagination'        => 25,
     'multiple_sessions' => true,
     'login_attempts'    => 0
 ];
-
-// If the database has been configuration, set up the database service
-if ((DB_INTERFACE != '') && (DB_NAME != '')) {
-    $config['services']['database'] = [
-        'call'   => 'Pop\Db\Db::connect',
-        'params' => [
-            'adapter' => DB_INTERFACE,
-            'options' => [
-                'database' => DB_NAME,
-                'username' => DB_USER,
-                'password' => DB_PASS,
-                'host'     => DB_HOST,
-                'type'     => DB_TYPE
-            ]
-        ]
-    ];
-}
-
-return $config;
