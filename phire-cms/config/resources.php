@@ -3,6 +3,10 @@
  * Phire CMS Framework resources
  */
 return [
+    'modules' => [
+        'index',
+        'process'
+    ],
     'users' => [
         'index',
         'add',
@@ -15,5 +19,9 @@ return [
         'edit',
         'json',
         'remove'
+    ],
+    'config' => [
+        'index',
+        'process'
     ]
 ];

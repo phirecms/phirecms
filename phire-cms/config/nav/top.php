@@ -3,6 +3,17 @@
  * Phire CMS main nav configuration
  */
 return [
+    'modules' => [
+        'name' => 'Modules',
+        'href' => '/modules',
+        'acl'  => [
+            'resource'   => 'modules',
+            'permission' => 'index'
+        ],
+        'attributes' => [
+            'class' => 'modules-nav-icon'
+        ]
+    ],
     'users' => [
         'name' => 'Users',
         'href' => '/users',
@@ -23,6 +34,17 @@ return [
         ],
         'attributes' => [
             'class' => 'roles-nav-icon'
+        ]
+    ],
+    'config' => [
+        'name' => 'Config',
+        'href' => '/config',
+        'acl'  => [
+            'resource'   => 'config',
+            'permission' => 'index'
+        ],
+        'attributes' => [
+            'class' => 'config-nav-icon'
         ]
     ]
 ];
