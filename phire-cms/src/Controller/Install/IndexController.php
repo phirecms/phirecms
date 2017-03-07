@@ -119,6 +119,26 @@ class IndexController extends AbstractController
     {
         $this->prepareView('install/user.phtml');
         $this->view->title = 'Install Initial User';
+        $this->view->form = Form\InstallUser::createFromFieldsetConfig($this->application->config()['forms']['Phire\Form\InstallUser']);
+
+        if ($this->request->isPost()) {
+            $this->view->form->addFilter('strip_tags')
+                ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                ->setFieldValues($this->request->getPost());
+
+            if ($this->view->form->isValid()) {
+                $user = new Model\User();
+                $user->save(
+                    $this->view->form,
+                    $this->application->config()['application_title'],
+                    $this->application->services()->get('mailer')
+                );
+                echo 'User saved!';
+                exit();
+            }
+        }
+
+        $this->send();
     }
 
 }

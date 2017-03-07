@@ -13,7 +13,7 @@
  */
 namespace Phire\Form;
 
-use Pop\Db\Db;
+use Phire\Table;
 use Pop\Form\Form;
 use Pop\Validator;
 
@@ -46,6 +46,26 @@ class InstallUser extends Form
         $this->setAttribute('id', 'install-user-form');
         $this->setAttribute('class', 'form-signin');
         $this->setIndent('        ');
+    }
+
+
+    /**
+     * Set the field values
+     *
+     * @param  array $values
+     * @return InstallUser
+     */
+    public function setFieldValues(array $values)
+    {
+        parent::setFieldValues($values);
+
+        if (($_POST) && (null !== $this->username)) {
+            // Check password matches
+            $this->getField('password2')
+                ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
+        }
+
+        return $this;
     }
 
 }

@@ -1,79 +1,60 @@
 <?php
 /**
- * Phire CMS install form configuration
+ * Phire\Form\Register configuration
  */
 return [
     [
-        'db_adapter'     => [
-            'type'       => 'select',
-            'label'      => 'DB Adapter',
-            'value'      => null,
-            'attributes' => [
-                'onchange' => 'phire.changeDbAdapter(this);',
-                'class' => 'form-control phire-select'
-            ]
-        ],
-        'db_name'   => [
-            'type'  => 'text',
-            'label' => 'DB Name',
-            'attributes' => [
-                'class' => 'form-control'
-            ]
-        ],
-        'db_username' => [
-            'type'    => 'text',
-            'label'   => 'DB Username',
-            'attributes' => [
-                'class' => 'form-control'
-            ]
-        ],
-        'db_password' => [
-            'type'    => 'text',
-            'label'   => 'DB Password',
-            'attributes' => [
-                'class' => 'form-control'
-            ]
-        ],
-        'db_host'   => [
-            'type'  => 'text',
-            'label' => 'DB Host',
-            'value' => 'localhost',
-            'attributes' => [
-                'class'  => 'form-control'
-            ]
-        ],
-        'db_prefix' => [
-            'type'  => 'text',
-            'name'  => 'db_prefix',
-            'label' => 'DB Table Prefix',
-            'value' => 'ph_',
-            'attributes' => [
-                'class'  => 'form-control'
-            ]
-        ],
-        'app_uri'   => [
+        'username' => [
             'type'     => 'text',
-            'label'    => 'Application URI',
+            'label'    => 'Username',
             'required' => true,
-            'value'    => APP_URI,
             'attributes' => [
-                'class'  => 'form-control'
+                'class' => 'form-control'
             ]
         ],
-        'content_path' => [
-            'type'     => 'text',
-            'label'    => 'Content Path',
-            'required' => true,
-            'value'    => CONTENT_PATH,
+        'password1' => [
+            'type'       => 'password',
+            'label'      => 'Password',
+            'required'   => true,
+            'validators' => new \Pop\Validator\LengthGte(6, 'The password must be at least 6 characters.'),
             'attributes' => [
-                'class'  => 'form-control'
+                'class' => 'form-control'
+            ]
+        ],
+        'password2' => [
+            'type'      => 'password',
+            'required'  => true,
+            'label'     => 'Re-Type Password',
+            'attributes' => [
+                'class' => 'form-control'
+            ]
+        ],
+        'email' => [
+            'type'       => 'email',
+            'label'      => 'Email',
+            'required'   => true,
+            'validators' => new \Pop\Validator\Email(),
+            'attributes' => [
+                'class' => 'form-control'
             ]
         ]
     ],
     [
+        'active' => [
+            'type'  => 'hidden',
+            'value' => 1
+        ],
+        'verified' => [
+            'type'  => 'hidden',
+            'value' => 1
+        ],
+        'role_id' => [
+            'type'  => 'hidden',
+            'value' => 2001
+        ],
         'submit' => [
             'type'  => 'submit',
-            'value' => 'Continue',
+            'value' => 'Submit',
             'attributes' => [
                 'class'  => 'btn btn-lg btn-info btn-block text-uppercase'
             ]
