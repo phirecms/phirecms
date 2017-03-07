@@ -89,12 +89,6 @@ INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('users', 1000);
 CREATE INDEX "role_id" ON "[{prefix}]users" ("role_id");
 CREATE INDEX "username" ON "[{prefix}]users" ("username");
 
---
--- Dumping data for table "[{prefix}]users"
---
-
-INSERT INTO "[{prefix}]users" ("id", "role_id", "username", "password", "active", "verified") VALUES
-(1001, 2001, 'admin', '$2y$08$ckh6UXNYdjdSVzhlcWh2OOCrjBWHarr8Fxf3i2BYVlC29Ag/eoGkC', 1, 1);
 
 -- --------------------------------------------------------
 

@@ -85,13 +85,6 @@ ALTER SEQUENCE user_id_seq OWNED BY "[{prefix}]users"."id";
 CREATE INDEX "role_id" ON "[{prefix}]users" ("role_id");
 CREATE INDEX "username" ON "[{prefix}]users" ("username");
 
---
--- Dumping data for table "users"
---
-
-INSERT INTO "[{prefix}]users" ("role_id", "username", "password", "active", "verified") VALUES
-(2001, 'admin', '$2y$08$ckh6UXNYdjdSVzhlcWh2OOCrjBWHarr8Fxf3i2BYVlC29Ag/eoGkC', 1, 1);
-
 --  --------------------------------------------------------
 
 --

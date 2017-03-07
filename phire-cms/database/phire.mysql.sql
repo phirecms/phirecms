@@ -4,6 +4,8 @@
 
 -- --------------------------------------------------------
 
+SET FOREIGN_KEY_CHECKS = 0;
+
 --
 -- Table structure for table `config`
 --
@@ -73,13 +75,7 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]users` (
   INDEX `role_id` (`role_id`),
   INDEX `username` (`username`),
   CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `[{prefix}]roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1002 ;
-
---
--- Dumping data for table `users`
---
-INSERT INTO `[{prefix}]users` (`id`, `role_id`, `username`, `password`, `active`, `verified`) VALUES
-(1001, 2001, 'admin', '$2y$08$ckh6UXNYdjdSVzhlcWh2OOCrjBWHarr8Fxf3i2BYVlC29Ag/eoGkC', 1, 1);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1001 ;
 
 -- --------------------------------------------------------
 
@@ -105,3 +101,4 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]modules` (
   INDEX `module_folder` (`folder`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3001 ;
 
+SET FOREIGN_KEY_CHECKS = 1;

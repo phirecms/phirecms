@@ -49,6 +49,20 @@ input[type=checkbox] {
     border-radius: 6px;
 }
 
+#install-config-container {
+    margin: 25px auto 40px auto;
+    padding: 40px;
+    width: 85%;
+    background-color: #fff;
+    box-shadow: 0 0 10px 6px #e2e2e2;
+    border-radius: 6px;
+}
+
+#install-config-container textarea {
+    font-size: 0.825em;
+    font-family: "Courier New", "Courier10 BT", courier, serif;
+}
+
 #login-container {
     margin: 160px auto 0 auto;
     padding: 40px;

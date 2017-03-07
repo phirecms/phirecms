@@ -40,6 +40,14 @@ return [
             'controller' => 'Phire\Controller\Install\IndexController',
             'action'     => 'index'
         ],
+        '/install/config[/]' => [
+            'controller' => 'Phire\Controller\Install\IndexController',
+            'action'     => 'config'
+        ],
+        '/install/user[/]' => [
+            'controller' => 'Phire\Controller\Install\IndexController',
+            'action'     => 'user'
+        ],
         '/modules[/]' => [
             'controller' => 'Phire\Controller\Modules\IndexController',
             'action'     => 'index',
