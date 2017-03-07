@@ -36,6 +36,18 @@ return [
             'controller' => 'Phire\Controller\IndexController',
             'action'     => 'verify'
         ],
+        '/install[/]' => [
+            'controller' => 'Phire\Controller\Install\IndexController',
+            'action'     => 'index'
+        ],
+        '/modules[/]' => [
+            'controller' => 'Phire\Controller\Modules\IndexController',
+            'action'     => 'index',
+            'acl'        => [
+                'resource'   => 'modules',
+                'permission' => 'index'
+            ]
+        ],
         '/users[/:rid]' => [
             'controller' => 'Phire\Controller\Users\IndexController',
             'action'     => 'index',
@@ -102,6 +114,14 @@ return [
             'acl'        => [
                 'resource'   => 'roles',
                 'permission' => 'remove'
+            ]
+        ],
+        '/config[/]' => [
+            'controller' => 'Phire\Controller\Config\IndexController',
+            'action'     => 'index',
+            'acl'        => [
+                'resource'   => 'config',
+                'permission' => 'index'
             ]
         ],
         '*' => [

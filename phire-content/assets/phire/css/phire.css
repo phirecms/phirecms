@@ -40,6 +40,15 @@ input[type=checkbox] {
     top: 3px;
 }
 
+#install-container {
+    margin: 25px auto 40px auto;
+    padding: 40px;
+    max-width: 370px;
+    background-color: #fff;
+    box-shadow: 0 0 10px 6px #e2e2e2;
+    border-radius: 6px;
+}
+
 #login-container {
     margin: 160px auto 0 auto;
     padding: 40px;
@@ -49,7 +58,7 @@ input[type=checkbox] {
     border-radius: 6px;
 }
 
-#login-container > h2 {
+#install-container > h2, #login-container > h2 {
     margin: 0 0 10px 0;
     padding: 0 0 10px 0;
     text-align: center;

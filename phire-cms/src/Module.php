@@ -110,10 +110,6 @@ class Module extends \Pop\Module\Module
             ]);
         }
 
-        if ($this->application->services()->isAvailable('database')) {
-            Record::setDb($this->application->getService('database'));
-        }
-
         if (isset($this->application->config['forms'])) {
             $this->application->mergeConfig(['forms' => $this->application->config['forms']]);
         }
@@ -122,10 +118,15 @@ class Module extends \Pop\Module\Module
             $this->application->mergeConfig(['resources' => $this->application->config['resources']]);
         }
 
-        $this->application->on('app.dispatch.pre', 'Phire\Event\Session::check', 1001)
+        $this->application->on('app.dispatch.pre', 'Phire\Event\Db::check', 1002)
+            ->on('app.dispatch.pre', 'Phire\Event\Session::check', 1001)
             ->on('app.dispatch.pre', 'Phire\Event\Acl::check', 1000);
 
-        $this->initNav();
+        if ($this->application->services()->isAvailable('database')) {
+            Record::setDb($this->application->getService('database'));
+            $this->initNav();
+        }
+
     }
 
     /**

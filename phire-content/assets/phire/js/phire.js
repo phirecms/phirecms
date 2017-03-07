@@ -11,6 +11,29 @@ phire = {
         }
     },
 
+    changeDbAdapter : function(sel) {
+        var val = $(sel).val();
+        if (val.indexOf('sqlite') != -1) {
+            $($('label[for=db_name]').parent()).hide();
+            $($('#db_name').parent()).hide();
+            $($('label[for=db_username]').parent()).hide();
+            $($('#db_username').parent()).hide();
+            $($('label[for=db_password]').parent()).hide();
+            $($('#db_password').parent()).hide();
+            $($('label[for=db_host]').parent()).hide();
+            $($('#db_host').parent()).hide();
+        } else {
+            $($('label[for=db_name]').parent()).show();
+            $($('#db_name').parent()).show();
+            $($('label[for=db_username]').parent()).show();
+            $($('#db_username').parent()).show();
+            $($('label[for=db_password]').parent()).show();
+            $($('#db_password').parent()).show();
+            $($('label[for=db_host]').parent()).show();
+            $($('#db_host').parent()).show();
+        }
+    },
+
     addResource  : function(vals) {
         var resource     = $('select[id^="resource_"]:last');
         var resourceId   = 'resource_' + (parseInt(resource.prop("id").match(/\d+/g), 10) + 1);

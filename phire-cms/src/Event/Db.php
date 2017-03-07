@@ -13,8 +13,6 @@
  */
 namespace Phire\Event;
 
-use Phire\Model;
-use Phire\Table;
 use Pop\Application;
 use Pop\Http\Response;
 
@@ -29,27 +27,22 @@ use Pop\Http\Response;
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
-class Session
+class Db
 {
 
     /**
-     * Check for the user session
+     * Check if the DB is installed
      *
      * @param  Application $application
      * @return void
      */
     public static function check(Application $application)
     {
-        $sess      = $application->getService('session');
-        $action    = $application->router()->getRouteMatch()->getAction();
-        $route     = $application->router()->getRouteMatch()->getOriginalRoute();
-        $isInstall = (substr($route, 0, strlen(APP_URI . '/install')) == APP_URI . '/install');
-
-        if (isset($sess->user) && (($action == 'login') || ($action == 'forgot') || ($action == 'verify') || ($isInstall))) {
-            Response::redirect(BASE_PATH . APP_URI . '/');
-            exit();
-        } else if (!isset($sess->user) && ($action != 'login') && ($action != 'forgot') && ($action != 'verify') && (!$isInstall)) {
-            Response::redirect(BASE_PATH . APP_URI . '/login');
+        $route  = $application->router()->getRouteMatch()->getOriginalRoute();
+        if (!$application->services()->isAvailable('database') &&
+            (substr($route, 0, strlen(APP_URI . '/install')) != APP_URI . '/install')
+        ) {
+            Response::redirect(BASE_PATH . APP_URI . '/install');
             exit();
         }
     }
