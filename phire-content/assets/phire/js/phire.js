@@ -83,6 +83,11 @@ phire = {
 };
 
 $(document).ready(function(){
+    if ($('#installed').data('installed') == 1) {
+        $('#installed').fadeIn({complete : function(){
+            $('#installed').delay(2000).fadeOut();
+        }});
+    }
     if ($('#saved').data('saved') == 1) {
         $('#saved').fadeIn({complete : function(){
             $('#saved').delay(2000).fadeOut();

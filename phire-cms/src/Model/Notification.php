@@ -31,6 +31,39 @@ class Notification extends AbstractModel
 {
 
     /**
+     * Send installation confirmation
+     *
+     * @param  mixed  $user
+     * @param  string $title
+     * @param  Mailer $mailer
+     * @return void
+     */
+    public function sendConfirmation($user, $title, Mailer $mailer)
+    {
+        $host    = $_SERVER['HTTP_HOST'];
+        $domain  = str_replace('www.', '', $host);
+        $schema  = (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443')) ? 'https://' : 'http://';
+
+        $body = file_get_contents(__DIR__ . '/../../view/mail/install.txt');
+        $body = str_replace([
+            '[{name}]',
+            '[{domain}]',
+            '[{login}]'
+        ], [
+            $user->username,
+            $domain,
+            $schema . $host . BASE_PATH . APP_URI . '/login'
+        ], $body);
+
+        $message = new Message($title . ' (' . $domain . ') - Installation Complete');
+        $message->setTo([$user->email => $user->username])
+            ->setFrom('noreply@' . $domain)
+            ->setBody($body);
+
+        $mailer->send($message);
+    }
+
+    /**
      * Send user verification notification
      *
      * @param  mixed  $user

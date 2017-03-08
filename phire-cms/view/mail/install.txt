@@ -1,0 +1,9 @@
+Dear [{name}],
+
+Thank you for installing Phire CMS for [{domain}].
+
+To manage the website, you can login to Phire here:
+[{login}]
+
+Thank You,
+The Phire CMS Team

@@ -75,7 +75,6 @@ class IndexController extends AbstractController
             }
         }
 
-
         $this->send();
     }
 
@@ -133,8 +132,16 @@ class IndexController extends AbstractController
                     $this->application->config()['application_title'],
                     $this->application->services()->get('mailer')
                 );
-                echo 'User saved!';
-                exit();
+
+                $notify = new Model\Notification();
+                $notify->sendConfirmation(
+                    $user,
+                    $this->application->config()['application_title'],
+                    $this->application->services()->get('mailer')
+                );
+
+                $this->sess->setRequestValue('installed', true);
+                $this->redirect(BASE_PATH . APP_URI . '/login');
             }
         }
 

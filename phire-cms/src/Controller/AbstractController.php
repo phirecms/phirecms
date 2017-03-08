@@ -252,6 +252,10 @@ class AbstractController extends \Pop\Controller\AbstractController
 
         $this->view->application_title = $this->application->config()['application_title'];
 
+        if (isset($this->sess->installed)) {
+            $this->view->installed = true;
+        }
+
         if (isset($this->sess->failed)) {
             $this->view->failed = true;
         }
