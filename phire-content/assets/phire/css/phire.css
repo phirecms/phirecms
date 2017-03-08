@@ -42,20 +42,28 @@ input[type=checkbox] {
 
 #install-container {
     margin: 25px auto 40px auto;
-    padding: 40px;
+    padding: 100px 40px 40px 40px;
     max-width: 370px;
     background-color: #fff;
     box-shadow: 0 0 10px 6px #e2e2e2;
     border-radius: 6px;
+    background-image: url(../img/phire-seal.svg);
+    background-size: 60px 60px;
+    background-position: center 30px;
+    background-repeat: no-repeat;
 }
 
 #install-config-container {
     margin: 25px auto 40px auto;
-    padding: 40px;
+    padding: 70px 40px 40px 40px;
     width: 85%;
     background-color: #fff;
     box-shadow: 0 0 10px 6px #e2e2e2;
     border-radius: 6px;
+    background-image: url(../img/phire-seal.svg);
+    background-size: 60px 60px;
+    background-position: center 30px;
+    background-repeat: no-repeat;
 }
 
 #install-config-container textarea {
@@ -64,18 +72,27 @@ input[type=checkbox] {
 }
 
 #login-container {
-    margin: 160px auto 0 auto;
-    padding: 40px;
+    margin: 100px auto 0 auto;
+    padding: 160px 40px 40px 40px;
     max-width: 370px;
-    background-color: #fff;
     box-shadow: 0 0 10px 6px #e2e2e2;
     border-radius: 6px;
+    background-image: url(../img/phire-seal.svg);
+    background-size: 90px 90px;
+    background-position: center 40px;
+    background-repeat: no-repeat;
+    background-color: #fff;
 }
 
 #install-container > h2, #login-container > h2 {
     margin: 0 0 10px 0;
     padding: 0 0 10px 0;
     text-align: center;
+    color: #999;
+}
+
+#install-config-container h2 {
+    color: #999;
 }
 
 #login-form, #login-form > fieldset > dl {
@@ -662,12 +679,21 @@ input[type=checkbox] {
 /**
  * Classes
  */
-/*
+
 .navbar-brand {
-    min-width: 160px;
-    max-width: 240px;
+    margin: 0;
+    padding: 0;
+    width: 100px;
+    font-size: 1.2em;
+    height: 52px;
+    overflow: hidden;
+    text-indent: -9999px;
+    background-image: url(../img/phire-seal.svg);
+    background-position: center -20px;
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
 }
-*/
+
 .navbar-nav > li > a.profile-link {
     font-weight: bold;
     color: #ED7E00;
