@@ -140,6 +140,9 @@ class IndexController extends AbstractController
                     $this->application->services()->get('mailer')
                 );
 
+                $install = new Model\Install();
+                $install->sendStats();
+
                 $this->sess->setRequestValue('installed', true);
                 $this->redirect(BASE_PATH . APP_URI . '/login');
             }

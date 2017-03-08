@@ -561,7 +561,7 @@ input[type=checkbox] {
     font-size: 1.1em;
 }
 
-#expired, #failed {
+#expired, #failed, #installed {
     position: absolute;
     z-index: 10000;
     right: 0;
@@ -592,7 +592,7 @@ input[type=checkbox] {
     float: right;
 }
 
-#user_process_action, #clear_logins_by, #clear_sessions_by {
+#user_process_action {
     margin: 3px 15px 0 10px;
     padding-top: 0;
     padding-right: 28px;
@@ -609,29 +609,13 @@ input[type=checkbox] {
     background-size: 18px 7px;
 }
 
-#user_process_action::-ms-expand, #clear_logins_by::-ms-expand, #clear_sessions_by::-ms-expand {
+#user_process_action::-ms-expand {
     display: none;
 }
 
-#user_process_action > option, #clear_logins_by > option, #clear_sessions_by > option {
+#user_process_action > option {
     margin: 0;
     padding: 4px 3px 4px 3px;
-}
-
-#clear-all-logins {
-    margin: 0 15px 0 0;
-    padding: 5px 0 0 0;
-    float: right;
-    font-size: 0.825em;
-}
-#clear-all-logins > span {
-    margin: 5px 0 0 5px;
-    float: right;
-}
-
-#clear-all-logins > input[type=checkbox] {
-    margin: 2px 0 0 5px;
-    float: right;
 }
 
 #failed_attempts {
@@ -1058,6 +1042,21 @@ div.page-links > a:hover {
     color: #b4b5b4;
 }
 
+.modules-header {
+    margin: 10px 0 10px 0;
+    padding: 10px 0 10px 0;
+}
+
+.modules-header:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f085";
+    margin: 0;
+    padding: 0 8px 0 0;
+    color: #b4b5b4;
+    font-size: 0.825em;
+}
+
 .users-header {
     margin: 10px 0 10px 0;
     padding: 10px 0 10px 0;
@@ -1088,19 +1087,33 @@ div.page-links > a:hover {
     font-size: 0.9em;
 }
 
-.sessions-header {
+.config-header {
     margin: 10px 0 10px 0;
     padding: 10px 0 10px 0;
 }
 
-.sessions-header:before {
+.config-header:before {
     font-family: "FontAwesome";
     font-weight: normal;
-    content: "\f017";
+    content: "\f1de";
     margin: 0;
     padding: 0 8px 0 0;
     color: #b4b5b4;
     font-size: 0.9em;
+}
+
+.modules-nav-icon:before {
+    font-family: "FontAwesome";
+    font-weight: normal;
+    content: "\f085";
+    display: inline-block;
+    margin: 0;
+    padding: 0 10px 0 0;
+    vertical-align: middle;
+    color: #b4b5b4;
+    font-size: 1.5em;
+    width: 28px;
+    text-align: center;
 }
 
 .users-nav-icon:before {
@@ -1131,13 +1144,13 @@ div.page-links > a:hover {
     text-align: center;
 }
 
-.sessions-nav-icon:before {
+.config-nav-icon:before {
     font-family: "FontAwesome";
     font-weight: normal;
-    content: "\f017";
+    content: "\f1de";
     display: inline-block;
     margin: 0;
-    padding: 0 5px 0 0;
+    padding: 0 10px 0 0;
     vertical-align: middle;
     color: #b4b5b4;
     font-size: 1.5em;
@@ -1299,7 +1312,7 @@ li.nav-arrow:hover {
         display: inline-block;
     }
 
-    .users-header, .sessions-header {
+    .users-header {
         clear: right;
     }
 }

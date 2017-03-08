@@ -40,7 +40,7 @@ class Module extends \Pop\Module\Module
      * Phire Version
      * @var string
      */
-    const VERSION = '3.0.0';
+    const VERSION = '3.0.0b';
 
     /**
      * Module name

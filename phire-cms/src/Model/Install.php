@@ -14,6 +14,7 @@
 namespace Phire\Model;
 
 use Pop\Db\Db;
+use Pop\Http\Client\Curl;
 
 /**
  * Install model class
@@ -143,6 +144,34 @@ class Install extends AbstractModel
             ], $config);
 
         return $config;
+    }
+
+    /**
+     * Send installation stats
+     *
+     * @return void
+     */
+    public function sendStats()
+    {
+        $headers = [
+            'Authorization: ' . base64_encode('phire-stats-' . time()),
+            'User-Agent: ' . (isset($_SERVER['HTTP_USER_AGENT']) ?
+                $_SERVER['HTTP_USER_AGENT'] : 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:41.0) Gecko/20100101 Firefox/41.0')
+        ];
+        $curl = new Curl('http://stats.phirecms.org/system', [
+            CURLOPT_HTTPHEADER => $headers,
+        ]);
+        $curl->setPost();
+        $curl->setFields([
+            'version'   => \Phire\Module::VERSION,
+            'domain'    => (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ''),
+            'ip'        => (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : ''),
+            'os'        => PHP_OS,
+            'server'    => (isset($_SERVER['SERVER_SOFTWARE']) ? $_SERVER['SERVER_SOFTWARE'] : ''),
+            'php'       => PHP_VERSION,
+            'db'        => DB_ADAPTER . ((DB_ADAPTER == 'pdo') ? ' (' . DB_TYPE . ')' : '')
+        ]);
+        $curl->send();
     }
 
 }
