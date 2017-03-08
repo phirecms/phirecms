@@ -53,9 +53,10 @@ class Login extends Form
      *
      * @param  array $values
      * @param  Auth  $auth
+     * @param  int   $attempts
      * @return Login
      */
-    public function setFieldValues(array $values, Auth $auth = null)
+    public function setFieldValues(array $values, Auth $auth = null, $attempts = 0)
     {
         parent::setFieldValues($values);
 
@@ -74,6 +75,9 @@ class Login extends Form
             } else if (!$auth->getUser()->active) {
                 $this->getField('password')
                      ->addValidator(new Validator\NotEqual($this->password, 'That user is blocked.'));
+            } else if (((int)$attempts > 0) && ((int)$auth->getUser()->failed_attempts >= (int)$attempts)) {
+                $this->getField('password')
+                    ->addValidator(new Validator\NotEqual($this->password, 'Login failed.'));
             }
         }
 

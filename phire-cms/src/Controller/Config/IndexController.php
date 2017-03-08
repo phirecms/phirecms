@@ -40,10 +40,17 @@ class IndexController extends AbstractController
     public function index()
     {
         $config = new Model\Config();
+        $config->getAll();
 
         $this->prepareView('config/index.phtml');
-        $this->view->title  = 'Config';
-        $this->view->config = $config->getAll();
+        $this->view->title        = 'Config';
+        $this->view->installed_on = $config->installed;
+        $this->view->updated_on   = $config->updated;
+        $this->view->dbVersion    = $this->services['database']->getVersion();
+        $this->view->database     = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
+            $this->application->config()['database']['type'] . ' (pdo)' :
+            $this->view->database = $this->application->config()['database']['adapter'];
+
         $this->send();
     }
 

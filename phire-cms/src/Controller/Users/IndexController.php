@@ -148,8 +148,11 @@ class IndexController extends AbstractController
 
         if ($this->services['acl']->isAllowed($this->sess->user->role, 'users-of-role-' . $user->role_id, 'edit')) {
             $this->prepareView('users/edit.phtml');
-            $this->view->title    = 'Edit User';
-            $this->view->username = $user->username;
+            $this->view->title      = 'Edit User';
+            $this->view->username   = $user->username;
+            $this->view->last_login = $user->last_login;
+            $this->view->last_ua    = $user->last_ua;
+            $this->view->last_ip    = $user->last_ip;
 
             $role       = new Model\Role();
             $roles      = $role->getAll();

@@ -21,7 +21,6 @@ return [
         'remove'
     ],
     'config' => [
-        'index',
-        'process'
+        'index'
     ]
 ];

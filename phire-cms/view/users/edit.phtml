@@ -2,6 +2,12 @@
 
     <div class="col-md-12">
     <h1 class="users-header"><?=$title; ?> : <span id="title-span"><?=$username; ?></span></h1>
+<?php if (null !== $last_login): ?>
+    <div class="pull-right text-right small gray">
+        <strong>Last Login: <?=date('M j Y g:i A', strtotime($last_login)); ?></strong><br />
+        <?=$last_ua; ?> [<?=$last_ip; ?>]
+    </div>
+<?php endif; ?>
     <nav id="sub-nav">
         <nav><a class="btn-sm btn-info" href="<?=BASE_PATH . APP_URI; ?>/users/add/<?php if (isset($roleId) && (null !== $roleId)): ?><?=$roleId; ?><?php endif; ?>">+ Add</a></nav>
         <nav><a class="btn-sm btn-info" href="<?=BASE_PATH . APP_URI; ?>/users">Back</a></nav>

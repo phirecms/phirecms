@@ -84,12 +84,12 @@ class User extends AbstractModel
 
         if (null !== $roleId) {
             if ($roleId == 0) {
-                $sql->select()->where('users.role_id IS NULL');
+                $sql->select()->where(DB_PREFIX . 'users.role_id IS NULL');
                 $rows = (count($params) > 0) ?
                     Table\Users::execute((string)$sql, $params) :
                     Table\Users::query((string)$sql);
             } else {
-                $sql->select()->where('users.role_id = :role_id');
+                $sql->select()->where(DB_PREFIX . 'users.role_id = :role_id');
                 $params['role_id'] = $roleId;
                 $rows = Table\Users::execute((string)$sql, $params);
             }
@@ -164,6 +164,7 @@ class User extends AbstractModel
             $this->data['email']           = $user->email;
             $this->data['active']          = $user->active;
             $this->data['verified']        = $user->verified;
+            $this->data['last_login']      = $user->last_login;
             $this->data['last_ip']         = $user->last_ip;
             $this->data['last_ua']         = $user->last_ua;
             $this->data['total_logins']    = $user->total_logins;

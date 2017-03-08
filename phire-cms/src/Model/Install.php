@@ -15,6 +15,7 @@ namespace Phire\Model;
 
 use Pop\Db\Db;
 use Pop\Http\Client\Curl;
+use Phire\Table;
 
 /**
  * Install model class
@@ -153,6 +154,12 @@ class Install extends AbstractModel
      */
     public function sendStats()
     {
+        $config = Table\Config::findById('installed');
+        if (isset($config->setting)) {
+            $config->value = date('Y-m-d H:i:s');
+            $config->save();
+        }
+
         $headers = [
             'Authorization: ' . base64_encode('phire-stats-' . time()),
             'User-Agent: ' . (isset($_SERVER['HTTP_USER_AGENT']) ?

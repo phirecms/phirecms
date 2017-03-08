@@ -27,4 +27,6 @@ namespace Phire\Table;
 class Config extends \Pop\Db\Record
 {
     protected $prefix = DB_PREFIX;
+
+    protected $primaryKeys = ['setting'];
 }

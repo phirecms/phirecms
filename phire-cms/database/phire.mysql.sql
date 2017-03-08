@@ -22,9 +22,8 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]config` (
 --
 
 INSERT INTO `[{prefix}]config` (`setting`, `value`) VALUES
-('installed_on', '0000-00-00 00:00:00'),
-('updated_on', '0000-00-00 00:00:00'),
-('pagination', '25'),
+('installed', ''),
+('updated', ''),
 ('updates', '');
 
 -- --------------------------------------------------------
@@ -91,12 +90,14 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]modules` (
   `name` varchar(255) NOT NULL,
   `prefix` varchar(255) NOT NULL,
   `version` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `author` varchar(255) DEFAULT NULL,
   `active` int(1) NOT NULL,
   `order` int(16) NOT NULL,
-  `assets` text,
-  `updates` text,
-  `installed_on` datetime,
-  `updated_on` datetime,
+  `assets` text DEFAULT NULL,
+  `installed` datetime DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  `updates` text DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `module_folder` (`folder`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3001 ;

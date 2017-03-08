@@ -2,6 +2,51 @@
 
     <div class="col-md-12">
         <h1 class="modules-header"><?=$title; ?></h1>
+<?php if (count($modules) > 0): ?>
+<?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?>
+        <form id="modules-form" action="<?=BASE_PATH . APP_URI; ?>/modules/process" method="post">
+<?php endif; ?>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Version</th>
+                    <th>Description</th>
+                    <th>Author</th>
+                    <th>Installed</th>
+                    <th>Updated</th>
+                    <th>Active</th>
+                    <th>Order</th>
+                    <th class="col-md-1 text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><input type="checkbox" name="check_all" id="checkAll" data-name="process_modules" value="" /><?php else: ?>&nbsp;<?php endif; ?></th>
+                </tr>
+            </thead>
+            <tbody>
+<?php foreach ($modules as $module): ?>
+                <tr>
+                    <td><?=$module->id; ?></td>
+                    <td><?=$module->name; ?></td>
+                    <td><?=$module->version; ?></td>
+                    <td><?=$module->description; ?></td>
+                    <td><?=$module->author; ?></td>
+                    <td><?=date('M j Y g:i A', strtotime($module->installed)); ?></td>
+                    <td><?=(!empty($module->updated)) ? date('M j Y g:i A', strtotime($module->updated)) : 'N/A'; ?></td>
+                    <td><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><select class="phire-select input-sm"><option value="1"<?=($module->active) ? ' selected="selected"' : null; ?>>Yes</option><option value="0"<?=(!$module->active) ? ' selected="selected"' : null; ?>>No</option></select><?php else: ?>&nbsp;<?php endif; ?></td>
+                    <td><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><input class="form-control form-control-inline form-control-sm input-sm text-center" type="text" name="order_<?=$module->id; ?>" value="<?=$module->order; ?>" size="2" /><?php else: ?>&nbsp;<?php endif; ?></td>
+                    <td class="col-md-1 text-center"><?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?><input type="checkbox" name="process_modules[]" value="<?=$module->id; ?>" /><?php else: ?>&nbsp;<?php endif; ?></td>
+                </tr>
+<?php endforeach; ?>
+            </tbody>
+        </table>
+<?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?>
+        <div id="form-footer">
+            <input type="submit" name="submit" class="btn btn-md btn-primary text-uppercase" value="Process" />
+        </div>
+        </form>
+<?php endif; ?>
+<?php else: ?>
+        <p>There are currently no modules.</p>
+<?php endif; ?>
     </div>
 
 <?php include __DIR__ . '/../footer.phtml'; ?>

@@ -1025,6 +1025,10 @@ div.page-links > a:hover {
     font-weight: bold;
 }
 
+.gray {
+    color: #5A5A5A;
+}
+
 .table {
     border-left: solid 1px #ddd;
     border-right: solid 1px #ddd;
@@ -1217,6 +1221,16 @@ li.nav-arrow:hover {
     padding: 0;
     width: calc(100% - 160px);
     float: left;
+}
+
+.form-control-sm {
+    height: 28px;
+}
+
+.form-control-inline {
+    min-width: 0;
+    width: auto;
+    display: inline;
 }
 
 @media (max-width: 990px) {

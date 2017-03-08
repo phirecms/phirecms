@@ -53,7 +53,7 @@ class IndexController extends AbstractController
         $this->view->title       = 'Modules';
         $this->view->pages       = $pages;
         $this->view->queryString = $this->getQueryString('sort');
-        $this->view->roles       = $module->getAll($limit, $this->request->getQuery('page'), $this->request->getQuery('sort'));
+        $this->view->modules     = $module->getAll($limit, $this->request->getQuery('page'), $this->request->getQuery('sort'));
         $this->send();
     }
 

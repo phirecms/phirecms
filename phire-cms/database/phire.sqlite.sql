@@ -28,9 +28,8 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]config" (
 -- Dumping data for table "config"
 --
 
-INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('installed_on', '0000-00-00 00:00:00');
-INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updated_on', '0000-00-00 00:00:00');
-INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('pagination', '25');
+INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('installed', '');
+INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updated', '');
 INSERT INTO "[{prefix}]config" ("setting", "value") VALUES ('updates', '');
 
 -- --------------------------------------------------------
@@ -104,12 +103,14 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
   "name" varchar NOT NULL,
   "prefix" varchar NOT NULL,
   "version" varchar NOT NULL,
+  "description" text DEFAULT NULL,
+  "author" varchar DEFAULT NULL,
   "active" integer NOT NULL,
   "order" integer NOT NULL,
-  "assets" text,
-  "updates" text,
-  "installed_on" datetime,
-  "updated_on" datetime,
+  "assets" text DEFAULT NULL,
+  "installed" datetime DEFAULT NULL,
+  "updated" datetime DEFAULT NULL,
+  "updates" text DEFAULT NULL,
   UNIQUE ("id")
 ) ;
 

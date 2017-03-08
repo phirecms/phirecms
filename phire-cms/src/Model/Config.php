@@ -32,11 +32,15 @@ class Config extends AbstractModel
     /**
      * Get all config settings
      *
-     * @return \Pop\Db\Record\Collection
+     * @return void
      */
     public function getAll()
     {
-        return Table\Config::findAll();
+        $config = Table\Config::findAll();
+
+        foreach ($config as $c) {
+            $this->data[$c->setting] = $c->value;
+        }
     }
 
 }
