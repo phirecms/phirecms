@@ -50,10 +50,10 @@ phire = {
             if (vals.resource != null) {
                 $('#' + resourceId).val(vals.resource);
             }
-            if (vals.action != null) {
-                var actId = actionId.substring(actionId.lastIndexOf('_') + 1);
-                phire.changeAction(actId, vals.action);
-            }
+
+            var actId = actionId.substring(actionId.lastIndexOf('_') + 1);
+            phire.changeAction(actId, vals.action);
+
             if (vals.permission != null) {
                 if (vals.permission == 'allow') {
                     $('#' + permissionId).val(1);
