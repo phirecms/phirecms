@@ -251,6 +251,7 @@ class AbstractController extends \Pop\Controller\AbstractController
         $this->view = new View($this->viewPath . '/' . $template);
 
         $this->view->application_title = $this->application->config()['application_title'];
+        $this->view->phireVersion      = \Phire\Module::VERSION;
 
         if (isset($this->sess->installed)) {
             $this->view->installed = true;

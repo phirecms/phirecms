@@ -68,7 +68,8 @@ phire = {
         $('#action_' + id + ' > option').remove();
         $('#action_' + id).append('<option value="----">----</option>');
 
-        $.get('/roles/json/' + $('#resource_' + id).val(), function(json){
+        var phireCookie = jax.cookie.load('phire');
+        $.get(phireCookie.base_path + phireCookie.app_uri +'/roles/json/' + $('#resource_' + id).val(), function(json){
             if (json.permissions != undefined) {
                 for (var i = 0; i < json.permissions.length; i++) {
                     $('#action_' + id).append('<option value="' + json.permissions[i] + '">' + json.permissions[i] + '</option>');
@@ -85,7 +86,7 @@ phire = {
 $(document).ready(function(){
     if ($('#installed').data('installed') == 1) {
         $('#installed').fadeIn({complete : function(){
-            $('#installed').delay(2000).fadeOut();
+            $('#installed').delay(3000).fadeOut();
         }});
     }
     if ($('#saved').data('saved') == 1) {
@@ -140,7 +141,7 @@ $(document).ready(function(){
     if (($('#role_id')[0] != undefined) && ($('#role_id').data('user') == 'add')) {
         $('#role_id').change(function(){
             if ($('#role_id').val() != 0) {
-                window.location.href = '/users/add/' + $('#role_id').val();
+                window.location.href = $('#role-select-form').prop('action') + $('#role_id').val();
             }
         });
     }
@@ -178,7 +179,8 @@ $(document).ready(function(){
     }
 
     if (($('#role-form')[0] != undefined) && ($('#id').val() != 0)) {
-        $.get('/roles/json/' + $('#id').val(), function(json){
+        var phireCookie = jax.cookie.load('phire');
+        $.get(phireCookie.base_path + phireCookie.app_uri + '/roles/json/' + $('#id').val(), function(json){
             if (json.length > 0) {
                 $('#resource_1').val(json[0].resource);
 

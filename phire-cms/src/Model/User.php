@@ -47,17 +47,17 @@ class User extends AbstractModel
         $sql = Table\Users::sql();
 
         $sql->select([
-            'id'           => 'users.id',
-            'user_role_id' => 'users.role_id',
-            'username'     => 'users.username',
-            'email'        => 'users.email',
-            'active'       => 'users.active',
-            'verified'     => 'users.verified',
-            'total_logins' => 'users.total_logins',
-            'role_id'      => 'roles.id',
-            'role_name'    => 'roles.name'
+            'id'           => DB_PREFIX . 'users.id',
+            'user_role_id' => DB_PREFIX . 'users.role_id',
+            'username'     => DB_PREFIX . 'users.username',
+            'email'        => DB_PREFIX . 'users.email',
+            'active'       => DB_PREFIX . 'users.active',
+            'verified'     => DB_PREFIX . 'users.verified',
+            'total_logins' => DB_PREFIX . 'users.total_logins',
+            'role_id'      => DB_PREFIX . 'roles.id',
+            'role_name'    => DB_PREFIX . 'roles.name'
         ])->from(Table\Users::table())
-          ->leftJoin('roles', ['users.role_id' => 'roles.id']);
+          ->leftJoin(DB_PREFIX . 'roles', [DB_PREFIX . 'users.role_id' => DB_PREFIX . 'roles.id']);
 
         if (null !== $limit) {
             $page = ((null !== $page) && ((int)$page > 1)) ?
@@ -299,6 +299,20 @@ class User extends AbstractModel
             'last_login'   => $user->last_login,
             'last_ip'      => $user->last_ip
         ], \ArrayObject::ARRAY_AS_PROPS);
+
+        if (php_sapi_name() != 'cli') {
+            $path = BASE_PATH . APP_URI;
+            if ($path == '') {
+                $path = '/';
+            }
+            $cookie = Cookie::getInstance(['path' => $path]);
+            $cookie->set('phire', [
+                'base_path'    => BASE_PATH,
+                'app_path'     => APP_PATH,
+                'content_path' => CONTENT_PATH,
+                'app_uri'      => APP_URI
+            ]);
+        }
     }
 
     /**
@@ -323,7 +337,13 @@ class User extends AbstractModel
     {
         $user = Table\Users::findById($sess->user->id);
 
-        $cookie = Cookie::getInstance(['path' => '/']);
+
+        $path = BASE_PATH . APP_URI;
+        if ($path == '') {
+            $path = '/';
+        }
+        $cookie = Cookie::getInstance(['path' => $path]);
+        $cookie->delete('phire');
 
         if (isset($user->id)) {
             $user->last_login = date('Y-m-d H:i:s');
