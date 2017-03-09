@@ -40,6 +40,7 @@ class IndexController extends AbstractController
     {
         $this->prepareView('index.phtml');
         $this->view->title     = 'Dashboard';
+        $this->view->modules   = (new Model\Module())->getAll(5, null, 'id DESC');
         $this->view->dbVersion = $this->services['database']->getVersion();
         $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
             $this->application->config()['database']['type'] . ' (pdo)' :
@@ -55,10 +56,11 @@ class IndexController extends AbstractController
      */
     public function side()
     {
-        $this->prepareView('index-side.phtml');
+        $this->prepareView('index.phtml');
 
         $this->view->sideNav   = $this->services['nav.side'];
         $this->view->title     = 'Dashboard';
+        $this->view->modules   = (new Model\Module())->getAll(5, null, 'id DESC');
         $this->view->dbVersion = $this->services['database']->getVersion();
         $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
             $this->application->config()['database']['type'] . ' (pdo)' :

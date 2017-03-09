@@ -46,7 +46,7 @@ class Module extends AbstractModel
      */
     public function getAll($limit = null, $page = null, $sort = null)
     {
-        $order   = $this->getSortOrder($sort, $page);
+        $order   = (null !== $sort) ? $sort : $this->getSortOrder($sort, $page);
         $options = ['order'  => $order];
 
         if (null !== $limit) {
