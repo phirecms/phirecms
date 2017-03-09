@@ -3,9 +3,8 @@
     <div class="col-md-12">
     <h1 class="users-header"><?=$title; ?> : <span id="title-span"><?=$username; ?></span></h1>
 <?php if (null !== $last_login): ?>
-    <div class="pull-right text-right small gray">
-        <strong>Last Login: <?=date('M j Y g:i A', strtotime($last_login)); ?></strong><br />
-        <?=$last_ua; ?> [<?=$last_ip; ?>]
+    <div class="pull-right text-right small gray" style="margin-top: 10px;">
+        <strong>Last Login:</strong> <?=date('M j Y g:i A', strtotime($last_login)); ?> [<?=$last_ip; ?>]
     </div>
 <?php endif; ?>
     <nav id="sub-nav">
