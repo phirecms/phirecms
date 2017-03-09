@@ -62,7 +62,7 @@ class InstallUser extends Form
         if (($_POST) && (null !== $this->username)) {
             // Check password matches
             $this->getField('password2')
-                ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
+                 ->addValidator(new Validator\Equal($this->password1, 'The passwords do not match.'));
         }
 
         return $this;

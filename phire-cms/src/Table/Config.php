@@ -26,7 +26,17 @@ namespace Phire\Table;
  */
 class Config extends \Pop\Db\Record
 {
+
+    /**
+     * Table prefix
+     * @var string
+     */
     protected $prefix = DB_PREFIX;
 
+    /**
+     * Primary keys
+     * @var array
+     */
     protected $primaryKeys = ['setting'];
+
 }

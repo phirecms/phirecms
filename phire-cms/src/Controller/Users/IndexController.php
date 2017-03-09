@@ -208,7 +208,11 @@ class IndexController extends AbstractController
     {
         if ($this->request->isPost()) {
             $user = new Model\User();
-            $user->process($this->request->getPost(), $this->application->config()['application_title'], $this->application->services()->get('mailer'));
+            $user->process(
+                $this->request->getPost(),
+                $this->application->config()['application_title'],
+                $this->application->services()->get('mailer')
+            );
         }
 
         if ((null !== $this->request->getPost('user_process_action')) && ($this->request->getPost('user_process_action') == -1)) {

@@ -26,5 +26,11 @@ namespace Phire\Table;
  */
 class Roles extends \Pop\Db\Record
 {
+
+    /**
+     * Table prefix
+     * @var string
+     */
     protected $prefix = DB_PREFIX;
+
 }

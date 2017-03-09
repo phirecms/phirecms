@@ -113,6 +113,7 @@ class IndexController extends AbstractController
     /**
      * Edit action method
      *
+     * @param  int $id
      * @return void
      */
     public function edit($id)
@@ -178,6 +179,7 @@ class IndexController extends AbstractController
     /**
      * JSON action method
      *
+     * @param  mixed $id
      * @return void
      */
     public function json($id)

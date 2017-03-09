@@ -49,13 +49,13 @@ class IndexController extends AbstractController
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
-                ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
-                ->setFieldValues($this->request->getPost());
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->setFieldValues($this->request->getPost());
 
             if ($this->view->form->isValid()) {
                 $this->view->form->clearFilters()
-                    ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
-                    ->filterValues();
+                     ->addFilter('html_entity_decode', [ENT_QUOTES, 'UTF-8'])
+                     ->filterValues();
 
                 $install->installDb($this->view->form);
 

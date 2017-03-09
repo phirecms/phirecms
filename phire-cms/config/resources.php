@@ -5,6 +5,7 @@
 return [
     'modules' => [
         'index',
+        'upload',
         'install',
         'update',
         'process'

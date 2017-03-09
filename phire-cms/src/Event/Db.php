@@ -38,9 +38,9 @@ class Db
      */
     public static function check(Application $application)
     {
-        $route  = $application->router()->getRouteMatch()->getOriginalRoute();
         if (!$application->services()->isAvailable('database') &&
-            (substr($route, 0, strlen(APP_URI . '/install')) != APP_URI . '/install')
+            (isset($_SERVER['REQUEST_URI']) &&
+                (substr($_SERVER['REQUEST_URI'], 0, strlen(BASE_PATH . APP_URI . '/install')) != BASE_PATH . APP_URI . '/install'))
         ) {
             Response::redirect(BASE_PATH . APP_URI . '/install');
             exit();

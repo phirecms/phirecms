@@ -26,5 +26,11 @@ namespace Phire\Table;
  */
 class Users extends \Pop\Db\Record
 {
+
+    /**
+     * Table prefix
+     * @var string
+     */
     protected $prefix = DB_PREFIX;
+
 }

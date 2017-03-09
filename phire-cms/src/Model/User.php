@@ -227,7 +227,8 @@ class User extends AbstractModel
 
             $this->data = array_merge($this->data, $user->toArray());
 
-            if ((((null === $oldRoleId) && (null !== $user->role_id)) || ((!($oldActive) && ($user->active)))) && !empty($user->email)) {
+            if ((((null === $oldRoleId) && (null !== $user->role_id)) ||
+                    ((!($oldActive) && ($user->active)))) && !empty($user->email)) {
                 $notify = new Notification();
                 $notify->sendApproval($user, $title, $mailer);
             }
