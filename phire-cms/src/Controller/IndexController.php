@@ -49,34 +49,15 @@ class IndexController extends AbstractController
     }
 
     /**
-     * Side nav example action method
+     * Static side nav example action method
      *
      * @return void
      */
     public function side()
     {
-        $this->prepareView('index.phtml');
+        $this->prepareView('index-side.phtml');
 
-        $this->view->fluidNav  = $this->services['nav.fluid'];
-        $this->view->title     = 'Dashboard';
-        $this->view->dbVersion = $this->services['database']->getVersion();
-        $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?
-            $this->application->config()['database']['type'] . ' (pdo)' :
-            $this->view->database = $this->application->config()['database']['adapter'];
-
-        $this->send();
-    }
-
-    /**
-     * Static side nav example action method
-     *
-     * @return void
-     */
-    public function staticSide()
-    {
-        $this->prepareView('index-static.phtml');
-
-        $this->view->staticNav = $this->services['nav.static'];
+        $this->view->sideNav   = $this->services['nav.side'];
         $this->view->title     = 'Dashboard';
         $this->view->dbVersion = $this->services['database']->getVersion();
         $this->view->database  = (strtolower($this->application->config()['database']['adapter']) == 'pdo') ?

@@ -253,11 +253,8 @@ class Module extends \Pop\Module\Module
 
         // Set the acl in the nav objects
         $this->application->getService('nav.top')->setAcl($this->application->getService('acl'));
-        if ($this->application->services()->isAvailable('nav.fluid')) {
-            $this->application->getService('nav.fluid')->setAcl($this->application->getService('acl'));
-        }
-        if ($this->application->services()->isAvailable('nav.static')) {
-            $this->application->getService('nav.static')->setAcl($this->application->getService('acl'));
+        if ($this->application->services()->isAvailable('nav.side')) {
+            $this->application->getService('nav.side')->setAcl($this->application->getService('acl'));
         }
 
         return $this;

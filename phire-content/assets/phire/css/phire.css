@@ -343,7 +343,7 @@ input[type=checkbox] {
 
 /* Start Pop Static Nav */
 
-#phire-static-nav {
+#phire-side-nav {
     position: relative;
     z-index: 10;
     margin: 0;
@@ -352,7 +352,7 @@ input[type=checkbox] {
     min-height: 100%;
 }
 
-#phire-static-nav > li {
+#phire-side-nav > li {
     position: relative;
     margin: 0;
     padding: 0;
@@ -360,7 +360,7 @@ input[type=checkbox] {
     display: block;
 }
 
-#phire-static-nav > li > a {
+#phire-side-nav > li > a {
     position: relative;
     margin: 0;
     padding: 7px 0 7px 10px;
@@ -373,11 +373,11 @@ input[type=checkbox] {
     border-bottom: solid 1px #4f4b4a;
 }
 
-#phire-static-nav > li:hover {
+#phire-side-nav > li:hover {
     background-color: #18252c;
 }
 
-#phire-static-nav > li > ul {
+#phire-side-nav > li > ul {
     position: absolute;
     display: none;
     width: 180px;
@@ -385,12 +385,12 @@ input[type=checkbox] {
     left: 120px;
 }
 
-#phire-static-nav > li > ul > li {
+#phire-side-nav > li > ul > li {
     position: relative;
     list-style-type: none;
 }
 
-#phire-static-nav > li > ul > li > a {
+#phire-side-nav > li > ul > li > a {
     position: relative;
     margin: 0;
     padding: 10px;
@@ -403,17 +403,17 @@ input[type=checkbox] {
     background-color: #036fa6;
 }
 
-#phire-static-nav > li > ul > li > a:hover {
+#phire-side-nav > li > ul > li > a:hover {
     color: #46bcfa;
     font-weight: normal;
     text-decoration: none;
 }
 
-#phire-static-nav > li:hover > ul {
+#phire-side-nav > li:hover > ul {
     display: block;
 }
 
-#phire-static-nav > li > ul > li > ul {
+#phire-side-nav > li > ul > li > ul {
     position: absolute;
     display: none;
     top: 0;
@@ -421,11 +421,11 @@ input[type=checkbox] {
     width: 180px;
 }
 
-#phire-static-nav > li > ul > li > ul > li {
+#phire-side-nav > li > ul > li > ul > li {
     list-style-type: none;
 }
 
-#phire-static-nav > li > ul > li > ul > li > a {
+#phire-side-nav > li > ul > li > ul > li > a {
     position: relative;
     margin: 0;
     padding: 10px;
@@ -438,14 +438,14 @@ input[type=checkbox] {
     background-color: #aaa;
 }
 
-#phire-static-nav > li > ul > li > ul > li > a:hover {
+#phire-side-nav > li > ul > li > ul > li > a:hover {
     font-weight: normal;
     color: #fff;
     text-decoration: underline;
     background-color: #666;
 }
 
-#phire-static-nav > li > ul > li:hover > ul {
+#phire-side-nav > li > ul > li:hover > ul {
     display: block;
 }
 

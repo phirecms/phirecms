@@ -19,7 +19,7 @@
 
 </head>
 
-<body<?php if (isset($fluidNav)): ?> class="no-x-scroll"<?php endif;?>>
+<body>
 <?php if (isset($user)): ?>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
@@ -42,14 +42,4 @@
         </div>
     </nav>
 <?php endif; ?>
-    <div class="container-fluid<?php if (isset($staticNav)): ?> no-gutter-left<?php endif;?>">
-<?php if (isset($fluidNav)): ?>
-        <div class="row row-offcanvas row-offcanvas-left">
-            <div class="col-sm-2 col-md-2 sidebar sidebar-offcanvas" id="sidebar">
-<?=$fluidNav; ?>
-            </div>
-            <div class="col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 main">
-                <p class="pull-left visible-xs">
-                    <a href="#" id="side-nav-toggle" class="fa fa-caret-right fa-5x" aria-hidden="true" data-toggle="offcanvas"><span>Toggle nav</span></a>
-                </p>
-<?php endif; ?>
+    <div class="container-fluid<?php if (isset($sideNav)): ?> no-gutter-left<?php endif;?>">

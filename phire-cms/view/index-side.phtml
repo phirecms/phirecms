@@ -1,7 +1,7 @@
 <?php include __DIR__ . '/header.phtml'; ?>
 
     <div class="static-sidebar">
-<?=$staticNav; ?>
+<?=$sideNav; ?>
     </div>
     <div class="static-main">
         <div class="col-md-12">
@@ -114,15 +114,7 @@
                             Below are some links to some example side navigation layouts:
                         </p>
                         <ul>
-<?php if (!isset($fluidNav)): ?>
-                            <li><a href="<?=BASE_PATH . APP_URI; ?>/side">Fluid Side Nav</a></li>
-<?php endif; ?>
-<?php if (!isset($staticNav)): ?>
-                            <li><a href="<?=BASE_PATH . APP_URI; ?>/static">Static Side Nav</a></li>
-<?php endif; ?>
-<?php if (isset($fluidNav) || isset($staticNav)): ?>
                             <li><a href="<?=BASE_PATH . APP_URI; ?>/">No Side Nav</a></li>
-<?php endif; ?>
                         </ul>
                     </td>
                 </tr>

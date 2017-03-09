@@ -52,35 +52,14 @@ return [
                 ]
             ]
         ],
-        'nav.fluid' => [
+        'nav.side' => [
             'call'   => 'Pop\Nav\Nav',
             'params' => [
-                'tree' => include 'nav/fluid.php',
+                'tree' => include 'nav/side.php',
                 'config' => [
                     'baseUrl' => BASE_PATH . APP_URI,
                     'top'     => [
-                        'id'    => 'phire-fluid-nav',
-                        'node'  => 'ul',
-                        'class' => 'nav nav-sidebar'
-                    ],
-                    'parent' => [
-                        'node' => 'ul'
-                    ],
-                    'child'  => [
-                        'node' => 'li'
-                    ],
-                    'indent' => '    '
-                ]
-            ]
-        ],
-        'nav.static' => [
-            'call'   => 'Pop\Nav\Nav',
-            'params' => [
-                'tree' => include 'nav/static.php',
-                'config' => [
-                    'baseUrl' => BASE_PATH . APP_URI,
-                    'top'     => [
-                        'id'    => 'phire-static-nav',
+                        'id'    => 'phire-side-nav',
                         'node'  => 'ul'
                     ],
                     'parent' => [
