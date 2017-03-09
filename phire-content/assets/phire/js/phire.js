@@ -221,4 +221,15 @@ $(document).ready(function(){
             }
         }
     }
+
+    if ($('#upload_module')[0] != undefined) {
+        $(document).on('click', '.browse', function () {
+            var file = $(this).parent().parent().parent().find('.file');
+            file.trigger('click');
+        });
+        $(document).on('change', '.file', function () {
+            $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+        });
+    }
+
 });

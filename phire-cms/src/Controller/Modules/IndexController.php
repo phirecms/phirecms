@@ -14,7 +14,6 @@
 namespace Phire\Controller\Modules;
 
 use Phire\Controller\AbstractController;
-use Phire\Form;
 use Phire\Model;
 use Pop\Paginator\Form as Paginator;
 
@@ -52,9 +51,96 @@ class IndexController extends AbstractController
         $this->prepareView('modules/index.phtml');
         $this->view->title       = 'Modules';
         $this->view->pages       = $pages;
+        $this->view->newModules  = $module->detectNew();
         $this->view->queryString = $this->getQueryString('sort');
         $this->view->modules     = $module->getAll($limit, $this->request->getQuery('page'), $this->request->getQuery('sort'));
         $this->send();
+    }
+
+    /**
+     * Upload action method
+     *
+     * @return void
+     */
+    public function upload()
+    {
+        if (($_FILES) && !empty($_FILES['upload_module']) && !empty($_FILES['upload_module']['name'])) {
+            $module = new Model\Module();
+            $module->upload($_FILES['upload_module']);
+            $module->install($this->services);
+            $this->sess->setRequestValue('saved', true);
+        }
+
+        $this->redirect(BASE_PATH . APP_URI . '/modules');
+    }
+
+    /**
+     * Install action method
+     *
+     * @return void
+     */
+    public function install()
+    {
+        $module = new Model\Module();
+        $module->install($this->services);
+
+        $this->sess->setRequestValue('saved', true);
+        $this->redirect(BASE_PATH . APP_URI . '/modules');
+    }
+
+
+    /**
+     * Update action method
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function update($id)
+    {
+        $module = new Model\Module();
+        $module->getById($id);
+    }
+
+    /**
+     * Complete action method
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function complete($id)
+    {
+        $module = new Model\Module();
+        $module->getById($id);
+
+        if (isset($module->id)) {
+            $this->prepareView('phire/modules/update.phtml');
+            $this->view->title       = 'Update Module ' . $module->folder . ' : Complete!';
+            $this->view->complete    = true;
+            $this->view->module_name = $module->folder;
+            $this->view->version     = $module->version;
+            $this->send();
+        } else {
+            $this->redirect(BASE_PATH . APP_URI . '/modules');
+        }
+    }
+
+    /**
+     * Process action method
+     *
+     * @return void
+     */
+    public function process()
+    {
+        $module = new Model\Module();
+        $module->process($this->request->getPost(), $this->services);
+
+        if (null !== $this->request->getPost('rm_modules')) {
+            $this->sess->setRequestValue('removed', true);
+        } else {
+            $this->sess->setRequestValue('saved', true);
+        }
+
+        $this->redirect(BASE_PATH . APP_URI . '/modules');
     }
 
 }

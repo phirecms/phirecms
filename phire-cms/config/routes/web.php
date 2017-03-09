@@ -56,6 +56,46 @@ return [
                 'permission' => 'index'
             ]
         ],
+        '/modules/install[/]' => [
+            'controller' => 'Phire\Controller\Modules\IndexController',
+            'action'     => 'install',
+            'acl'        => [
+                'resource'   => 'modules',
+                'permission' => 'install'
+            ]
+        ],
+        '/modules/upload[/]' => [
+            'controller' => 'Phire\Controller\Modules\IndexController',
+            'action'     => 'upload',
+            'acl'        => [
+                'resource'   => 'modules',
+                'permission' => 'upload'
+            ]
+        ],
+        '/modules/update/:id' => [
+            'controller' => 'Phire\Controller\Modules\IndexController',
+            'action'     => 'update',
+            'acl'        => [
+                'resource'   => 'modules',
+                'permission' => 'update'
+            ]
+        ],
+        '/modules/complete/:id' => [
+            'controller' => 'Phire\Controller\Modules\IndexController',
+            'action'     => 'complete',
+            'acl'        => [
+                'resource'   => 'modules',
+                'permission' => 'update'
+            ]
+        ],
+        '/modules/process[/]' => [
+            'controller' => 'Phire\Controller\Modules\IndexController',
+            'action'     => 'process',
+            'acl'        => [
+                'resource'   => 'modules',
+                'permission' => 'process'
+            ]
+        ],
         '/users[/:rid]' => [
             'controller' => 'Phire\Controller\Users\IndexController',
             'action'     => 'index',

@@ -5,6 +5,8 @@
 return [
     'modules' => [
         'index',
+        'install',
+        'update',
         'process'
     ],
     'users' => [

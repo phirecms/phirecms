@@ -820,6 +820,11 @@ input[type=checkbox] {
     border: none;
 }
 
+.file {
+    visibility: hidden;
+    position: absolute;
+}
+
 div.page-links {
     float: right;
     margin: 0 0 5px 0;

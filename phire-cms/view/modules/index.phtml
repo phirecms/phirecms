@@ -1,7 +1,27 @@
 <?php include __DIR__ . '/../header.phtml'; ?>
 
     <div class="col-md-12">
+<?php if ($acl->isAllowed($user->role, 'modules', 'install')): ?>
+        <form id="asset-search-form" action="<?=BASE_PATH . APP_URI . '/modules/upload'; ?>" method="post" enctype="multipart/form-data">
+            <div><input class="btn btn-primary  input-sm" tabindex="2" type="submit" id="submit" value="Upload" /></div>
+            <div class="form-group">
+                <input type="file" name="upload_module" id="upload_module" class="file">
+                <div class="input-group" style="width: 240px;">
+                    <span class="input-group-btn">
+        <button class="browse btn btn-default btn-sm input-sm" type="button"><i class="glyphicon glyphicon-search"></i> Browse</button>
+      </span>
+                    <input type="text" class="form-control form-control-sm input-sm" style="height: 30px;" disabled="disabled" placeholder="Upload Module">
+
+                </div>
+            </div>
+        </form>
+<?php endif; ?>
         <h1 class="modules-header"><?=$title; ?></h1>
+<?php if (($newModules > 0) && ($acl->isAllowed($user->role, 'modules', 'install'))): ?>
+        <nav id="sub-nav">
+            <nav><a class="btn-sm btn-info" href="<?=BASE_PATH . APP_URI . '/modules/install'; ?>">Install (<?=$newModules; ?>)</a></nav>
+        </nav>
+<?php endif; ?>
 <?php if (count($modules) > 0): ?>
 <?php if ($acl->isAllowed($user->role, 'modules', 'process')): ?>
         <form id="modules-form" action="<?=BASE_PATH . APP_URI; ?>/modules/process" method="post">
