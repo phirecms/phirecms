@@ -173,7 +173,7 @@ class Module extends AbstractModel
                     $archive->close();
                 } else {
                     $archive = new PharData($modulesPath . '/' . $module);
-                    $archive->decompress();
+                    $archive->decompress('.tar');
                     $archive->extractTo($modulesPath);
                 }
 

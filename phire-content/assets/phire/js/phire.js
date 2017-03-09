@@ -146,6 +146,12 @@ $(document).ready(function(){
         });
     }
 
+    if ($('#modules-form')[0] != undefined) {
+        $('#modules-form').submit(function(){
+            return confirm('This action cannot be undone. Are you sure?');
+        });
+    }
+
     if ($('#users-form')[0] != undefined) {
         $('#users-form').submit(function(){
             if ($('#user_process_action').val() == '-1') {
