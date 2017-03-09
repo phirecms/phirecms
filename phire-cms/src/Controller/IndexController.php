@@ -125,7 +125,7 @@ class IndexController extends AbstractController
 
             $this->view->form->addFilter('strip_tags')
                  ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
-                 ->setFieldValues($this->request->getPost(), $auth, $this->application->config()['login_attempts']);
+                 ->setFieldValues($this->request->getPost(), $auth);
 
             $user = new Model\User();
 

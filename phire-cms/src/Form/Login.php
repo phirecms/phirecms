@@ -53,10 +53,9 @@ class Login extends Form
      *
      * @param  array $values
      * @param  Auth  $auth
-     * @param  int   $attempts
      * @return Login
      */
-    public function setFieldValues(array $values, Auth $auth = null, $attempts = 0)
+    public function setFieldValues(array $values, Auth $auth = null)
     {
         parent::setFieldValues($values);
 
