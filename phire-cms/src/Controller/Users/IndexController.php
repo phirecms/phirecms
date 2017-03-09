@@ -99,8 +99,6 @@ class IndexController extends AbstractController
             $fields[1]['password1']['validators'] = new \Pop\Validator\LengthGte(6);
             $fields[1]['password2']['required']   = true;
             $fields[0]['role_id']['value']        = $rid;
-            unset($fields[0]['clear_logins']);
-            unset($fields[0]['failed_attempts']);
 
             $this->view->form = Form\User::createFromFieldsetConfig($fields);
             if ($this->request->isPost()) {
@@ -150,8 +148,6 @@ class IndexController extends AbstractController
             $this->prepareView('users/edit.phtml');
             $this->view->title      = 'Edit User';
             $this->view->username   = $user->username;
-            $this->view->last_login = $user->last_login;
-            $this->view->last_ip    = $user->last_ip;
 
             $role       = new Model\Role();
             $roles      = $role->getAll();
@@ -165,7 +161,6 @@ class IndexController extends AbstractController
             $fields[1]['username']['attributes']['onkeyup'] = 'phire.changeTitle(this.value);';
             $fields[1]['password1']['required']    = false;
             $fields[1]['password2']['required']    = false;
-            $fields[0]['clear_logins']['label']    = $user->total_logins . ' Login' . (($user->total_logins == 1) ? '' : 's');
             $fields[0]['role_id']['type']          = 'select';
             $fields[0]['role_id']['label']         = 'Role';
             $fields[0]['role_id']['attributes']    = ['class' => 'phire-select'];

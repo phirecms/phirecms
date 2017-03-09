@@ -95,6 +95,5 @@ return [
         ]
     ],
     'application_title' => 'Phire CMS',
-    'pagination'        => 25,
-    'login_attempts'    => 5
+    'pagination'        => 25
 ];

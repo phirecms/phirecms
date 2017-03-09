@@ -153,7 +153,6 @@ class IndexController extends AbstractController
                 $this->redirect(BASE_PATH . APP_URI . '/');
             } else {
                 if ((null !== $auth->getUser()) && (null !== $auth->getUser()->id)) {
-                    $user->failed($auth->getUser());
                     if ($this->view->form->isValid()) {
                         $this->sess->setRequestValue('failed', true);
                         $this->redirect(BASE_PATH . APP_URI . '/login');

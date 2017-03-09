@@ -75,11 +75,6 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "email" varchar(255),
   "active" integer,
   "verified" integer,
-  "last_login" datetime,
-  "last_ip" varchar,
-  "last_ua" varchar,
-  "total_logins" integer DEFAULT '0',
-  "failed_attempts" integer DEFAULT '0',
   UNIQUE ("id"),
   CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 ) ;

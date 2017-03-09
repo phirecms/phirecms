@@ -75,9 +75,6 @@ class Login extends Form
             } else if (!$auth->getUser()->active) {
                 $this->getField('password')
                      ->addValidator(new Validator\NotEqual($this->password, 'That user is blocked.'));
-            } else if (((int)$attempts > 0) && ((int)$auth->getUser()->failed_attempts >= (int)$attempts)) {
-                $this->getField('password')
-                    ->addValidator(new Validator\NotEqual($this->password, 'Login failed.'));
             }
         }
 

@@ -53,7 +53,6 @@ class User extends AbstractModel
             'email'        => DB_PREFIX . 'users.email',
             'active'       => DB_PREFIX . 'users.active',
             'verified'     => DB_PREFIX . 'users.verified',
-            'total_logins' => DB_PREFIX . 'users.total_logins',
             'role_id'      => DB_PREFIX . 'roles.id',
             'role_name'    => DB_PREFIX . 'roles.name'
         ])->from(Table\Users::table())
@@ -158,17 +157,12 @@ class User extends AbstractModel
     {
         $user = Table\Users::findById((int)$id);
         if (isset($user->id)) {
-            $this->data['id']              = $user->id;
-            $this->data['role_id']         = $user->role_id;
-            $this->data['username']        = $user->username;
-            $this->data['email']           = $user->email;
-            $this->data['active']          = $user->active;
-            $this->data['verified']        = $user->verified;
-            $this->data['last_login']      = $user->last_login;
-            $this->data['last_ip']         = $user->last_ip;
-            $this->data['last_ua']         = $user->last_ua;
-            $this->data['total_logins']    = $user->total_logins;
-            $this->data['failed_attempts'] = $user->failed_attempts;
+            $this->data['id']       = $user->id;
+            $this->data['role_id']  = $user->role_id;
+            $this->data['username'] = $user->username;
+            $this->data['email']    = $user->email;
+            $this->data['active']   = $user->active;
+            $this->data['verified'] = $user->verified;
         }
     }
 
@@ -216,15 +210,13 @@ class User extends AbstractModel
             $oldRoleId = $user->role_id;
             $oldActive = $user->active;
 
-            $user->role_id         = (isset($form['role_id']) ? $form['role_id'] : $user->role_id);
-            $user->username        = $form['username'];
-            $user->password        = (!empty($form['password1'])) ?
+            $user->role_id  = (isset($form['role_id']) ? $form['role_id'] : $user->role_id);
+            $user->username = $form['username'];
+            $user->password = (!empty($form['password1'])) ?
                 password_hash($form['password1'], PASSWORD_BCRYPT) : $user->password;
-            $user->email           = (isset($form['email']) ? $form['email'] : $user->email);
-            $user->active          = (isset($form['active']) ? (int)$form['active'] : $user->active);
-            $user->verified        = (isset($form['verified']) ? (int)$form['verified'] : $user->verified);
-            $user->total_logins    = (isset($form['clear_logins']) ? 0 : $user->total_logins);
-            $user->failed_attempts = (isset($form['failed_attempts']) ? (int)$form['failed_attempts'] : $user->failed_attempts);
+            $user->email    = (isset($form['email']) ? $form['email'] : $user->email);
+            $user->active   = (isset($form['active']) ? (int)$form['active'] : $user->active);
+            $user->verified = (isset($form['verified']) ? (int)$form['verified'] : $user->verified);
 
             $user->save();
 
@@ -285,10 +277,6 @@ class User extends AbstractModel
      */
     public function login($user, $sess)
     {
-        $user->failed_attempts = 0;
-        $user->total_logins++;
-        $user->save();
-
         $role = Table\Roles::findById($user->role_id);
 
         $sess->user = new \ArrayObject([
@@ -296,9 +284,7 @@ class User extends AbstractModel
             'role_id'      => $user->role_id,
             'role'         => $role->name,
             'username'     => $user->username,
-            'email'        => $user->email,
-            'last_login'   => $user->last_login,
-            'last_ip'      => $user->last_ip
+            'email'        => $user->email
         ], \ArrayObject::ARRAY_AS_PROPS);
 
         if (php_sapi_name() != 'cli') {
@@ -317,18 +303,6 @@ class User extends AbstractModel
     }
 
     /**
-     * Record a failed login attempt
-     *
-     * @param  mixed $user
-     * @return void
-     */
-    public function failed($user)
-    {
-        $user->failed_attempts++;
-        $user->save();
-    }
-
-    /**
      * Logout a user
      *
      * @param  \Pop\Session\Session $sess
@@ -336,22 +310,12 @@ class User extends AbstractModel
      */
     public function logout($sess)
     {
-        $user = Table\Users::findById($sess->user->id);
-
-
         $path = BASE_PATH . APP_URI;
         if ($path == '') {
             $path = '/';
         }
         $cookie = Cookie::getInstance(['path' => $path]);
         $cookie->delete('phire');
-
-        if (isset($user->id)) {
-            $user->last_login = date('Y-m-d H:i:s');
-            $user->last_ip    = (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null);
-            $user->last_ua    = (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null);
-            $user->save();
-        }
 
         unset($sess->user);
     }

@@ -29,22 +29,6 @@ return [
             ],
             'checked' => 0
         ],
-        'clear_logins'   => [
-            'type'  => 'checkbox',
-            'label' => 'Logins',
-            'values' => [
-                1 => 'Clear Logins?'
-            ]
-        ],
-        'failed_attempts'   => [
-            'type'  => 'text',
-            'label' => 'Failed Attempts',
-            'value' => 0,
-            'attributes' => [
-                'class' => 'form-control input-sm',
-                'size'  => 3
-            ]
-        ],
         'role_id'   => [
             'type'  => 'hidden',
             'value' => 0
