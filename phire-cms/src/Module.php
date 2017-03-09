@@ -296,8 +296,9 @@ class Module extends \Pop\Module\Module
     public function webError(\Exception $exception)
     {
         $view = new View(__DIR__ . '/../view/exception.phtml');
-        $view->title   = 'Application Error';
-        $view->message = htmlentities(strip_tags($exception->getMessage()), ENT_QUOTES, 'UTF-8');
+        $view->title        = 'Application Error';
+        $view->phireVersion = self::VERSION;
+        $view->message      = htmlentities(strip_tags($exception->getMessage()), ENT_QUOTES, 'UTF-8');
 
         if (file_exists(__DIR__ . '/../config/app.web.php')) {
             $config = include __DIR__ . '/../config/app.web.php';

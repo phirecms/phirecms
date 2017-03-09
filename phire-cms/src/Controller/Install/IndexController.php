@@ -34,6 +34,7 @@ class IndexController extends AbstractController
     /**
      * Index action method
      *
+     * @throws \Phire\Exception
      * @return void
      */
     public function index()
@@ -45,6 +46,12 @@ class IndexController extends AbstractController
 
         $this->prepareView('install/index.phtml');
         $this->view->title = 'Installation';
+
+        // Check PHP version
+        if (version_compare(PHP_VERSION, '5.4.0') < 0) {
+            throw new \Phire\Exception('Error: Phire CMS requires PHP 5.4.0 or greater.');
+        }
+
         $this->view->form  = Form\Install::createFromFieldsetConfig($fields);
 
         if ($this->request->isPost()) {
