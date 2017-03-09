@@ -8,14 +8,6 @@ return [
             'controller' => 'Phire\Controller\IndexController',
             'action'     => 'index'
         ],
-        '/side[/]' => [
-            'controller' => 'Phire\Controller\IndexController',
-            'action'     => 'side'
-        ],
-        '/static[/]' => [
-            'controller' => 'Phire\Controller\IndexController',
-            'action'     => 'staticSide'
-        ],
         '/login[/]' => [
             'controller' => 'Phire\Controller\IndexController',
             'action'     => 'login'

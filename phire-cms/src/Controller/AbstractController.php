@@ -280,6 +280,9 @@ class AbstractController extends \Pop\Controller\AbstractController
             if ($this->services->isAvailable('nav.side')) {
                 $this->services['nav.side']->setRole($this->services['acl']->getRole($this->sess->user->role));
                 $this->services['nav.side']->returnFalse(true);
+                if (count($this->services['nav.side']->getTree()) > 0) {
+                    $this->view->sideNav = $this->services['nav.side'];
+                }
             }
 
             $this->view->phireNav = $this->services['nav.top'];
