@@ -45,10 +45,13 @@ class Session
         $route     = $application->router()->getRouteMatch()->getOriginalRoute();
         $isInstall = (substr($route, 0, strlen(APP_URI . '/install')) == APP_URI . '/install');
 
+        // If session exists, and is a non-session URL
         if (isset($sess->user) && (($action == 'login') || ($action == 'forgot') || ($action == 'verify') || ($isInstall))) {
             Response::redirect(BASE_PATH . APP_URI . '/');
             exit();
-        } else if (!isset($sess->user) && ($action != 'login') && ($action != 'forgot') && ($action != 'verify') && (!$isInstall)) {
+        // If session does not exists, and is a session URL
+        } else if (!isset($sess->user) && ($action != 'login') && ($action != 'forgot') && ($action != 'verify') &&
+            (!$isInstall) && (substr($_SERVER['REQUEST_URI'], 0, strlen(APP_URI)) == APP_URI)) {
             Response::redirect(BASE_PATH . APP_URI . '/login');
             exit();
         }
