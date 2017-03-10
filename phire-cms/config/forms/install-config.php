@@ -1,6 +1,6 @@
 <?php
 /**
- * Phire CMS install form configuration
+ * Phire CMS install config form configuration
  */
 return [
     [

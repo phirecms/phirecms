@@ -1,6 +1,6 @@
 <?php
 /**
- * Phire CMS main nav configuration
+ * Phire CMS main top nav configuration
  */
 return [
     'modules' => [

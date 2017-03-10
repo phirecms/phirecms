@@ -1,6 +1,6 @@
 <?php
 /**
- * Phire\Form\Register configuration
+ * Phire CMS install user form configuration
  */
 return [
     [
