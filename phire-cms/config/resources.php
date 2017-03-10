@@ -3,6 +3,11 @@
  * Phire CMS Framework resources
  */
 return [
+    'dashboard' => [
+        'main',
+        'side',
+        'system',
+    ],
     'modules' => [
         'index',
         'upload',

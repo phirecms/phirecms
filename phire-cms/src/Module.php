@@ -18,6 +18,7 @@ use Pop\Acl\AclResource as Resource;
 use Pop\Acl\AclRole as Role;
 use Pop\Application;
 use Pop\Db\Record;
+use Pop\Dir\Dir;
 use Pop\Http\Request;
 use Pop\Http\Response;
 use Pop\View\View;
@@ -49,6 +50,18 @@ class Module extends \Pop\Module\Module
     protected $name = 'phire';
 
     /**
+     * JS and CSS assets
+     * @var array
+     */
+    protected $assets = [
+        'js'  => [],
+        'css' => [
+            'link'   => [],
+            'import' => []
+        ]
+    ];
+
+    /**
      * Register module
      *
      * @param  Application $application
@@ -63,6 +76,10 @@ class Module extends \Pop\Module\Module
             $this->registerCli();
         } else {
             $this->registerWeb();
+        }
+
+        if ($this->application->services()->isAvailable('database')) {
+            $this->registerModules();
         }
 
         return $this;
@@ -185,6 +202,130 @@ class Module extends \Pop\Module\Module
         $this->application->on('app.dispatch.post', function(){
             echo PHP_EOL;
         }, 1000);
+    }
+
+    /**
+     * Register modules
+     *
+     * @return void
+     */
+    public function registerModules()
+    {
+        $modulesPath   = __DIR__ . '/../..' . CONTENT_PATH . '/modules';
+        $moduleFolders = [];
+        $modules       = Table\Modules::findBy(['active' => 1], ['order' => 'order DESC']);
+
+        foreach ($modules as $module) {
+            if (file_exists($modulesPath . '/' . $module->folder . '/src/Module.php')) {
+                include $modulesPath . '/' . $module->folder . '/src/Module.php';
+                $moduleClass = $module->prefix . 'Module';
+            } else {
+                $moduleClass = 'Phire\Module\Module';
+            }
+
+            if (file_exists($modulesPath . '/' . $module->folder . '/config/module.php')) {
+                $moduleConfig = include $modulesPath . '/' . $module->folder . '/config/module.php';
+
+                // Load and register each module
+                if (file_exists($modulesPath . '/config/' . $module->name . '.php')) {
+                    $moduleConfig = array_merge(
+                        $moduleConfig[$module->name], include $modulesPath . '/config/' . $module->name . '.php'
+                    );
+                } else {
+                    $moduleConfig = $moduleConfig[$module->name];
+                }
+
+                $newModule = new $moduleClass($moduleConfig, $this->application, $module->name);
+            } else {
+                $newModule = new $moduleClass($this->application, $module->name);
+            }
+
+            $this->application->register($module->name, $newModule);
+            $moduleFolders[$module->name] = $module->folder;
+        }
+
+        // Check module configs for Phire-specific configs
+        foreach ($this->application->modules() as $module => $config) {
+            // Load module assets
+            if (isset($moduleFolders[$module]) && file_exists($modulesPath . '/' . $moduleFolders[$module] . '/data/assets')) {
+                $this->loadAssets(
+                    $modulesPath . '/' . $moduleFolders[$module] . '/data/assets',
+                    strtolower($module)
+                );
+            }
+        }
+    }
+
+    /**
+     * Load application assets to a public folder
+     *
+     * @param  string  $from
+     * @param  string  $to
+     * @param  boolean $import
+     * @return Module
+     */
+    public function loadAssets($from, $to, $import = false)
+    {
+        if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/assets') &&
+            is_writable(__DIR__ . '/../..' . CONTENT_PATH . '/assets')) {
+
+            $toDir = __DIR__ . '/../..' . CONTENT_PATH . '/assets/' . $to;
+            if (!file_exists($toDir)) {
+                mkdir($toDir);
+                $dir = new Dir($from, [
+                    'absolute'  => true,
+                    'recursive' => true
+                ]);
+                $dir->copyTo($toDir, false);
+            }
+
+            $cssDirs     = ['css', 'styles', 'style'];
+            $jsDirs      = ['js', 'scripts', 'script', 'scr'];
+            $cssType     = ($import) ? 'import' : 'link';
+
+            foreach ($cssDirs as $cssDir) {
+                if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/assets/' . $to .'/' . $cssDir)) {
+                    $dir = new Dir(__DIR__ . '/../..' . CONTENT_PATH . '/assets/' . $to .'/' . $cssDir);
+                    foreach ($dir->getFiles() as $cssFile) {
+                        if ($cssFile != 'index.html') {
+                            $css = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $cssDir . '/' . $cssFile;
+                            if (!in_array($css, $this->assets['css'][$cssType]) && (substr($css, -4) == '.css') &&
+                                (stripos($css, 'public') === false)) {
+                                $this->assets['css'][$cssType][] = $css;
+                            }
+                        }
+                    }
+                }
+            }
+
+            foreach ($jsDirs as $jsDir) {
+                if (file_exists(__DIR__ . '/../..' . CONTENT_PATH . '/assets/' . $to .'/' . $jsDir)) {
+                    $dir = new Dir(__DIR__ . '/../..' . CONTENT_PATH . '/assets/' . $to .'/' . $jsDir);
+                    foreach ($dir->getFiles() as $jsFile) {
+                        if ($jsFile != 'index.html') {
+                            $js = BASE_PATH . CONTENT_PATH . '/assets/' . $to . '/' . $jsDir . '/' . $jsFile;
+                            if (!in_array($js, $this->assets['js']) && (substr($js, -3) == '.js') &&
+                                (stripos($js, 'public') === false)) {
+                                $this->assets['js'][] = $js;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get application assets
+     *
+     * @param  string $type
+     * @return array
+     */
+    public function getAssets($type = null)
+    {
+        return ((null !== $type) && isset($this->assets[$type])) ? $this->assets[$type] : $this->assets;
     }
 
     /**

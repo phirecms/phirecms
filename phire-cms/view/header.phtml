@@ -43,3 +43,11 @@
     </nav>
 <?php endif; ?>
     <div class="container-fluid<?php if (isset($sideNav)): ?> no-gutter-left<?php endif;?>">
+
+<?php if (isset($sideNav)): ?>
+    <div class="static-sidebar">
+        <?=$sideNav; ?>
+    </div>
+    <div class="static-main">
+<?php endif; ?>
+

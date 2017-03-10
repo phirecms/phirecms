@@ -73,6 +73,8 @@ return [
             ]
         ]
     ],
+    'dashboard'         => [],
+    'dashboard_side'    => [],
     'application_title' => 'Phire CMS',
     'pagination'        => 25
 ];
