@@ -327,7 +327,7 @@ class Module extends \Pop\Module\Module
             $string .= "    \x1b[1;37m\x1b[41m    " . str_repeat(' ', strlen($message)) . "    \x1b[0m" . PHP_EOL . PHP_EOL;
             $string .= "    Try \x1b[1;33m./app help\x1b[0m for help" . PHP_EOL . PHP_EOL;
         } else {
-            $string = $message . PHP_EOL . PHP_EOL;
+            $string  = $message . PHP_EOL . PHP_EOL;
             $string .= '    Try \'./app help\' for help' . PHP_EOL . PHP_EOL;
         }
         echo $string;
