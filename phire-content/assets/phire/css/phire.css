@@ -25,6 +25,10 @@ h1, h2, h3, h4, h5, h6, div, p {
     font-family: 'Source Sans Pro', arial, helvetica, verdana, sans-serif;
 }
 
+label {
+    position: relative;
+}
+
 input[type=checkbox] {
     position: relative;
     top: 2px;
@@ -736,6 +740,11 @@ input[type=checkbox] {
 .data-form > fieldset {
     margin: 0;
     padding: 0;
+    position: relative;
+}
+
+.data-form > fieldset > dl, .data-form > fieldset > dl > dt, .data-form > fieldset > dl > dd {
+    position: relative;
 }
 
 .data-form > fieldset:first-child {
