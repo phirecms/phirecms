@@ -252,6 +252,7 @@ class AbstractController extends \Pop\Controller\AbstractController
 
         $this->view->application_title = $this->application->config()['application_title'];
         $this->view->phireVersion      = \Phire\Module::VERSION;
+        $this->view->assets            = $this->application->module('phire')->getAssets();
 
         if (isset($this->sess->installed)) {
             $this->view->installed = true;
@@ -285,7 +286,10 @@ class AbstractController extends \Pop\Controller\AbstractController
                 }
             }
 
+            $this->view->phireHeader   = __DIR__ . '/../../view/header.phtml';
+            $this->view->phireFooter   = __DIR__ . '/../../view/footer.phtml';
             $this->view->phireNav      = $this->services['nav.top'];
+            $this->view->phireUri      = BASE_PATH . APP_URI;
             $this->view->acl           = $this->services['acl'];
             $this->view->dashboard     = $this->application->config()['dashboard'];
             $this->view->dashboardSide = $this->application->config()['dashboard_side'];
