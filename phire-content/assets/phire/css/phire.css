@@ -27,6 +27,12 @@ h1, h2, h3, h4, h5, h6, div, p {
 
 label {
     position: relative;
+    z-index: 1;
+}
+
+input {
+    position: relative;
+    z-index: 1;
 }
 
 input[type=checkbox] {
@@ -781,6 +787,8 @@ input[type=checkbox] {
 }
 
 .data-form select, select.phire-select {
+    position: relative;
+    z-index: 1;
     margin: 0;
     padding: 4px 28px 4px 2px;
     font-family: "Source Sans Pro", sans-serif;
