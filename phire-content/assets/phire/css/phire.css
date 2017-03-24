@@ -105,6 +105,14 @@ input[type=checkbox] {
     color: #999;
 }
 
+#install-form-fieldset-1 > dl > dd, #install-user-form-fieldset-1 > dl > dd {
+    padding-bottom: 10px;
+}
+
+#user-form-fieldset-2 > dl > dd {
+    padding-bottom: 20px;
+}
+
 #login-form, #login-form > fieldset > dl {
     margin: 0;
     padding: 0;
