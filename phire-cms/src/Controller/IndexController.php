@@ -63,7 +63,7 @@ class IndexController extends AbstractController
         $user->getById($this->sess->user->id);
 
         $this->view->form = Form\Profile::createFromFieldsetConfig($this->application->config()['forms']['Phire\Form\Profile']);
-        $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+        $this->view->form->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
              ->setFieldValues($user->toArray());
 
         if ($this->request->isPost()) {
@@ -106,7 +106,7 @@ class IndexController extends AbstractController
             $auth = new Auth\Table('Phire\Table\Users');
 
             $this->view->form->addFilter('strip_tags')
-                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
                  ->setFieldValues($this->request->getPost(), $auth);
 
             $user = new Model\User();
@@ -160,7 +160,7 @@ class IndexController extends AbstractController
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
-                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
                  ->setFieldValues($this->request->getPost());
 
             if ($this->view->form->isValid()) {

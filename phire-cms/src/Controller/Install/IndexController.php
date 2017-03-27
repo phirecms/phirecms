@@ -56,7 +56,7 @@ class IndexController extends AbstractController
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
-                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                 ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
                  ->setFieldValues($this->request->getPost());
 
             if ($this->view->form->isValid()) {
@@ -129,7 +129,7 @@ class IndexController extends AbstractController
 
         if ($this->request->isPost()) {
             $this->view->form->addFilter('strip_tags')
-                ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8'])
+                ->addFilter('htmlentities', [ENT_QUOTES, 'UTF-8', false])
                 ->setFieldValues($this->request->getPost());
 
             if ($this->view->form->isValid()) {
