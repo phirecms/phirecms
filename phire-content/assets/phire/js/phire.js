@@ -146,12 +146,6 @@ $(document).ready(function(){
         });
     }
 
-    if ($('#modules-form')[0] != undefined) {
-        $('#modules-form').submit(function(){
-            return confirm('This action cannot be undone. Are you sure?');
-        });
-    }
-
     if ($('#users-form')[0] != undefined) {
         $('#users-form').submit(function(){
             if ($('#user_process_action').val() == '-1') {
@@ -219,8 +213,8 @@ $(document).ready(function(){
         return false;
     });
 
-    if ($('#phire-static-nav')[0] != undefined) {
-        var lis = $('#phire-static-nav > li');
+    if ($('#phire-side-nav')[0] != undefined) {
+        var lis = $('#phire-side-nav > li');
         for (var i = 0; i < lis.length; i++) {
             if ((lis[i].children[1] != undefined) && (lis[i].children[1].nodeName == 'UL')) {
                 $(lis[i]).prop('class', 'nav-arrow');

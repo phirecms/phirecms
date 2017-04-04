@@ -240,7 +240,7 @@ class Module extends \Pop\Module\Module
                 $newModule = new $moduleClass($this->application, $module->name);
             }
 
-            $this->application->register($module->name, $newModule);
+            $this->application->register($newModule, $module->name);
             $moduleFolders[$module->name] = $module->folder;
         }
 

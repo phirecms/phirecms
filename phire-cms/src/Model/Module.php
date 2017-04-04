@@ -60,7 +60,6 @@ class Module extends AbstractModel
         return Table\Modules::findAll($options);
     }
 
-
     /**
      * Get module by ID
      *

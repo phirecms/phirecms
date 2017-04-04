@@ -16,6 +16,7 @@ namespace Phire\Controller\Modules;
 use Phire\Controller\AbstractController;
 use Phire\Model;
 use Pop\Paginator\Form as Paginator;
+use Pop\Nav\Nav;
 
 /**
  * Modules controller class
@@ -54,6 +55,19 @@ class IndexController extends AbstractController
         $this->view->newModules  = $module->detectNew();
         $this->view->queryString = $this->getQueryString('sort');
         $this->view->modules     = $module->getAll($limit, $this->request->getQuery('page'), $this->request->getQuery('sort'));
+
+        foreach ($this->view->modules as $module) {
+            if ($this->application->isRegistered($module->name) && isset($this->application->modules[$module->name]->config()['nav.module'])) {
+                $module->nav = new Nav(
+                    [$this->application->modules[$module->name]->config()['nav.module']], ['top' => ['class' => 'module-nav']]
+                );
+                $module->nav->setBaseUrl(BASE_PATH . APP_URI);
+                $module->nav->setAcl($this->application->services['acl']);
+                $module->nav->setRole($this->application->services['acl']->getRole($this->sess->user->role));
+                $module->nav->setIndent('                    ');
+            }
+        }
+
         $this->send();
     }
 
