@@ -1059,6 +1059,26 @@ div.page-links > a:hover {
     color: #5A5A5A;
 }
 
+.green {
+    font-weight: bold;
+    color: #528435;
+}
+
+.orange {
+    font-weight: bold;
+    color: #e56300;
+}
+
+.blue {
+    font-weight: bold;
+    color: #53aae8;
+}
+
+.red {
+    font-weight: bold;
+    color: #bf1b0f;
+}
+
 .table {
     border-left: solid 1px #ddd;
     border-right: solid 1px #ddd;
@@ -1255,6 +1275,10 @@ li.nav-arrow:hover {
 
 .form-control-sm {
     height: 28px;
+}
+
+select.form-control-sm {
+    padding-top: 0;
 }
 
 .form-control-inline {
