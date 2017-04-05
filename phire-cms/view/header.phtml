@@ -17,13 +17,13 @@
     <link rel="stylesheet" type="text/css" href="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/css/jax.calendar.css" />
     <link rel="stylesheet" type="text/css" href="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/css/phire.css" />
-<?php if (count($assets['css']['link']) > 0): ?>
+<?php if (isset($assets) && (count($assets['css']['link']) > 0)): ?>
 <?php foreach ($assets['css']['link'] as $css): ?>
     <link type="text/css" rel="stylesheet" href="<?=$css; ?>" />
 <?php endforeach; ?>
 <?php endif; ?>
 
-<?php if (count($assets['css']['import']) > 0): ?>
+<?php if (isset($assets) && (count($assets['css']['import']) > 0)): ?>
     <style type="text/css">
 <?php foreach ($assets['css']['import'] as $css): ?>
         @import url('<?=$css; ?>');

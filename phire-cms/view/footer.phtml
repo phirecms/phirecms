@@ -16,7 +16,7 @@
 <script src="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/js/jax.5.5.0.min.js"></script>
 <script src="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/js/jax.calendar.min.js"></script>
 <script src="<?=BASE_PATH . CONTENT_PATH; ?>/assets/phire/js/phire.js"></script>
-<?php if (count($assets['js']) > 0): ?>
+<?php if (isset($assets) && (count($assets['js']) > 0)): ?>
 <?php foreach ($assets['js'] as $js): ?>
 <script type="text/javascript" src="<?=$js; ?>"></script>
 <?php endforeach; ?>
