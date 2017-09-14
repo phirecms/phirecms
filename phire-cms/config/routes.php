@@ -1,6 +1,6 @@
 <?php
 /**
- * Web Routes
+ * HTTP Routes
  */
 return [
     APP_URI => [

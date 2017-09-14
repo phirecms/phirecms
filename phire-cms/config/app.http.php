@@ -6,13 +6,14 @@
  * @author     Nick Sagona, III <dev@nolainteractive.com>
  * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
+ * @version    3.0.0
  */
 
 /**
- * Phire CMS Configuration File
+ * Phire CMS HTTP Configuration File
  */
 return [
-    'routes'    => include 'routes/web.php',
+    'routes'    => include 'routes.php',
     'resources' => include 'resources.php',
     'forms'     => include 'forms.php',
     'database'  => [
@@ -24,12 +25,11 @@ return [
         'type'     => DB_TYPE
     ],
     'services'  => [
-        'session' => 'Pop\Session\Session::getInstance',
-        'acl'     => 'Pop\Acl\Acl',
-        'mailer'  => [
-            'call' => function() {
-                return new \Pop\Mail\Mailer(new \Pop\Mail\Transport\Sendmail());
-            }
+        'acl'        => 'Pop\Acl\Acl',
+        'session'    => 'Pop\Session\Session::getInstance',
+        'cookie'     => [
+            'call'   => 'Pop\Cookie\Cookie::getInstance',
+            'params' => ['options' => ['path' => '/']]
         ],
         'nav.top' => [
             'call'   => 'Pop\Nav\Nav',
@@ -73,8 +73,5 @@ return [
             ]
         ]
     ],
-    'dashboard'         => [],
-    'dashboard_side'    => [],
-    'application_title' => 'Phire CMS',
-    'pagination'        => 25
+    'pagination' => 25
 ];

@@ -1,9 +1,0 @@
-Dear [{name}],
-
-You have been added as a user to [{domain}]. You email address needs to be verified.
-In order to verify your email address, please click on the following link:
-[{url}]
-
-Thank You,
-The [{title}] Team
-

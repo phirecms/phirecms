@@ -16,7 +16,7 @@ $autoloader = include __DIR__ . APP_PATH . '/vendor/autoload.php';
 
 // Create main app object, register the app module and run the app
 try {
-    $app = new Pop\Application($autoloader, include __DIR__ . APP_PATH . '/config/app.web.php');
+    $app = new Popcorn\Pop($autoloader, include __DIR__ . APP_PATH . '/config/app.http.php');
     $app->register(new Phire\Module());
     $app->run();
 } catch (\Exception $exception) {
