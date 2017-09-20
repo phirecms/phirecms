@@ -43,22 +43,19 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]roles" (
   "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
   "parent_id" integer,
   "name" varchar NOT NULL,
-  "verification" integer,
-  "approval" integer,
   "permissions" text,
   UNIQUE ("id"),
   CONSTRAINT "fk_role_parent_id" FOREIGN KEY ("parent_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 ) ;
 
-INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('roles', 2000);
 CREATE INDEX "role_name" ON "[{prefix}]roles" ("name");
 
 --
 -- Dumping data for table "roles"
 --
 
-INSERT INTO "[{prefix}]roles" ("id", "parent_id", "name", "verification", "approval", "permissions") VALUES
-(2001, NULL, 'Admin', 1, 1, NULL);
+INSERT INTO "[{prefix}]roles" ("id", "parent_id", "name", "permissions") VALUES
+(1, NULL, 'Admin', NULL);
 
 -- --------------------------------------------------------
 
@@ -72,17 +69,37 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]users" (
   "role_id" integer,
   "username" varchar NOT NULL,
   "password" varchar NOT NULL,
-  "email" varchar(255),
-  "active" integer,
-  "verified" integer,
+  "email" varchar,
+  "active" integer DEFAULT 0,
+  "verified" integer DEFAULT 0,
+  "attempts" integer DEFAULT 0,
   UNIQUE ("id"),
   CONSTRAINT "fk_user_role" FOREIGN KEY ("role_id") REFERENCES "[{prefix}]roles" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
 
-INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('users', 1000);
 CREATE INDEX "role_id" ON "[{prefix}]users" ("role_id");
-CREATE INDEX "username" ON "[{prefix}]users" ("username");
+CREATE UNIQUE INDEX "username" ON "[{prefix}]users" ("username");
+CREATE INDEX "active" ON "[{prefix}]users" ("active");
+CREATE INDEX "attempts" ON "[{prefix}]users" ("attempts");
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table "tokens"
+--
+
+DROP TABLE IF EXISTS "[{prefix}]tokens";
+CREATE TABLE IF NOT EXISTS "[{prefix}]tokens" (
+  "user_id" int(16) NOT NULL,
+  "token" varchar NOT NULL,
+  "refresh" varchar NOT NULL,
+  "expires" integer NOT NULL, -- 0, never expires
+  "requests" integer DEFAULT 0,
+  CONSTRAINT "fk_token_user_id" FOREIGN KEY ("user_id") REFERENCES "[{prefix}]users" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+
+CREATE UNIQUE INDEX "access_token" ON "[{prefix}]tokens" ("user_id", "token", "refresh");
 
 -- --------------------------------------------------------
 
@@ -109,5 +126,4 @@ CREATE TABLE IF NOT EXISTS "[{prefix}]modules" (
   UNIQUE ("id")
 ) ;
 
-INSERT INTO "sqlite_sequence" ("name", "seq") VALUES ('[{prefix}]modules', 3000);
 CREATE INDEX "module_folder" ON "[{prefix}]modules" ("folder");

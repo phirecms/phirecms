@@ -13,22 +13,25 @@ return [
         'upload',
         'install',
         'update',
-        'process'
+        'delete'
     ],
     'users' => [
         'index',
-        'add',
-        'edit',
-        'process'
+        'create',
+        'update',
+        'delete'
+    ],
+    'admin' => [
+        'index'
     ],
     'roles' => [
         'index',
-        'add',
-        'edit',
-        'json',
-        'remove'
+        'create',
+        'update',
+        'delete'
     ],
     'config' => [
-        'index'
+        'index',
+        'update'
     ]
 ];

@@ -41,14 +41,14 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]roles` (
   PRIMARY KEY (`id`),
   INDEX `role_name` (`name`),
   CONSTRAINT `fk_role_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `[{prefix}]roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2002 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 --
 -- Dumping data for table `roles`
 --
 
 INSERT INTO `[{prefix}]roles` (`id`, `parent_id`, `name`, `permissions`) VALUES
-(2001, NULL, 'Admin', NULL);
+(1, NULL, 'Admin', NULL);
 
 -- --------------------------------------------------------
 
@@ -63,13 +63,33 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]users` (
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `email` varchar(255),
-  `active` int(1),
-  `verified` int(1),
+  `active` int(1) DEFAULT '0',
+  `verified` int(1) DEFAULT '0',
+  `attempts` int(16) DEFAULT '0',
   PRIMARY KEY (`id`),
   INDEX `role_id` (`role_id`),
-  INDEX `username` (`username`),
+  UNIQUE `username` (`username`),
+  INDEX `active` (`active`),
+  INDEX `attempts` (`attempts`),
   CONSTRAINT `fk_user_role` FOREIGN KEY (`role_id`) REFERENCES `[{prefix}]roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1001 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tokens`
+--
+
+DROP TABLE IF EXISTS `[{prefix}]tokens`;
+CREATE TABLE IF NOT EXISTS `[{prefix}]tokens` (
+  `user_id` int(16) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `refresh` varchar(255) NOT NULL,
+  `expires` int(16) NOT NULL, -- 0, never expires
+  `requests` int(16) DEFAULT '0',
+  UNIQUE `access_token` (`user_id`, `token`, `refresh`),
+  CONSTRAINT `fk_token_user_id` FOREIGN KEY (`user_id`) REFERENCES `[{prefix}]users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -95,6 +115,6 @@ CREATE TABLE IF NOT EXISTS `[{prefix}]modules` (
   `updates` text DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `module_folder` (`folder`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3001 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 SET FOREIGN_KEY_CHECKS = 1;

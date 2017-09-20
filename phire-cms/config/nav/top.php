@@ -9,9 +9,6 @@ return [
         'acl'  => [
             'resource'   => 'modules',
             'permission' => 'index'
-        ],
-        'attributes' => [
-            'class' => 'modules-nav-icon'
         ]
     ],
     'users' => [
@@ -20,31 +17,32 @@ return [
         'acl'  => [
             'resource'   => 'users',
             'permission' => 'index'
-        ],
-        'attributes' => [
-            'class' => 'users-nav-icon'
         ]
     ],
-    'roles' => [
-        'name' => 'Roles',
-        'href' => '/roles',
+    'admin' => [
+        'name' => 'Admin',
+        'href' => '/admin',
         'acl'  => [
-            'resource'   => 'roles',
+            'resource'   => 'admin',
             'permission' => 'index'
         ],
-        'attributes' => [
-            'class' => 'roles-nav-icon'
-        ]
-    ],
-    'config' => [
-        'name' => 'Config',
-        'href' => '/config',
-        'acl'  => [
-            'resource'   => 'config',
-            'permission' => 'index'
-        ],
-        'attributes' => [
-            'class' => 'config-nav-icon'
+        'children' => [
+            'roles' => [
+                'name' => 'Roles',
+                'href' => 'roles',
+                'acl'  => [
+                    'resource'   => 'roles',
+                    'permission' => 'index'
+                ]
+            ],
+            'config' => [
+                'name' => 'Config',
+                'href' => 'config',
+                'acl'  => [
+                    'resource'   => 'config',
+                    'permission' => 'index'
+                ]
+            ]
         ]
     ]
 ];

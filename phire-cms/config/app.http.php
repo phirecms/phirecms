@@ -24,7 +24,13 @@ return [
         'host'     => DB_HOST,
         'type'     => DB_TYPE
     ],
-    'services'  => [
+    'headers'        => [],
+    'dashboard'      => [],
+    'dashboard_side' => [],
+    'footers'        => [],
+    'force_ssl'      => false,
+    'pagination'     => 25,
+    'services'       => [
         'acl'        => 'Pop\Acl\Acl',
         'session'    => 'Pop\Session\Session::getInstance',
         'cookie'     => [
@@ -72,6 +78,5 @@ return [
                 ]
             ]
         ]
-    ],
-    'pagination' => 25
+    ]
 ];
