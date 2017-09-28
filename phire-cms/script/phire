@@ -1,0 +1,16 @@
+#!/usr/bin/php
+<?php
+/**
+ * Phire CMS Console Application
+ */
+
+$autoloader = include __DIR__ . '/../vendor/autoload.php';
+
+try {
+    $app = new Pop\Application($autoloader, include __DIR__ . '/../config/app.console.php');
+    $app->register(new Phire\Module());
+    $app->run();
+} catch (\Exception $exception) {
+    $app = new Phire\Module();
+    $app->consoleError($exception);
+}

@@ -11,12 +11,12 @@
 /**
  * @namespace
  */
-namespace Phire\Table;
+namespace Phire\Http\Api\Event;
 
-use Pop\Db\Record;
+use Pop\Application;
 
 /**
- * Modules table class
+ * Options API event class
  *
  * @category   Phire
  * @package    Phire
@@ -25,19 +25,21 @@ use Pop\Db\Record;
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
-class Modules extends Record
+class Options
 {
-
     /**
-     * Table prefix
-     * @var string
+     * Check for and re-route OPTIONS requests
+     *
+     * @param  Application $application
+     * @return void
      */
-    protected $prefix = DB_PREFIX;
-
-    /**
-     * Primary keys
-     * @var array
-     */
-    protected $primaryKeys = ['id'];
+    public static function check(Application $application)
+    {
+        if (($application->router()->hasController()) && (null !== $application->router()->getController()->request()) &&
+            ($application->router()->getController()->request()->isOptions())) {
+            $application->router()->getController()->sendOptions();
+            exit();
+        }
+    }
 
 }

@@ -11,12 +11,12 @@
 /**
  * @namespace
  */
-namespace Phire\Table;
+namespace Phire\Http\Api\Event;
 
-use Pop\Db\Record;
+use Pop\Application;
 
 /**
- * Modules table class
+ * API auth event class
  *
  * @category   Phire
  * @package    Phire
@@ -25,19 +25,18 @@ use Pop\Db\Record;
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
-class Modules extends Record
+class Auth
 {
 
     /**
-     * Table prefix
-     * @var string
+     * Check authentication
+     *
+     * @param  Application $application
+     * @return void
      */
-    protected $prefix = DB_PREFIX;
+    public static function check(Application $application)
+    {
 
-    /**
-     * Primary keys
-     * @var array
-     */
-    protected $primaryKeys = ['id'];
+    }
 
 }

@@ -4,7 +4,7 @@
  *
  * @link       https://github.com/phirecms/phirecms
  * @author     Nick Sagona, III <dev@nolainteractive.com>
- * @copyright  Copyright (c) 2009-2017 NOLA Interactive, LLC. (http://www.nolainteractive.com)
+ * @copyright  Copyright (c) 2009-2018 NOLA Interactive, LLC. (http://www.nolainteractive.com)
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
@@ -13,7 +13,7 @@
  * Phire CMS HTTP Configuration File
  */
 return [
-    'routes'    => include 'routes.php',
+    'routes'    => include 'routes/http.php',
     'resources' => include 'resources.php',
     'forms'     => include 'forms.php',
     'database'  => [
@@ -23,6 +23,12 @@ return [
         'password' => DB_PASS,
         'host'     => DB_HOST,
         'type'     => DB_TYPE
+    ],
+    'api_headers'    => [
+        'Access-Control-Allow-Origin'  => '*',
+        'Access-Control-Allow-Headers' => 'Accept, Authorization, Content-Type',
+        'Access-Control-Allow-Methods' => 'HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE',
+        'Content-Type'                 => 'application/json'
     ],
     'headers'        => [],
     'dashboard'      => [],

@@ -11,12 +11,10 @@
 /**
  * @namespace
  */
-namespace Phire\Table;
-
-use Pop\Db\Record;
+namespace Phire\Http\Api\Controller;
 
 /**
- * Modules table class
+ * API index controller class
  *
  * @category   Phire
  * @package    Phire
@@ -25,19 +23,7 @@ use Pop\Db\Record;
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
-class Modules extends Record
+class IndexController extends AbstractController
 {
-
-    /**
-     * Table prefix
-     * @var string
-     */
-    protected $prefix = DB_PREFIX;
-
-    /**
-     * Primary keys
-     * @var array
-     */
-    protected $primaryKeys = ['id'];
 
 }

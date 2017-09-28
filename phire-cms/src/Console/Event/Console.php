@@ -11,12 +11,10 @@
 /**
  * @namespace
  */
-namespace Phire\Table;
-
-use Pop\Db\Record;
+namespace Phire\Console\Event;
 
 /**
- * Modules table class
+ * Console event class
  *
  * @category   Phire
  * @package    Phire
@@ -25,19 +23,29 @@ use Pop\Db\Record;
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
-class Modules extends Record
+class Console
 {
 
     /**
-     * Table prefix
-     * @var string
+     * Display console header
+     *
+     * @return void
      */
-    protected $prefix = DB_PREFIX;
+    public static function header()
+    {
+        $consoleTitle = 'Phire CMS Console (v' . \Phire\Module::VERSION . ')';
+        echo PHP_EOL . '    ' . $consoleTitle . PHP_EOL;
+        echo '    ' . str_repeat('=', strlen($consoleTitle)) . PHP_EOL . PHP_EOL;
+    }
 
     /**
-     * Primary keys
-     * @var array
+     * Display console footer
+     *
+     * @return void
      */
-    protected $primaryKeys = ['id'];
+    public static function footer()
+    {
+        echo PHP_EOL;
+    }
 
 }

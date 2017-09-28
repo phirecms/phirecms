@@ -11,12 +11,12 @@
 /**
  * @namespace
  */
-namespace Phire\Table;
+namespace Phire\Http\Web\Event;
 
-use Pop\Db\Record;
+use Pop\Application;
 
 /**
- * Modules table class
+ * Web session event class
  *
  * @category   Phire
  * @package    Phire
@@ -25,19 +25,18 @@ use Pop\Db\Record;
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0
  */
-class Modules extends Record
+class Session
 {
 
     /**
-     * Table prefix
-     * @var string
+     * Check for the user session
+     *
+     * @param  Application $application
+     * @return void
      */
-    protected $prefix = DB_PREFIX;
+    public static function check(Application $application)
+    {
 
-    /**
-     * Primary keys
-     * @var array
-     */
-    protected $primaryKeys = ['id'];
+    }
 
 }
