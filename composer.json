@@ -18,20 +18,25 @@
         }
     ],
     "require": {
-        "php": ">=7.0.0",
-        "popphp/popphp-framework": ">=3.6.0"
+        "php": ">=7.1.0",
+        "popphp/popphp-framework": "^3.8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0.0"
     },
     "autoload" : {
         "psr-4": {
-            "Phire\\": "phire-cms/src/"
+            "Phire\\": "app/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Phire\\Test\\": "tests/"
         }
     },
     "extra": {
         "branch-alias": {
             "dev-master": "3.0.x-dev"
         }
-    },
-    "config": {
-        "vendor-dir": "phire-cms/vendor"
     }
 }

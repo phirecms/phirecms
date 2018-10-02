@@ -19,7 +19,7 @@ functionality of Phire.
 Requirements
 ------------
 
-* Minimum of PHP 7.0 is required
+* Minimum of PHP 7.1 is required
 * Apache 2+, IIS 7+, or any web server with URL rewrite support
 * Supported Databases:
     - MySQL 5.0+
