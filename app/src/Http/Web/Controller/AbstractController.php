@@ -11,7 +11,7 @@
 /**
  * @namespace
  */
-namespace Phire\Http\Controller\Web;
+namespace Phire\Http\Web\Controller;
 
 use Pop\Http\Response;
 use Pop\View\View;

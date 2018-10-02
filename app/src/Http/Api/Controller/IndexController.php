@@ -11,7 +11,7 @@
 /**
  * @namespace
  */
-namespace Phire\Http\Controller\Api;
+namespace Phire\Http\Api\Controller;
 
 use Phire\Module;
 

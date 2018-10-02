@@ -11,7 +11,7 @@
 /**
  * @namespace
  */
-namespace Phire\Http\Controller\Api;
+namespace Phire\Http\Api\Controller;
 
 use Pop\Http\Response;
 
@@ -26,7 +26,7 @@ use Pop\Http\Response;
  * @license    http://www.phirecms.org/license     New BSD License
  * @version    3.0.0-alpha
  */
-abstract class AbstractController extends \Pop\Controller\AbstractController
+abstract class AbstractController extends \Phire\Http\Controller\AbstractController
 {
 
     /**

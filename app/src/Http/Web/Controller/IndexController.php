@@ -11,7 +11,7 @@
 /**
  * @namespace
  */
-namespace Phire\Http\Controller\Web;
+namespace Phire\Http\Web\Controller;
 
 /**
  * HTTP index controller class
@@ -34,7 +34,8 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        $this->send();
+        $this->response->setBody('Web Index');
+        $this->response->send();
     }
 
 }
