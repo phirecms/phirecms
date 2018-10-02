@@ -9,7 +9,7 @@
         "php cms"
     ],
     "homepage": "http://www.phirecms.org/",
-    "license": "New BSD",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Nick Sagona",
