@@ -2,9 +2,11 @@
 
 return [
     'options,get' => [
-        '/api/version[/]' => [
-            'controller' => 'Phire\Http\Api\Controller\IndexController',
-            'action'     => 'version'
+        APP_URI => [
+            '/api/version[/]' => [
+                'controller' => 'Phire\Http\Api\Controller\IndexController',
+                'action'     => 'version'
+            ]
         ]
     ]
 ];

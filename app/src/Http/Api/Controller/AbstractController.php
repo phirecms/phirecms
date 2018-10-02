@@ -48,10 +48,9 @@ abstract class AbstractController extends \Phire\Http\Controller\AbstractControl
             $this->response->setMessage($message);
         }
 
-        $this->response->setHeader('Access-Control-Allow-Origin', '*')
-            ->setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
-            ->setHeader('Access-Control-Allow-Methods', 'HEAD, OPTIONS, GET, PUT, POST, PATCH, DELETE')
-            ->setHeader('Content-Type', 'application/json');
+        foreach ($this->application->config['http_options_headers'] as $header => $value) {
+            $this->response->setHeader($header, $value);
+        }
 
         $responseBody = (!empty($body)) ? json_encode($body, JSON_PRETTY_PRINT) : '';
 

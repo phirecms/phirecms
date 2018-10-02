@@ -2,9 +2,11 @@
 
 return [
     'get' => [
-        '[/]' => [
-            'controller' => 'Phire\Http\Web\Controller\IndexController',
-            'action'     => 'index'
+        APP_URI => [
+            '[/]' => [
+                'controller' => 'Phire\Http\Web\Controller\IndexController',
+                'action'     => 'index'
+            ]
         ]
     ]
 ];

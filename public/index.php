@@ -5,6 +5,8 @@
 
 $autoloader = include __DIR__ . '/../vendor/autoload.php';
 
+include __DIR__ . '/../app/config/app.config.php';
+
 try {
     $app = new Popcorn\Pop($autoloader, include __DIR__ . '/../app/config/app.http.php');
     $app->register(new Phire\Module());

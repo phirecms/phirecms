@@ -14,6 +14,8 @@
 namespace Phire;
 
 use Pop\Application;
+use Pop\Db\Db;
+use Pop\Db\Record;
 use Pop\Http\Request;
 use Pop\Http\Response;
 
@@ -41,7 +43,7 @@ class Module extends \Pop\Module\Module
      * Module name
      * @var string
      */
-    const NAME = 'phire';
+    const NAME = 'phire-cms';
 
     /**
      * Module name
@@ -65,8 +67,8 @@ class Module extends \Pop\Module\Module
     {
         parent::register($application);
 
-        if (isset($this->application->config['database'])) {
-            $this->initDb($this->application->config['database']);
+        if (defined('DB_ADAPTER') && !empty(DB_ADAPTER)) {
+            $this->initDb();
         }
 
         if ($this->application->router()->isCli()) {
@@ -94,6 +96,12 @@ class Module extends \Pop\Module\Module
                 ]
             );
         }
+
+        $this->application->on('app.dispatch.pre', 'Phire\Http\Event\Maintenance::check');
+
+        if ($this->isApi()) {
+            $this->application->on('app.dispatch.pre', 'Phire\Http\Api\Event\Options::check');
+        }
     }
 
     /**
@@ -114,6 +122,48 @@ class Module extends \Pop\Module\Module
 
         $this->application->on('app.route.pre', 'Phire\Console\Event\Console::header', 2)
              ->on('app.dispatch.post', 'Phire\Console\Event\Console::footer', 1);
+    }
+
+    /**
+     * Determine if request is a CLI request
+     *
+     * @return boolean
+     */
+    public function isCli()
+    {
+        return $this->application->router()->isCli();
+    }
+
+    /**
+     * Determine if request is an HTTP request
+     *
+     * @return boolean
+     */
+    public function isHttp()
+    {
+        return $this->application->router()->isHttp();
+    }
+
+    /**
+     * Determine if request is an HTTP API request
+     *
+     * @return boolean
+     */
+    public function isApi()
+    {
+        return ($this->application->router()->isHttp() &&
+            (substr($this->application->router()->getRouteMatch()->getRouteString(), 0, strlen(APP_URI) + 4) == APP_URI . '/api'));
+    }
+
+    /**
+     * Determine if request is an HTTP web request
+     *
+     * @return boolean
+     */
+    public function isWeb()
+    {
+        return ($this->application->router()->isHttp() &&
+            (substr($this->application->router()->getRouteMatch()->getRouteString(), 0, strlen(APP_URI) + 4) != APP_URI . '/api'));
     }
 
     /**
@@ -161,39 +211,36 @@ class Module extends \Pop\Module\Module
     /**
      * Initialize database service
      *
-     * @param  array $database
      * @throws \Pop\Db\Adapter\Exception
      * @return void
      */
-    protected function initDb($database)
+    protected function initDb()
     {
-        if (!empty($database['adapter'])) {
-            $adapter = $database['adapter'];
-            $options = [
-                'database' => $database['database'],
-                'username' => $database['username'],
-                'password' => $database['password'],
-                'host'     => $database['host'],
-                'type'     => $database['type']
-            ];
+        $adapter = DB_ADAPTER;
+        $options = [
+            'database' => DB_NAME,
+            'username' => DB_USER,
+            'password' => DB_PASS,
+            'host'     => DB_HOST,
+            'type'     => DB_TYPE,
+        ];
 
-            $check = Db::check($adapter, $options);
+        $check = Db::check($adapter, $options);
 
-            if (null !== $check) {
-                throw new \Pop\Db\Adapter\Exception('Error: ' . $check);
-            }
+        if (null !== $check) {
+            throw new \Pop\Db\Adapter\Exception('Error: ' . $check);
+        }
 
-            $this->application->services()->set('database', [
-                'call'   => 'Pop\Db\Db::connect',
-                'params' => [
-                    'adapter' => $adapter,
-                    'options' => $options
-                ]
-            ]);
+        $this->application->services()->set('database', [
+            'call'   => 'Pop\Db\Db::connect',
+            'params' => [
+                'adapter' => $adapter,
+                'options' => $options
+            ]
+        ]);
 
-            if ($this->application->services()->isAvailable('database')) {
-                Record::setDb($this->application->services['database']);
-            }
+        if ($this->application->services()->isAvailable('database')) {
+            Record::setDb($this->application->services['database']);
         }
     }
 

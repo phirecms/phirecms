@@ -10,4 +10,4 @@
     RewriteRule ^.*$ index.php [NC,L]
 </IfModule>
 
-#php_flag xdebug.remote_enable On
+php_flag xdebug.remote_enable On
