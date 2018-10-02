@@ -97,7 +97,11 @@ class Module extends \Pop\Module\Module
             );
         }
 
-        $this->application->on('app.dispatch.pre', 'Phire\Http\Event\Maintenance::check');
+        $this->application->services()->set('session', 'Pop\Session\Session::getInstance');
+        $this->application->services()->set('cookie', 'Pop\Cookie\Cookie::getInstance');
+
+        $this->application->on('app.dispatch.pre', 'Phire\Http\Event\Auth::authenticate')
+            ->on('app.dispatch.pre', 'Phire\Http\Event\Maintenance::check');
 
         if ($this->isApi()) {
             $this->application->on('app.dispatch.pre', 'Phire\Http\Api\Event\Options::check');

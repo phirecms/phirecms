@@ -39,4 +39,14 @@ class IndexController extends AbstractController
         $this->send(200, ['version' => Module::VERSION]);
     }
 
+    /**
+     * Authenticate action method
+     *
+     * @return void
+     */
+    public function authenticate()
+    {
+        $this->send(200, ['location' => 'API Authenticate']);
+    }
+
 }

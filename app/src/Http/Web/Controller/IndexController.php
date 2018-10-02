@@ -38,4 +38,15 @@ class IndexController extends AbstractController
         $this->response->send();
     }
 
+    /**
+     * Login action method
+     *
+     * @return void
+     */
+    public function login()
+    {
+        $this->response->setBody('Web Login');
+        $this->response->send();
+    }
+
 }
